@@ -1,0 +1,40 @@
+DATABASE safre_af
+SCREEN
+{
+                                                                          .
+
+
+              [h][g] Folio Interno     : [a        ]
+
+              [h][g] Nss               : [b           ]
+
+              [h][g] A. Paterno        : [c                        ]
+
+              [h][g] A. Materno        : [d                        ]
+
+              [h][g] Nombres           : [e                        ]
+
+              [h][g] Codigo de error   : [f1       ]
+
+
+}
+END
+TABLES
+    tra_det_rechazo
+
+ATTRIBUTES
+    a = tra_det_rechazo.folio                   ;
+    b = tra_det_rechazo.n_seguro       ,UPSHIFT ;
+    c = tra_det_rechazo.paterno        ,UPSHIFT ;
+    d = tra_det_rechazo.materno        ,UPSHIFT ;
+    e = tra_det_rechazo.nombres        ,UPSHIFT ;
+    f1= tra_det_rechazo.diag_proceso_1          ;
+
+    g = FORMONLY.orden            TYPE SMALLINT ;
+    h = FORMONLY.campo            TYPE SMALLINT ;
+END
+INSTRUCTIONS
+    DELIMITERS " ";
+    SCREEN RECORD scr_1[6](orden,campo);
+END
+

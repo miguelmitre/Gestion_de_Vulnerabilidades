@@ -1,0 +1,47 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+
+  Folio :[aa        ]    Fecha Liquidacion :[bb        ]
+
+ Folio      NSS      Monto Pesos Prec.Acc. Hora  Monto Accion Sie.T. Tda.P.Doc
+------------------------------------------------------------------------------
+[a     |b          |c           |d       |m    |k             |s|q  |f   |l|e]
+[a     |b          |c           |d       |m    |k             |s|q  |f   |l|e]
+[a     |b          |c           |d       |m    |k             |s|q  |f   |l|e]
+[a     |b          |c           |d       |m    |k             |s|q  |f   |l|e]
+[a     |b          |c           |d       |m    |k             |s|q  |f   |l|e]
+[a     |b          |c           |d       |m    |k             |s|q  |f   |l|e]
+[a     |b          |c           |d       |m    |k             |s|q  |f   |l|e]
+------------------------------------------------------------------------------
+[o                                      ]
+
+ Total reg: [jj     ]
+ Total sel: [h      ][g            ][i                ]
+}
+ATTRIBUTES
+aa = FORMONLY.vfolio            TYPE INTEGER,REVERSE;
+bb = FORMONLY.fecha_liquidacion TYPE DATE, FORMAT = "DD/MM/YYYY",REVERSE;
+a = FORMONLY.folio              TYPE INTEGER, NOENTRY;
+b = FORMONLY.x_nss              TYPE CHAR, NOENTRY;
+c = FORMONLY.x_monto            TYPE DECIMAL, FORMAT ="#########.##", NOENTRY;
+d = FORMONLY.x_precio           TYPE DECIMAL, FORMAT ="#.######", NOENTRY;
+m = FORMONLY.hora               TYPE CHAR, NOENTRY;
+k = FORMONLY.x_accion           TYPE DECIMAL, FORMAT ="#######.######", NOENTRY;
+s = FORMONLY.x_siefore          TYPE SMALLINT, NOENTRY;
+q = FORMONLY.x_aporte           TYPE SMALLINT, NOENTRY;
+f = FORMONLY.x_tienda           TYPE CHAR, NOENTRY;
+l = FORMONLY.x_pago             TYPE CHAR, NOENTRY;
+e = FORMONLY.seleccion          TYPE CHAR, COMMENTS = "SELECCION CON <X> ",
+                     INCLUDE = (NULL," ","X"), UPSHIFT, REVERSE, AUTONEXT;
+h = FORMONLY.totala             TYPE INTEGER, NOENTRY;
+g = FORMONLY.totalc             TYPE DECIMAL, FORMAT ="##,###,###.##", NOENTRY;
+i = FORMONLY.totald             TYPE DECIMAL, FORMAT ="##,###,###.######", NOENTRY;
+jj = FORMONLY.registros         TYPE INTEGER, NOENTRY;
+
+o = FORMONLY.desc_subcta        TYPE CHAR, NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_liquida[7](FORMONLY.folio THRU FORMONLY.seleccion)
+DELIMITERS " "

@@ -1,0 +1,18 @@
+DATABASE FORMONLY
+SCREEN
+{
+ COD                   DESCRIPCION                                         
+
+[a  ][b                                                                   ]
+[a  ][b                                                                   ]
+[a  ][b                                                                   ]
+[a  ][b                                                                   ]
+
+}
+END
+ATTRIBUTES
+a=FORMONLY.codigo TYPE INTEGER,NOENTRY;
+b=FORMONLY.descripcion TYPE CHAR,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[4](FORMONLY.codigo,FORMONLY.descripcion);
+DELIMITERS "  "

@@ -1,0 +1,53 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                                             .
+ NSS         [a01        ]   Apellido Paterno   [a04                      ]
+ Consecutivo [a02        ]   Apellido Materno   [a05                      ]
+ Mensualidad [a03        ]   Nombre             [a06                      ]
+
+
+              Retiro 97      Cuota Social
+Pesos      [b01          ] [b02          ]
+Acciones   [c01          ] [c02          ]
+
+                 CV            Estatal        Especial        TOTAL CV
+Pesos      [b03          ] [b04          ] [b05          ] [b06          ]
+Acciones   [c03          ] [c04          ] [c05          ] [c06          ]
+
+                RCV            Vivienda        TOTAL
+Pesos      [b07          ] [b08          ] [b09          ]
+Acciones   [c07          ] [c08          ] [c09          ]
+}
+
+ATTRIBUTES
+
+    a01 = FORMONLY.nss                  TYPE CHAR    , NOENTRY ;
+    a02 = FORMONLY.consecutivo          TYPE DECIMAL , NOENTRY ;
+    a03 = FORMONLY.mensualidad          TYPE DECIMAL , NOENTRY ;
+    a04 = FORMONLY.paterno              TYPE CHAR    , NOENTRY ;
+    a05 = FORMONLY.materno              TYPE CHAR    , NOENTRY ;
+    a06 = FORMONLY.nombre               TYPE CHAR    , NOENTRY ;
+
+    b01 = FORMONLY.pesos_ret97          TYPE DECIMAL , NOENTRY ;
+    b02 = FORMONLY.pesos_cs             TYPE DECIMAL , NOENTRY ;
+    b03 = FORMONLY.pesos_cv             TYPE DECIMAL , NOENTRY ;
+    b04 = FORMONLY.pesos_estatal        TYPE DECIMAL , NOENTRY ;
+    b05 = FORMONLY.pesos_especial       TYPE DECIMAL , NOENTRY ;
+    b06 = FORMONLY.pesos_total_cv       TYPE DECIMAL , NOENTRY ;
+    b07 = FORMONLY.pesos_total_rcv      TYPE DECIMAL , NOENTRY ;
+    b08 = FORMONLY.pesos_vivenda        TYPE DECIMAL , NOENTRY ;
+    b09 = FORMONLY.pesos_total          TYPE DECIMAL , NOENTRY ;
+
+    c01 = FORMONLY.acc_ret97          TYPE DECIMAL , NOENTRY ;
+    c02 = FORMONLY.acc_cs             TYPE DECIMAL , NOENTRY ;
+    c03 = FORMONLY.acc_cv             TYPE DECIMAL , NOENTRY ;
+    c04 = FORMONLY.acc_estatal        TYPE DECIMAL , NOENTRY ;
+    c05 = FORMONLY.acc_especial       TYPE DECIMAL , NOENTRY ;
+    c06 = FORMONLY.acc_total_cv       TYPE DECIMAL , NOENTRY ;
+    c07 = FORMONLY.acc_total_rcv      TYPE DECIMAL , NOENTRY ;
+    c08 = FORMONLY.acc_vivenda        TYPE DECIMAL , NOENTRY ;
+    c09 = FORMONLY.acc_total          TYPE DECIMAL , NOENTRY ;
+
+INSTRUCTIONS
+    SCREEN RECORD scr_detalle[1](FORMONLY.pesos_ret97 THRU FORMONLY.acc_total);

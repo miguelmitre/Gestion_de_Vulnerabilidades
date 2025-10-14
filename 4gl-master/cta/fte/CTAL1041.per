@@ -1,0 +1,32 @@
+DATABASE safre_af
+SCREEN
+{
+
+
+--------------------------------------------------------------------------
+ Medio              Estado              SB2 a SB1    SB1 a SB2    Total
+--------------------------------------------------------------------------
+[a            ] [b                    ] [c        ] [d        ] [e       ]     
+[a1           ] [b1                   ] [c1       ] [d1       ] [e1      ]     
+[a            ] [b                    ] [c        ] [d        ] [e       ]     
+[a1           ] [b1                   ] [c1       ] [d1       ] [e1      ]     
+[a            ] [b                    ] [c        ] [d        ] [e       ]     
+[a1           ] [b1                   ] [c1       ] [d1       ] [e1      ]     
+[a            ] [b                    ] [c        ] [d        ] [e       ]     
+[a1           ] [b1                   ] [c1       ] [d1       ] [e1      ]     
+}
+TABLES
+cta_solicitud_regimen
+ATTRIBUTES
+a= FORMONLY.medio_desc TYPE CHAR;
+a1=FORMONLY.medio_desc1 TYPE CHAR;
+b= FORMONLY.desc_rch_regimen TYPE CHAR;
+c= FORMONLY.siefore_ced TYPE SMALLINT;
+d= FORMONLY.siefore_rec TYPE SMALLINT;
+e= FORMONLY.total  TYPE SMALLINT;
+b1=FORMONLY.desc_rch_regimen1 TYPE CHAR;
+c1=FORMONLY.siefore_ced1 TYPE SMALLINT;
+d1=FORMONLY.siefore_rec1 TYPE SMALLINT;
+e1=FORMONLY.total1 TYPE SMALLINT;
+INSTRUCTIONS
+SCREEN RECORD i[4](medio_desc THRU total1)

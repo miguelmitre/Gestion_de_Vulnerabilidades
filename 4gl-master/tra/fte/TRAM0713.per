@@ -1,0 +1,16 @@
+DATABASE FORMONLY
+SCREEN
+{
+  [a  ]  [a1           ] 
+  [a  ]  [a1           ] 
+  [a  ]  [a1           ] 
+
+
+}
+
+ATTRIBUTES
+a  = FORMONLY.estado_proceso              ,NOENTRY;
+a1 = FORMONLY.estado_descripcion          ,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_bat_estado[3](FORMONLY.estado_proceso,FORMONLY.estado_descripcion)
+DELIMITERS "  "

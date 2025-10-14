@@ -1,0 +1,34 @@
+database safre_af
+screen size 24 by 80
+{
+
+                    FECHA DE CORTE :[f000      ]
+
+  _______________________________________________________________________
+    OPERACION    TIPO CUENTA  TIPO TRABAJADOR   TOT REG   FECHA CORTE
+  _______________________________________________________________________
+
+     [f5          |f1         |f2              ][f4      ][f6        ]
+     [f5          |f1         |f2              ][f4      ][f6        ]
+     [f5          |f1         |f2              ][f4      ][f6        ]
+     [f5          |f1         |f2              ][f4      ][f6        ]
+  _______________________________________________________________________
+
+}
+end
+tables
+cta_total_saldo_cero
+attributes
+f5 = formonly.desc_oper TYPE CHAR;
+f000 = cta_total_saldo_cero.fecha_corte, FORMAT="DD/MM/YYYY" ;
+f1 = formonly.desc_cta TYPE CHAR;
+f2 = formonly.desc_tra TYPE CHAR;
+f4 = cta_total_saldo_cero.total_registros;
+f6 = formonly.ffecha_corte TYPE DATE, FORMAT="DD/MM/YYYY" ;
+INSTRUCTIONS
+SCREEN RECORD scr_1[4] (formonly.desc_oper,formonly.desc_cta,
+                        formonly.desc_tra,cta_total_saldo_cero.total_registros,
+                        formonly.ffecha_corte);
+DELIMITERS " "
+end
+

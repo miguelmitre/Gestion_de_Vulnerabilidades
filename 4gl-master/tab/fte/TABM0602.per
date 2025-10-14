@@ -1,0 +1,29 @@
+DATABASE safre_af
+SCREEN
+{
+\g____________________________________________________________________________\g
+  NSS     Marca  Fecha      Fecha     Hora     Edo  Cod.   Marca   Fecha
+                 ini.       fin       ini.         Rechazo Causa   Causa
+\g----------------------------------------------------------------------------\g
+[a          |b  |c         |d         |e       |f  |g     |h    |i         ]
+[a          |b  |c         |d         |e       |f  |g     |h    |i         ]
+[a          |b  |c         |d         |e       |f  |g     |h    |i         ]
+[a          |b  |c         |d         |e       |f  |g     |h    |i         ]
+\g----------------------------------------------------------------------------\g
+
+}               
+TABLES
+cta_his_marca
+ATTRIBUTES
+a=cta_his_marca.nss;
+b=cta_his_marca.marca_cod;
+c=cta_his_marca.fecha_ini;                                  
+d=cta_his_marca.fecha_fin;  
+e=cta_his_marca.hora_ini;
+f=cta_his_marca.estado_marca;
+g=cta_his_marca.rechazo_cod;       
+h=cta_his_marca.marca_causa;
+i=cta_his_marca.fecha_causa;
+INSTRUCTIONS
+SCREEN RECORD scr_1[4](cta_his_marca.nss,cta_his_marca.marca_cod,cta_his_marca.fecha_ini,cta_his_marca.fecha_fin,cta_his_marca.hora_ini,cta_his_marca.estado_marca,cta_his_marca.rechazo_cod,cta_his_marca.marca_causa,cta_his_marca.fecha_causa);
+DELIMITERS " "

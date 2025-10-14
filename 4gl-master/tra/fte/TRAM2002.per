@@ -1,0 +1,22 @@
+DATABASE safre_af
+SCREEN
+{
+   RFC  Icefa    :[e1           ]    Icefa :    [e2 ][e3                   ] 
+   NSS  Icefa    :[e5         ]      NCI   :[e4                            ]
+   Paterno Icefa :[e6                                      ]
+   Materno Icefa :[e7                                      ]
+   Nombre  Icefa :[e8                                      ]
+}
+TABLES
+tra_det_bdsar92
+ATTRIBUTES
+e1=tra_det_bdsar92.rfc             ,NOENTRY    ;
+e2=tra_det_bdsar92.icefa_cod       ,NOENTRY    ;
+e3=FORMONLY.des_icefa TYPE CHAR    ,NOENTRY    ;
+e4=tra_det_bdsar92.nro_int_cta     ,NOENTRY    ;
+e5=tra_det_bdsar92.nss             ,NOENTRY    ;
+e6=FORMONLY.pat                    ,NOENTRY    ;
+e7=FORMONLY.mat                    ,NOENTRY    ;
+e8=FORMONLY.nom                    ,NOENTRY    ;
+INSTRUCTIONS 
+DELIMITERS "[]"

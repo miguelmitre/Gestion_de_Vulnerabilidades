@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+\g-----------------------------------------------------------------------------\g
+    Codigo           Descripcion
+\g-----------------------------------------------------------------------------\g
+    [b  ]  [c                                                               ]
+    [b  ]  [c                                                               ]
+    [b  ]  [c                                                               ]
+    [b  ]  [c                                                               ]
+    [b  ]  [c                                                               ]
+    [b  ]  [c                                                               ]
+    [b  ]  [c                                                               ]
+    [b  ]  [c                                                               ]
+    [b  ]  [c                                                               ]
+    [b  ]  [c                                                               ]
+\g-----------------------------------------------------------------------------\g
+}
+TABLES
+tab_origen
+ATTRIBUTES
+b=tab_origen.origen_cod;
+c=tab_origen.descripcion;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_origen.origen_cod,
+                        tab_origen.descripcion);

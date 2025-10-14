@@ -1,0 +1,31 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+ 	Fecha Lote       [a         ]
+
+
+ 	Codigo Lote      [b    ]
+
+
+ 	Descripcion Lote [c                                     ]
+
+
+ 	Descripcion Correlativo [d   ]
+
+
+        Numero de lote          [e  ]
+
+
+}
+TABLES
+tab_lote
+ATTRIBUTES
+a=tab_lote.lotes_fecha,FORMAT="dd-mm-yyyy";
+b=tab_lote.lotes_cod;
+c=tab_lote.lotes_desc,UPSHIFT;
+d=tab_lote.lotes_correlativo;
+e=tab_lote.lotes_num;
+--INSTRUCTIONS
+--DELIMITERS "  "

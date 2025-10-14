@@ -1,0 +1,28 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+       Mes           Año        Valor                Fecha Publicacion
+\g----------------------------------------------------------------------------\g
+    [a         ]   [b     ]   [c                 ] [d         ]
+    [a         ]   [b     ]   [c                 ] [d         ]
+    [a         ]   [b     ]   [c                 ] [d         ]
+    [a         ]   [b     ]   [c                 ] [d         ]
+    [a         ]   [b     ]   [c                 ] [d         ]
+    [a         ]   [b     ]   [c                 ] [d         ]
+    [a         ]   [b     ]   [c                 ] [d         ]
+    [a         ]   [b     ]   [c                 ] [d         ]
+    [a         ]   [b     ]   [c                 ] [d         ]
+    [a         ]   [b     ]   [c                 ] [d         ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_inpc
+ATTRIBUTES
+a=tab_inpc.mes_aplica,UPSHIFT;
+b=tab_inpc.anio_aplica;
+c=tab_inpc.valor_inpc;
+d=tab_inpc.fecha_publicacion, FORMAT ="dd-mm-yyyy";
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_inpc.mes_aplica THRU tab_inpc.fecha_publicacion)
+DELIMITERS " "

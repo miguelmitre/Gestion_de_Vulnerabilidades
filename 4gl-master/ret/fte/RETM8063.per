@@ -1,0 +1,68 @@
+DATABASE safre_af
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+  NSS         [a1         ]            Paterno   [a4                       ]
+  RFC         [a2           ]          Materno   [a5                       ]
+  CURP        [a3                 ]    Nombres   [a6                       ]
+                                             
+  Tipo Retiro [d1] [d_1                   ]Fecha Nacimiento   [b5        ]
+  Tipo Prestacion    [b1][d2              ]Cve Documento Prob [b6][e1      ]
+  Regimen            [b2]                  Folio Solicitud    [b7        ]
+  Tipo Seguro        [b3][d3              ]Fecha Solicitud    [b8        ]
+  Tipo Pension       [b4][d4              ]Semanas Cotizadas  [b9        ]
+  Rechazo Afore      [b19 ]
+
+  Referencia         [c1 ]                 Consecutivo        [c8        ]
+  Fecha Captura      [c2        ]          Usuario Captura    [c9        ]
+  Fecha Modificacion [c3        ]          Usuario Modificado [c10       ]
+  Fecha Confirmado   [c4        ]          Usuario Confirmado [c11       ]
+  Fecha Liquidacion  [c5        ]          Diag. Procesar     [c12] 
+  Estado Solicitud   [c6 ] [cc6           ]Estado Sub. Viv.   [c13]
+  Folio Interno      [c7        ]          Fecha Envio        [c14       ]
+}
+TABLES
+ret_solicitud_tx , ret_det_datamart , tab_retiro
+
+ATTRIBUTES
+a1=ret_solicitud_tx.nss                          ;
+a2=FORMONLY.n_rfc                                  ;
+a3=ret_solicitud_tx.curp                         ;
+a4=FORMONLY.paterno  TYPE CHAR     ,NOENTRY;
+a5=FORMONLY.materno  TYPE CHAR     ,NOENTRY;
+a6=FORMONLY.nombres   TYPE CHAR     ,NOENTRY;
+d1=tab_retiro.tipo_retiro                        ;
+d_1=tab_retiro.descripcion               ,NOENTRY;
+b1=ret_solicitud_tx.tipo_prestacion              ;
+d2=FORMONLY.desc_prestacion              ,NOENTRY;
+b2=ret_solicitud_tx.regimen              ,INCLUDE=("97"),
+   COMMENTS="El regimen debera ser 97"           ;
+b3=ret_solicitud_tx.tipo_seguro                  ;
+d3=FORMONLY.desc_seguro                  ,NOENTRY;
+b4=ret_solicitud_tx.tipo_pension                 ;
+d4=FORMONLY.desc_pension                 ,NOENTRY;
+b5=ret_solicitud_tx.fecha_nacimiento     ,FORMAT="DD/MM/YYYY";
+b6=ret_solicitud_tx.cve_doc_probatorio           ;
+e1=FORMONLY.cve_doc_desc           ;
+b7=ret_solicitud_tx.folio_solicitud              ;
+b8=ret_solicitud_tx.fecha_solicitud      ,FORMAT="DD/MM/YYYY";
+b9=ret_det_datamart.semanas_cotizadas    ,NOENTRY;
+b19=ret_solicitud_tx.cod_rechazo_ent      ,FORMAT="####";
+c1=FORMONLY.referencia                   ,NOENTRY;
+c2=ret_solicitud_tx.fecha_captura        ,NOENTRY,FORMAT="DD/MM/YYYY";
+c3=ret_solicitud_tx.fecha_modifica       ,NOENTRY,FORMAT="DD/MM/YYYY";
+c4=ret_solicitud_tx.fecha_confirma       ,NOENTRY,FORMAT="DD/MM/YYYY";
+c5=FORMONLY.fecha_liquida  TYPE DATE     ,NOENTRY,FORMAT="DD/MM/YYYY";
+c6=ret_solicitud_tx.estado_solicitud     ,NOENTRY;
+cc6=FORMONLY.descripcion_status          ,NOENTRY;
+c7=FORMONLY.folio                        ,NOENTRY; 
+c8=ret_solicitud_tx.consecutivo          ,NOENTRY;
+c9=ret_solicitud_tx.usuario_captura      ,NOENTRY;
+c10=ret_solicitud_tx.usuario_modifica    ,NOENTRY;
+c11=ret_solicitud_tx.usuario_confirma    ,NOENTRY;
+c12=FORMONLY.diag_registro               ,NOENTRY;
+c13=FORMONLY.estado_sub_viv              ,NOENTRY;
+c14=ret_solicitud_tx.fecha_envio         ,NOENTRY,FORMAT="DD/MM/YYYY";
+INSTRUCTIONS
+SCREEN RECORD scr_1 [1]
+       (ret_solicitud_tx.nss THRU fecha_envio)

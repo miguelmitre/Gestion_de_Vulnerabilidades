@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+        Ingrese String de Busqueda [aa                 ]
+
+        PROMOTOR                    NOMBRE PROMOTOR      
+---------------------------------------------------------------
+      [a         ]         [d                                 ]
+      [a         ]         [d                                 ]
+      [a         ]         [d                                 ]
+      [a         ]         [d                                 ]
+      [a         ]         [d                                 ]
+---------------------------------------------------------------
+   < F3 > Avanza Pagina               < F4 > Retrocede Pagina 
+           < ENTER > Selecciona el Agente Promotor 
+}
+TABLES
+pro_mae_promotor
+END
+ATTRIBUTES
+aa = FORMONLY.n_busqueda  TYPE CHAR,REQUIRED,UPSHIFT ;
+a  = FORMONLY.codven      TYPE CHAR ;
+d  = FORMONLY.nombre      TYPE CHAR,NOENTRY ;
+INSTRUCTIONS
+SCREEN RECORD scr_1[5](FORMONLY.codven THRU FORMONLY.nombre);
+DELIMITERS "  "

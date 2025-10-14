@@ -1,0 +1,27 @@
+DATABASE safre_af
+SCREEN
+{
+           Codigo                       Descripcion
+\g----------------------------------------------------------------------------\g
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+\g----------------------------------------------------------------------------\g
+
+
+}
+TABLES
+pro_status_interno
+ATTRIBUTES
+a=pro_status_interno.status_interno;
+b=pro_status_interno.desc_status_corta;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](pro_status_interno.status_interno,pro_status_interno.desc_status_corta);
+END

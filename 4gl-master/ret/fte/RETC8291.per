@@ -1,0 +1,42 @@
+DATABASE safre_af
+SCREEN
+{
+                                                                          .
+
+                     Folio       : [a     ]
+                     Correlativo : [b        ] 
+                     Diagnostico : [c  ]  ( De Origen )
+                     Diagnostico : [d  ]  ( Establecido en la afore )
+
+          No. de Registros Calificados como Aceptados  : [e      ]
+          No. de Registros Calificados como Rechazados : [f      ]
+          No. de Registros Sin Calificar               : [g      ]
+          No. Total de Registros                       : [h      ]
+
+
+
+}
+
+TABLES
+    ret_det_notifica
+
+ATTRIBUTES
+a = ret_det_notifica.folio,
+    comments="PROPORCIONE EL FOLIO";
+
+b = ret_det_notifica.correlativo,
+    comments="INGRESE EL CORRELATIVO O RANGO DE CORRELATIVOS, EJ. 1:20";
+
+c = ret_det_notifica.diag_orig,
+    comments="PROPORCIONE EL DIAGNOSTICO DE ORIGEN";
+
+d = ret_det_notifica.diag_afore,
+    comments="DIAGNOSTICO: 0=NO CALIFICADO, 1=ACEPTADOS, 2=RECHAZADOS";
+
+e = formonly.aceptados;
+f = formonly.rechazados;
+g = formonly.sin_calificar;
+h = formonly.tot_registros;
+
+INSTRUCTIONS
+   DELIMITERS " "

@@ -1,0 +1,31 @@
+DATABASE  FORMONLY
+SCREEN 
+{
+\g-----------------------------------------------------------------------------\g
+
+\g----------------------------------------------------------------------------\g
+
+   NSS           NOMBRE 
+  [a          ] [b                                                     ]
+
+                   TIPO  DE      FECHA  DE         TIPO  DE  
+   RFC             TRASPASO      TRASPASO          RENDIMIENTO
+  [c           ]  [d ]           [e         ]      [f]
+                                  dd/mm/año 
+
+
+
+
+}
+END
+
+
+ATTRIBUTES
+a  = FORMONLY.nss                   TYPE  CHAR,NOENTRY;
+b  = FORMONLY.nombre                TYPE  CHAR,NOENTRY;
+c  = FORMONLY.rfc                   TYPE  CHAR,NOENTRY;
+d  = FORMONLY.tipo_traspaso         TYPE  CHAR,NOENTRY;
+e  = FORMONLY.fecha_trasp           TYPE  DATE ,FORMAT="DD/MM/YYYY",NOENTRY;
+f  = FORMONLY.tipo_rendi            TYPE  SMALLINT,INCLUDE=(1,2),
+      COMMENTS=" Tipo de Rendimiento : 1=Sin acto de Autoridad  2=Con acto de Autoridad ";
+END

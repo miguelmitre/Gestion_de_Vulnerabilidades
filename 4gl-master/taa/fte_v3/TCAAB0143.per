@@ -1,0 +1,23 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g--------------------------------------------\g
+
+     CODIGO         A R E A S  
+
+     [a    ]       [b                    ]
+     [a    ]       [b                    ]
+     [a    ]       [b                    ]
+     [a    ]       [b                    ]
+     [a    ]       [b                    ]
+}
+END
+
+ATTRIBUTES
+
+a=FORMONLY.codigo TYPE SMALLINT, NOENTRY;
+b=FORMONLY.desc   TYPE CHAR,NOENTRY;
+
+INSTRUCTIONS 
+   SCREEN RECORD l_scr[5](FORMONLY.codigo, FORMONLY.desc);
+DELIMITERS "[]"

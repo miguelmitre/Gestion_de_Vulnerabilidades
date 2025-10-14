@@ -1,0 +1,30 @@
+DATABASE safre_af
+SCREEN 
+{
+\g----------------------------------------------------------------------------g\
+
+
+
+
+  Codigo Devolucion  [f000 ]
+
+
+  Descripcion        [f003                                                 ]
+                     [f003                                                 ]
+                     [f003                                                 ]
+
+
+  Tipo Codigo        [a]
+
+
+
+
+}
+END
+TABLES
+tab_dev_taa
+ATTRIBUTEs
+f000 = tab_dev_taa.cod_rech;
+f003 = tab_dev_taa.desc_rech ,WORDWRAP COMPRESS,UPSHIFT;
+a    = tab_dev_taa.tipo,INCLUDE=(1,2,3),COMMENTS = "Tipo de rechazo es <1> Operativo  <2> Validacion  <3> Validacion a reenviar",UPSHIFT;
+END

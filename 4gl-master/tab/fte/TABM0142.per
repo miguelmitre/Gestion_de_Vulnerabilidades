@@ -1,0 +1,23 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+Codigo                          Descripcion
+\g----------------------------------------------------------------------------\g
+[a ] [b                                                                     ]
+[a ] [b                                                                     ]
+[a ] [b                                                                     ]
+[a ] [b                                                                     ]
+[a ] [b                                                                     ]
+[a ] [b                                                                     ]
+[a ] [b                                                                     ]
+[a ] [b                                                                     ]
+[a ] [b                                                                     ]
+[a ] [b                                                                     ]
+\g----------------------------------------------------------------------------\g
+}
+ATTRIBUTES
+a=FORMONLY.diagn_cod TYPE CHAR,UPSHIFT;
+b=FORMONLY.diagn_desc TYPE CHAR,UPSHIFT;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](FORMONLY.diagn_cod , FORMONLY.diagn_desc);

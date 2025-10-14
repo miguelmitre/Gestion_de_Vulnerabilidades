@@ -1,0 +1,73 @@
+DATABASE safre_af
+SCREEN
+{
+
+ Promotor      [za        ]   N.I.P. [bbbb]    [zb                           ] 
+ Est Comercial [d         ]  [eee                                            ]
+ -----------------------------------------------------------------------------
+ Tipo Registro      [v]  Fol Est Cta [aa      ]   Fecha Firma     [aaaa      ]  
+ Cve. Afore Cedente [bb ][cc                  ]   Fecha Emision   [fec       ]  
+ Folio Solic.  [zz      ]        [h|h1        ]   Fecha Recepcion [dddd      ]
+		 Nombre del Trabajador segun id. Oficial      
+ Apellido Paterno       [e                                       ] 
+ Apellido Materno       [f                                       ]
+ Nombres                [g                                       ] 
+ 
+ N.S.S.     [a          ]  RFC [c            ]  CURP      [b                 ] 
+ Sexo [o][p          ] Est.Civil [rrr] [rrrr        ] F.Nacimto.  [j         ]
+ Salario [jc                    ]       [cnm] [dnm                           ]
+ Ent Nacimiento [m    ][n                ] Nacionalidad [q  ][qqq            ]
+ Tipo Docum. Probatorio      Folio   Docto Probatorio      Cred.Infonavit 
+ [r|rrrrr                |s         |t               ][u|di                  ]
+ Codigo de error de origen  [eo  ]        Constancia CURP   [pc]
+}              
+TABLES 
+afi_mae_afiliado
+tab_ciudad
+pro_mae_promotor
+tab_agencia
+tab_doc_prob
+ATTRIBUTES
+
+za  = afi_mae_afiliado.codven;
+bbbb= pro_mae_promotor.nip,NOENTRY;
+zb  = FORMONLY.desc_codven TYPE CHAR,UPSHIFT,NOENTRY;
+d   = FORMONLY.agenc_cod TYPE CHAR,NOENTRY;
+eee = tab_agencia.agenc_desc,NOENTRY;
+v   = FORMONLY.tipo_solicitud TYPE SMALLINT,COMMENTS="Reg.Inicial=> 1 Traspaso=> 2 Asignacion ", NOENTRY;
+aaaa= FORMONLY.fecha_elaboracion TYPE DATE,FORMAT="dd-mm-yyyy";
+aa  = FORMONLY.folio_edo_cta TYPE CHAR,UPSHIFT,COMMENTS="Folio estado de Cuenta";   
+bb  = FORMONLY.cod_afore_ced TYPE SMALLINT,FORMAT="&&&",COMMENTS="Codigo de la Afore";  
+cc  = FORMONLY.desc_afore TYPE CHAR,UPSHIFT,NOENTRY;          
+fec = FORMONLY.fecha_emision TYPE DATE, FORMAT="DD/MM/YYYY";           
+zz  = afi_mae_afiliado.n_folio,FORMAT="&&&&&&&&"; 
+h   = FORMONLY.cod_operacion TYPE SMALLINT,NOENTRY;
+h1  = FORMONLY.desc_cod_oper TYPE CHAR, NOENTRY;
+dddd= afi_mae_afiliado.frecafor,FORMAT="dd-mm-yyyy",NOENTRY;
+e   = FORMONLY.paterno,UPSHIFT;
+f   = afi_mae_afiliado.materno,UPSHIFT;
+g   = afi_mae_afiliado.nombres,UPSHIFT;
+a   = afi_mae_afiliado.n_seguro,UPSHIFT,NOENTRY; 
+c   = afi_mae_afiliado.n_rfc,UPSHIFT;
+b   = afi_mae_afiliado.n_unico,UPSHIFT;
+o   = afi_mae_afiliado.sexo;
+p   = FORMONLY.desc_sexo TYPE CHAR,UPSHIFT,NOENTRY;
+rrr = FORMONLY.edo_civil TYPE SMALLINT,NOENTRY;
+rrrr= FORMONLY.desc_edo_civil TYPE CHAR,NOENTRY;
+j   = afi_mae_afiliado.fena,FORMAT="dd-mm-yyyy";
+jc  = afi_mae_afiliado.salario_base_comis,NOENTRY;
+cnm = afi_mae_afiliado.	cod_esq_comision,INVISIBLE,NOENTRY;
+dnm = FORMONLY.desc_esq_comision TYPE CHAR, UPSHIFT, NOENTRY;
+m   = afi_mae_afiliado.estadon;
+n   = FORMONLY.desc_estadon TYPE CHAR,UPSHIFT,NOENTRY;
+q   = afi_mae_afiliado.nacionalidad,UPSHIFT;
+qqq = FORMONLY.desc_nacionalidad TYPE CHAR,NOENTRY;
+r   = afi_mae_afiliado.tip_prob,UPSHIFT;
+rrrrr = tab_doc_prob.docprob_desc,NOENTRY;
+s   = afi_mae_afiliado.fol_prob,UPSHIFT,NOENTRY,INVISIBLE;
+t   = afi_mae_afiliado.doc_prob,UPSHIFT,NOENTRY,INVISIBLE;
+u   = afi_mae_afiliado.ind_infonavit,UPSHIFT, INCLUDE = ('0','1','2'), COMMENTS = '(0) Sin credito  (1) Con credito infonavit  (2) Con credito 43 bis',NOENTRY; di  = FORMONLY.desc_ind_info, NOENTRY;
+eo  = afi_mae_afiliado.cod_error_origen,NOENTRY;
+pc  = FORMONLY.const_curp TYPE SMALLINT,NOENTRY;
+INSTRUCTIONS
+DELIMITERS "  "

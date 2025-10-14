@@ -1,0 +1,41 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                       [f            ]       .
+
+             Tipo    de  Traspaso             :   [dl                   ]
+             Folio   de  Operacion            :       [f0    ]
+             Fecha   de  Presentacion         :   [f1        ]
+             Fecha   de  Envio de Saldos      :   [f2        ]
+             Fecha   de  Liquidacion          :   [f3        ]
+             Registros a Procesar             :       [f4    ]
+             Registros   Procesados           :       [f5    ]
+
+
+      Participacion de Vivienda: [f6                ]      UDIS: [f6_1      ]
+      Sifore Básica 1: [f7        ]            Siefore Básica 4: [f10       ]
+      Sifore Básica 2: [f8        ]            Siefore Básica 5: [f11       ]
+      Sifore Básica 3: [f9        ]            Siefore Básica 6: [f12       ]
+
+
+
+}
+ATTRIBUTES
+f=FORMONLY.fecha                    TYPE  DATE,FORMAT ="DD/MM/YYYY",NOENTRY;
+f0=FORMONLY.folio                   TYPE  INTEGER,NOENTRY;
+dl=FORMONLY.desc_tipo               TYPE  CHAR,NOENTRY;
+f1=FORMONLY.fecha_presentacion      TYPE  DATE,FORMAT ="DD/MM/YYYY",NOENTRY;
+f2=FORMONLY.fecha_envio_saldos      TYPE  DATE,FORMAT ="DD/MM/YYYY",NOENTRY;
+f3=FORMONLY.fecha_liquidacion       TYPE  DATE,FORMAT ="DD/MM/YYYY",NOENTRY;
+f4=FORMONLY.l_registros             TYPE  INTEGER,NOENTRY;
+f5=FORMONLY.l_procesados            TYPE  INTEGER,NOENTRY;
+f6=FORMONLY.precio_parti            TYPE  DEC,FORMAT='#&&.&&&&&&&&&&&&&&',NOENTRY;
+f6_1=FORMONLY.precio_udis           TYPE  DEC,FORMAT='##&.&&&&&&',NOENTRY;
+f7=FORMONLY.precio_accion_b1        TYPE  DEC,FORMAT='##&.&&&&&&',NOENTRY;
+f8=FORMONLY.precio_accion_b2        TYPE  DEC,FORMAT='##&.&&&&&&',NOENTRY;
+f9=FORMONLY.precio_accion_b3        TYPE  DEC,FORMAT='##&.&&&&&&',NOENTRY;
+f10=FORMONLY.precio_accion_b4       TYPE  DEC,FORMAT='##&.&&&&&&',NOENTRY;
+f11=FORMONLY.precio_accion_b5       TYPE  DEC,FORMAT='##&.&&&&&&',NOENTRY;
+f12=FORMONLY.precio_accion_b6       TYPE  DEC,FORMAT='##&.&&&&&&',NOENTRY;
+INSTRUCTIONS
+DELIMITERS "  "

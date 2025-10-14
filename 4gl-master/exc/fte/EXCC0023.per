@@ -1,0 +1,52 @@
+DATABASE safre_af
+SCREEN
+{
+\g_____________________________________________________________________________\g
+ Folio      NSS    Sub Tipo     Fecha     Fecha       Monto       Monto
+                   cta Mov.Sie  Valor     Liquid.     Pesos    Acciones/Parti
+\g-----------------------------------------------------------------------------\g
+[a     |b          |c |d  |k |e       |f       |g            |h            ]
+[a     |b          |c |d  |k |e       |f       |g            |h            ]
+[a     |b          |c |d  |k |e       |f       |g            |h            ]
+[a     |b          |c |d  |k |e       |f       |g            |h            ]
+[a     |b          |c |d  |k |e       |f       |g            |h            ]
+[a     |b          |c |d  |k |e       |f       |g            |h            ]
+\g-----------------------------------------------------------------------------\g
+Siefore        1           2           3           4           5          11
+P.acc [l1       ] [l2       ] [l3       ] [l4       ] [l5       ] [l11      ]
+Subt[m1         |m2         |m3         |m4         |m5         |m11        ]
+                       Total de pre-liquidacion:[i            |j            ]
+}
+TABLES
+dis_cuenta
+ATTRIBUTES
+a=dis_cuenta.folio;
+b=dis_cuenta.nss;
+c=dis_cuenta.subcuenta;
+d=dis_cuenta.tipo_movimiento;
+k=dis_cuenta.siefore;
+e=dis_cuenta.fecha_valor,FORMAT = "DD/MM/YY";
+f=dis_cuenta.fecha_conversion,FORMAT = "DD/MM/YY";
+g=dis_cuenta.monto_en_pesos,FORMAT = "#########&.&&";
+h=dis_cuenta.monto_en_acciones;
+
+i=FORMONLY.total_pesos_final TYPE DECIMAL,FORMAT = "#########&.&&";
+j=FORMONLY.total_accion_final TYPE DECIMAL;
+
+l1  = FORMONLY.precio_sie1  TYPE DECIMAL,REVERSE;
+l2  = FORMONLY.precio_sie2  TYPE DECIMAL,REVERSE;
+l3  = FORMONLY.precio_sie3  TYPE DECIMAL,REVERSE;
+l4  = FORMONLY.precio_sie4  TYPE DECIMAL,REVERSE;
+l5  = FORMONLY.precio_sie5  TYPE DECIMAL,REVERSE;
+l11 = FORMONLY.precio_sie11 TYPE DECIMAL,REVERSE;
+
+m1  = FORMONLY.subtotal_sie1  TYPE DECIMAL;
+m2  = FORMONLY.subtotal_sie2  TYPE DECIMAL;
+m3  = FORMONLY.subtotal_sie3  TYPE DECIMAL;
+m4  = FORMONLY.subtotal_sie4  TYPE DECIMAL;
+m5  = FORMONLY.subtotal_sie5  TYPE DECIMAL;
+m11 = FORMONLY.subtotal_sie11 TYPE DECIMAL;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[6](dis_cuenta.folio THRU dis_cuenta.monto_en_acciones);
+DELIMITERS " " 

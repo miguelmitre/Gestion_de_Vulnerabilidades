@@ -1,0 +1,60 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+
+NSS:   [a          ] CURP: [b                 ]
+Diag AFORE : [c    ] Diag PROCESAR : [d    ]
+
+RET 97     :[i                 ] C. SOCIAL     :[j                 ]
+CV         :[k                 ] Viv97         :[l                 ]
+VOL        :[m                 ] RET92         :[n                 ]
+VIV92      :[o                 ] RET ISS B     :[p                 ]
+RET ISS92  :[q                 ] A. COMPLE.    :[r                 ] 
+FOVI92     :[s                 ] A. LARGO P    :[t                 ] 
+FOVI08     :[u                 ] RET ISS08     :[v                 ] 
+CV ISS     :[w                 ] AHORRO SOL    :[x                 ] 
+CS ISS     :[y                 ]
+---------------------------------FECHA/HORA------------------------------
+Recepcion Sol. PROCESAR: [e                  ]
+Envio Sol. SAFRE:        [f                  ]
+Recep. Resp. SAFRE:      [g                  ]
+Resp. Sol. PROCESAR:     [h                  ]
+   
+}  
+END
+ATTRIBUTES
+a=FORMONLY.nss TYPE CHAR, NOENTRY;
+b=FORMONLY.curp TYPE CHAR, NOENTRY;
+c=FORMONLY.diag_afore TYPE INT, NOENTRY;
+d=FORMONLY.diag_procesar TYPE INT, NOENTRY;
+e=FORMONLY.rec_procesar TYPE CHAR, NOENTRY;
+f=FORMONLY.env_safre TYPE CHAR, NOENTRY;
+g=FORMONLY.rec_safre TYPE CHAR, NOENTRY;
+h=FORMONLY.resp_safre TYPE CHAR, NOENTRY;
+
+i=FORMONLY.ret97           TYPE DECIMAL, NOENTRY;
+j=FORMONLY.cs              TYPE DECIMAL, NOENTRY;
+k=FORMONLY.cv              TYPE DECIMAL, NOENTRY;
+l=FORMONLY.viv97           TYPE DECIMAL, NOENTRY;
+m=FORMONLY.aport_vol       TYPE DECIMAL, NOENTRY;
+n=FORMONLY.ret92           TYPE DECIMAL, NOENTRY;
+o=FORMONLY.viv92           TYPE DECIMAL, NOENTRY;
+p=FORMONLY.ret_iss_bxico   TYPE DECIMAL, NOENTRY;
+q=FORMONLY.ret92_iss       TYPE DECIMAL, NOENTRY;
+r=FORMONLY.aport_comp      TYPE DECIMAL, NOENTRY;
+s=FORMONLY.viv_fov92       TYPE DECIMAL, NOENTRY;
+t=FORMONLY.aport_lp        TYPE DECIMAL, NOENTRY;
+u=FORMONLY.fov_08          TYPE DECIMAL, NOENTRY;
+v=FORMONLY.ret_iss_08      TYPE DECIMAL, NOENTRY;
+w=FORMONLY.cv_iss          TYPE DECIMAL, NOENTRY;
+x=FORMONLY.ahorro_sol      TYPE DECIMAL, NOENTRY;
+y=FORMONLY.cs_iss          TYPE DECIMAL, NOENTRY;
+
+END
+
+INSTRUCTIONS
+SCREEN RECORD src_d4[1] (FORMONLY.nss THRU  FORMONLY.resp_safre);
+SCREEN RECORD src_d4_1  (FORMONLY.ret97 THRU FORMONLY.cs_iss);
+DELIMITERS "  "
+END 

@@ -1,0 +1,21 @@
+database safre_af@safre_bitd_shm
+screen size 24 by 80
+{
+marca_entra        [f000  ]
+marca_activa       [f001  ]
+convive_cod        [f002  ]
+rechazo_cod        [f003  ]
+fecha_actualiza    [f004      ]
+usuario            [f005    ]
+}
+end
+tables
+cta_convivencia
+attributes
+f000 = cta_convivencia.marca_entra;
+f001 = cta_convivencia.marca_activa;
+f002 = cta_convivencia.convive_cod;
+f003 = cta_convivencia.rechazo_cod;
+f004 = cta_convivencia.fecha_actualiza;
+f005 = cta_convivencia.usuario;
+end

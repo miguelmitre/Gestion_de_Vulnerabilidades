@@ -1,0 +1,30 @@
+database FORMONLY
+screen 
+{
+\g----------------------------------------------------------------------------\g
+  NSS         CURP               NOMBRE                      TR LIQUIDA. EDO
+\g----------------------------------------------------------------------------\g
+ [a          |g                 |b                           |c|d       |e  ]
+ [a          |g                 |b                           |c|d       |e  ]
+ [a          |g                 |b                           |c|d       |e  ]
+ [a          |g                 |b                           |c|d       |e  ]
+ [a          |g                 |b                           |c|d       |e  ]
+ [a          |g                 |b                           |c|d       |e  ]
+ [a          |g                 |b                           |c|d       |e  ]
+ [a          |g                 |b                           |c|d       |e  ]
+ [a          |g                 |b                           |c|d       |e  ]
+ [a          |g                 |b                           |c|d       |e  ]
+
+}
+end
+attributes
+a    = FORMONLY.nss                   TYPE  CHAR;    
+g    = FORMONLY.n_unico               TYPE  CHAR,NOENTRY;
+b    = FORMONLY.nombre                TYPE  CHAR,NOENTRY;
+c    = FORMONLY.tipo_rendi            TYPE  SMALLINT;
+d    = FORMONLY.fecha_liq_inde        TYPE  DATE,FORMAT="DD/MM/YY";
+e    = FORMONLY.estado                TYPE  SMALLINT;
+INSTRUCTIONS                                                       
+SCREEN RECORD scr_2[10](FORMONLY.nss 
+                   THRU FORMONLY.estado); 
+DELIMITERS " "

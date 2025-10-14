@@ -1,0 +1,28 @@
+DATABASE safre_af
+SCREEN
+{
+\g-----------------------------------------------------------------------\g
+
+
+
+
+     Codigo Tipo de Documento [a ]
+
+
+     Descripcion Tipo de Documento [b                                     ]
+
+
+     Documento Obligatorio    [c]
+
+
+
+
+
+}
+TABLES
+tab_tipo_documento
+ATTRIBUTES
+a=tab_tipo_documento.tipdoc_cod;
+b=tab_tipo_documento.tipdoc_desc,UPSHIFT;
+c=tab_tipo_documento.tipdoc_obli,UPSHIFT,
+COMMENTS="   Documento obligatorio < S > Si o < N > No ";

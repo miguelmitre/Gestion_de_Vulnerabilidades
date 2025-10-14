@@ -1,0 +1,37 @@
+DATABASE safre_af
+SCREEN
+{
+-----------------------------------------------------------------------------
+
+
+
+   Codigo Postal           :  [ee   ]   
+
+   Colonia                 :  [w                                       ]  
+
+   Delegacion / Municipio  :  [y    ]  [z                             ]
+
+   Ciudad / Poblacion      :  [aa   ]  [bb                            ]
+
+   Estado                  :  [cc   ]  [dd                      ]  
+
+
+  
+
+
+}
+TABLES 
+afi_domicilio
+ATTRIBUTES
+ee=FORMONLY.codpos,UPSHIFT;
+w =FORMONLY.colonia,UPSHIFT,NOENTRY;
+y =FORMONLY.delega,NOENTRY;
+z =FORMONLY.desc_delega_1  TYPE CHAR,NOENTRY,NOENTRY;
+aa=FORMONLY.ciudad TYPE INTEGER,NOENTRY;
+bb=FORMONLY.desc_ciudad_1 TYPE CHAR,NOENTRY,NOENTRY;
+cc=FORMONLY.estado,NOENTRY;
+dd=FORMONLY.desc_estado_1 TYPE CHAR,NOENTRY,NOENTRY;
+
+INSTRUCTIONS
+DELIMITERS "  "
+

@@ -1,0 +1,28 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+   Codigo de marca   Indicador habilita   Marca Resulta   Indicador saldo   
+\g----------------------------------------------------------------------------\g
+       [a   ]              [b   ]             [c   ]           [d   ]
+       [a   ]              [b   ]             [c   ]           [d   ]
+       [a   ]              [b   ]             [c   ]           [d   ]
+       [a   ]              [b   ]             [c   ]           [d   ]
+       [a   ]              [b   ]             [c   ]           [d   ]
+       [a   ]              [b   ]             [c   ]           [d   ]
+       [a   ]              [b   ]             [c   ]           [d   ]
+       [a   ]              [b   ]             [c   ]           [d   ]
+       [a   ]              [b   ]             [c   ]           [d   ]
+       [a   ]              [b   ]             [c   ]           [d   ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_marca
+ATTRIBUTES
+a=tab_marca.marca_cod;
+b=tab_marca.ind_habilita;
+c=tab_marca.marca_resulta;
+d=tab_marca.ind_saldo;
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](tab_marca.marca_cod,tab_marca.ind_habilita,tab_marca.marca_resulta,tab_marca.ind_saldo);
+END 

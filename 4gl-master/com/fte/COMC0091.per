@@ -1,0 +1,53 @@
+DATABASE safre_af
+SCREEN
+{
+------------------------------------------------------------------------------
+Tipo Prom  [a  ]         Grp venta   [b           ] Fecha Corte [c         ]
+
+
+------------------------------------------------------------------------------
+ NUM PROMO  T.PRO  G.VTA    FEC CORTE AFIL   SAMS    SAM PROM  TOT COMI  EDO
+------------------------------------------------------------------------------
+[d         |i    |j       |k         |m   |n         |o     |p          |t  ]
+[d         |i    |j       |k         |m   |n         |o     |p          |t  ]
+[d         |i    |j       |k         |m   |n         |o     |p          |t  ]
+[d         |i    |j       |k         |m   |n         |o     |p          |t  ]
+[d         |i    |j       |k         |m   |n         |o     |p          |t  ]
+[d         |i    |j       |k         |m   |n         |o     |p          |t  ]
+[d         |i    |j       |k         |m   |n         |o     |p          |t  ]
+[d         |i    |j       |k         |m   |n         |o     |p          |t  ]
+[d         |i    |j       |k         |m   |n         |o     |p          |t  ]
+
+ Num reg:[r     ]                        Total Comi     [s              ]
+}
+TABLES
+pro_mae_promotor
+com_comis_detalle
+
+ATTRIBUTES
+
+a = com_comis_detalle.cod_tipo_prom,FORMAT='---';
+b = com_comis_detalle.coduni_n1;
+c = com_comis_detalle.fecha_corte, FORMAT='DD-MM-YYYY';
+
+d = com_comis_detalle.codven;
+i = FORMONLY.vcod_tipo_prom TYPE SMALLINT, FORMAT='-----';
+j = FORMONLY.vcoduni_n1 TYPE CHAR;
+k = FORMONLY.vfecha_corte TYPE DATE,        FORMAT='DD-MM-YYYY';
+m = FORMONLY.vtot_afil TYPE INTEGER, FORMAT='----'; 
+n = FORMONLY.vnum_sm TYPE DECIMAL, FORMAT='---,---.--'; 
+o = FORMONLY.vprom_sm TYPE DECIMAL, FORMAT='---.--'; 
+p = FORMONLY.vmonto_comi TYPE DECIMAL, FORMAT='----,---.--'; 
+t = FORMONLY.vedo TYPE CHAR;
+
+r = FORMONLY.registros TYPE INTEGER, FORMAT='------';
+s = FORMONLY.total  TYPE DECIMAL, FORMAT='----,---,---.--';
+
+INSTRUCTIONS 
+SCREEN RECORD scr_0   (com_comis_detalle.fecha_corte THRU 
+		       com_comis_detalle.cod_tipo_prom);
+SCREEN RECORD scr_1[09](com_comis_detalle.codven THRU
+                        FORMONLY.vedo 
+                       );
+SCREEN RECORD scr_3 (FORMONLY.registros THRU FORMONLY.total);
+DELIMITERS "  "

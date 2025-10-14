@@ -1,0 +1,47 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+N.S.S.    [s          ]  RFC [r            ]   C.U.R.P.  [u                 ]
+Paterno   [p                         ]    Materno[m                         ]
+Nombres   [n                         ]    Fecha de Nacimiento    [t         ]
+No. Folio [nf        ]   Tipo solicitud   [ts]
+-----------------------------------------------------------------------------  
+Paterno Benef [bp                    ]  Materno Benef [bm                   ]
+Nombre  Benef [bn                    ]  Fecha Nacimiento Benef.  [bt        ]
+Sexo  [a][ab    ]  Parentesco  [l ][dp                  ]  Porcentaje [pc   ]
+[I]
+Paterno Benef [bp                    ]  Materno Benef [bm                   ]
+Nombre  Benef [bn                    ]  Fecha Nacimiento Benef.  [bt        ]
+Sexo  [a][ab    ]  Parentesco  [l ][dp                  ]  Porcentaje [pc   ]
+[I]
+Paterno Benef [bp                    ]  Materno Benef [bm                   ]
+Nombre  Benef [bn                    ]  Fecha Nacimiento Benef.  [bt        ]
+Sexo  [a][ab    ]  Parentesco  [l ][dp                  ]  Porcentaje [pc   ]
+[I]
+}
+END
+ATTRIBUTES
+s=FORMONLY.n_seguro TYPE CHAR,UPSHIFT;
+r=FORMONLY.n_rfc TYPE CHAR,UPSHIFT;
+u=FORMONLY.n_unico TYPE CHAR,UPSHIFT;
+p=FORMONLY.paterno TYPE CHAR,UPSHIFT;
+m=FORMONLY.materno TYPE CHAR,UPSHIFT;
+n=FORMONLY.nombres TYPE CHAR,UPSHIFT;
+t=FORMONLY.fena TYPE DATE,FORMAT="dd-mm-yyyy";
+nf=FORMONLY.n_folio TYPE INTEGER;
+ts=FORMONLY.tipo_solicitud TYPE SMALLINT;
+
+bp=FORMONLY.pat_benef TYPE CHAR,UPSHIFT;
+bm=FORMONLY.mat_benef TYPE CHAR,UPSHIFT;
+bn=FORMONLY.nom_benef TYPE CHAR,UPSHIFT;
+bt=FORMONLY.fena_benef TYPE DATE,FORMAT="dd-mm-yyyy";
+a=FORMONLY.sexo_cod TYPE SMALLINT;
+ab=FORMONLY.sexo_desc TYPE CHAR,NOENTRY;
+l=FORMONLY.paren_cod TYPE SMALLINT;
+dp=FORMONLY.paren_desc TYPE CHAR, NOENTRY;
+pc=FORMONLY.porcentaje TYPE DECIMAL;
+i= FORMONLY.consec TYPE INTEGER, NOENTRY, INVISIBLE;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[3](FORMONLY.pat_benef THRU FORMONLY.consec);
+DELIMITERS "  ";

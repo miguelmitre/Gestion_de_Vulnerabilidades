@@ -1,0 +1,25 @@
+DATABASE FORMONLY
+SCREEN
+{
+ FOLIO :[a        ]
+ SIE NOMBRE          VAL_ACC/AIVS         ACCIONES/AIVS          TOTAL_PESOS
+\g----------------------------------------------------------------------------\g
+[b  |c              |d           |e                    |f                   ]
+[b  |c              |d           |e                    |f                   ]
+[b  |c              |d           |e                    |f                   ]
+[b  |c              |d           |e                    |f                   ]
+[b  |c              |d           |e                    |f                   ]
+[b  |c              |d           |e                    |f                   ]
+[b  |c              |d           |e                    |f                   ]
+[b  |c              |d           |e                    |f                   ]
+}
+ATTRIBUTES
+a=FORMONLY.folio;
+b=formonly.siefore         TYPE   CHAR;
+c=formonly.siefore_desc    TYPE   CHAR;
+d=FORMONLY.precio_accion;
+e=FORMONLY.monto_en_acciones;
+f=FORMONLY.monto_en_pesos;
+INSTRUCTIONS
+SCREEN RECORD scr_sie[08](FORMONLY.siefore   THRU   FORMONLY.monto_en_pesos)
+DELIMITERS " "

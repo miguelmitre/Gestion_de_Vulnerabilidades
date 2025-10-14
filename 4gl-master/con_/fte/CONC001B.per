@@ -1,0 +1,19 @@
+DATABASE formonly
+SCREEN
+{                                                            
+
+
+
+
+   Proceso:[a    ][b                                                       ]
+   Folio de Liquidacion [a1        ]
+   Fecha de Liquidacion [c         ]
+}
+ATTRIBUTES
+a=FORMONLY.vproceso          TYPE CHAR NOT NULL,REVERSE;
+b=FORMONLY.vdescripcion      TYPE CHAR NOT NULL,NOENTRY,REVERSE;
+a1=FORMONLY.vfolio           TYPE INTEGER,REVERSE;
+c=FORMONLY.vfecha            TYPE DATE NOT NULL, FORMAT="dd/mm/yyyy",
+  REVERSE,COMMENTS = "Digite la fecha a procesar (dd/mm/yyyy)";
+INSTRUCTIONS
+DELIMITERS "  "

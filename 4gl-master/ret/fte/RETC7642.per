@@ -1,0 +1,37 @@
+DATABASE safre_af
+SCREEN
+{
+\g-----------------------------------------------------\g
+|                     TIPO ORIGEN                   | 
+\g-----------------------------------------------------\g
+| [c1 ] [c2                                         ] |
+| [c1 ] [c2                                         ] |
+| [c1 ] [c2                                         ] |
+| [c1 ] [c2                                         ] |
+| [c1 ] [c2                                         ] |
+| [c1 ] [c2                                         ] |
+| [c1 ] [c2                                         ] |
+| [c1 ] [c2                                         ] |
+\g-----------------------------------------------------\g
+| <ESC>    SELECCIONA                               | 
+| <CTRL-C> CANCELA                                  |
+\g-----------------------------------------------------\g
+}
+END
+
+TABLES
+ret_reinversion
+ret_tipo_origen_reinv
+{ 
+ATTRIBUTES
+ c = ret_reinversion.id_tipo_origen_reinv;
+ c2 = ret_tipo_origen_reinv.desc_origen_reinv;
+  
+INSTRUCTIONS
+  SCREEN RECORD sa_diag[8](ret_reinversion.id_tipo_origen_reinv, ret_tipo_origen_reinv.desc_origen_reinv);}
+ATTRIBUTES
+ c1 = FORMONLY.id_tipo_origen_reinv;
+ c2 = FORMONLY.desc_origen_reinv;
+  
+INSTRUCTIONS
+  SCREEN RECORD sa_diag[8](FORMONLY.id_tipo_origen_reinv, FORMONLY.desc_origen_reinv);

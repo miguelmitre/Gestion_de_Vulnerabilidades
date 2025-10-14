@@ -1,0 +1,23 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+
+
+
+
+                        Fecha de Corte Edad : [b         ]
+                                              (ddmmyyyy)
+                 Fecha de Corte para Saldos : [c         ]
+                                              (ddmmyyyy)
+
+
+
+                                                                           .
+}
+ATTRIBUTES
+b  =FORMONLY.fecha_corte    TYPE DATE,FORMAT="dd-mm-yyyy";
+c  =FORMONLY.fecha_edad     TYPE DATE,FORMAT="dd-mm-yyyy";
+
+INSTRUCTIONS
+DELIMITERS "  "

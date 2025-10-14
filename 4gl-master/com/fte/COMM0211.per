@@ -1,0 +1,76 @@
+DATABASE safre_af
+SCREEN 
+{
+\g----------------------------------------------------------------------------\g
+
+
+  Nivel  [f] [f000                ]  Indicador Pago: [a]             [f010  ]
+
+  Nivel  [g] [f002                ]  Indicador Pago: [b]             [f011  ]
+
+  Nivel  [h] [f004                ]  Indicador Pago: [c]             [f012  ]
+
+  Nivel  [i] [f006                ]  Indicador Pago: [d]             [f013  ]
+
+  Nivel  [j] [f008                ]  Indicador Pago: [e]             [f014  ]
+
+  Ruta spool       :  [f015                                              ]
+  Ruta ejecuta com :  [f016                                              ]
+  Fecha actulizacion :[f017      ]                     Usuario : [f018   ] 
+
+}
+END
+TABLES
+com_parametro
+ATTRIBUTES
+f    = com_parametro.cod_nivel_5;
+f000 = com_parametro.nivel_5,UPSHIFT;
+a    = com_parametro.indicador_pago5,
+       UPSHIFT,
+       INCLUDE=("S","N"),
+       COMMENTS=" (S) o (N)";
+f010 = com_parametro.meta_factor_n5,FORMAT="###.##",NOENTRY,INVISIBLE;
+
+g    = com_parametro.cod_nivel_4;
+f002 = com_parametro.nivel_4,UPSHIFT;
+b    = com_parametro.indicador_pago4,
+       UPSHIFT,
+       INCLUDE=("S","N"),
+       COMMENTS=" (S) o (N)";
+f011 = com_parametro.meta_factor_n4,FORMAT="###.##",NOENTRY,INVISIBLE;
+
+
+h    = com_parametro.cod_nivel_3;
+f004 = com_parametro.nivel_3,UPSHIFT;
+c    = com_parametro.indicador_pago3,
+       UPSHIFT,
+       INCLUDE=("S","N"),
+       COMMENTS=" (S) o (N)";
+f012 = com_parametro.meta_factor_n3,FORMAT="###.##",NOENTRY,INVISIBLE;
+
+
+i    = com_parametro.cod_nivel_2;
+f006 = com_parametro.nivel_2,UPSHIFT;
+d    = com_parametro.indicador_pago2,
+       UPSHIFT,
+       INCLUDE=("S","N"),
+       COMMENTS=" (S) o (N)";
+f013 = com_parametro.meta_factor_n2,FORMAT="###.##",NOENTRY,INVISIBLE;
+
+
+j    = com_parametro.cod_nivel_1;
+f008 = com_parametro.nivel_1,UPSHIFT;
+e    = com_parametro.indicador_pago1,
+       UPSHIFT,
+       INCLUDE=("S","N"),
+       COMMENTS=" (S) o (N)";
+f014 = com_parametro.meta_factor_n1,FORMAT="###.##",NOENTRY,INVISIBLE;
+
+
+f015 = com_parametro.ruta_spool,DOWNSHIFT;
+f016 = com_parametro.ruta_ejecuta_com,DOWNSHIFT;
+f017 = com_parametro.factualiza,FORMAT="DD-MM-YYYY",NOENTRY;
+f018 = com_parametro.usuario,NOENTRY;
+END
+INSTRUCTIONS
+DELIMITERS " "

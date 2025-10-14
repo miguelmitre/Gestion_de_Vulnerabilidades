@@ -1,0 +1,21 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g------------------------------------------------------\g
+       Marca                Descripcion
+\g------------------------------------------------------\g
+
+
+      [a   ]       [b                             ]
+      [a   ]       [b                             ]
+
+
+\g------------------------------------------------------\g
+}
+ATTRIBUTES
+a=FORMONLY.ind_saldo;
+b=FORMONLY.descripcion,UPSHIFT;
+INSTRUCTIONS
+SCREEN RECORD scr_1[2](FORMONLY.ind_saldo THRU FORMONLY.descripcion);
+END
+

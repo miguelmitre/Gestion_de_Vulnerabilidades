@@ -1,0 +1,36 @@
+DATABASE safre_af 
+SCREEN 
+{
+         INGRESE EL STRING DE BUSQUEDA  [x              ] 
+\g-------------------------------------------------------------------------\g
+   CODIGO    TIPO COMISION      CODIGO   SUBCUENTA   PORCENTAJE    PESOS
+\g-------------------------------------------------------------------------\g
+   [a  ]  [b                 ]   [c]     [d      ]   [e       ]   [f    ]
+   [a  ]  [b                 ]   [c]     [d      ]   [e       ]   [f    ]
+   [a  ]  [b                 ]   [c]     [d      ]   [e       ]   [f    ]
+   [a  ]  [b                 ]   [c]     [d      ]   [e       ]   [f    ]
+   [a  ]  [b                 ]   [c]     [d      ]   [e       ]   [f    ]
+   [a  ]  [b                 ]   [c]     [d      ]   [e       ]   [f    ]
+   [a  ]  [b                 ]   [c]     [d      ]   [e       ]   [f    ]
+\g-------------------------------------------------------------------------\g
+             <F3> Avanza Pagina      <F4> Retrocede Pagina
+                       < ENTER > Selecciona
+}
+TABLES
+dis_val_comision, 
+tab_movimiento,
+tab_subcuenta
+ATTRIBUTES
+x=formonly.vcomision, upshift;
+a=dis_val_comision.tipo_comision;
+b=tab_movimiento.descripcion;
+c=dis_val_comision.subcuenta;
+d=tab_subcuenta.subct_corta;
+e=dis_val_comision.val_porcentaje;
+f=dis_val_comision.val_pesos;
+
+INSTRUCTIONS 
+SCREEN RECORD scr_1[7](dis_val_comision.tipo_comision, tab_movimiento.descripcion,
+                       dis_val_comision.subcuenta, tab_subcuenta.subct_corta,
+                       dis_val_comision.val_porcentaje, dis_val_comision.val_pesos);
+DELIMITERS " "

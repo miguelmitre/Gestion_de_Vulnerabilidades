@@ -1,0 +1,52 @@
+DATABASE safre_af
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+   Folio Afili.[a1        ]  T.S.[a]  F.Certifi [a5        ]
+   NSS         [a2         ]          Paterno   [a6                        ]
+   RFC         [a3           ]        Materno   [a7                        ]
+   CURP        [a4                ]   Nombres   [a8                        ]
+
+   Cve. Icefa:[c1 ][c2                   ]
+   RFC  Icefa:[b3           ]   NO. CONTROL:[c3                            ]
+   NSS  Icefa:[b2         ]
+
+[d1           |d2                            |d3         |d4         |d5     ]
+[d1           |d2                            |d3         |d4         |d5     ]
+[d1           |d2                            |d3         |d4         |d5     ]
+[d1           |d2                            |d3         |d4         |d5     ]
+[d1           |d2                            |d3         |d4         |d5     ]
+[d1           |d2                            |d3         |d4         |d5     ]
+[d1           |d2                            |d3         |d4         |d5     ]
+
+}
+TABLES
+afi_mae_afiliado,
+tra_mae_icefa,
+tra_det_bdsar92
+ATTRIBUTES
+a1=afi_mae_afiliado.n_folio            , AUTONEXT ;
+a =afi_mae_afiliado.tipo_solicitud     , AUTONEXT ;
+a2=afi_mae_afiliado.n_seguro           , AUTONEXT , UPSHIFT;
+a3=afi_mae_afiliado.n_rfc              , AUTONEXT , UPSHIFT;
+a4=afi_mae_afiliado.n_unico            , AUTONEXT , UPSHIFT;
+a5=afi_mae_afiliado.fentcons           , FORMAT = "DD/MM/YY";
+a6=afi_mae_afiliado.paterno            , AUTONEXT ;
+a7=afi_mae_afiliado.materno            , AUTONEXT , UPSHIFT;
+a8=afi_mae_afiliado.nombres            , AUTONEXT , UPSHIFT;
+
+c1=tra_mae_icefa.icefa_cod             ;
+c2=FORMONLY.des_icefa  TYPE CHAR       ;
+b3=tra_mae_icefa.rfc                   ;
+c3=tra_mae_icefa.nro_int_cta           ;
+b2=tra_mae_icefa.nss                   ;
+
+d1=tra_det_bdsar92.rfc                 ;
+d2=tra_det_bdsar92.nro_int_cta         ;
+d3=tra_det_bdsar92.nss                 ;
+d4=tra_det_bdsar92.n_seguro            ;
+d5=tra_det_bdsar92.fecha_edo ,FORMAT="DDMMYY" ;
+
+INSTRUCTIONS 
+DELIMITERS " "
+SCREEN RECORD scr_4[7](tra_det_bdsar92.rfc THRU tra_det_bdsar92.fecha_edo);

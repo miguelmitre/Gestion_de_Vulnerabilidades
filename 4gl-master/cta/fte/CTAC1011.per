@@ -1,0 +1,51 @@
+DATABASE safre_af
+SCREEN  
+{
+__________________________________________________________________________
+  
+  NSS                     : [a          ]   
+  CURP                    : [b                   ]
+  Paterno                 : [c                                       ]
+  Materno                 : [d                                       ]
+  Nombre(s)               : [e                                       ]
+  Fecha de Nacimiento     : [v         ]      RFC: [w            ]
+  Indicador Saldo Cero    : [h][i                             ]
+  Fecha Indic. Saldo Cero : [j         ]
+  Indicador Actividad     : [k][l                             ]
+  Fecha Indic. Actividad  : [m         ]
+  Indicador Marca 56 años : [n][o                             ]
+  Fecha Indic. Marca 56 a.: [p         ]
+  Criterio Edad           : [t][u              ]
+  Indicador Transfer. Rec.: [q][r                             ]
+  Fecha Indic. Trans. Rec.: [s         ]
+}
+END
+TABLES
+afi_mae_afiliado,
+cta_ctr_cuenta
+ATTRIBUTES
+a=FORMONLY.v_n_seguro, REVERSE;
+b=afi_mae_afiliado.n_unico, NOENTRY;
+c=afi_mae_afiliado.paterno, NOENTRY;
+d=afi_mae_afiliado.materno, NOENTRY;
+e=afi_mae_afiliado.nombres, NOENTRY;
+h=cta_ctr_cuenta.ind_saldo_cero, NOENTRY;
+i=FORMONLY.v_desc_ind_sdocero, NOENTRY;
+j=cta_ctr_cuenta.fecha_saldo_cero, NOENTRY,FORMAT = "dd/mm/yyyy";
+k=cta_ctr_cuenta.ind_actividad, NOENTRY;
+l=FORMONLY.v_desc_ind_act, NOENTRY;
+m=cta_ctr_cuenta.fecha_actividad, NOENTRY,FORMAT = "dd/mm/yyyy";
+n=cta_ctr_cuenta.ind_edad, NOENTRY;
+o=FORMONLY.v_desc_marc_56, NOENTRY;
+p=cta_ctr_cuenta.fecha_edad, NOENTRY,FORMAT = "dd/mm/yyyy";
+q=cta_ctr_cuenta.ind_transferencia, NOENTRY;
+r=FORMONLY.v_desc_ind_transf, NOENTRY;
+s=cta_ctr_cuenta.fecha_ind_transf, NOENTRY,FORMAT = "dd/mm/yyyy";
+t=cta_ctr_cuenta.criterio_edad, NOENTRY;
+u=FORMONLY.v_desc_criterio_edad, NOENTRY;
+v=afi_mae_afiliado.fena, NOENTRY, FORMAT = "dd/mm/yyyy";
+w=afi_mae_afiliado.n_rfc, NOENTRY;
+INSTRUCTIONS
+DELIMITERS " "
+
+

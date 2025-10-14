@@ -1,0 +1,27 @@
+DATABASE safre_af 
+SCREEN
+{
+   PROMOTOR            N O M B R E                 CALIF.  HORAS
+---------------------------------------------------------------------
+ [a         ]  [b                               ]   [c ]   [d  ]
+ [a         ]  [b                               ]   [c ]   [d  ]
+ [a         ]  [b                               ]   [c ]   [d  ]
+ [a         ]  [b                               ]   [c ]   [d  ]
+ [a         ]  [b                               ]   [c ]   [d  ]
+ [a         ]  [b                               ]   [c ]   [d  ]
+ [a         ]  [b                               ]   [c ]   [d  ]
+ [a         ]  [b                               ]   [c ]   [d  ]
+
+  TOTAL REGISTROS: [e         ]
+}
+TABLES
+    pro_mae_promotor
+ATTRIBUTES
+a  = pro_mae_promotor.cod_promotor            ;
+b  = FORMONLY.nombre       TYPE CHAR, NOENTRY ;
+c  = FORMONLY.calificacion TYPE SMALLINT      ;
+d  = FORMONLY.horas        TYPE SMALLINT      ;
+e  = FORMONLY.total        TYPE INTEGER       ;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[8](cod_promotor THRU FORMONLY.horas);
+DELIMITERS "[]"

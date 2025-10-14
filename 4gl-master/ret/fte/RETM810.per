@@ -1,0 +1,57 @@
+DATABASE safre_af
+SCREEN
+{
+ N.S.S. : [a          ] [b                                      ] 
+
+ NUM   PATERNO            MATERNO            NOMBRE
+ [c]   [d              ]  [e              ]  [f                    ]
+ PAR   DESCRIPCION                   PORCENTAJE      
+ [g ]  [h                         ]  [i  ]
+                                                         
+ TIPO BCO  CD        SUC      NUMERO CUENTA        TOTAL RETIRO    F_PAGO
+ [j ] [k ] [l     ][m     ] [n                 ] [o           ]  [p         ]
+
+ CALLE                            N_EXT   N_INT   C.P.
+ [q                             ] [r   ]  [s  ]  [t    ]        
+ COLONIA                DELEGA  NOM. DELEGACION    CD      NOM CIUDAD 
+ [u                  ]  [v   ]  [w              ]  [x   ] [y                ]
+ EDO   NOMBRE                TELEFONO
+ [z ]  [a1                ]  [d1                          ]
+ 
+}
+END
+TABLES
+ret_beneficiario
+ATTRIBUTES
+
+a = ret_beneficiario.nss ;
+b = FORMONLY.nombre    TYPE  CHAR,NOENTRY;
+c = ret_beneficiario.consec_benef ,NOENTRY;
+d = ret_beneficiario.paterno,UPSHIFT;
+e = ret_beneficiario.materno,UPSHIFT ;
+f = ret_beneficiario.nombres,UPSHIFT ;
+g = ret_beneficiario.paren_cod,COMMENTS = " TECLEE EL TIPO DE PARENTESCO";
+h = FORMONLY.paren_des  TYPE  CHAR,NOENTRY;
+i = ret_beneficiario.porcentaje;
+j = ret_beneficiario.tipo_pago,INCLUDE=(1:3),COMMENTS = " TECLEE EL TIPO DE PAGO";
+k = ret_beneficiario.banco,COMMENTS = "TECLEE EL BANCO PARA DEPOSITO";
+l = ret_beneficiario.ciudad_cod,COMMENTS = "TECLEE LA CLAVE DE CIUDAD";
+m = ret_beneficiario.cod_sucursal,COMMENTS = "TECLEE NUMERO DE SUCURSAL";
+n = ret_beneficiario.num_cuenta,COMMENTS = "TECLEE NUMERO DE CUENTA BANCARIA";
+o = ret_beneficiario.monto_en_pesos , NOENTRY, FORMAT="#,###,##&.&&";
+p = FORMONLY.fecha_pago   TYPE  DATE,FORMAT ="DD/MM/YYYY", NOENTRY;
+q = ret_beneficiario.dom_calle,UPSHIFT;
+r = ret_beneficiario.dom_numero_ext,COMMENTS = "    TECLEE EL NUMERO EXTERIOR     ";
+s = ret_beneficiario.dom_numero_int,UPSHIFT,COMMENTS = "    TECLEE EL NUMERO INTERIOR     ";
+t = ret_beneficiario.dom_codpos;
+u = ret_beneficiario.dom_colonia,UPSHIFT;
+v = ret_beneficiario.dom_delega, NOENTRY;
+w = FORMONLY.nom_delega TYPE CHAR, NOENTRY;
+x = ret_beneficiario.dom_ciudad_cod, NOENTRY;
+y = FORMONLY.nom_ciudad_cod  TYPE  CHAR, NOENTRY;
+z = ret_beneficiario.dom_estado_cod, NOENTRY;
+a1 = FORMONLY.nom_estado_cod  TYPE  CHAR, NOENTRY;
+d1 = ret_beneficiario.dom_telefono,UPSHIFT,COMMENTS = "    TECLEE EL NUMERO TELEFONICO   ";
+  INSTRUCTIONS
+  SCREEN RECORD   sa_benef[1]
+           (ret_beneficiario.consec_benef  THRU  ret_beneficiario.dom_telefono)

@@ -1,0 +1,36 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+                                                                      Tipo 
+ Reg.Patronal     RFC                    Razon Social                Patron
+
+[a          ][b            ][c                                      ]  [d]  
+\g----------------------------------------------------------------------------\g
+
+              Calle                      Numero      C.P.    Deleg.  Ciudad  
+
+[e                                 ][f            ][g    ][h      ][i      ]
+\g----------------------------------------------------------------------------\g
+
+                   Colonia                         Estado      Telefono     
+
+[j                                               ][k       ][l             ]
+}
+TABLES
+tab_patron
+ATTRIBUTES
+a=tab_patron.reg_patronal,UPSHIFT;
+b=tab_patron.reg_fed_contrib,UPSHIFT;
+c=tab_patron.razon_social,UPSHIFT;
+d=tab_patron.tipo_patron,UPSHIFT;
+e=tab_patron.calle,UPSHIFT;
+f=tab_patron.numero;
+g=tab_patron.codpos;
+h=tab_patron.delega;
+i=tab_patron.ciudad;
+j=tab_patron.colonia,UPSHIFT;
+k=tab_patron.estado;
+l=tab_patron.telefono;    
+INSTRUCTIONS
+SCREEN RECORD scr_1[1](tab_patron.reg_patronal THRU tab_patron.telefono)

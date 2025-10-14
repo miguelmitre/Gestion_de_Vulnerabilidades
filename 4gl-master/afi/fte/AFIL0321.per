@@ -1,0 +1,35 @@
+DATABASE safre_af
+SCREEN
+{
+                                                                          .
+
+  Fecha Inicial  : [g         ]           Fecha Final    : [p         ]
+        formato    (DD/MM/AAAA)                 formato    (DD/MM/AAAA)
+             
+
+  Estructura Comercial : [f    ]          Promotor : [k         ]
+
+
+  Ordenado por : [i]                      Tipo-Afiliados : [h]
+
+  Estructura comercial ... 1              Por Registro ... 1
+  Promotor ............... 2              Por Traspaso ... 2
+  Fecha de captura ....... 3
+
+
+
+}
+tables
+afi_solicitud
+ATTRIBUTES
+g=FORMONLY.fecha_ini TYPE DATE,FORMAT = "DD/MM/YYYY", UPSHIFT;
+
+p=FORMONLY.fecha_top TYPE DATE,FORMAT = "DD/MM/YYYY", UPSHIFT;
+
+f=FORMONLY.estruc TYPE CHAR,UPSHIFT,COMMENTS = "Numero de estructura comercial";
+
+k=FORMONLY.promotor TYPE CHAR,UPSHIFT,COMMENTS = "Numero de promotor-agente";
+
+i=FORMONLY.ord TYPE CHAR,COMMENTS = "Ingrese Ordenamiento";
+
+h=FORMONLY.opcion type smallint,COMMENTS = "Tipo de Afiliados";

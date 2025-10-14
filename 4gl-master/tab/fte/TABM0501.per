@@ -1,0 +1,43 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+Codigo layout : [a       ]
+
+Descripcion   : [b                                                           ]
+
+Desde         : [c                   ]          Hasta :[d                   ]
+
+Periodo : [e       ]  Programa :[f                             ] Modulo :[g  ]
+
+Tabla Cabeza : [h                   ] Tabla Detalle : [i                   ] 
+
+Tabla Sumario : [j                   ] Arch. Cabeza : [k                   ] 
+
+Arch. Detalle : [l                   ] Arch. Sumario : [m                   ] 
+
+Nombre Archivo : [n                   ] Codigo Origen : [o    ] 
+
+}
+TABLES
+tab_layout
+ATTRIBUTES
+a=tab_layout.layout_cod;
+b=tab_layout.layout_des;
+c=tab_layout.desde;
+d=tab_layout.hasta;
+e=tab_layout.periodo;
+f=tab_layout.programa;
+g=tab_layout.modulo_cod;
+h=tab_layout.tab_cza;
+i=tab_layout.tab_det;
+j=tab_layout.tab_sum;
+k=tab_layout.arch_cza;
+l=tab_layout.arch_det;
+m=tab_layout.arch_sum;
+n=tab_layout.nom_arch;
+o=tab_layout.origen_cod;
+END
+INSTRUCTIONS
+DELIMITERS " "

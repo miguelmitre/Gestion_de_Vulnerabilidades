@@ -1,0 +1,41 @@
+DATABASE FORMONLY
+SCREEN SIZE 24 BY 80
+{
+\g----------------------------------------------------------------------------\g
+
+
+           Tipo de Unificacion : [a]
+
+           Folio de liquidacion: [b            ]
+
+
+
+
+
+[g         ][c      ]  [d         ] [e            ]  [f            ]
+[g         ][c      ]  [d         ] [e            ]  [f            ]
+[g         ][c      ]  [d         ] [e            ]  [f            ]
+[g         ][c      ]  [d         ] [e            ]  [f            ]
+[g         ][c      ]  [d         ] [e            ]  [f            ]
+
+
+
+}
+
+ATTRIBUTES
+a = FORMONLY.tipo_uni       TYPE SMALLINT,INCLUDE=(1,2),
+    COMMENTS=" Tipo Uni: <1>INTRA-AFORE <2>EXTRA-AFORE";
+b = FORMONLY.folio          TYPE INTEGER;
+g = FORMONLY.leyenda        TYPE CHAR;
+c = FORMONLY.total_registros     TYPE SMALLINT;
+d = FORMONLY.fecha_liquidacion   TYPE DATE,FORMAT="DD-MM-YYYY";
+e = FORMONLY.pesos               TYPE DECIMAL(10,2);
+f = FORMONLY.acciones            TYPE DECIMAL(10,2);
+
+INSTRUCTIONS
+ SCREEN RECORD scr_01[5](FORMONLY.leyenda,
+ 	                       FORMONLY.total_registros,
+ 	                       FORMONLY.fecha_liquidacion,
+ 	                       FORMONLY.pesos,
+ 	                       FORMONLY.acciones)
+DELIMITERS " "

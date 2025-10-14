@@ -1,0 +1,30 @@
+DATABASE safre_af
+SCREEN
+{
+
+-------------------------------------------------------------------------
+ SIE                   SUBCUENTA         ACCIONES               PESOS
+-------------------------------------------------------------------------
+[aa][ab      ][c ][b                 ][e               ][f               ]
+[aa][ab      ][c ][b                 ][e               ][f               ]
+[aa][ab      ][c ][b                 ][e               ][f               ]
+[aa][ab      ][c ][b                 ][e               ][f               ]
+[aa][ab      ][c ][b                 ][e               ][f               ]
+[aa][ab      ][c ][b                 ][e               ][f               ]
+[aa][ab      ][c ][b                 ][e               ][f               ]
+[aa][ab      ][c ][b                 ][e               ][f               ]
+[aa][ab      ][c ][b                 ][e               ][f               ]
+[aa][ab      ][c ][b                 ][e               ][f               ]
+}
+TABLES
+dis_cuenta
+ATTRIBUTES
+aa=FORMONLY.siefore TYPE SMALLINT;
+ab=FORMONLY.desc_siefore TYPE CHAR;
+c=FORMONLY.subcuenta TYPE SMALLINT;
+b=FORMONLY.desc_subcta TYPE CHAR;
+e=FORMONLY.monto_en_acciones TYPE DECIMAL;
+f=FORMONLY.monto_en_pesos TYPE DECIMAL;
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](FORMONLY.siefore THRU FORMONLY.monto_en_pesos)
+DELIMITERS "[]"

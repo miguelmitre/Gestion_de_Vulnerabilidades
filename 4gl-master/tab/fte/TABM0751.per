@@ -1,0 +1,31 @@
+DATABASE safre_af
+SCREEN 
+{
+\g----------------------------------------------------------------------------g\
+
+
+
+
+  Codigo Afore       [f000 ]
+
+
+  Descripcion        [f003                                                 ]
+
+
+  Marca afore local  [a]
+
+
+  Cod Afore Fusion   [f001 ]
+
+
+
+}
+END
+TABLES
+tab_afore
+ATTRIBUTEs
+f000 = tab_afore.afore_cod;
+f003 = tab_afore.afore_desc;
+a    = tab_afore.marca,INCLUDE=(0,1),COMMENTS = "Tipo de marca es <1> Afore local  <0> Otras afores";
+f001 = tab_afore.afore_fusion;
+END

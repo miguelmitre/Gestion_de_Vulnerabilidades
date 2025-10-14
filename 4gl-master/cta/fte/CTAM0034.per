@@ -1,0 +1,53 @@
+DATABASE formonly
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+
+  NSS         [a1         ]            Paterno   [a4                       ]
+  Folio       [a2        ]             Materno   [a5                       ]
+  Tipo Solicitud      [a3]             Nombres   [a6                       ]
+  Identificacion[a7|a8                         ]Folio Id[a9                ]
+
+  Folio de Rechazo  [r1        ]
+  Tipo Solicitud    [r2][r3                                                ]
+
+  Estado Emision    [r4][r12              ]
+  Descripcion del Rechazo[r5 ][r6                                          ]
+
+  Fecha Recepcion    [r7        ]
+  Fecha Proceso      [r8        ]
+  Estado             [r9][r10        ]
+
+  Usuario            [r11     ]
+
+}
+
+ATTRIBUTES
+a1=FORMONLY.nss            TYPE CHAR,UPSHIFT;
+a2=FORMONLY.n_folio        TYPE INTEGER,UPSHIFT;
+a3=FORMONLY.tipo_solicitud TYPE SMALLINT,UPSHIFT;
+a4=FORMONLY.paterno        TYPE CHAR,UPSHIFT, NOENTRY;
+a5=FORMONLY.materno        TYPE CHAR,UPSHIFT, NOENTRY;
+a6=FORMONLY.nombre         TYPE CHAR,UPSHIFT, NOENTRY;
+a7=FORMONLY.id_rech        TYPE SMALLINT,UPSHIFT,NOENTRY;
+a8=FORMONLY.desc_id_rech   TYPE CHAR,UPSHIFT, NOENTRY;
+a9=FORMONLY.id_folio_rech  TYPE CHAR,UPSHIFT, NOENTRY;
+
+r1=FORMONLY.folio          TYPE INTEGER,UPSHIFT;
+r2=FORMONLY.tipo_emision   TYPE SMALLINT, NOENTRY;
+r3=FORMONLY.desc_emision   TYPE CHAR,     NOENTRY;
+r4=FORMONLY.estado_emision TYPE SMALLINT, NOENTRY;
+r5=FORMONLY.tipo_rechazo   TYPE SMALLINT, NOENTRY;
+r6=FORMONLY.descripcion    TYPE CHAR,     NOENTRY;
+r7=FORMONLY.fecha_rechazo  TYPE DATE, FORMAT="dd-mm-yyyy",
+	COMMENTS = "Ingrese la fecha dd-mm-aaaa";
+r8=FORMONLY.fecha_proceso  TYPE DATE, FORMAT="dd-mm-yyyy",
+	COMMENTS = "Ingrese la fecha dd-mm-aaaa";
+r9=FORMONLY.estado_rech    TYPE SMALLINT, NOENTRY;
+r10=FORMONLY.desc_estado_r TYPE CHAR,     NOENTRY;
+r11=FORMONLY.usuario       TYPE CHAR,     NOENTRY;
+r12=FORMONLY.desc_estado_e TYPE CHAR,     NOENTRY;
+
+INSTRUCTIONS 
+SCREEN RECORD scr_2 [1](FORMONLY.nss THRU FORMONLY.desc_estado_e)
+DELIMITERS " "

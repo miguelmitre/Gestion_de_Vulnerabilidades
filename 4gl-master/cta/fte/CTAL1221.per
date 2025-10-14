@@ -1,0 +1,38 @@
+database FORMONLY
+screen 
+{
+\g-----------------------------------------------------------------------------\g
+                        Fecha Corte  : [f1        ] 
+    ----------------------------------------------------------------------
+        TIPO SOL     TIPO TRAB    ID REGISTRO     TIPO MOV       TOTAL   
+    [f2|f3        |f4|f5        |f6|f7        |f8 |f9        |f10        ]
+    [f2|f3        |f4|f5        |f6|f7        |f8 |f9        |f10        ]
+    [f2|f3        |f4|f5        |f6|f7        |f8 |f9        |f10        ]
+    [f2|f3        |f4|f5        |f6|f7        |f8 |f9        |f10        ] 
+    [f2|f3        |f4|f5        |f6|f7        |f8 |f9        |f10        ] 
+    [f2|f3        |f4|f5        |f6|f7        |f8 |f9        |f10        ] 
+    [f2|f3        |f4|f5        |f6|f7        |f8 |f9        |f10        ] 
+    [f2|f3        |f4|f5        |f6|f7        |f8 |f9        |f10        ] 
+    [f2|f3        |f4|f5        |f6|f7        |f8 |f9        |f10        ] 
+    [f2|f3        |f4|f5        |f6|f7        |f8 |f9        |f10        ] 
+    [f2|f3        |f4|f5        |f6|f7        |f8 |f9        |f10        ] 
+\g-----------------------------------------------------------------------------\g
+  Rep Cifras <CTRL-P>  Rep Det <CTRL-B>     TOTAL REGISTROS: [f11        ]
+}
+end
+attributes
+f1  = FORMONLY.vfecha_corte TYPE DATE, FORMAT = "DD/MM/YYYY", COMMENTS = "Formato fecha dd/mm/aaaa";
+f2  = FORMONLY.tipo_solicitud TYPE SMALLINT, NOENTRY;
+f3  = FORMONLY.desc_tipo_sol TYPE CHAR, NOENTRY;
+f4  = FORMONLY.tipo_trabajador TYPE CHAR, NOENTRY;
+f5  = FORMONLY.desc_tipo_trab TYPE CHAR, NOENTRY;
+f6  = FORMONLY.id_cuenta TYPE CHAR, NOENTRY;
+f7  = FORMONLY.desc_id_cuenta TYPE CHAR, NOENTRY;
+f8  = FORMONLY.tipo_movimiento TYPE SMALLINT, NOENTRY;
+f9  = FORMONLY.desc_tipo_mov TYPE CHAR, NOENTRY;
+f10 = FORMONLY.total TYPE INTEGER, FORMAT = "###,###,##&";
+f11 = FORMONLY.total_arh TYPE INTEGER, FORMAT = "###,###,##&";
+
+INSTRUCTIONS                                                       
+SCREEN RECORD scr_1[11](FORMONLY.tipo_solicitud THRU FORMONLY.total); 
+DELIMITERS " "

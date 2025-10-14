@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+    Nss         Nombre
+------------------------------------------------------------------------------
+ [i          |l                                              ]
+ [i          |l                                              ]
+ [i          |l                                              ]
+ [i          |l                                              ]
+ [i          |l                                              ]
+ [i          |l                                              ]
+
+}
+TABLES
+pro_mae_promotor
+
+ATTRIBUTES
+
+i = pro_mae_promotor.seguro;
+l = FORMONLY.nombre TYPE CHAR;
+
+INSTRUCTIONS 
+
+SCREEN RECORD scr_0[6](pro_mae_promotor.seguro THRU 
+		       FORMONLY.nombre);
+DELIMITERS "  "

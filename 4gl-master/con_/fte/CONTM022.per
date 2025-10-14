@@ -1,0 +1,31 @@
+DATABASE safre_af
+SCREEN
+{
+
+
+  Transac |      Descripcion  Transaccion     |     Monto       | Folio 
+\g-----------------------------------------------------------------------\g
+  [a    ] | [b                               ]|[c              ]| [d   ]
+  [a    ] | [b                               ]|[c              ]| [d   ]
+  [a    ] | [b                               ]|[c              ]| [d   ]
+  [a    ] | [b                               ]|[c              ]| [d   ]
+  [a    ] | [b                               ]|[c              ]| [d   ]
+  [a    ] | [b                               ]|[c              ]| [d   ]
+  [a    ] | [b                               ]|[c              ]| [d   ]
+  [a    ] | [b                               ]|[c              ]| [d   ]
+  [a    ] | [b                               ]|[c              ]| [d   ]
+  [a    ] | [b                               ]|[c              ]| [d   ]
+  [a    ] | [b                               ]|[c              ]| [d   ]
+  [a    ] | [b                               ]|[c              ]| [d   ]
+\g-----------------------------------------------------------------------\g
+}              
+TABLES
+con_his_archivo, tab_transaccion
+ATTRIBUTES
+a=con_his_archivo.transaccion;
+b=tab_transaccion.transa_desc;
+c=con_his_archivo.monto;
+d=con_his_archivo.folio;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[12](con_his_archivo.transaccion, tab_transaccion.transa_desc,
+	                con_his_archivo.monto, con_his_archivo.folio);

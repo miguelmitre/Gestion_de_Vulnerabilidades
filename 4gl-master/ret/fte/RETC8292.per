@@ -1,0 +1,61 @@
+DATABASE safre_af
+SCREEN
+{
+
+
+  NSS         : [a          ]                                  Folio:[c    ]
+  Sec. Pension: [b          ]                            Correlativo:[d    ]
+  Diagnostico Original: [e  ]   [r     ]         Diagnostico Afore   : [f  ]
+
+------------------------------------------------------------------------------
+
+
+  Nombre Datamart  [g                                                      ]
+  Nombre Procanase [h                                                      ]
+  Nombre bdnsar    [i                                                      ]
+  Nombre en Afore  [j                                                      ]
+
+
+
+
+}
+TABLES
+    ret_det_notifica
+
+ATTRIBUTES
+a = ret_det_notifica.nss               ,REVERSE,NOENTRY;
+b = ret_det_notifica.sec_pension       ,REVERSE,NOENTRY;
+c = ret_det_notifica.folio             ,REVERSE,NOENTRY;
+d = ret_det_notifica.correlativo       ,REVERSE,NOENTRY;
+
+e = ret_det_notifica.diag_orig         ,REVERSE,NOENTRY;
+f = ret_det_notifica.diag_afore        ,REVERSE,
+    COMMENTS="1=Aceptado, 2=Rechazado";
+
+g = ret_det_notifica.nombre_datamart   ,REVERSE,NOENTRY;
+h = ret_det_notifica.nombre_procanase  ,REVERSE,NOENTRY;
+i = ret_det_notifica.nombre_bdnsar     ,REVERSE,NOENTRY;
+j = ret_det_notifica.nombre_afore      ,REVERSE,NOENTRY;
+
+r = ret_det_notifica.estado_registro   ,INVISIBLE,NOENTRY;
+
+INSTRUCTIONS
+   
+    DELIMITERS " "
+
+    SCREEN RECORD sa_ret_det_notifica[1] 
+                 (
+                  ret_det_notifica.nss               ,
+                  ret_det_notifica.sec_pension       ,
+                  ret_det_notifica.folio             ,
+                  ret_det_notifica.correlativo       ,
+
+                  ret_det_notifica.nombre_datamart   ,
+                  ret_det_notifica.nombre_procanase  ,
+                  ret_det_notifica.nombre_bdnsar     ,
+                  ret_det_notifica.nombre_afore      ,
+
+                  ret_det_notifica.diag_orig         ,
+                  ret_det_notifica.diag_afore        ,
+                  ret_det_notifica.estado_registro   
+                 )

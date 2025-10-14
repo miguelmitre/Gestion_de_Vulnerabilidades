@@ -1,0 +1,22 @@
+DATABASE FORMONLY
+SCREEN
+{
+                 Folio           Sub           Fec Archivo    
+-----------------------------------------------------------------------------
+               [a      ]       [c     ]       [b         ]
+               [a      ]       [c     ]       [b         ]
+               [a      ]       [c     ]       [b         ]
+               [a      ]       [c     ]       [b         ]
+               [a      ]       [c     ]       [b         ]
+               [a      ]       [c     ]       [b         ]
+               [a      ]       [c     ]       [b         ]
+               [a      ]       [c     ]       [b         ]
+
+}
+ATTRIBUTES
+a=FORMONLY.folio         TYPE INTEGER;
+c=FORMONLY.sub           TYPE CHAR,NOENTRY; 
+b=FORMONLY.fecha_archivo TYPE DATE,FORMAT  ="dd/mm/yyyy",NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_liquida[8] (FORMONLY.folio thru FORMONLY.fecha_archivo)

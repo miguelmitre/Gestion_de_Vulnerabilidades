@@ -1,0 +1,28 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+
+ 	
+
+ 	Proceso       : [c    ]
+
+
+ 	Descripcion   : [d                                       ] 
+                        [d                                       ]
+
+
+        Movimiento    : [e ]
+
+
+
+
+}
+TABLES
+tab_proceso
+ATTRIBUTES
+c =tab_proceso.proceso_cod; 
+d =tab_proceso.descripcion, WORDWRAP;
+e =tab_proceso.movimiento,INCLUDE = ( 1, -1 ), COMMENTS="Digite Movimiento (1, -1)";
+END

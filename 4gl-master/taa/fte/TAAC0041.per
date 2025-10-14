@@ -1,0 +1,29 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                         [f0        ] .
+         
+             0) REVERSAR CARGA DEL ARCHIVO DE SALDOS
+             1) REVERSAR PROVISION 
+             2) REVERSAR LIQUIDACION 
+             3) REVERSAR PROCESO Y LIQUIDACION
+             4) REVERSAR PROCESO
+             5) REVERSAR HISTORICO
+             6) REVERSAR APERTURA             
+             7) REVERSAR APERTURA DE CUENTAS CERTIFICADAS
+
+                     FOLIO A REVERSAR    : [fl       ]
+                     OPCION DE REVERSO   :        [op]
+                     NOMBRE DEL ARCHIVO  : [fn                       ]
+                     FECHA DE CERTIFICACION  : [fr        ]  
+                     TIPO SOLICITUD: [ts        ]
+} 
+ATTRIBUTES
+f0=FORMONLY.fecha  TYPE DATE ,FORMAT ="DD/MM/YYYY",NOENTRY;
+fl=FORMONLY.vfolio TYPE INTEGER;
+fn=FORMONLY.vfile_name TYPE CHAR;
+fr=FORMONLY.vfecha_recep TYPE DATE,FORMAT ="DD/MM/YYYY";
+op=FORMONLY.opcion TYPE SMALLINT, INCLUDE=(0,1,2,3,4,5,6,7);
+ts=FORMONLY.vtipo_solic TYPE INTEGER;
+INSTRUCTIONS
+DELIMITERS "  "

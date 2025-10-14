@@ -1,0 +1,33 @@
+DATABASE formonly
+SCREEN
+{
+\g------------------------------------------------------------------------------\g
+
+    MODIFICANDO   [a       ]
+
+ [b    |c                            |d |e    |f |g       |h|i              ]
+
+ [b    |c                            |d |e    |f |g       |h|i              ]
+
+ [b    |c                            |d |e    |f |g       |h|i              ]
+
+ [b    |c                            |d |e    |f |g       |h|i              ]
+
+ [b    |c                            |d |e    |f |g       |h|i              ]
+
+ [b    |c                            |d |e    |f |g       |h|i              ]
+}
+
+ATTRIBUTES
+b=FORMONLY.transaccion_cod     TYPE CHAR,UPSHIFT,NOENTRY;
+c=FORMONLY.desc_transaccion    TYPE CHAR,NOENTRY;
+d=FORMONLY.estado              TYPE SMALLINT,UPSHIFT,NOENTRY;
+e=FORMONLY.desc_estado         TYPE CHAR,NOENTRY;
+f=FORMONLY.siefore             TYPE SMALLINT, NOENTRY;
+g=FORMONLY.siefore_desc        TYPE CHAR, NOENTRY;
+h=FORMONLY.folio               TYPE INTEGER, INVISIBLE, NOENTRY;
+i=FORMONLY.importe             TYPE DECIMAL, FORMAT= "-----------&.&&";
+a=FORMONLY.desc_id             TYPE CHAR,NOENTRY,REVERSE;
+INSTRUCTIONS 
+SCREEN RECORD scr_3 [6](FORMONLY.transaccion_cod THRU FORMONLY.importe)
+DELIMITERS " "

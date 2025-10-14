@@ -1,0 +1,17 @@
+database safre_af@safre_banc_shm
+screen size 24 by 80
+{
+ruta_ejecuta       [f000                                              ]
+ruta_rescate       [f001                                              ]
+ruta_envio         [f002                                              ]
+ruta_spool         [f003                                              ]
+}
+end
+tables
+dis_parametro
+attributes
+f000 = dis_parametro.ruta_ejecuta;
+f001 = dis_parametro.ruta_rescate;
+f002 = dis_parametro.ruta_envio;
+f003 = dis_parametro.ruta_spool;
+end

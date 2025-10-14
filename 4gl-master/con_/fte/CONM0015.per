@@ -1,0 +1,26 @@
+DATABASE formonly
+SCREEN
+{                         
+ CODIGO           DESCRIPCION                   SIEFORE 
+
+ [a    ][b                                  ][c ][d       ] [e              ]
+ [a    ][b                                  ][c ][d       ] [e              ]
+ [a    ][b                                  ][c ][d       ] [e              ]
+ [a    ][b                                  ][c ][d       ] [e              ]
+ [a    ][b                                  ][c ][d       ] [e              ]
+
+      Utilice las flechas para navegar        < Control C > para regresar
+}
+ATTRIBUTES
+a=FORMONLY.transaccion_cod TYPE INTEGER,NOENTRY;
+b=FORMONLY.desc_transaccion TYPE CHAR,UPSHIFT,NOENTRY;
+c=FORMONLY.siefore     TYPE SMALLINT,NOENTRY;
+d=FORMONLY.siefore_desc TYPE CHAR,NOENTRY;
+e=FORMONLY.importe TYPE DECIMAL, FORMAT= "-----------&.&&";
+INSTRUCTIONS
+SCREEN RECORD scr_3[5](FORMONLY.transaccion_cod,
+		       FORMONLY.desc_transaccion,
+                       FORMONLY.siefore    ,
+                       FORMONLY.siefore_desc,
+                       FORMONLY.importe);
+DELIMITERS "  "

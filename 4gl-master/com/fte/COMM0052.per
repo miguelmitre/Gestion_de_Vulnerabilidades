@@ -1,0 +1,25 @@
+DATABASE FORMONLY
+SCREEN
+{
+ Utilice * (asterico) como Comodin
+ DESCRIPCION ESQUEMA A BUSCAR: [zz                               ]
+------------------------------------------------------------------
+  Codigo       Descripcion Esquema
+
+ [a         ] [b                                                 ]
+ [a         ] [b                                                 ]
+ [a         ] [b                                                 ]
+ [a         ] [b                                                 ]
+ [a         ] [b                                                 ]
+------------------------------------------------------------------
+ <F3> Avanza Pagina   <F4> Retrocede Pagina    <ENTER> Selecciona
+}
+END
+ATTRIBUTES
+zz=FORMONLY.x_buscar TYPE CHAR,UPSHIFT,DEFAULT="*";
+a=FORMONLY.codigo TYPE CHAR,NOENTRY;
+b=FORMONLY.descripcion TYPE CHAR,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[5](FORMONLY.codigo,FORMONLY.descripcion);
+DELIMITERS "  "
+

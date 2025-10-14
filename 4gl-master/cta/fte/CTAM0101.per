@@ -1,0 +1,30 @@
+database FORMONLY
+screen 
+{
+\g-----------------------------------------------------------------------------\g
+    Clave Marca      Descripcion                                Total
+\g-----------------------------------------------------------------------------\g
+                        Fecha Corte : [f         ]
+
+    [f1 ] [f2                                      ]     [f3             ]   
+    [f1 ] [f2                                      ]     [f3             ]   
+    [f1 ] [f2                                      ]     [f3             ]   
+    [f1 ] [f2                                      ]     [f3             ]   
+    [f1 ] [f2                                      ]     [f3             ]   
+    [f1 ] [f2                                      ]     [f3             ]   
+    [f1 ] [f2                                      ]     [f3             ]   
+    [f1 ] [f2                                      ]     [f3             ]   
+    [f1 ] [f2                                      ]     [f3             ]   
+\g-----------------------------------------------------------------------------\g
+                          TOTAL CUENTAS INHABILITADAS:   [f4             ]
+}
+end
+attributes
+f  = FORMONLY.vfecha_ini TYPE DATE, FORMAT = "DD/MM/YYYY", COMMENTS = "Formato fecha Corte dd/mm/aaaa";
+f1 = FORMONLY.marca_cod TYPE SMALLINT, NOENTRY;
+f2 = FORMONLY.marca_desc TYPE CHAR, NOENTRY;
+f3 = FORMONLY.total TYPE INTEGER, FORMAT = "###,###,###,##&";
+f4 = FORMONLY.gtotal TYPE INTEGER, FORMAT = "###,###,###,##&";
+INSTRUCTIONS                                                       
+SCREEN RECORD scr_1[09](FORMONLY.marca_cod THRU FORMONLY.total); 
+DELIMITERS " "

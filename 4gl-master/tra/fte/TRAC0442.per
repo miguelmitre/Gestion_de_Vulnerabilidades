@@ -1,0 +1,36 @@
+DATABASE safre_af
+SCREEN
+{
+                                                                          .
+
+       NSS AFORE    NSS ICEFA    RFC ICEFA      BAN  EST   TIPO ARCHIVO
+             NRO. CUENTA                            
+  [a] [b          ][c          ][d            ][e  ] [f ]  [g              ]
+            [h                             ]
+     
+  [a] [b          ][c          ][d            ][e  ] [f ]  [g              ]
+            [h                             ]
+     
+  [a] [b          ][c          ][d            ][e  ] [f ]  [g              ]
+            [h                             ]
+
+  [a] [b          ][c          ][d            ][e  ] [f ]  [g              ]
+            [h                             ]
+
+}
+tables
+    tra_det_trasp_sal
+
+ATTRIBUTES
+a = FORMONLY.marca               TYPE CHAR         ;
+b = tra_det_trasp_sal.n_seguro                 ,NOENTRY;
+c = tra_det_trasp_sal.n_seguro_ent             ,NOENTRY;
+d = tra_det_trasp_sal.rfc_ent                  ,NOENTRY;
+e = tra_det_trasp_sal.cve_ced_cuenta           ,NOENTRY;
+f = tra_det_trasp_sal.estado                   ,NOENTRY;
+g = FORMONLY.descripcion         TYPE CHAR ,NOENTRY;
+h = tra_det_trasp_sal.nro_ctrl_icefa           ,NOENTRY;
+
+INSTRUCTIONS
+    SCREEN RECORD scr_1[4](FORMONLY.marca THRU tra_det_trasp_sal.nro_ctrl_icefa)
+DELIMITERS "  "

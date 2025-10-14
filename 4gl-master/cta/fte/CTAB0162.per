@@ -1,0 +1,27 @@
+DATABASE safre_tmp
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+  Cod/devol. Descripcion                                    Actividad
+                                                            0 = inactivo
+                                                            1 = activo
+\g----------------------------------------------------------------------------\g
+  [a  ]     [b                                       ]         [c]
+  [a  ]     [b                                       ]         [c]
+  [a  ]     [b                                       ]         [c]
+  [a  ]     [b                                       ]         [c]
+  [a  ]     [b                                       ]         [c]
+  [a  ]     [b                                       ]         [c]
+  [a  ]     [b                                       ]         [c]
+  [a  ]     [b                                       ]         [c]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_mot_dev
+ATTRIBUTES
+a=tab_mot_dev.cod_devolucion;
+b=tab_mot_dev.descripcion;
+c=tab_mot_dev.actividad;
+INSTRUCTIONS
+SCREEN RECORD scr_1[08](tab_mot_dev.cod_devolucion THRU tab_mot_dev.actividad);
+

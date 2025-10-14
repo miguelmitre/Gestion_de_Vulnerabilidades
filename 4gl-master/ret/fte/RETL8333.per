@@ -1,0 +1,51 @@
+DATABASE safre_af
+SCREEN
+{
+        
+[a01     ] - cuenta [a2] subcta [a3] sub subcta [a4]                         
+[a05                                                                      ]
+Fecha Inicio     : [b01       ]      Fecha Fin          : [b05       ]     
+Num Solicitudes  : [b02       ]      Monto Mes Anterior : [b06            ]
+Monto Mes Actual : [b03            ] Acumulado Anual    : [b07            ]
+Folio Envio      : [b04      ] Nombre Archivo : [b08                      ]
+                                                                           
+     -------------------------------------------------------------         
+                                                                           
+[a01     ] - cuenta [a2] subcta [a3] sub subcta [a4]                         
+[a05                                                                      ]
+Fecha Inicio     : [b01       ]      Fecha Fin          : [b05       ]     
+Num Solicitudes  : [b02       ]      Monto Mes Anterior : [b06            ]
+Monto Mes Actual : [b03            ] Acumulado Anual    : [b07            ]
+Folio Envio      : [b04      ] Nombre Archivo : [b08                      ]
+
+}
+END
+
+TABLES
+    tab_movimientos_anexo1112   ,
+    ret_det_anexo1112           ,
+    ret_envio
+
+ATTRIBUTES
+    a01 =  FORMONLY.desc_tipo_cuenta                            ;
+    a2  =  tab_movimientos_anexo1112.cuenta                     ;
+    a3  =  tab_movimientos_anexo1112.subcuenta                  ;
+    a4  =  tab_movimientos_anexo1112.sub_subcuenta              ;
+    a05 =  tab_movimientos_anexo1112.descripcion                ;
+
+    --
+    
+    b01 =  ret_det_anexo1112.fecha_inicio, 
+                FORMAT="DD/MM/YYYY"                             ;
+    b02 =  ret_det_anexo1112.num_solicitudes                    ;
+    b03 =  ret_det_anexo1112.mto_mes_actual                     ;
+    b04 =  ret_det_anexo1112.folio                              ;
+    b05 =  ret_det_anexo1112.fecha_fin  , 
+                FORMAT="DD/MM/YYYY"                             ;
+    b06 =  ret_det_anexo1112.mto_mes_anterior                   ;
+    b07 =  ret_det_anexo1112.mto_acumulado_anual                ;
+    b08 =  ret_envio.nom_archivo                                ;
+
+INSTRUCTIONS
+    SCREEN RECORD scr_1112[2](FORMONLY.desc_tipo_cuenta THRU ret_envio.nom_archivo);
+END

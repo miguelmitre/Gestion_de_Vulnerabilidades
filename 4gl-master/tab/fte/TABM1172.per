@@ -1,0 +1,26 @@
+DATABASE safre_af 
+SCREEN 
+{
+\g---------------------------------------------------------------------------\g
+   T.Comp      Descripcion Tipo Comparativo
+\g---------------------------------------------------------------------------\g
+   [a    ]   [b                                                 ]
+   [a    ]   [b                                                 ]
+   [a    ]   [b                                                 ]
+   [a    ]   [b                                                 ]
+   [a    ]   [b                                                 ]
+   [a    ]   [b                                                 ]
+   [a    ]   [b                                                 ]
+   [a    ]   [b                                                 ]
+   [a    ]   [b                                                 ]
+\g---------------------------------------------------------------------------\g
+}
+TABLES
+tab_tipo_comparativo
+ATTRIBUTES
+a= FORMONLY.codigo;
+b= FORMONLY.descripcion;
+
+INSTRUCTIONS 
+SCREEN RECORD scr_1[9](codigo THRU descripcion);
+END

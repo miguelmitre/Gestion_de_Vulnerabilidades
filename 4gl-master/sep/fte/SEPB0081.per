@@ -1,0 +1,26 @@
+DATABASE safre_af
+
+SCREEN
+{
+                                                                          .
+
+	AL EJECUTAR ESTE PROCESO SERA GENERADO UN ARCHIVO PLANO LLAMADO
+	" AAAAMMDD.MOD " DONDE  : AAAA => ANO DE PROCESO
+	                        : MM   => MES DE PROCESO
+	                        : DD   => DIA DE PROCESO
+	RESCATE EL ARCHIVO DESDE EL DIRECTORIO 
+
+
+	           Desea generar archivo S / N  ? [d] 
+
+
+
+
+
+}
+tables
+afi_solicitud
+ATTRIBUTES
+d=FORMONLY.generar TYPE CHAR, UPSHIFT,AUTONEXT;
+INSTRUCTIONS
+DELIMITERS "  "

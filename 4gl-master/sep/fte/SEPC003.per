@@ -1,0 +1,39 @@
+DATABASE FORMONLY
+SCREEN
+{
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+Folio_Sep        nss Invadido
+[folio   ]      [nss        ][nom                                 ]
+nss Reclamante  [nss_recla  ][nom_recla                           ]
+%Recla-
+ mante    F_Liquidac   Scta  T_Mov  Id_Aportante       Acciones          Pesos
+ [p     ] [a         ] [b ] [c  ]  [d         ][e             ][f            ]
+ [p     ] [a         ] [b ] [c  ]  [d         ][e             ][f            ]
+ [p     ] [a         ] [b ] [c  ]  [d         ][e             ][f            ]
+ [p     ] [a         ] [b ] [c  ]  [d         ][e             ][f            ]
+ [p     ] [a         ] [b ] [c  ]  [d         ][e             ][f            ]
+ [p     ] [a         ] [b ] [c  ]  [d         ][e             ][f            ]
+ [p     ] [a         ] [b ] [c  ]  [d         ][e             ][f            ]
+ [p     ] [a         ] [b ] [c  ]  [d         ][e             ][f            ]
+ [p     ] [a         ] [b ] [c  ]  [d         ][e             ][f            ]
+ [p     ] [a         ] [b ] [c  ]  [d         ][e             ][f            ]
+ [p     ] [a         ] [b ] [c  ]  [d         ][e             ][f            ]
+
+}
+ATTRIBUTES
+nss =FORMONLY.g_nss_inv              TYPE  CHAR;
+nom =FORMONLY.nombre_invadido        TYPE  CHAR,NOENTRY;
+nss_recla =FORMONLY.g_nss_recla      TYPE  CHAR,NOENTRY;
+nom_recla =FORMONLY.nombre_recla     TYPE  CHAR,NOENTRY;
+folio =FORMONLY.folio                TYPE  INTEGER;
+p   =FORMONLY.porc_sep               TYPE  DECIMAL(5,2);
+a   =FORMONLY.fecha_conversion       TYPE  DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+b   =FORMONLY.subcuenta              TYPE  CHAR,NOENTRY;
+c   =FORMONLY.tipo_movimiento        TYPE  CHAR,NOENTRY;
+d   =FORMONLY.id_aportante           TYPE  CHAR,NOENTRY;
+e   =FORMONLY.acciones               TYPE  DECIMAL;
+f   =FORMONLY.pesos                  TYPE  CHAR,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_movtos[11](FORMONLY.porc_sep      THRU  FORMONLY.pesos);
+

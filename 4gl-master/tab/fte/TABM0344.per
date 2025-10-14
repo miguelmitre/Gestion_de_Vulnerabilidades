@@ -1,0 +1,32 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+                                       
+               Siefore         [f000  ][f004                                 ]
+
+               Precio del dia  [f001                 ]
+
+               Fecha Valuacion [f003      ]
+
+
+
+
+  
+
+
+ [h      ]
+\g----------------------------------------------------------------------------\g
+}
+end
+tables
+glo_valor_accion
+tab_siefore_local
+attributes
+f000 = glo_valor_accion.codigo_siefore;
+f001 = glo_valor_accion.precio_del_dia;
+f003 = glo_valor_accion.fecha_valuacion, FORMAT="dd/mm/yyyy";
+f004 = tab_siefore_local.razon_social,UPSHIFT;
+h=formonly.rowid,INVISIBLE;
+end

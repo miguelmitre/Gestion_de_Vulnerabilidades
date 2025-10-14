@@ -1,0 +1,33 @@
+DATABASE formonly
+SCREEN
+{
+                                                                             .
+
+
+        [f1                                              ]
+        [f1                                              ]
+
+        [f2                           ][f3          ]
+        [f6                 ][f7]
+        [f4                           ][f5          ]
+
+
+
+
+
+
+
+
+
+}
+ATTRIBUTES
+f1=formonly.gc_mensaje1          TYPE CHAR,UPSHIFT,WORDWRAP;
+f2=formonly.gc_mensaje2          TYPE CHAR,UPSHIFT;
+f3=formonly.gd_fecha_corte       TYPE DATE,FORMAT="DD/MM/YYYY";
+f4=formonly.gc_mensaje4          TYPE CHAR,UPSHIFT;
+f5=formonly.gd_fecha_valuacion   TYPE DATE,FORMAT="DD/MM/YYYY";
+f6=formonly.gc_mensaje3          TYPE CHAR,UPSHIFT;
+f7=formonly.gi_paso      ;
+INSTRUCTIONS
+DELIMITERS " "
+

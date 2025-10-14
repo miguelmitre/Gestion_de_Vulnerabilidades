@@ -1,0 +1,27 @@
+DATABASE formonly
+SCREEN
+{
+                                                                        .
+
+
+
+    INDIQUE LA FECHA DE OPERACION :[fc        ]
+
+
+
+
+    DESEA GENERAR EL ARCHIVO  S/N : [a ]
+
+
+
+
+
+
+
+}
+ATTRIBUTES
+fc=formonly.v_fecha_operacion  TYPE DATE, FORMAT="dd/mm/yyyy";
+a=formonly.v_respuesta TYPE CHAR,UPSHIFT;
+INSTRUCTIONS
+DELIMITERS " "
+

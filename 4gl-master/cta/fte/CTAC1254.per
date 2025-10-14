@@ -1,0 +1,36 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+                                                                             .
+
+          FECHA INICIO: [fi        ]       FECHA FIN: [ff        ]
+
+               CODIGO OPERACION                TIPO REGISTRO  TOT COD OP
+ [a |b                                       |c              |d         ]
+ [a |b                                       |c              |d         ]
+ [a |b                                       |c              |d         ]
+ [a |b                                       |c              |d         ]
+ [a |b                                       |c              |d         ]
+ [a |b                                       |c              |d         ]
+ [a |b                                       |c              |d         ]
+ [a |b                                       |c              |d         ]
+ [a |b                                       |c              |d         ]
+ [a |b                                       |c              |d         ]
+                                                      TOTAL: [e         ]
+
+
+}
+ATTRIBUTES
+fi = formonly.fecha_ini TYPE DATE, COMMENTS = "Fecha Inicial consulta, formato dd/mm/aaaa", FORMAT = "DD/MM/YYYY";
+ff = formonly.fecha_corte TYPE DATE, COMMENTS = "Fecha Final consulta, formato dd/mm/aaaa", FORMAT = "DD/MM/YYYY";
+a  = formonly.cod_operacion TYPE CHAR;
+b  = formonly.desc_cod_op TYPE CHAR;
+c  = formonly.desc_tip_reg TYPE CHAR;
+d  = formonly.tot_cod_op TYPE INTEGER;
+e  = formonly.total_est TYPE INTEGER;
+
+INSTRUCTIONS
+  SCREEN RECORD scr_3[10](formonly.cod_operacion THRU formonly.tot_cod_op)
+DELIMITERS " "
+

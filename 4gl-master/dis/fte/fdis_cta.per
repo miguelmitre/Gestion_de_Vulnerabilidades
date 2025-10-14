@@ -1,0 +1,57 @@
+database safre_af@safre_banc_shm
+screen size 24 by 80
+{
+tipo_movimiento    [f000  ]
+subcuenta          [f001  ]
+siefore            [f002  ]
+folio              [f003       ]
+consecutivo_lote   [f004       ]
+nss                [f005       ]
+curp               [f006              ]
+folio_sua          [f007  ]
+fecha_pago         [f008      ]
+fecha_valor        [f009      ]
+fecha_conversion   [f010      ]
+monto_en_pesos     [f011                    ]
+monto_en_acciones  [f012                    ]
+precio_accion      [f013                    ]
+dias_cotizados     [f014  ]
+sucursal           [f015      ]
+id_aportante       [f016       ]
+estado             [f017  ]
+fecha_proceso      [f018      ]
+usuario            [f019    ]
+}
+screen
+{
+fecha_archivo      [f020      ]
+etiqueta           [f021  ]
+}
+end
+tables
+dis_cuenta
+attributes
+f000 = dis_cuenta.tipo_movimiento;
+f001 = dis_cuenta.subcuenta;
+f002 = dis_cuenta.siefore;
+f003 = dis_cuenta.folio;
+f004 = dis_cuenta.consecutivo_lote;
+f005 = dis_cuenta.nss;
+f006 = dis_cuenta.curp;
+f007 = dis_cuenta.folio_sua;
+f008 = dis_cuenta.fecha_pago;
+f009 = dis_cuenta.fecha_valor;
+f010 = dis_cuenta.fecha_conversion;
+f011 = dis_cuenta.monto_en_pesos;
+f012 = dis_cuenta.monto_en_acciones;
+f013 = dis_cuenta.precio_accion;
+f014 = dis_cuenta.dias_cotizados;
+f015 = dis_cuenta.sucursal;
+f016 = dis_cuenta.id_aportante;
+f017 = dis_cuenta.estado;
+f018 = dis_cuenta.fecha_proceso;
+f019 = dis_cuenta.usuario;
+
+f020 = dis_cuenta.fecha_archivo;
+f021 = dis_cuenta.etiqueta;
+end

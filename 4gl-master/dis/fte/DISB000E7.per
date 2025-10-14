@@ -1,0 +1,53 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+ Folio [a      ]  Fecha Proceso [b         ]   Fecha Liquidacion [c         ]
+ Precio Titulo    [d             ] Titulos Adquirir  [ac                    ]
+ Precio Partici.  [ad            ] Monto Voluntarias [ae                    ]
+ -Sub------Aportaciones---------------------------------Total_liquidacion--
+
+  BONO   [e                      ]                 [g                      ]
+  DBMX   [h                      ]                 [i                      ]
+
+ ----------Intereses------------------------------------Total liquidacion--
+
+  BONO   [m                      ]                 [n                      ]
+  DBMX   [o                      ]                 [p                      ]
+
+ --------Total----------------------------------------Total liquidacion----
+
+TOT BONO [s                      ]                 [u                      ]
+TOT DBMX [y                      ]                 [z                      ]
+
+}
+ATTRIBUTES
+a=FORMONLY.folio             TYPE INTEGER;
+b=FORMONLY.fecha_proceso     TYPE DATE,          FORMAT  ="dd-mm-yyyy",NOENTRY;
+c=FORMONLY.fecha_liquidacion TYPE DATE,          FORMAT  ="dd-mm-yyyy";
+
+d=FORMONLY.precio_del_dia    TYPE DECIMAL(16,6),FORMAT="---,---.------",NOENTRY;
+ac=FORMONLY.titulos          TYPE DECIMAL(16,6),FORMAT="-,------,------.------",
+                             REVERSE;
+ad=FORMONLY.valor_part       TYPE DECIMAL(16,6),FORMAT="---,---.------",NOENTRY;
+ae=FORMONLY.monto_vol        TYPE DECIMAL(16,6),FORMAT="-,------,------.------",
+                             NOENTRY;
+
+e=FORMONLY.aporte_bono      TYPE DECIMAL(18,4),FORMAT="--,---,---,---,---.----";
+g=FORMONLY.aporte_neto_bono TYPE DECIMAL(18,4),FORMAT="--,---,---,---,---.----";
+
+h=FORMONLY.aporte_dbmx      TYPE DECIMAL(16,2),FORMAT="----,---,---,---,---.--";
+i=FORMONLY.aporte_neto_dbmx TYPE DECIMAL(16,2),FORMAT="----,---,---,---,---.--";
+
+m=FORMONLY.interes_bono      TYPE DECIMAL(18,4),FORMAT="--,---,---,---,---.----";
+n=FORMONLY.interes_neto_bono TYPE DECIMAL(18,4),FORMAT="--,---,---,---,---.----";
+
+o=FORMONLY.interes_dbmx      TYPE DECIMAL(16,2),FORMAT="----,---,---,---,---.--";
+p=FORMONLY.interes_neto_dbmx TYPE DECIMAL(16,2),FORMAT="----,---,---,---,---.--";
+
+s=FORMONLY.gran_tot_bono     TYPE DECIMAL(18,4),FORMAT="--,---,---,---,---.----";
+u=FORMONLY.gran_tot_net_bono TYPE DECIMAL(18,4),FORMAT="--,---,---,---,---.----";
+
+y=FORMONLY.gran_tot_dbmx     TYPE DECIMAL(16,2),FORMAT="----,---,---,---,---.--";
+z=FORMONLY.gran_tot_net_dbmx TYPE DECIMAL(16,2),FORMAT="----,---,---,---,---.--";
+

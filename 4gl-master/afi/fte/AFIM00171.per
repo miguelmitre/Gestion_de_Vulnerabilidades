@@ -1,0 +1,25 @@
+DATABASE FORMONLY
+SCREEN
+{
+      Clave unica de registro poblacional ingresado anteriormente, 
+      con los siguientes datos: 
+
+  CURP               NSS         FOLIO     TS ESTADO       FECHA          
+ --------------------------------------------------------------------- 
+ [a                 |b          |c         |d|e           |f         ]
+ [a                 |b          |c         |d|e           |f         ]
+ [a                 |b          |c         |d|e           |f         ]
+
+
+
+}
+ATTRIBUTES
+a=FORMONLY.n_unico TYPE CHAR, NOENTRY;
+b=FORMONLY.n_seguro TYPE CHAR, NOENTRY;
+c=FORMONLY.n_folio TYPE CHAR, NOENTRY;
+d=FORMONLY.tipo_solicitud TYPE CHAR, NOENTRY;
+e=FORMONLY.estado TYPE CHAR, NOENTRY;
+f=FORMONLY.fentcons TYPE CHAR, NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD rec(FORMONLY.n_unico,FORMONLY.n_seguro,FORMONLY.n_folio,FORMONLY.tipo_solicitud,FORMONLY.estado,FORMONLY.fentcons )
+DELIMITERS "  "

@@ -1,0 +1,29 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                                           .
+
+
+
+
+
+         Folio Solicitud           [f000      ]
+
+         Esquema Comision Viejo    [f003 ]
+
+         Esquema Comision Nuevo    [f005 ]
+
+
+
+ 
+
+
+}
+END
+ATTRIBUTES
+f000 = FORMONLY.vn_folio TYPE DECIMAL;
+f003 = FORMONLY.vcod_esq_viejo TYPE SMALLINT,NOENTRY;
+f005 = FORMONLY.vcod_esq_comision TYPE SMALLINT;
+END
+INSTRUCTIONS
+SCREEN RECORD scr_1(FORMONLY.vn_folio THRU FORMONLY.vcod_esq_comision)

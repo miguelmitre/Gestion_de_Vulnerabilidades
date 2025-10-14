@@ -1,0 +1,27 @@
+DATABASE FORMONLY
+SCREEN
+{
+---------------------------------------------------------
+         CODIGO           DESCRIPCION
+        [a    ]    [b                              ]
+        [a    ]    [b                              ]
+        [a    ]    [b                              ]
+        [a    ]    [b                              ]
+        [a    ]    [b                              ]
+        [a    ]    [b                              ]
+---------------------------------------------------------
+      < F3 > Avanza Pagina   < F4 > Retrocede Pagina
+      < ENTER > Selecciona   < Ctrl-c > Crear
+}
+END
+ATTRIBUTES
+a=FORMONLY.afore_cod TYPE INTEGER;
+b=FORMONLY.afore_desc TYPE CHAR,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[6](FORMONLY.afore_cod,FORMONLY.afore_desc);
+DELIMITERS "  "
+
+
+
+
+

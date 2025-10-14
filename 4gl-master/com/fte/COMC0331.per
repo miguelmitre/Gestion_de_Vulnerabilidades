@@ -1,0 +1,45 @@
+DATABASE safre_af
+SCREEN
+{
+------------------------------------------------------------------------------
+       Fecha Corte  [a         ]             Num nomina   [c         ]
+
+
+------------------------------------------------------------------------------
+ REG CONSAR  GERENCIA             NOMBRE DEL PROMOTOR 
+------------------------------------------------------------------------------
+[d         ] [i   ] [j                                                      ]
+[d         ] [i   ] [j                                                      ]
+[d         ] [i   ] [j                                                      ]
+[d         ] [i   ] [j                                                      ]
+[d         ] [i   ] [j                                                      ]
+[d         ] [i   ] [j                                                      ]
+[d         ] [i   ] [j                                                      ]
+[d         ] [i   ] [j                                                      ]
+[d         ] [i   ] [j                                                      ]
+
+ Num reg:[r     ]
+}
+TABLES
+pro_mae_promotor
+com_comis_detalle
+
+ATTRIBUTES
+
+a = com_comis_detalle.fecha_corte, FORMAT='DD-MM-YYYY';
+c = com_comis_detalle.codven;
+
+d = FORMONLY.fcodven TYPE CHAR;
+i = FORMONLY.vcoduni_n1 TYPE CHAR;
+j = FORMONLY.vnom TYPE CHAR;
+
+r = FORMONLY.registros TYPE INTEGER, FORMAT='------';
+
+INSTRUCTIONS 
+SCREEN RECORD scr_0   (com_comis_detalle.fecha_corte THRU
+                       com_comis_detalle.codven); 
+SCREEN RECORD scr_1[09](FORMONLY.fcodven THRU
+                        FORMONLY.vnom 
+                       );
+SCREEN RECORD scr_3 (FORMONLY.registros);
+DELIMITERS "  "

@@ -1,0 +1,31 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+               ______________________________________                        .
+                Reg Pat      Folio       Consecutivo
+               ______________________________________
+               [a          ][b         ][c          ]
+               [a          ][b         ][c          ]
+               [a          ][b         ][c          ]
+               [a          ][b         ][c          ]
+               [a          ][b         ][c          ]
+               [a          ][b         ][c          ]
+               [a          ][b         ][c          ]
+               [a          ][b         ][c          ]
+               [a          ][b         ][c          ]
+               [a          ][b         ][c          ]
+
+
+
+
+}
+END
+ATTRIBUTES
+a=FORMONLY.reg_patronal_imss TYPE CHAR   ,NOENTRY;
+b=FORMONLY.folio             TYPE INTEGER,NOENTRY;
+c=FORMONLY.consecutivo_lote  TYPE INTEGER,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](FORMONLY.reg_patronal_imss THRU
+                        FORMONLY.consecutivo_lote);
+DELIMITERS "[]"

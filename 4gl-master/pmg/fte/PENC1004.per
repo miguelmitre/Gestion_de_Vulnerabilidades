@@ -1,0 +1,41 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                                             .
+ NSS         [a01        ]   Apellido Paterno   [a04                      ]
+ Consecutivo [a02        ]   Apellido Materno   [a05                      ]
+                             Nombre             [a06                      ]
+
+ Sec         Fecha     Folio      Fecha                   Monto en    
+ Con Mens  Pago Est   Liquida    Liquida      Estado       Pesos              
+ [b1][b2][b03       ][b04     ][b05       ][b06      ][b07          ]
+ [b1][b2][b03       ][b04     ][b05       ][b06      ][b07          ]
+ [b1][b2][b03       ][b04     ][b05       ][b06      ][b07          ]
+ [b1][b2][b03       ][b04     ][b05       ][b06      ][b07          ]
+ [b1][b2][b03       ][b04     ][b05       ][b06      ][b07          ]
+ [b1][b2][b03       ][b04     ][b05       ][b06      ][b07          ]
+ [b1][b2][b03       ][b04     ][b05       ][b06      ][b07          ]
+ [b1][b2][b03       ][b04     ][b05       ][b06      ][b07          ]
+ [b1][b2][b03       ][b04     ][b05       ][b06      ][b07          ]
+ [b1][b2][b03       ][b04     ][b05       ][b06      ][b07          ]
+}
+
+ATTRIBUTES
+
+    a01 = FORMONLY.nss                  TYPE CHAR    , NOENTRY ;
+    a02 = FORMONLY.consecutivo          TYPE DECIMAL , NOENTRY ;
+    a04 = FORMONLY.paterno              TYPE CHAR    , NOENTRY ;
+    a05 = FORMONLY.materno              TYPE CHAR    , NOENTRY ;
+    a06 = FORMONLY.nombre               TYPE CHAR    , NOENTRY ;
+
+    b1  = FORMONLY.sec_contrato         TYPE SMALLINT, NOENTRY ;
+    b2  = FORMONLY.num_mensualidad      TYPE SMALLINT, NOENTRY ;
+    b03 = FORMONLY.fecha_pago_estimada  TYPE DATE    , NOENTRY ;
+    b04 = FORMONLY.folio_liquida        TYPE DECIMAL , NOENTRY ;
+    b05 = FORMONLY.fecha_liquida        TYPE DATE    , NOENTRY ;
+    b06 = FORMONLY.estado               TYPE CHAR    , NOENTRY ;
+    b07 = FORMONLY.mto_pago_pesos       TYPE DECIMAL , NOENTRY ;
+
+
+INSTRUCTIONS
+    SCREEN RECORD scr_pagos[10](FORMONLY.sec_contrato THRU FORMONLY.mto_pago_pesos);

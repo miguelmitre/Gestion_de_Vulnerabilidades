@@ -1,0 +1,27 @@
+DATABASE FORMONLY
+SCREEN
+{
+      UTILICE EL * ( ASTERISCO ) COMO COMODIN
+INGRESE AP.PATERNO A BUSCAR [zz                        ]
+---------------------------------------------------------
+         CODIGO           DESCRIPCION
+   [a         ]    [b                                  ]
+   [a         ]    [b                                  ]
+   [a         ]    [b                                  ]
+   [a         ]    [b                                  ]
+   [a         ]    [b                                  ]
+   [a         ]    [b                                  ]
+---------------------------------------------------------
+      < F3 > Avanza Pagina   < F4 > Retrocede Pagina
+                 < ENTER > Selecciona
+}
+END
+ATTRIBUTES
+zz=FORMONLY.x_buscar TYPE CHAR,UPSHIFT;
+a=FORMONLY.codigo TYPE CHAR,NOENTRY;
+b=FORMONLY.descripcion TYPE CHAR,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[6](FORMONLY.codigo,FORMONLY.descripcion);
+DELIMITERS "  "
+
+

@@ -1,0 +1,41 @@
+DATABASE safre_af
+SCREEN
+{
+
+
+                                    ------------------   --------------------
+
+ Codigo  Tipo Promotor               RED  CAN  PUESTO    COM                 .
+
+[f000  ][f001                     ] [a  ][b  ][c      ] [d  ][e     ][f     ]
+[f000  ][f001                     ] [a  ][b  ][c      ] [d  ][e     ][f     ]
+[f000  ][f001                     ] [a  ][b  ][c      ] [d  ][e     ][f     ]
+[f000  ][f001                     ] [a  ][b  ][c      ] [d  ][e     ][f     ]
+[f000  ][f001                     ] [a  ][b  ][c      ] [d  ][e     ][f     ]
+[f000  ][f001                     ] [a  ][b  ][c      ] [d  ][e     ][f     ]
+[f000  ][f001                     ] [a  ][b  ][c      ] [d  ][e     ][f     ]
+[f000  ][f001                     ] [a  ][b  ][c      ] [d  ][e     ][f     ]
+[f000  ][f001                     ] [a  ][b  ][c      ] [d  ][e     ][f     ]
+[f000  ][f001                     ] [a  ][b  ][c      ] [d  ][e     ][f     ]
+[f000  ][f001                     ] [a  ][b  ][c      ] [d  ][e     ][f     ]
+[f000  ][f001                     ] [a  ][b  ][c      ] [d  ][e     ][f     ]
+[f000  ][f001                     ] [a  ][b  ][c      ] [d  ][e     ][f     ]
+}
+END
+TABLES
+com_tipo_promotor
+ATTRIBUTES
+f000 = com_tipo_promotor.cod_tipo_prom;
+f001 = com_tipo_promotor.desc_tipo,UPSHIFT;
+a = com_tipo_promotor.red_cod;
+b = com_tipo_promotor.canal_cod;
+c = com_tipo_promotor.puesto_cod;
+d = com_tipo_promotor.indicador_comision;
+e = com_tipo_promotor.prod_desde,NOENTRY,INVISIBLE ;
+f = com_tipo_promotor.prod_hasta,NOENTRY,INVISIBLE;
+
+INSTRUCTIONS
+DELIMITERS "  "
+SCREEN RECORD scr_1[13](com_tipo_promotor.cod_tipo_prom THRU
+                        com_tipo_promotor.prod_hasta);
+

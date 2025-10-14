@@ -1,0 +1,33 @@
+DATABASE safre_af
+SCREEN
+{
+---------------------------------------------------------
+   NUM
+   DOC.   D E S C R I P C I O N
+  [a  ]  [b                                            ]
+  [a  ]  [b                                            ]
+  [a  ]  [b                                            ]
+  [a  ]  [b                                            ]
+  [a  ]  [b                                            ]
+  [a  ]  [b                                            ]
+  [a  ]  [b                                            ]
+  [a  ]  [b                                            ]
+  [a  ]  [b                                            ]
+  [a  ]  [b                                            ]
+---------------------------------------------------------
+}
+END
+tables
+tra_cat_doctos
+attributes
+a = tra_cat_doctos.num_docto;
+b = tra_cat_doctos.descripcion;
+end
+INSTRUCTIONS
+    SCREEN RECORD   sa_cat_doctos[10](tra_cat_doctos.num_docto,tra_cat_doctos.descripcion)
+
+DELIMITERS " "
+
+
+
+

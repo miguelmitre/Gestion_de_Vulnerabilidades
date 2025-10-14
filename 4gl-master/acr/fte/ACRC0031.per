@@ -1,0 +1,27 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                         [f0        ] .
+
+
+             1) REVERSAR CARGA DE OPERACION 01 
+             2) REVERSAR GENERACION OPERACION 06
+             3) REVERSAR GENERACION OPERACION 09 (PROVISION)
+             4) REVERSAR LIQUIDACION
+             
+             
+             OPCION DE REVERSO     : [op]
+             NOMBRE ARCHIVO OP. 01 : [a                   ]
+             FOLIO A REVERSAR      : [fl       ]
+
+
+
+
+}
+ATTRIBUTES
+f0=FORMONLY.fecha  TYPE DATE ,FORMAT ="DD/MM/YY",NOENTRY;
+op=FORMONLY.opcion TYPE SMALLINT, INCLUDE=(1,2,3,4,5,6,7);
+a=FORMONLY.vnombre_archivo TYPE CHAR;
+fl=FORMONLY.vfolio TYPE INTEGER;
+INSTRUCTIONS
+DELIMITERS "  "

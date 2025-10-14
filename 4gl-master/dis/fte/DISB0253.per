@@ -1,0 +1,30 @@
+DATABASE safre_af
+SCREEN
+{
+\g---------------------------------------------------------------------------\g
+   F. Proceso    F. Aplica  Sub.     NSS          Hora     Usuario  Origen
+\g---------------------------------------------------------------------------\g
+  [a         ] [b         ] [c] [d           ] [e       ] [f        ] [g]
+  [a         ] [b         ] [c] [d           ] [e       ] [f        ] [g]
+  [a         ] [b         ] [c] [d           ] [e       ] [f        ] [g]
+  [a         ] [b         ] [c] [d           ] [e       ] [f        ] [g]
+  [a         ] [b         ] [c] [d           ] [e       ] [f        ] [g]
+  [a         ] [b         ] [c] [d           ] [e       ] [f        ] [g]
+  [a         ] [b         ] [c] [d           ] [e       ] [f        ] [g]
+  [a         ] [b         ] [c] [d           ] [e       ] [f        ] [g]
+  [a         ] [b         ] [c] [d           ] [e       ] [f        ] [g]
+  [a         ] [b         ] [c] [d           ] [e       ] [f        ] [g]
+\g---------------------------------------------------------------------------\g
+}
+TABLES
+cta_nss_max
+ATTRIBUTES
+a=cta_nss_max.fecha_proceso,FORMAT = "DD-MM-YYYY";
+b=cta_nss_max.fecha_aplica,FORMAT = "DD-MM-YYYY";
+c=cta_nss_max.subcuenta,FORMAT="#";
+d=cta_nss_max.nss;
+e=cta_nss_max.hora_proceso;
+f=cta_nss_max.usuario;
+g=cta_nss_max.origen_cod;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](cta_nss_max.fecha_proceso THRU cta_nss_max.origen_cod);

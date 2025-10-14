@@ -1,0 +1,59 @@
+DATABASE FORMONLY
+SCREEN
+{ 
+
+N.S.S.    [s          ]  RFC [r            ]   C.U.R.P.  [u                 ]
+Paterno   [p                         ]    Materno[m                         ]
+Nombres   [n                         ]    Fecha de Nacimiento    [t         ]
+No. Folio [nf        ]   Tipo solicitud   [ts]  
+-----------------------------------------------------------------------------  
+
+Tipo de telefono   [a] [b              ]  Pais [c  ] [d                     ] 
+LADA [g  ] Telefono [e                                       ] Ext[f    ][ww]
+De[de      |j|jj]  A[aq      |k|kk]  Dia[i|ii                 ]
+
+Tipo de telefono   [a] [b              ]  Pais [c  ] [d                     ] 
+LADA [g  ] Telefono [e                                       ] Ext[f    ][ww]
+De[de      |j|jj]  A[aq      |k|kk]  Dia[i|ii                 ]
+
+Tipo de telefono   [a] [b              ]  Pais [c  ] [d                     ] 
+LADA [g  ] Telefono [e                                       ] Ext[f    ][ww]
+De[de      |j|jj]  A[aq      |k|kk]  Dia[i|ii                 ]
+}
+END
+ATTRIBUTES
+s=FORMONLY.n_seguro TYPE CHAR,UPSHIFT;
+r=FORMONLY.n_rfc TYPE CHAR,UPSHIFT;
+u=FORMONLY.n_unico TYPE CHAR,UPSHIFT;
+p=FORMONLY.paterno TYPE CHAR,UPSHIFT;
+m=FORMONLY.materno TYPE CHAR,UPSHIFT;
+n=FORMONLY.nombres TYPE CHAR,UPSHIFT;
+t=FORMONLY.fena TYPE DATE,FORMAT="dd-mm-yyyy";
+nf=FORMONLY.n_folio TYPE INTEGER,FORMAT="&&&&&&&&&&"; 
+ts=FORMONLY.tipo_solicitud TYPE SMALLINT; 
+
+a=FORMONLY.tel_cod TYPE SMALLINT,COMMENTS="Ingrese tipo de telefono";
+b=FORMONLY.tel_desc TYPE CHAR, NOENTRY;
+c=FORMONLY.pais_cod TYPE CHAR,UPSHIFT;
+d=FORMONLY.pais_desc TYPE CHAR, NOENTRY;
+g=FORMONLY.cve_lada TYPE CHAR;
+e=FORMONLY.telefono TYPE CHAR;
+f=FORMONLY.extension TYPE INTEGER,UPSHIFT;
+ww=FORMONLY.idrow, NOENTRY, INVISIBLE; 
+de=FORMONLY.hora_ini TYPE DATETIME HOUR TO MINUTE,
+COMMENTS="Hora Inicial Formato hh:mm Ejm: 9:00 para las 9 AM o 13:00 para la 1 PM";
+j=FORMONLY.tipo_hora_ini TYPE CHAR,UPSHIFT,INCLUDE=("1","2"),
+COMMENTS="1=Antes Meridiano   o   2=Pasado Meridiano ";
+jj=FORMONLY.desc_tipo_hora_ini TYPE CHAR, NOENTRY;
+aq=FORMONLY.hora_fin TYPE DATETIME HOUR TO MINUTE,
+COMMENTS="Hora Final de localizacion Ejm: 900 para las 9 AM o 1300 para la 1 PM";
+k=FORMONLY.tipo_hora_fin TYPE CHAR,UPSHIFT,INCLUDE=("1","2"),
+COMMENTS="1=Antes Meridiano   o   2=Pasado Meridiano ";
+kk=FORMONLY.desc_tipo_hora_fin TYPE CHAR, NOENTRY;
+i=FORMONLY.dia TYPE CHAR, INCLUDE=("1","2","3"),
+COMMENTS="1=Lunes a Viernes     2=Sabado o Domingo    3=Lunes a Domingo";
+ii=FORMONLY.desc_dia TYPE CHAR, NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[3](FORMONLY.tel_cod THRU FORMONLY.desc_dia);
+DELIMITERS "  "
+

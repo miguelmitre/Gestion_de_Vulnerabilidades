@@ -1,0 +1,30 @@
+DATABASE safre_af
+SCREEN
+{
+
+         Layout  Modulo  Programas         Descripcion
+\g----------------------------------------------------------------------------\g
+       [a      ] [b  ] [c               ] [d                           ]
+       [a      ] [b  ] [c               ] [d                           ]
+       [a      ] [b  ] [c               ] [d                           ]
+       [a      ] [b  ] [c               ] [d                           ]
+       [a      ] [b  ] [c               ] [d                           ]
+       [a      ] [b  ] [c               ] [d                           ]
+       [a      ] [b  ] [c               ] [d                           ]
+       [a      ] [b  ] [c               ] [d                           ]
+       [a      ] [b  ] [c               ] [d                           ]
+       [a      ] [b  ] [c               ] [d                           ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_layout
+ATTRIBUTES
+a=tab_layout.layout_cod;
+b=tab_layout.modulo_cod;
+c=tab_layout.programa;
+d=tab_layout.layout_des;
+
+INSTRUCTIONS 
+DELIMITERS " "
+SCREEN RECORD scr_1[10](tab_layout.layout_cod THRU tab_layout.layout_des);
+END

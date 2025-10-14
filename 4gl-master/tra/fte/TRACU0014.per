@@ -1,0 +1,36 @@
+
+DATABASE FORMONLY
+SCREEN
+{
+\g-----------------------------------------------------------------------------\g
+  TRACIU03              CONSULTA DE FOLIOS                        [a01       ]
+
+
+       [a02      ]    [a03                 ][a05                ]
+       [a02      ]    [a03                 ][a05                ]
+       [a02      ]    [a03                 ][a05                ]
+       [a02      ]    [a03                 ][a05                ]
+       [a02      ]    [a03                 ][a05                ]
+       [a02      ]    [a03                 ][a05                ]
+       [a02      ]    [a03                 ][a05                ]
+       [a02      ]    [a03                 ][a05                ]
+       [a02      ]    [a03                 ][a05                ]
+       [a02      ]    [a03                 ][a05                ]
+       [a02      ]    [a03                 ][a05                ]
+       [a02      ]    [a03                 ][a05                ]
+       [a02      ]    [a03                 ][a05                ]
+       [a02      ]    [a03                 ][a05                ]
+}
+END
+ATTRIBUTES
+
+a01=FORMONLY.fecha_dia                TYPE DATE,    FORMAT = "DD/MM/YYYY",           NOENTRY;
+
+a02=FORMONLY.folio                    TYPE INTEGER;
+a03=FORMONLY.f_carga                  TYPE DATE,    FORMAT = "DD/MMM/YYYY",          NOENTRY;
+a05=FORMONLY.cuantos                  TYPE DATE,    FORMAT = "###,###,###,###,##&",  NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD l_reg[14](FORMONLY.folio      THRU FORMONLY.cuantos)
+DELIMITERS " "
+                      

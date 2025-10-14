@@ -1,0 +1,32 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+     ACCIONES CIRCULANTE DE CAPITAL FIJO [a                      ]
+
+     ACCIONES CIRCULANTE DE RES. ESPEC.  [b                      ]
+
+     ACCIONES CIRCULANTE DE INV. PERMA.  [c                      ]
+
+     ACCIONES CIRCULANTE DE TRABAJADORES [d                      ]
+
+     ACCIONES CIRCULANTE DE TRABA. VOLU. [e                      ]
+
+     ACCIONES CIRCULANTE DE INV. AFORE   [f                      ]
+
+     ACCIONES CIRCULANTE TOTALES         [g                      ]
+
+     [h      ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+glo_valor_accion
+ATTRIBUTES
+a=glo_valor_accion.acc_circ_cap_fijo;
+b=glo_valor_accion.acc_circ_res_esp;
+c=glo_valor_accion.acc_circ_inv_perm;
+d=glo_valor_accion.acc_circ_traba;
+e=glo_valor_accion.acc_circ_traba_vol;
+f=glo_valor_accion.acc_circ_inv_afore;
+g=glo_valor_accion.acc_circ_totales;
+h=formonly.rowid,INVISIBLE;

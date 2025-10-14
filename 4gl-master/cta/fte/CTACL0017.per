@@ -1,0 +1,16 @@
+DATABASE formonly
+SCREEN
+{                         
+   [a        ][b][c                    ]
+   [a        ][b][c                    ]
+   [a        ][b][c                    ]
+   [a        ][b][c                    ]
+}
+END
+ATTRIBUTES
+a=formonly.control      TYPE CHAR;
+b=formonly.control_num  TYPE SMALLINT,INVISIBLE;
+c=formonly.descripcion  TYPE CHAR;
+INSTRUCTIONS
+SCREEN RECORD scr_5[4](formonly.control THRU FORMONLY.descripcion);
+DELIMITERS " "

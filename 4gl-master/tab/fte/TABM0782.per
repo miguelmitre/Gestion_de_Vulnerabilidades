@@ -1,0 +1,37 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+Afore Sief Porcentaje Fecha    T.Comp / Descripcion              Periodo/Desc
+\g----------------------------------------------------------------------------\g
+[a   |h  |b      |c         ][d |e                               |f |g      ]
+[a   |h  |b      |c         ][d |e                               |f |g      ]
+[a   |h  |b      |c         ][d |e                               |f |g      ]
+[a   |h  |b      |c         ][d |e                               |f |g      ]
+[a   |h  |b      |c         ][d |e                               |f |g      ]
+[a   |h  |b      |c         ][d |e                               |f |g      ]
+[a   |h  |b      |c         ][d |e                               |f |g      ]
+[a   |h  |b      |c         ][d |e                               |f |g      ]
+[a   |h  |b      |c         ][d |e                               |f |g      ]
+[a   |h  |b      |c         ][d |e                               |f |g      ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_comparativo
+ATTRIBUTES
+a=tab_comparativo.afore_cod;
+h=tab_comparativo.siefore_cod;
+b=tab_comparativo.porcentaje;
+c=tab_comparativo. fecha, FORMAT ="dd-mm-yyyy";
+d=tab_comparativo.tipo_comparativo;
+e=FORMONLY.desc_tipo,NOENTRY;
+f=tab_comparativo.periodo;
+g=FORMONLY.desc_periodo,NOENTRY;
+INSTRUCTIONS
+
+SCREEN RECORD scr_1[10](tab_comparativo.afore_cod,tab_comparativo.siefore_cod,tab_comparativo.porcentaje,
+                        tab_comparativo.fecha,tab_comparativo.tipo_comparativo,desc_tipo,
+                        tab_comparativo.periodo,desc_periodo);
+
+DELIMITERS " "
+END

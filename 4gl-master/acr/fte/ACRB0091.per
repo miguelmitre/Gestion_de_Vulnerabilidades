@@ -1,0 +1,35 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+ 
+
+ [a          ]   [b         ]      [c         ]  [d      ]    [e] [f        ]
+ [a          ]   [b         ]      [c         ]  [d      ]    [e] [f        ]
+ [a          ]   [b         ]      [c         ]  [d      ]    [e] [f        ]
+ [a          ]   [b         ]      [c         ]  [d      ]    [e] [f        ]
+ [a          ]   [b         ]      [c         ]  [d      ]    [e] [f        ]
+ [a          ]   [b         ]      [c         ]  [d      ]    [e] [f        ]
+ [a          ]   [b         ]      [c         ]  [d      ]    [e] [f        ]
+ [a          ]   [b         ]      [c         ]  [d      ]    [e] [f        ]
+ [a          ]   [b         ]      [c         ]  [d      ]    [e] [f        ]
+ [a          ]   [b         ]      [c         ]  [d      ]    [e] [f        ]
+ [a          ]   [b         ]      [c         ]  [d      ]    [e] [f        ]
+ [a          ]   [b         ]      [c         ]  [d      ]    [e] [f        ]
+
+}
+END
+
+ATTRIBUTES
+
+a=FORMONLY.nss_afore TYPE CHAR;
+b=FORMONLY.fecha_presentacion TYPE DATE, FORMAT='DD/MM/YYYY';
+c=FORMONLY.fecha_trasp TYPE DATE, FORMAT='DD/MM/YYYY';
+d=FORMONLY.folio TYPE INTEGER;
+e=FORMONLY.estado TYPE SMALLINT;
+f=FORMONLY.desc_estado TYPE CHAR, NOENTRY;
+
+INSTRUCTIONS 
+SCREEN RECORD scr_1[12](FORMONLY.nss_afore THRU FORMONLY.desc_estado)
+DELIMITERS "  "

@@ -1,0 +1,38 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                                           .
+
+    FOLIO A LIQUIDAR      :[a         ]
+
+
+    FECHA LIQUIDACIÓN     :[b         ]
+
+
+
+ [c ]   [d ]   [e                  ][f                ][g                  ]
+ [c ]   [d ]   [e                  ][f                ][g                  ]
+ [c ]   [d ]   [e                  ][f                ][g                  ]
+ [c ]   [d ]   [e                  ][f                ][g                  ]
+ [c ]   [d ]   [e                  ][f                ][g                  ]
+
+}
+ATTRIBUTES
+a=FORMONLY.li_folio          TYPE INTEGER;
+b=FORMONLY.fecha_liq      TYPE DATE, FORMAT = "DD/MM/YYYY",
+                            COMMENTS = "Fecha de Liquidación [DD/MM/YYYY]";
+
+c = FORMONLY.subcuenta       TYPE SMALLINT;
+d = FORMONLY.siefore         TYPE SMALLINT;
+e = FORMONLY.acciones        TYPE DECIMAL, FORMAT="###########&.&&&&&&";
+f = FORMONLY.precio          TYPE DECIMAL, FORMAT="#########&.&&&&&&";
+g = FORMONLY.pesos           TYPE DECIMAL, FORMAT="###########&.&&&&&&";
+
+INSTRUCTIONS
+SCREEN RECORD scr_cifras[5] (subcuenta,
+	                           siefore  ,
+	                           acciones ,
+	                           precio   ,
+                             pesos    )
+
+DELIMITERS " "

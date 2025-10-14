@@ -1,0 +1,28 @@
+DATABASE safre_af
+SCREEN
+{
+                                                                          .
+
+
+
+
+
+  INGRESAR LA FECHA DE CERTIFICACION EN LA AFORE: [a1        ] DD/MM/YYYY
+  
+  TIPO DE SOLICITUDES A APERTURAR: [a2	]
+	             Desea Generar S / N  ? [d] 
+
+
+
+
+
+
+}
+tables
+afi_solicitud 
+ATTRIBUTES
+a1=FORMONLY.vfecha_liq TYPE DATE, FORMAT="DD/MM/YYYY";
+a2=FORMONLY.vtipo_solic TYPE INTEGER;
+d =FORMONLY.generar TYPE CHAR, UPSHIFT,AUTONEXT;
+INSTRUCTIONS
+DELIMITERS "  "

@@ -1,0 +1,33 @@
+
+
+DATABASE safre_af
+SCREEN
+{
+ ----------------------------------------------------------------------
+
+              
+	      
+	         [a            ]
+
+
+                 FOLIO               :       [b  ]
+
+                 TRANSACCION         :       [c]
+
+                 FECHA CONVERSION    :       [d         ]
+
+
+
+                    
+
+
+}
+tables
+afi_solicitud
+ATTRIBUTES
+a=FORMONLY.varchivo, AUTONEXT;
+b=FORMONLY.vfolio, REQUIRED;
+c=FORMONLY.vtransaccion  TYPE CHAR, UPSHIFT, INCLUDE = ("P","L"), REQUIRED;
+d=FORMONLY.vfecha_conversion;
+INSTRUCTIONS
+DELIMITERS  " "

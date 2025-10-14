@@ -1,0 +1,29 @@
+DATABASE FORMONLY
+SCREEN
+{
+--------------------------------------------------------------------------
+     Codigo                   Descripcion
+--------------------------------------------------------------------------
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+--------------------------------------------------------------------------
+}
+END
+ATTRIBUTES
+a=FORMONLY.estad_cod TYPE INTEGER,NOENTRY;
+b=FORMONLY.estad_desc TYPE CHAR,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](FORMONLY.estad_cod,FORMONLY.estad_desc);
+--DELIMITERS "  "
+
+
+
+

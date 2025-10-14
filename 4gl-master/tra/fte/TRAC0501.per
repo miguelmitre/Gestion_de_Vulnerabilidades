@@ -1,0 +1,30 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                                          .
+
+
+
+              Nombre del Archivo             :[a               ]
+
+              1. nss 11 posiciones            : [c]
+              2. nss 10 posiciones            : [d] 
+              3. rfc 13 posiciones            : [e]
+              4. nss 11 y rfc 10 posiciones   : [h]
+              5. nss 11 y rfc 13 posiciones   : [g]
+              6. rfc 10 posiciones            : [f]
+               
+              
+             
+
+}
+ATTRIBUTES
+a=FORMONLY.nom_archivo      TYPE CHAR, UPSHIFT;
+c=FORMONLY.nss_11           TYPE CHAR, UPSHIFT;
+d=FORMONLY.nss_10           TYPE CHAR, UPSHIFT;
+e=FORMONLY.rfc_13           TYPE CHAR, UPSHIFT;
+f=FORMONLY.rfc_10           TYPE CHAR, UPSHIFT;
+g=FORMONLY.nss11_rfc13      TYPE CHAR, UPSHIFT;
+h=FORMONLY.nss11_rfc10      TYPE CHAR, UPSHIFT;
+INSTRUCTIONS
+DELIMITERS "  "

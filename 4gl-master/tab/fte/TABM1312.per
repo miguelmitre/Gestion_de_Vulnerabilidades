@@ -1,0 +1,43 @@
+database FORMONLY
+screen
+{
+Clave Censal                     Poblacion    
+[f000       ]  [f001                                              ]
+                     Municipio                      Estado   
+[f002                                              ][f003    ]
+Presuscripcion       Region         ASL        CLD       Serie
+     [a]            [f004  ]      [f005  ]   [f006  ]   [f007  ] 
+ Num Inicial  Num. Final  Ocupacion   Tipo de red     Modalidad
+  [f008  ]     [f009  ]   [f010  ]      [f011    ]    [f012    ]
+Razon_social  
+[f013                                                                  ]
+ Fecha Asig.     Fecha de Consolidación  Fecha de Migracíon  CLD Ant
+    [f015      ]     [f016      ]             [f017      ]    [f018  ]
+}
+end
+
+attributes
+f000 = FORMONLY.clave_censal,REVERSE;
+f001 = FORMONLY.poblacion,REVERSE;
+f002 = FORMONLY.municipio,REVERSE;
+f003 = FORMONLY.estado,REVERSE;
+a = FORMONLY.presuscripcion,REVERSE;
+f004 = FORMONLY.region,REVERSE;
+f005 = FORMONLY.asl,REVERSE;
+f006 = FORMONLY.cld,REVERSE;
+f007 = FORMONLY.serie,REVERSE;
+f008 = FORMONLY.nm_inicial,REVERSE;
+f009 = FORMONLY.nm_final,REVERSE;
+f010 = FORMONLY.ocupacion,REVERSE;
+f011 = FORMONLY.tipo_de_red,REVERSE;
+f012 = FORMONLY.modalidad,REVERSE;
+f013 = FORMONLY.razon_social,REVERSE;
+f015 = FORMONLY.fasignacion TYPE DATE,REVERSE,FORMAT="dd/mm/yyyy";
+f016 = FORMONLY.fconsolidacion TYPE DATE,REVERSE,FORMAT="dd/mm/yyyy";
+f017 = FORMONLY.fmigracion TYPE DATE,REVERSE,FORMAT="dd/mm/yyyy";
+f018 = FORMONLY.cld_anterior,REVERSE;
+end
+
+INSTRUCTIONS
+delimiters "  "
+END

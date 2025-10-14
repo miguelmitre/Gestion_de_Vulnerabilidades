@@ -1,0 +1,30 @@
+DATABASE safre_af
+SCREEN
+{
+              Ingrese Apellido Paterno [aa                       ]
+              Ingrese Apellido Materno [mm                       ]
+
+   N.SEGURO         N.UNICO          N.FOLIO           N O M B R E 
+---------------------------------------------------------------------------
+[a          ][b                 ][c            ][d                        ]
+[a          ][b                 ][c            ][d                        ]
+[a          ][b                 ][c            ][d                        ]
+[a          ][b                 ][c            ][d                        ]
+[a          ][b                 ][c            ][d                        ]
+---------------------------------------------------------------------------
+      < F3 > Avanza Pagina                    < F4 > Retrocede Pagina 
+	 < ENTER > Selecciona el Afiliado que desea consultar.
+}
+TABLES
+afi_solicitud
+END
+ATTRIBUTES
+aa=FORMONLY.n_busqueda TYPE CHAR,REQUIRED,UPSHIFT;
+mm=FORMONLY.n_busqueda1 TYPE CHAR,REQUIRED,UPSHIFT;
+a=afi_solicitud.n_seguro;
+b=afi_solicitud.n_unico;
+c=afi_solicitud.n_rfc;
+d=FORMONLY.nombre TYPE CHAR,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[5](afi_solicitud.n_seguro THRU FORMONLY.nombre);
+DELIMITERS "  "

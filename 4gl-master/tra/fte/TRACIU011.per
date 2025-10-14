@@ -1,0 +1,32 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+                                                                          .
+
+                Nombre del Archivo           :[a                 ]
+
+                Devolucion de Solicitudes       : [c]
+                Traspasos Normales              : [d] 
+                Traspasos Complementarios       : [e]
+                Solicitudes no Atendidas        : [f]
+                Solicitudes rechazadas          : [g]
+                Traspasos indebidos solicitados : [i]
+                Traspasos indebidos modificados : [k]
+                Traspasos indebidos rechazados  : [l]
+
+
+
+}
+ATTRIBUTES
+a=FORMONLY.nom_archivo      TYPE CHAR ;
+c=FORMONLY.devol_solicit    TYPE CHAR, UPSHIFT;
+d=FORMONLY.trasp_cuentas    TYPE CHAR, UPSHIFT;
+e=FORMONLY.trasp_complem    TYPE CHAR, UPSHIFT;
+f=FORMONLY.solic_no_aten    TYPE CHAR, UPSHIFT;
+g=FORMONLY.solic_rechaza    TYPE CHAR, UPSHIFT;
+i=FORMONLY.solic_devol      TYPE CHAR, UPSHIFT;
+k=FORMONLY.devol_planchadas TYPE CHAR, UPSHIFT;
+l=FORMONLY.devol_rechazadas TYPE CHAR, UPSHIFT;
+INSTRUCTIONS
+DELIMITERS "  "

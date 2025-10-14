@@ -1,0 +1,34 @@
+DATABASE FORMONLY 
+SCREEN 
+{
+
+    NUM. PROMOTOR  : [f0        ]
+
+    NUM. INTERNO   : [f01       ]
+
+    GRUPO DE VENTA : [a         ]  [a1                        ]             .
+  
+    REGION         : [b         ]  [b1                         ]
+
+    OFICINA        : [c         ]  [c1                         ]
+
+    SUP            : [d                   ]
+
+
+
+}
+ATTRIBUTES
+f0 = FORMONLY.cod_promotor           ;
+f01= FORMONLY.nro_solicitud          ;
+a  = FORMONLY.agenc_cod      ,UPSHIFT;
+a1 = FORMONLY.desc_agenc     ,UPSHIFT;
+b  = FORMONLY.region         ,UPSHIFT;
+b1 = FORMONLY.desc_region    ,UPSHIFT;
+c  = FORMONLY.oficina        ,UPSHIFT;
+c1 = FORMONLY.desc_oficina   ,UPSHIFT;
+d  = FORMONLY.sup            ,UPSHIFT;
+
+INSTRUCTIONS
+    SCREEN RECORD scr_1[1](FORMONLY.cod_promotor THRU FORMONLY.sup)
+    SCREEN RECORD scr_2[1](FORMONLY.agenc_cod THRU FORMONLY.sup)
+DELIMITERS "[]"

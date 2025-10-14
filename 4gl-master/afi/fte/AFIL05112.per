@@ -1,0 +1,45 @@
+DATABASE safre_af
+SCREEN
+{
+
+
+
+[a   |a1                   |a2   ] [b  |b1 |b2                |b3   ]  [c    ]
+[a   |a1                   |a2   ] [b  |b1 |b2                |b3   ]  [c    ]
+[a   |a1                   |a2   ] [b  |b1 |b2                |b3   ]  [c    ]
+[a   |a1                   |a2   ] [b  |b1 |b2                |b3   ]  [c    ]
+[a   |a1                   |a2   ] [b  |b1 |b2                |b3   ]  [c    ]
+[a   |a1                   |a2   ] [b  |b1 |b2                |b3   ]  [c    ]
+[a   |a1                   |a2   ] [b  |b1 |b2                |b3   ]  [c    ]
+[a   |a1                   |a2   ] [b  |b1 |b2                |b3   ]  [c    ]
+[a   |a1                   |a2   ] [b  |b1 |b2                |b3   ]  [c    ]
+[a   |a1                   |a2   ] [b  |b1 |b2                |b3   ]  [c    ]
+[a   |a1                   |a2   ] [b  |b1 |b2                |b3   ]  [c    ]
+[a   |a1                   |a2   ] [b  |b1 |b2                |b3   ]  [c    ]
+                         [d      ]                          [e      ][f      ]
+}
+TABLES
+solicitudafi
+
+ATTRIBUTES
+--a  = FORMONLY.p_tipo_solicitud   TYPE INTEGER;
+a  = solicitudafi.idtposolicitud ;
+a1 = FORMONLY.p_desc_estado      TYPE CHAR;
+a2 = FORMONLY.p_total            TYPE INTEGER;
+
+b  = FORMONLY.c_tipo_solicitud   TYPE SMALLINT;
+b1 = FORMONLY.c_estado_solicitud TYPE SMALLINT;
+b2 = FORMONLY.c_desc_estado      TYPE CHAR;
+b3 = FORMONLY.c_total            TYPE INTEGER;
+
+c  = FORMONLY.diferencia         TYPE INTEGER;
+
+d  = FORMONLY.cd_p_totales          TYPE INTEGER;
+e  = FORMONLY.cd_c_totales          TYPE INTEGER;
+f  = FORMONLY.cd_d_totales          TYPE INTEGER;
+
+INSTRUCTIONS
+SCREEN RECORD scr_02[12](solicitudafi.idtposolicitud THRU FORMONLY.diferencia);
+--SCREEN RECORD scr_02[13](FORMONLY.p_tipo_solicitud THRU FORMONLY.diferencia);
+DELIMITERS " "
+

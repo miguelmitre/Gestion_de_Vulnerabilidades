@@ -1,0 +1,32 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+
+
+
+      Mes Aplica         [a              ]
+
+      Año Aplica         [b   ]
+
+      Valor INPC         [c             ]
+
+      Fecha_publicación  [d         ]
+
+
+
+
+
+}
+TABLES
+tab_inpc
+ATTRIBUTES
+a=tab_inpc.mes_aplica,
+  COMMENTS = "Capturar el nombre del mes (ENERO, FEBRERO,...,DICIEMBRE)", UPSHIFT;
+b=tab_inpc.anio_aplica;
+c=tab_inpc.valor_inpc;
+d=tab_inpc.fecha_publicacion, FORMAT = "dd-mm-yyyy";
+
+END
+

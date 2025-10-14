@@ -1,0 +1,37 @@
+DATABASE safre_af
+SCREEN
+{
+       NSS                Fecha Solicitud               Fecha Certificacion
+   [a          ]            [b         ]                   [c         ]
+
+
+-----------------------------------------------------------------------------
+                      RANGO    PERIODO  SALARIO    SM    NO.SM   COMISION
+-----------------------------------------------------------------------------
+ PGO INI.    (AF):[g    |h    ][i     ][j       ][k    ][l    ][m        ][n]
+ COMPLEMENTO (CO):[g    |h    ][i     ][j       ][k    ][l    ][m        ][n]
+}
+TABLES
+com_comis_detalle
+afi_mae_afiliado
+
+ATTRIBUTES
+
+a = FORMONLY.n_seguro;
+b = FORMONLY.fecha_elaboracion;
+c = FORMONLY.fentcons;
+
+g = FORMONLY.desde;
+h = FORMONLY.hasta;
+i = FORMONLY.periodo;
+j = FORMONLY.salario;
+k = FORMONLY.sm;
+l = FORMONLY.num_sm;
+m = FORMONLY.monto_comision;
+n = FORMONLY.fecha_corte,INVISIBLE;
+
+INSTRUCTIONS 
+SCREEN RECORD scr_1 (FORMONLY.n_seguro THRU FORMONLY.fentcons);
+
+SCREEN RECORD scr_2[2](FORMONLY.desde THRU FORMONLY.fecha_corte);
+DELIMITERS "  "

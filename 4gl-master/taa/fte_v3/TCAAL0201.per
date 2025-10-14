@@ -1,0 +1,31 @@
+DATABASE FORMONLY 
+SCREEN
+{
+
+    O_TRAS:[a     ]      ORIGEN DE TRASPASOS         NUM. REGS.
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ [b|c     ] [d                                    ] [e         ]
+ [b|c     ] [d                                    ] [e         ]
+ [b|c     ] [d                                    ] [e         ]
+ [b|c     ] [d                                    ] [e         ]
+ [b|c     ] [d                                    ] [e         ]
+ [b|c     ] [d                                    ] [e         ]
+ [b|c     ] [d                                    ] [e         ]
+ [b|c     ] [d                                    ] [e         ]
+ [b|c     ] [d                                    ] [e         ]
+ [b|c     ] [d                                    ] [e         ]
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+
+
+}
+ATTRIBUTES
+a   =FORMONLY.tipo_traspaso_sol      TYPE  CHAR,
+     COMMENTS="  TECLEE ORIGEN DE TRASPASO ó <ENTER> INCLUYE TODOS LOS DEL FOLIO      ";
+b   =FORMONLY.cursor                 TYPE  CHAR;
+c   =FORMONLY.tipo_traspaso          TYPE  CHAR,NOENTRY;
+d   =FORMONLY.tipo_tra_desc          TYPE  CHAR,NOENTRY;
+e   =FORMONLY.registros              TYPE  INTEGER,FORMAT='##,###,###',NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD  scr_tipo_tra[10](FORMONLY.cursor  THRU  FORMONLY.registros);
+DELIMITERS "  "

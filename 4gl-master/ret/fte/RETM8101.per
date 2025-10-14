@@ -1,0 +1,63 @@
+DATABASE safre_af
+SCREEN
+{
+ N.S.S. : [a          ] [b                                      ] 
+
+ Num    Paterno                 Materno                 Nombre
+ [c]   [d                   ]  [e                   ]  [f                    ]
+ Parentesco   Descripcion                   Porcentaje      
+    [g ]      [h                         ]  [i     ]
+                                                                            . 
+ Tipo  Bco  Ciudad   Sucursal        Clabe           Total Retiro    F. Pago
+ [j ] [k  ] [l     ] [m     ] [n                 ] [o           ] [p         ]
+[a2] 
+ Calle                                               N_Ext     N_Int    C.P.
+ [q                                               ] [r     ]  [s    ]  [t    ]        
+ Colonia                  Delega  Nom. Delegacion  Ciudad   Nom Ciudad 
+ [u                     ][v    ][w               ][x     ][y                 ]
+ Edo   Nombre                Telefono
+ [z ]  [a1                ]  [d1                          ]
+  
+}
+END
+TABLES
+ret_beneficiario
+ATTRIBUTES
+
+a = ret_beneficiario.nss ;
+b = FORMONLY.nombre    TYPE  CHAR,NOENTRY;
+c = ret_beneficiario.consec_benef ,NOENTRY;
+d = ret_beneficiario.paterno,UPSHIFT;
+e = ret_beneficiario.materno,UPSHIFT ;
+f = ret_beneficiario.nombres,UPSHIFT ;
+g = ret_beneficiario.paren_cod,COMMENTS = " TECLEE EL TIPO DE PARENTESCO";
+h = FORMONLY.paren_des  TYPE  CHAR,NOENTRY;
+i = ret_beneficiario.porcentaje;
+
+j = ret_beneficiario.tipo_pago,INCLUDE=(1:5),
+    COMMENTS = "1 = CAJA COPPEL, 2 = BANCOMER, 3 = BANCOPPEL, 4 = OTROS BANCOS";
+
+k = ret_beneficiario.banco,COMMENTS = "TECLEE EL BANCO PARA DEPOSITO";
+l = FORMONLY.ciudad_cod TYPE INTEGER,COMMENTS = "TECLEE LA CLAVE DE CIUDAD";
+
+a2 = formonly.estad_cod, NOENTRY,INVISIBLE;
+
+m = FORMONLY.cod_sucursal TYPE INTEGER,COMMENTS = "TECLEE NUMERO DE SUCURSAL";
+n = ret_beneficiario.num_cuenta,COMMENTS = "TECLEE NUMERO DE CUENTA BANCARIA";
+o = ret_beneficiario.monto_en_pesos , NOENTRY, FORMAT="#,###,##&.&&";
+p = FORMONLY.fecha_pago   TYPE  DATE,FORMAT ="DD/MM/YYYY", NOENTRY;
+q = ret_beneficiario.dom_calle,UPSHIFT;
+r = ret_beneficiario.dom_numero_ext,COMMENTS = "    TECLEE EL NUMERO EXTERIOR     ";
+s = ret_beneficiario.dom_numero_int,UPSHIFT,COMMENTS = "    TECLEE EL NUMERO INTERIOR     ";
+t = ret_beneficiario.dom_codpos;
+u = ret_beneficiario.dom_colonia,UPSHIFT,NOENTRY;
+v = ret_beneficiario.dom_delega, NOENTRY;
+w = FORMONLY.nom_delega TYPE CHAR, NOENTRY;
+x = ret_beneficiario.dom_ciudad_cod, NOENTRY;
+y = FORMONLY.nom_ciudad_cod  TYPE  CHAR, NOENTRY;
+z = ret_beneficiario.dom_estado_cod, NOENTRY;
+a1 = FORMONLY.nom_estado_cod  TYPE  CHAR, NOENTRY;
+d1 = ret_beneficiario.dom_telefono,UPSHIFT,COMMENTS = "    TECLEE EL NUMERO TELEFONICO   ";
+  INSTRUCTIONS
+  SCREEN RECORD   sa_benef[1]
+           (ret_beneficiario.consec_benef  THRU  ret_beneficiario.dom_telefono)

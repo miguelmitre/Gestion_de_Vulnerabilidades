@@ -1,0 +1,28 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+
+-----------------------------------------------------------------------------
+ Tipo reporte [a3 ][a4             ]                                        
+ Fecha inicio [a1        ]            Fecha fin [a2        ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+ATTRIBUTES
+a1=FORMONLY.fecha_inicio   TYPE DATE,FORMAT= "DD/MM/YYYY";
+a2=FORMONLY.fecha_fin      TYPE DATE,FORMAT= "DD/MM/YYYY";
+a3=FORMONLY.lav_operacion  TYPE SMALLINT,
+                                COMMENTS = " Tipo reporte: <100> RELEVANTE  <200> INUSUAL  <300> PREOCUPANTE";
+a4=FORMONLY.lav_oper_desc  TYPE CHAR,NOENTRY;

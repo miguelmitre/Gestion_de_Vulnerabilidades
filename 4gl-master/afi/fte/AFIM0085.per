@@ -1,0 +1,24 @@
+DATABASE formonly
+SCREEN
+{
+ Codigo   Descripcion               Rechazo
+-------------------------------------------
+ [a  ] [b                             ] [c]
+ [a  ] [b                             ] [c]
+ [a  ] [b                             ] [c]
+ [a  ] [b                             ] [c]
+ [a  ] [b                             ] [c]
+ [a  ] [b                             ] [c]
+-------------------------------------------
+            < ENTER > Seleccinar
+}
+END
+ATTRIBUTES
+a=FORMONLY.codigo TYPE SMALLINT;
+b=FORMONLY.descripcion TYPE CHAR;
+c=FORMONLY.rechazo TYPE SMALLINT;
+INSTRUCTIONS
+SCREEN RECORD scr_codigo[6](FORMONLY.codigo, 
+									 FORMONLY.descripcion, 
+									 FORMONLY.rechazo);
+DELIMITERS "  "

@@ -1,0 +1,31 @@
+database safre_af
+screen 
+{
+\g----------------------------------------------------------------------------g\
+
+  Modulo             [f   ]
+
+
+  Codigo             [f000  ]
+
+
+  Descripcion corta  [f001                                                 ]
+                     [f001                                                 ]
+
+  Descripcion larga  [f003                                                 ]
+                     [f003                                                 ]
+                     [f003                                                 ]
+
+  Tipo rechazo       [a]
+
+}
+end
+tables
+tab_rdeta
+attributes
+f= FORMONLY.modulo_cod TYPE CHAR,DOWNSHIFT;
+f000 = tab_rdeta.rdeta_cod;
+f001 = tab_rdeta.rdeta_desc_c ,WORDWRAP COMPRESS,UPSHIFT;
+f003 = tab_rdeta.rdeta_desc_l ,WORDWRAP COMPRESS,UPSHIFT;
+a    = tab_rdeta.tipo_rechazo,INCLUDE=(C,D),COMMENTS = "Tipo de rechazo es <C> o <D> ",UPSHIFT;
+end

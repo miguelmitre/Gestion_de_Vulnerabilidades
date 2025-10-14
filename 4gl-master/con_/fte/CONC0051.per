@@ -1,0 +1,44 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g----------------------------------------------------------------------------\g                                                                            
+
+    Fecha Proceso  [x         ]
+    Tipo Proceso     [y       ]
+    Folio          [z         ]
+
+
+[a    |b       |c        |d             |e |f             |g              |v ]
+[a    |b       |c        |d             |e |f             |g              |v ]
+[a    |b       |c        |d             |e |f             |g              |v ]
+[a    |b       |c        |d             |e |f             |g              |v ]
+[a    |b       |c        |d             |e |f             |g              |v ]
+[a    |b       |c        |d             |e |f             |g              |v ]
+[a    |b       |c        |d             |e |f             |g              |v ]
+\g----------------------------------------------------------------------------\g
+                         TOTALES  :       [h              |i              ]
+}
+
+ATTRIBUTES
+v=FORMONLY.estado, NOENTRY;
+x=FORMONLY.fecha_emision  TYPE DATE,FORMAT = "dd/mm/yyyy",
+  COMMENTS= "CAPTURE LA FECHA DE GENERACION DE REGISTRO CONTABLE FORMATO 'DDMMYYYY' ";
+y=FORMONLY.proceso_cod    TYPE CHAR,
+  COMMENTS= "CAPTURE EL CODIGO DEL TIPO DE PROCESO... EJEMPLO: 00001 ";
+z=FORMONLY.folio          TYPE INTEGER;
+a=FORMONLY.proceso        TYPE CHAR,NOENTRY;
+b=FORMONLY.a_folio        TYPE INTEGER,NOENTRY;
+c=FORMONLY.cuenta         TYPE CHAR,UPSHIFT,NOENTRY;
+d=FORMONLY.cta_desc       TYPE CHAR,UPSHIFT,NOENTRY;        
+e=FORMONLY.siefore        TYPE SMALLINT,NOENTRY;
+f=FORMONLY.cargo          TYPE DECIMAL,NOENTRY;
+g=FORMONLY.abono          TYPE DECIMAL,NOENTRY;
+h=FORMONLY.total_cargo    TYPE DECIMAL,NOENTRY;
+i=FORMONLY.total_abono    TYPE DECIMAL,NOENTRY;
+
+END
+INSTRUCTIONS 
+SCREEN RECORD scr_1 [7](FORMONLY.proceso,FORMONLY.a_folio,FORMONLY.cuenta,
+                        FORMONLY.cta_desc,FORMONLY.siefore,FORMONLY.cargo,
+                        FORMONLY.abono,FORMONLY.estado)
+DELIMITERS " "

@@ -1,0 +1,21 @@
+DATABASE FORMONLY
+SCREEN
+{  
+---------------------------------------------------
+ CODIGO                  DESCRIPCION
+---------------------------------------------------
+ [a   ]  [c                                       ] 
+ [a   ]  [c                                       ] 
+ [a   ]  [c                                       ] 
+ [a   ]  [c                                       ] 
+ [a   ]  [c                                       ] 
+
+}
+ATTRIBUTES
+a=FORMONLY.layout_cod  TYPE SMALLINT , NOENTRY;
+c=FORMONLY.layout_desc TYPE CHAR, NOENTRY;
+INSTRUCTIONS 
+SCREEN RECORD f_layout[5](layout_cod, layout_desc) 
+                       
+DELIMITERS " "
+                      

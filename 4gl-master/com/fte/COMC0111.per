@@ -1,0 +1,47 @@
+DATABASE safre_af
+SCREEN
+{
+------------------------------------------------------------------------------
+                        Fec corte [a         ]                                 
+                        
+
+                                                                              
+------------------------------------------------------------------------------
+ Numero del promotor:  [b         ]
+ Nombre del promotor:  [c                                                   ]
+ Sucursal:             [d         ]                                          
+ Folio del trabajador: [e         ]                                          
+ NSS del trabajador:   [f          ]                                          
+ SDI                  :[h            ]
+ VSM                  :[i            ]
+ Tipo solicitud       :[k ]
+
+
+
+ Num reg:            [j    ]                                                  
+}
+TABLES
+pro_mae_promotor
+com_comis_detalle
+
+ATTRIBUTES
+
+a = com_comis_detalle.fecha_corte,FORMAT="dd-mm-yyyy";
+
+b = pro_mae_promotor.cod_promotor;
+c = FORMONLY.nombre TYPE CHAR;
+d = com_comis_detalle.coduni_n1;
+e = com_comis_detalle.n_folio;
+f = com_comis_detalle.nss;
+h = com_comis_detalle.salario_base_comis;
+i = com_comis_detalle.num_sm; 
+k = com_comis_detalle.tipo_solicitud; 
+
+j = FORMONLY.registros TYPE INTEGER, FORMAT='-----';
+
+INSTRUCTIONS 
+SCREEN RECORD scr_0   (com_comis_detalle.fecha_corte);
+SCREEN RECORD scr_1[01](pro_mae_promotor.cod_promotor THRU
+                        com_comis_detalle.tipo_solicitud);
+SCREEN RECORD scr_3 (FORMONLY.registros);
+DELIMITERS "  "

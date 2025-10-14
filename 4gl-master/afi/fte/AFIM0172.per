@@ -1,0 +1,38 @@
+DATABASE safre_af
+
+SCREEN
+{
+
+              Ingrese Caja [aa        ] Total de Expedientes : [ab  ]
+
+ Pos.   Folio       Nss                    Nombres
+---------------------------------------------------------------------------
+[a  ] [b       ][c          ][d                                            ]
+[a  ] [b       ][c          ][d                                            ]
+[a  ] [b       ][c          ][d                                            ]
+[a  ] [b       ][c          ][d                                            ]
+[a  ] [b       ][c          ][d                                            ]
+[a  ] [b       ][c          ][d                                            ]
+[a  ] [b       ][c          ][d                                            ]
+[a  ] [b       ][c          ][d                                            ]
+[a  ] [b       ][c          ][d                                            ]
+[a  ] [b       ][c          ][d                                            ]
+[a  ] [b       ][c          ][d                                            ]
+[a  ] [b       ][c          ][d                                            ]
+---------------------------------------------------------------------------
+      < F3 > Avanza Pagina                    < F4 > Retrocede Pagina 
+}
+TABLES
+afi_mae_afiliado
+END
+ATTRIBUTES
+aa=FORMONLY.vindicador_b  TYPE SMALLINT;
+ab=FORMONLY.contador  TYPE SMALLINT;
+a=afi_mae_afiliado.ubicacion;
+b=afi_mae_afiliado.n_folio;
+c=afi_mae_afiliado.n_seguro;
+d=formonly.npm;
+INSTRUCTIONS
+SCREEN RECORD scr_1[12](afi_mae_afiliado.ubicacion THRU formonly.npm);
+DELIMITERS "  "
+

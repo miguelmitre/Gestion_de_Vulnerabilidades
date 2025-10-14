@@ -1,0 +1,27 @@
+database FORMONLY
+screen 
+{
+\g-----------------------------------------------------------------------------\g
+ Codigo Descripcion                                              Marca Fusion
+\g-----------------------------------------------------------------------------\g
+[f000  |f003                                                        |a|f001 ]
+[f000  |f003                                                        |a|f001 ]
+[f000  |f003                                                        |a|f001 ]
+[f000  |f003                                                        |a|f001 ]
+[f000  |f003                                                        |a|f001 ]
+[f000  |f003                                                        |a|f001 ]
+[f000  |f003                                                        |a|f001 ]
+[f000  |f003                                                        |a|f001 ]
+[f000  |f003                                                        |a|f001 ]
+[f000  |f003                                                        |a|f001 ]
+\g-----------------------------------------------------------------------------\g
+}
+end
+attributes
+f000 = FORMONLY.afore_cod    TYPE SMALLINT;
+f003 = FORMONLY.afore_desc   TYPE CHAR;
+a    = FORMONLY.marca        TYPE SMALLINT;
+f001 = FORMONLY.afore_fusion TYPE SMALLINT;
+INSTRUCTIONS                                                       
+SCREEN RECORD scr_1[10](FORMONLY.afore_cod  THRU FORMONLY.afore_fusion); 
+DELIMITERS " "

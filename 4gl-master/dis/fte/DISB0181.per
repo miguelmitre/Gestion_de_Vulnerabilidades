@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+-----------------------------------------------------------------------
+ FOLIO    FEC.VAL.     FEC.CONV.   SUB.  TIP.MOV.    MONTO EN PESOS
+-----------------------------------------------------------------------
+[c    ] [e         ] [d         ] [a   ] [b   ] [f                    ]
+[c    ] [e         ] [d         ] [a   ] [b   ] [f                    ]
+[c    ] [e         ] [d         ] [a   ] [b   ] [f                    ]
+[c    ] [e         ] [d         ] [a   ] [b   ] [f                    ]
+[c    ] [e         ] [d         ] [a   ] [b   ] [f                    ]
+[c    ] [e         ] [d         ] [a   ] [b   ] [f                    ]
+[c    ] [e         ] [d         ] [a   ] [b   ] [f                    ]
+[c    ] [e         ] [d         ] [a   ] [b   ] [f                    ]
+}
+TABLES
+ dis_cuenta
+ATTRIBUTES
+c=dis_cuenta.folio;
+e=dis_cuenta.fecha_valor;
+d=dis_cuenta.fecha_conversion;
+a=dis_cuenta.subcuenta;
+b=dis_cuenta.tipo_movimiento;
+f=dis_cuenta.monto_en_pesos;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[8](dis_cuenta.folio THRU dis_cuenta.monto_en_pesos)

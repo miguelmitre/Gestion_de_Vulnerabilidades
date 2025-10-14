@@ -1,0 +1,35 @@
+DATABASE FORMONLY
+SCREEN
+{
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+ Scta Sie   Fec_Liquid. T_Mov   Id_Aportant         Acciones           Pesos
+ [b ] [si] [a         ] [c   ]  [d         ] [e             ] [f            ]
+ [b ] [si] [a         ] [c   ]  [d         ] [e             ] [f            ]
+ [b ] [si] [a         ] [c   ]  [d         ] [e             ] [f            ]
+ [b ] [si] [a         ] [c   ]  [d         ] [e             ] [f            ]
+ [b ] [si] [a         ] [c   ]  [d         ] [e             ] [f            ]
+ [b ] [si] [a         ] [c   ]  [d         ] [e             ] [f            ]
+ [b ] [si] [a         ] [c   ]  [d         ] [e             ] [f            ]
+ [b ] [si] [a         ] [c   ]  [d         ] [e             ] [f            ]
+ [b ] [si] [a         ] [c   ]  [d         ] [e             ] [f            ]
+ [b ] [si] [a         ] [c   ]  [d         ] [e             ] [f            ]
+ [b ] [si] [a         ] [c   ]  [d         ] [e             ] [f            ]
+ [b ] [si] [a         ] [c   ]  [d         ] [e             ] [f            ]
+ [b ] [si] [a         ] [c   ]  [d         ] [e             ] [f            ]
+ [b ] [si] [a         ] [c   ]  [d         ] [e             ] [f            ]
+ [b ] [si] [a         ] [c   ]  [d         ] [e             ] [f            ]
+
+}
+ATTRIBUTES
+b   =FORMONLY.subcuenta              TYPE  CHAR,NOENTRY;
+si  =FORMONLY.sisefore               TYPE  CHAR,NOENTRY;
+a   =FORMONLY.fecha_conversion       TYPE  DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+c   =FORMONLY.tipo_movimiento        TYPE  CHAR,NOENTRY;
+d   =FORMONLY.id_aportante           TYPE  CHAR,NOENTRY;
+e   =FORMONLY.acciones               TYPE  CHAR,NOENTRY;
+f   =FORMONLY.pesos                  TYPE  CHAR,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_movtos[15](FORMONLY.subcuenta    THRU  FORMONLY.pesos);
+DELIMITERS "  "
+

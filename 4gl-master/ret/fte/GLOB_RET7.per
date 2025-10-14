@@ -1,0 +1,32 @@
+DATABASE safre_af
+SCREEN
+{
+  PATERNO             MATERNO             NOMBRES                %
+      IMPORTE          BANCO  CIUDAD    SUCURSAL
+[a                 ][b                 ][c                     ][d     ]
+      [e            ] [f  ]  [g    ]   [h      ]
+
+[a                 ][b                 ][c                     ][d     ]
+      [e            ] [f  ]  [g    ]   [h      ]
+
+[a                 ][b                 ][c                     ][d     ]
+      [e            ] [f  ]  [g    ]   [h      ]
+
+[a                 ][b                 ][c                     ][d     ]
+      [e            ] [f  ]  [g    ]   [h      ]
+}
+TABLES
+    ret_orden_pago
+
+ATTRIBUTES
+    a = ret_orden_pago.paterno        ,UPSHIFT ;
+    b = ret_orden_pago.materno        ,UPSHIFT ;
+    c = ret_orden_pago.nombres        ,UPSHIFT ;
+    d = ret_orden_pago.porcentaje              ;
+    e = ret_orden_pago.monto_en_pesos          ;
+    f = ret_orden_pago.cod_banco               ;
+    g = ret_orden_pago.cod_ciudad              ;
+    h = ret_orden_pago.cod_sucursal            ;
+INSTRUCTIONS
+    SCREEN RECORD scr_7[4](paterno THRU cod_sucursal)
+DELIMITERS "[]" 

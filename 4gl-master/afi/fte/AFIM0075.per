@@ -1,0 +1,44 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+  Analista       : [h       ] [n                                           ]
+  Tipo solicitud :        [t] [s                   ]   
+
+ TS FOLIO       NSS     ES EE   PROMOTOR   REFERENCIA FECHA FIRMA FECHA RECEP 
+                                CURP                  NUMERO LOTE  FECHA CAPT.
+
+[a|b         |c          |x |y |e         |d         |f         |g         ]
+                              [p                 ]    [k         |l         ]
+[a|b         |c          |x |y |e         |d         |f         |g         ]
+                              [p                 ]    [k         |l         ]
+[a|b         |c          |x |y |e         |d         |f         |g         ]
+                              [p                 ]    [k         |l         ]
+[a|b         |c          |x |y |e         |d         |f         |g         ]
+                              [p                 ]    [k         |l         ]
+
+}
+END
+
+ATTRIBUTES
+h=FORMONLY.usuario TYPE CHAR;
+n=FORMONLY.nom_analista TYPE CHAR, NOENTRY, UPSHIFT;
+t=FORMONLY.tipo_solic TYPE SMALLINT, COMMENTS="1) Registro , 2) Traspaso)";
+s=FORMONLY.desc_solic TYPE CHAR, NOENTRY;
+
+a=FORMONLY.tipo_solicitud TYPE SMALLINT, NOENTRY;
+b=FORMONLY.n_folio TYPE DECIMAL, COMMENTS="Numero de folio de solicitud";
+e=FORMONLY.cod_promotor TYPE CHAR;
+f=FORMONLY.fecha_solicitud TYPE DATE, FORMAT='DD/MM/YYYY' ;
+g=FORMONLY.fecha_recepcion TYPE DATE, FORMAT='DD/MM/YYYY' ;
+c=FORMONLY.n_seguro TYPE CHAR;
+x=FORMONLY.estado_sol TYPE CHAR;
+y=FORMONLY.estado_exp TYPE CHAR;
+d=FORMONLY.no_referencia TYPE CHAR;
+p=FORMONLY.curp TYPE CHAR;
+k=FORMONLY.lote_cap TYPE CHAR; 
+l=FORMONLY.fecha_actualiza TYPE DATE, FORMAT='DD/MM/YYYY', NOENTRY ;
+INSTRUCTIONS 
+SCREEN RECORD scr_2[04](FORMONLY.tipo_solicitud THRU FORMONLY.fecha_actualiza)
+DELIMITERS "  "

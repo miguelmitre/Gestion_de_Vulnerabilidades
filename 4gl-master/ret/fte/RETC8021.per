@@ -1,0 +1,60 @@
+database safre_af
+screen size 24 by 80
+{
+
+
+ NSS               :[a          ]            Tipo prestacion   :[m ]
+ Sec. de Pension   :[b ]                     Articulo Negativa :[n  ]
+ Folio             :[c    ]                  Fracc. Negativa   :[o ]
+ CURP              :[d                 ]     Num. considerado  :[p ]
+ Nombre Datamart   :[e                                                 ] 
+ Nom Afore:[f                                       ] Fec.Ini.Pen:[q         ]
+ Pat Afore:[g                                       ] Fec. Resol.:[r         ] 
+ Mat Afore:[h                                       ]                           
+ Tipo movimiento   :[i  ]                    Porcentaje Val.   :[s      ]
+ Regimen           :[j ]                     Semanas Cotizadas :[t    ]
+ Tipo Seguro       :[k ]                     Diag. Datamart    :[u  ]       
+ Tipo Pension      :[l ]                     Estado [v][v_1                ]   
+______________________________________________________________________________
+ fecha_datamart    :[a_1       ]    fecha_operacion   :[a_3       ]   
+ fecha_carga       :[a_2       ]    nom_archivo       :[a_4                 ] 
+
+}
+end
+tables
+ret_det_datamart
+ret_cza_datamart
+attributes
+a=ret_det_datamart.nss                                    ;
+b=ret_det_datamart.sec_pension                            ;
+c=ret_det_datamart.folio                                  ;
+d=ret_det_datamart.curp                                   ;
+e=ret_det_datamart.nombre_datamart                        ;
+f=ret_det_datamart.nombre_afore                           ;
+g=ret_det_datamart.paterno_afore                          ; 
+h=ret_det_datamart.materno_afore                          ; 
+i=ret_det_datamart.tipo_movimiento                        ;
+j=ret_det_datamart.regimen                                ;
+k=ret_det_datamart.tipo_seguro                            ;
+l=ret_det_datamart.tipo_pension                           ; 
+m=ret_det_datamart.tipo_prestacion                        ;  
+n=ret_det_datamart.art_negativa                           ;
+o=ret_det_datamart.frac_negativa                          ;
+p=ret_det_datamart.num_considerando                       ;
+q=ret_det_datamart.fecha_ini_pen    , FORMAT="DD/MM/YYYY" ;
+r=ret_det_datamart.fecha_resolucion , FORMAT="DD/MM/YYYY" ;
+s=ret_det_datamart.porcentaje_val                         ;
+t=ret_det_datamart.semanas_cotizadas                      ;
+u=ret_det_datamart.diag_datamart                          ;
+v=ret_cza_datamart.estado_lote                            ;
+v_1=FORMONLY.desc_estado                                  ;
+
+a_1=ret_cza_datamart.fecha_datamart , FORMAT="DD/MM/YYYY" ; 
+a_3=ret_cza_datamart.fecha_proceso  , FORMAT="DD/MM/YYYY" ;
+a_2=ret_cza_datamart.fecha_carga    , FORMAT="DD/MM/YYYY" ;
+a_4=ret_cza_datamart.nom_archivo                          ;
+
+INSTRUCTIONS
+SCREEN RECORD scr1[1](ret_det_datamart.nss THRU ret_cza_datamart.nom_archivo);
+DELIMITERS " "
+END

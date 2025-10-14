@@ -1,0 +1,38 @@
+DATABASE safre_af
+SCREEN SIZE 24 BY 80
+{
+----------------------------------------------------------------------------
+
+  Codigo Afore     [f000  ]
+  Razon social     [f001                                              ]
+  Representante    [f002                                              ]
+  Calle            [f003                                              ]
+  Numero           [f004       ]
+  Depto            [f005      ]
+  C.P.             [f011      ]
+  Colonia          [f006                          ]
+                   [f006                          ]
+  Delegacion       [f008  ]
+  Ciudad           [f009  ]
+  Estado           [f010  ]
+  Telefono         [f012      ]
+
+
+}
+END
+TABLES
+tab_afore_local
+ATTRIBUTES
+f000 = tab_afore_local.codigo_afore;
+f001 = tab_afore_local.razon_social,UPSHIFT;
+f002 = tab_afore_local.representante,UPSHIFT;
+f003 = tab_afore_local.calle,UPSHIFT;
+f004 = tab_afore_local.numero;
+f005 = tab_afore_local.depto;
+f011 = tab_afore_local.cod_postal;
+f006 = tab_afore_local.colonia,WORDWRAP,UPSHIFT;
+f008 = tab_afore_local.delegacion,UPSHIFT;
+f009 = tab_afore_local.ciudad,UPSHIFT;
+f010 = tab_afore_local.estado,UPSHIFT;
+f012 = tab_afore_local.telefono;
+END

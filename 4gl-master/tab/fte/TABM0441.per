@@ -1,0 +1,29 @@
+DATABASE safre_af
+SCREEN 
+{
+
+
+
+
+  Fecha de dia feriado : [f000      ]
+
+
+
+
+  Desc. de dia feriado : [f001                                             ]  
+
+
+
+
+
+
+
+}
+END
+
+TABLES
+tab_feriado
+ATTRIBUTES
+f000 = tab_feriado.feria_fecha,FORMAT= "dd-mm-yyyy";
+f001 = tab_feriado.feria_desc, UPSHIFT,PICTURE="AAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+END

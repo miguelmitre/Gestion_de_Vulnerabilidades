@@ -1,0 +1,34 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+
+     Codigo de AFORE             [a  ] [dd                          ]
+
+
+     Porcentaje                  [b      ]
+
+
+     Fecha                       [c         ]
+
+
+     Tipo Comparativo            [d] [e          ]
+
+
+     Periodo                     [f ] [g     ]
+
+}
+TABLES
+tab_comparativo
+ATTRIBUTES
+a=tab_comparativo.afore_cod;
+dd=FORMONLY.x_afore_desc TYPE CHAR;
+b=tab_comparativo.porcentaje;
+c=tab_comparativo.fecha,FORMAT ="dd-mm-yyyy",UPSHIFT;
+d=tab_comparativo.tipo_comparativo;
+e=FORMONLY.v_desc_tipo TYPE CHAR ,NOENTRY;
+f=tab_comparativo.periodo;
+g=FORMONLY.v_desc_periodo,NOENTRY;
+END
+

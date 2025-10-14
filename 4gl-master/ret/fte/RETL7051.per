@@ -1,0 +1,17 @@
+DATABASE safre_af
+SCREEN
+{
+
+            REPORTE DE LIQUIDACION DE RECURSOS A DESINVERTIR 
+----------------------------------------------------------------------
+                     FOLIO                  : [f1        ]    
+                     FECHA DE LIQUIDACION   : [f2        ]    
+----------------------------------------------------------------------
+
+}
+TABLES
+ret_transf_rx,dis_cuenta
+ATTRIBUTES
+f1=FORMONLY.folio, COMMENTS = "INGRESE FOLIO ";
+f2=FORMONLY.fecha_conversion TYPE DATE ,FORMAT ="DD-MM-YYYY",
+            COMMENTS = "INGRESE FECHA DE LIQUIDACION";

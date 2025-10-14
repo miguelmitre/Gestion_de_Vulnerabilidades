@@ -1,0 +1,26 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                         [f0        ] .
+
+         PROCESO REVERSO OPERACIONES TRANSFERENCIA DE ACREDITADOS
+
+             1) REVERSAR PROVISION  
+             2) REVERSAR LIQUIDACION 
+             3) REVERSAR PROV. Y LIQ.
+             4) REVERSAR DEVOLUCION
+             5) REVERSAR PROCESO
+             6) REVERSAR INTERESES
+
+                     FOLIO A REVERSAR    : [fl       ]
+
+                     OPCION DE REVERSO   :        [op]
+
+
+}
+ATTRIBUTES
+f0=FORMONLY.fecha  TYPE DATE ,FORMAT ="DD/MM/YY",NOENTRY;
+fl=FORMONLY.vfolio TYPE INTEGER;
+op=FORMONLY.opcion TYPE SMALLINT, INCLUDE=(1,2,3,4,5,6);
+INSTRUCTIONS
+DELIMITERS "  "

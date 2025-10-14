@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+            Numero de Seguro Social ingresado anteriormente, 
+            con los siguientes datos: 
+
+  NSS                   FOLIO     TS   ESTADO          FECHA 
+ --------------------------------------------------------------------- 
+ [a            ] [b          ]    [c] [d            ] [e            ]
+ [a            ] [b          ]    [c] [d            ] [e            ] 
+ [a            ] [b          ]    [c] [d            ] [e            ] 
+
+
+
+}
+tables
+afi_solicitud
+ATTRIBUTES
+a=afi_solicitud.n_seguro,NOENTRY;
+b=FORMONLY.n_folio TYPE CHAR,NOENTRY;
+c=FORMONLY.tipo_solicitud TYPE CHAR,NOENTRY;
+d=FORMONLY.estado TYPE CHAR,NOENTRY;
+e=afi_solicitud.fentcons,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD rec(afi_solicitud.n_seguro,FORMONLY.n_folio,FORMONLY.tipo_solicitud,FORMONLY.estado,afi_solicitud.fentcons )
+DELIMITERS "  "

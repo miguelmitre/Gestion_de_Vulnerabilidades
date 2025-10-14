@@ -1,0 +1,34 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+
+Clave              Fecha        Fecha       Grado de                     .
+Afore   Desc       Desde        Hasta       Control         Descripcion
+--------------------------------------------------------------------------
+[a  ][b        ][c         ][d         ][e                ][f           ]
+[a  ][b        ][c         ][d         ][e                ][f           ]
+[a  ][b        ][c         ][d         ][e                ][f           ]
+[a  ][b        ][c         ][d         ][e                ][f           ]
+[a  ][b        ][c         ][d         ][e                ][f           ]
+[a  ][b        ][c         ][d         ][e                ][f           ]
+[a  ][b        ][c         ][d         ][e                ][f           ]
+[a  ][b        ][c         ][d         ][e                ][f           ]
+[a  ][b        ][c         ][d         ][e                ][f           ]
+[a  ][b        ][c         ][d         ][e                ][f           ]
+
+
+
+}
+END
+
+ATTRIBUTES
+a=FORMONLY.cv_afore       TYPE SMALLINT;
+b=FORMONLY.afore_desc     TYPE CHAR;
+c=FORMONLY.fecha_ini      TYPE DATE, FORMAT="dd-mm-yyyy";
+d=FORMONLY.fecha_fin      TYPE DATE, FORMAT="dd-mm-yyyy"; ---,NOENTRY;
+e=FORMONLY.grado_ctr_afo  TYPE DECIMAL (10,6);
+f=FORMONLY.descripcion    TYPE CHAR, UPSHIFT, COMMENTS="Grados: ALTO, MEDIO y BAJO";
+INSTRUCTIONS
+    SCREEN RECORD scr_1[10](FORMONLY.cv_afore THRU FORMONLY.descripcion)
+DELIMITERS "  "

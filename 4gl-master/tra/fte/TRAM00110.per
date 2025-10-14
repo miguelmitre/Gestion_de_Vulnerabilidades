@@ -1,0 +1,22 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+  Orig   fecha_devol           sar92           viv92    comision
+  ----------------------------------------------------------------------
+  [a ]  [c         ] [d             ][e             ][f            ]
+  [a ]  [c         ] [d             ][e             ][f            ]
+  [a ]  [c         ] [d             ][e             ][f            ]
+  [a ]  [c         ] [d             ][e             ][f            ]
+  [a ]  [c         ] [d             ][e             ][f            ]
+
+}
+ATTRIBUTES
+a=FORMONLY.orig_tipo_trasp   , NOENTRY;
+c=FORMONLY.fecha_devol       , NOENTRY;
+f=FORMONLY.saldo_sar_pagar   , NOENTRY;
+d=FORMONLY.saldo_viv_92      , NOENTRY;
+e=FORMONLY.comis_saldo_sar   , NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_ap[5](FORMONLY.orig_Tipo_trasp THRU FORMONLY.comis_saldo_sar);
+DELIMITERS "[]"

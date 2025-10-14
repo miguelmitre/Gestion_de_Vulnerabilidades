@@ -1,0 +1,26 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                                             .
+
+
+
+ 
+  Fecha Aplicacion   [a         ]             Fecha Valor Accion [g         ] 
+  Precio Accion      [b               ]  
+
+
+
+
+  Folios             [c                                                     ]  
+
+
+
+
+
+}   
+ATTRIBUTES
+a=FORMONLY.fecha_aplica     TYPE DATE, FORMAT="dd/mm/yyyy";
+g=FORMONLY.fecha_accion     TYPE DATE, FORMAT="dd/mm/yyyy";
+b=FORMONLY.precio_accion    TYPE DECIMAL, FORMAT="-,---,--&.&&&&&&";
+c=FORMONLY.folios           TYPE CHAR;

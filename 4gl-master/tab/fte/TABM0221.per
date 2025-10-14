@@ -1,0 +1,31 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+
+ 	Codigo Siefore      [a    ]
+
+
+ 	Codigo Banco        [b    ]
+
+
+ 	Codigo Plaza        [c    ]
+
+
+ 	Codigo Sucursal     [d    ]
+
+
+ 	No. de cuenta       [e                 ]
+
+}
+TABLES
+pro_cta_banco
+ATTRIBUTES
+a=pro_cta_banco.siefore;
+b=pro_cta_banco.banco;
+c=pro_cta_banco.plaza;
+d=pro_cta_banco.sucursal;
+e=pro_cta_banco.n_cuenta,UPSHIFT;
+--INSTRUCTIONS
+--DELIMITERS "  "

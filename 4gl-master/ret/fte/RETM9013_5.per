@@ -1,0 +1,59 @@
+DATABASE safre_af
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+  NSS-IMSS    [a1         ]          Nombre    [a5                         ]
+  NSS-ISSSTE  [a2         ]          Paterno   [a6                         ]
+  CURP        [a3                ]   Materno   [a7                         ]
+  RFC         [a4           ]        Fecha Nacimiento [a8        ]       
+
+
+  Tipo Retiro    [b1][d_1                   ]                                 
+  Tipo Beneficio [b2 ][d_2                   ]  Fecha Solicitud  [c1        ] 
+  Fecha Val Ahorro [c4        ]                 Porcentaje Ahorro[c5    ]     
+  No. Oficio [c6        ]                       Fecha Oficio [c7        ]     
+  Entidad Oficio   [c8]                         Porcentaje Fon. Viv[c9    ]   
+  Fecha Val Viv [c13       ]
+
+
+  Fecha Captura      [d2        ]           Consecutivo         [d6        ]  
+  Estado Solicitud   [d4 ] [d5            ] Folio_Interno       [d8        ]  
+
+
+}
+TABLES
+ret_sol_issste_tot ,tab_retiro_issste, tab_beneficio_issste                   
+tab_doc_prob
+
+ATTRIBUTES
+a1= ret_sol_issste_tot.nss_imss      ,UPSHIFT,PICTURE="X##########";
+a2= ret_sol_issste_tot.nss_issste    ,UPSHIFT;
+a3= ret_sol_issste_tot.curp          ,UPSHIFT;
+a4= FORMONLY.rfc TYPE CHAR           ,UPSHIFT;
+a5= FORMONLY.nombre_afore  TYPE CHAR ,UPSHIFT;
+a6= FORMONLY.paterno_afore TYPE CHAR ,UPSHIFT;
+a7= FORMONLY.materno_afore TYPE CHAR ,UPSHIFT;
+a8= ret_sol_issste_tot.fecha_nac     ,FORMAT="DD/MM/YYYY", NOENTRY;
+
+b1= tab_retiro_issste.tipo_retiro        ,NOENTRY;
+d_1=tab_retiro_issste.desc_retiro        ,NOENTRY;
+b2= tab_beneficio_issste.tipo_beneficio  ,NOENTRY;
+d_2=tab_beneficio_issste.desc_beneficio  ,NOENTRY;
+c1= ret_sol_issste_tot.fecha_solicitud   ,FORMAT="DD/MM/YYYY";
+c4= ret_sol_issste_tot.fecha_val_ahorro  ,FORMAT="DD/MM/YYYY";
+c5= ret_sol_issste_tot.porcentaje_ahorro ;
+c6= ret_sol_issste_tot.n_oficio          ,UPSHIFT,PICTURE="AA########";
+c7= ret_sol_issste_tot.fecha_oficio      ,FORMAT="DD/MM/YYYY";
+c8= ret_sol_issste_tot.entidad_oficio    ;
+c9= ret_sol_issste_tot.porcentaje_fon_viv;
+c13=ret_sol_issste_tot.fecha_val_viv     ,FORMAT="DD/MM/YYYY",NOENTRY ;
+
+d2=ret_sol_issste_tot.fecha_captura      , FORMAT="DD/MM/YYYY",NOENTRY;
+d4=ret_sol_issste_tot.estado_solicitud   , NOENTRY;
+d5=FORMONLY.descripcion_status TYPE CHAR , NOENTRY;
+d6=ret_sol_issste_tot.consecutivo        , NOENTRY;
+d8=FORMONLY.folio                        , NOENTRY; 
+
+INSTRUCTIONS
+SCREEN RECORD scr_1 [1]
+       (ret_sol_issste_tot.nss_imss THRU FORMONLY.folio)

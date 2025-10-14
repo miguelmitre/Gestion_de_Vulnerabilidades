@@ -1,0 +1,29 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g---------------------------------------------------------------------------\g
+
+
+
+
+                  POR RANGO DE FECHAS(ddmmaa)    
+                  INICIAL         FINAL    
+                 [a         ]    [b         ]
+
+
+                 REGISTROS A PROCESAR...   [c      ]
+                 REGISTROS A PROCESADOS... [d      ]
+
+
+
+
+
+
+}
+END
+
+ATTRIBUTES
+a=FORMONLY.g_fecha_ini         TYPE  DATE,FORMAT="DD/MM/YYYY";
+b=FORMONLY.g_fecha_fin         TYPE  DATE,FORMAT="DD/MM/YYYY";
+c=FORMONLY.l_procesar          TYPE  DEC,FORMAT="###,##&";
+d=FORMONLY.l_procesados        TYPE  DEC,FORMAT="###,##&";

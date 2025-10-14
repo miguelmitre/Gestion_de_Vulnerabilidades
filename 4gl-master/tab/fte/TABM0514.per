@@ -1,0 +1,29 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+------------------------------------------------------------------------------
+ CODIGO                  DESCRIPCION
+------------------------------------------------------------------------------ 
+ [a   ] [b  ] [c                                                             ] 
+ [a   ] [b  ] [c                                                             ] 
+ [a   ] [b  ] [c                                                             ] 
+ [a   ] [b  ] [c                                                             ] 
+ [a   ] [b  ] [c                                                             ] 
+ [a   ] [b  ] [c                                                             ] 
+ [a   ] [b  ] [c                                                             ] 
+ [a   ] [b  ] [c                                                             ] 
+ [a   ] [b  ] [c                                                             ] 
+ [a   ] [b  ] [c                                                             ] 
+ [a   ] [b  ] [c                                                             ] 
+
+}
+ATTRIBUTES
+a=FORMONLY.leyenda_cod  TYPE SMALLINT , NOENTRY;
+b=FORMONLY.layout_cod TYPE SMALLINT , NOENTRY;
+c=FORMONLY.leyenda TYPE TEXT , NOENTRY;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[11](leyenda_cod, layout_cod,leyenda) 
+                       
+DELIMITERS " "
+                      

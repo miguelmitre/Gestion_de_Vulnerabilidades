@@ -1,0 +1,48 @@
+DATABASE safre_af
+SCREEN
+{
+------------------------------------------------------------------------------
+  Promotor [z         ]   Fecha Inicio [a         ]   Fecha Fin [b         ]
+  Nombre   [y                                     ]
+------------------------------------------------------------------------------
+  Promotor    Folio      Nss      F.cert F.cort  Salario   N SM    Mto Com
+------------------------------------------------------------------------------
+ [c         |d       |e          |f     |g     |h         |i     |j         ]
+ [c         |d       |e          |f     |g     |h         |i     |j         ]
+ [c         |d       |e          |f     |g     |h         |i     |j         ]
+ [c         |d       |e          |f     |g     |h         |i     |j         ]
+ [c         |d       |e          |f     |g     |h         |i     |j         ]
+ [c         |d       |e          |f     |g     |h         |i     |j         ]
+ [c         |d       |e          |f     |g     |h         |i     |j         ]
+ [c         |d       |e          |f     |g     |h         |i     |j         ]
+ [c         |d       |e          |f     |g     |h         |i     |j         ]
+ [c         |d       |e          |f     |g     |h         |i     |j         ]
+ [c         |d       |e          |f     |g     |h         |i     |j         ]
+
+}
+TABLES
+afi_mae_afiliado
+pro_mae_promotor
+com_comis_detalle
+
+ATTRIBUTES
+
+z = FORMONLY.vcod_promotor TYPE CHAR;
+a = FORMONLY.vfecha_inicio TYPE DATE, FORMAT='DD-MM-YYYY';
+b = FORMONLY.vfecha_fin    TYPE DATE, FORMAT='DD-MM-YYYY';
+y = FORMONLY.vnombre       TYPE CHAR;
+
+c = com_comis_detalle.codven;
+d = com_comis_detalle.n_folio, NOENTRY;
+e = com_comis_detalle.nss, NOENTRY;
+f = com_comis_detalle.fentcons, NOENTRY,           FORMAT = "DDMMYY";
+g = com_comis_detalle.fecha_corte, NOENTRY,        FORMAT = "DDMMYY";
+h = com_comis_detalle.salario_base_comis, NOENTRY, FORMAT='---,---.--';
+i = com_comis_detalle.num_sm, NOENTRY,             FORMAT='---.--';
+j = com_comis_detalle.monto_comision, NOENTRY,     FORMAT='---,---.--';
+
+INSTRUCTIONS 
+SCREEN RECORD scr_0     (FORMONLY.vcod_promotor THRU FORMONLY.vnombre);
+SCREEN RECORD scr_1[11] (com_comis_detalle.codven THRU 
+		         com_comis_detalle.monto_comision);
+DELIMITERS "  "

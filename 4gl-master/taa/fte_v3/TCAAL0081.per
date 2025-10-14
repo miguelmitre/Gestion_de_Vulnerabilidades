@@ -1,0 +1,35 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+
+
+ FOLIO     T_T  EST.   DESCRIP. ESTADO    F_PRESENTA  F_ENV_SALD  F_LIQUIDAC.
+[a       ] [b ] [c   ] [d               ][e         ][f         ] [g         ]
+[a       ] [b ] [c   ] [d               ][e         ][f         ] [g         ]
+[a       ] [b ] [c   ] [d               ][e         ][f         ] [g         ]
+[a       ] [b ] [c   ] [d               ][e         ][f         ] [g         ]
+[a       ] [b ] [c   ] [d               ][e         ][f         ] [g         ]
+[a       ] [b ] [c   ] [d               ][e         ][f         ] [g         ]
+[a       ] [b ] [c   ] [d               ][e         ][f         ] [g         ]
+[a       ] [b ] [c   ] [d               ][e         ][f         ] [g         ]
+[a       ] [b ] [c   ] [d               ][e         ][f         ] [g         ]
+[a       ] [b ] [c   ] [d               ][e         ][f         ] [g         ]
+[a       ] [b ] [c   ] [d               ][e         ][f         ] [g         ]
+[a       ] [b ] [c   ] [d               ][e         ][f         ] [g         ]
+[a       ] [b ] [c   ] [d               ][e         ][f         ] [g         ]
+}
+END
+
+ATTRIBUTES
+a=FORMONLY.folio                 TYPE  INTEGER;
+b=FORMONLY.tipo_traspaso         TYPE  CHAR,NOENTRY;
+c=FORMONLY.estado                TYPE  SMALLINT,NOENTRY;
+d=FORMONLY.desc_estado           TYPE  CHAR,NOENTRY;
+e=FORMONLY.f_presentacion        TYPE  DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+f=FORMONLY.f_envio_saldo         TYPE  DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+g=FORMONLY.f_liquidacion         TYPE  DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[13](FORMONLY.folio THRU FORMONLY.f_liquidacion)
+DELIMITERS "[]"

@@ -1,0 +1,30 @@
+DATABASE safre_af
+SCREEN
+{
+
+--------------------------------------------------------------------------
+FOL       MOV  SUB    FVALOR          PESOS            PARTICIPACIONES
+--------------------------------------------------------------------------
+[aa     ][a  ][b ][c         ][f                  ][g                   ]
+[aa     ][a  ][b ][c         ][f                  ][g                   ]
+[aa     ][a  ][b ][c         ][f                  ][g                   ]
+[aa     ][a  ][b ][c         ][f                  ][g                   ]
+[aa     ][a  ][b ][c         ][f                  ][g                   ]
+[aa     ][a  ][b ][c         ][f                  ][g                   ]
+[aa     ][a  ][b ][c         ][f                  ][g                   ]
+[aa     ][a  ][b ][c         ][f                  ][g                   ]
+[aa     ][a  ][b ][c         ][f                  ][g                   ]
+[aa     ][a  ][b ][c         ][f                  ][g                   ]
+}
+TABLES
+ dis_provision
+ATTRIBUTES
+aa=dis_provision.folio;
+a=dis_provision.tipo_movimiento;
+b=dis_provision.subcuenta;
+c=dis_provision.fecha_valor ,FORMAT ="dd-mm-yyyy";
+f=dis_provision.monto_en_pesos;
+g=dis_provision.monto_en_acciones;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](dis_provision.folio THRU dis_provision.monto_en_acciones)
+

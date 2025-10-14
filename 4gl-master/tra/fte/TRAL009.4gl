@@ -1,0 +1,246 @@
+##############################################################################
+#Owner             => E.F.P.	
+#Programa TRAL009  => PANTALLA DE LIQUIDACION DE ICEFA - IMSS  
+#Fecha creacion    => 04 DE MAYO DE 1999
+#By                => JESUS DAVID YANEZ MORENO
+#Modificado  By    => MARCO ANTONIO GONZALEZ ROJAS
+#Fecha de Mod      => 02 DE FEBRERO DEL 2005
+#Sistema           => TRA-ICE-IMSS
+##############################################################################
+
+DATABASE safre_af
+
+GLOBALS
+
+    	DEFINE #char                                  
+        	enter                 CHAR(001),            
+                txt		      CHAR(300),
+ 		titulo		      CHAR(300)
+
+
+	DEFINE                       
+        	tipo         SMALLINT,   
+                aux_verifica INTEGER,
+        	vfecha       DATE,       
+        	seguro       CHAR(11),   
+		hora         CHAR(05),            
+        	rep          SMALLINT,
+        	status_aux   SMALLINT,
+                resp_imp     CHAR(001),
+		x            SMALLINT
+
+	DEFINE
+		reg_fol      RECORD
+                folio        INTEGER
+        END RECORD
+
+
+	DEFINE g_param_tra    RECORD LIKE seg_modulo.*
+	
+	DEFINE n SMALLINT
+	DEFINE i SMALLINT
+	DEFINE total INTEGER
+	DEFINE cadena CHAR(20)
+	
+	DEFINE  g_lista               CHAR(100) , 
+        	comando               CHAR(100)   
+
+
+        DEFINE
+                idx             INTEGER,
+                sal_cnt         INTEGER,
+                array_sz        SMALLINT,
+                over_size       SMALLINT,
+                montot          LIKE dis_cuenta.monto_en_pesos,
+                totregs         INTEGER 
+        DEFINE
+                reg_total       RECORD
+                subcuenta		LIKE dis_cuenta.subcuenta,
+                desc_subcuenta          CHAR(003),
+                tipo_movimiento		LIKE dis_cuenta.tipo_movimiento,
+                desc_mov                CHAR(007),
+                monto_en_pesos		LIKE dis_cuenta.monto_en_pesos,
+                cuenta			INTEGER
+        END RECORD                
+
+END GLOBALS                                       
+
+GLOBALS "GLOB_TRAS.4gl"
+                                                  
+MAIN
+#m ---------------------------
+    OPTIONS INPUT WRAP,                                                      
+    PROMPT LINE LAST  ,                                                      
+    ACCEPT KEY CONTROL-I                                                     
+    DEFER INTERRUPT                                                          
+
+    LET hora                =            TIME        
+
+    CALL init()                                                              
+
+OPEN WINDOW w_TRAL0091 AT 2,2
+WITH 19 ROWS, 75 COLUMNS
+ATTRIBUTE(BORDER, FORM LINE 4) 
+OPEN FORM f_TRAL0091 from "TRAL0091"
+DISPLAY FORM f_TRAL0091 
+    DISPLAY "                               <Ctrl-c> Salir                                  " AT 1,1 ATTRIBUTE(REVERSE)
+    DISPLAY " TRAL009      RESUMEN LIQUIDACION DE TRASPASO ICEFA-AFORE IMSS                 " AT 3,1 ATTRIBUTE(REVERSE)
+    DISPLAY HOY USING "DD-MM-YYYY" AT 3,65 ATTRIBUTE(REVERSE)
+
+
+    INPUT BY NAME reg_fol.* WITHOUT DEFAULTS
+        AFTER FIELD folio
+            IF reg_fol.folio IS NULL THEN
+                ERROR"CAMPO NO PUEDE SER NULO"
+                NEXT FIELD folio
+            END IF
+        ON KEY (INTERRUPT)
+            EXIT PROGRAM
+
+        ON KEY (ESC)
+            IF reg_fol.folio IS NULL THEN
+                ERROR"CAMPO NO PUEDE SER NULO"
+                NEXT FIELD folio               
+            END IF
+            DISPLAY "PROCESANDO INFORMACION" AT 19,1 ATTRIBUTE(REVERSE)   
+            CALL  consulta()
+            CALL verif_imp()
+
+
+EXIT INPUT
+END INPUT
+CLOSE WINDOW w_TRAL0091
+END MAIN
+
+      
+FUNCTION verif_imp()
+#vi---------------
+
+               LET g_folio                =          reg_fol.folio
+    WHILE TRUE
+      PROMPT "DESEA IMPRIMIR REPORTE S/N? " ATTRIBUTE (REVERSE) FOR CHAR enter
+        IF enter MATCHES "[sSnN]" THEN
+            IF enter MATCHES "[sS]" THEN
+                RUN comando
+                CALL asigna_globales()
+                CALL genera_reporte()
+                DISPLAY"PROCESO CONCLUIDO RUTA DEL REPORTE GENERADO ==>"," ",g_seg_modulo.ruta_listados AT 19,1 ATTRIBUTE(REVERSE) SLEEP 5
+                EXIT WHILE
+            ELSE
+                DISPLAY"PROCESO CANCELADO..." AT 19,1 ATTRIBUTE(REVERSE) SLEEP 3
+                EXIT WHILE
+            END IF
+        END IF
+    END WHILE        
+END FUNCTION
+
+
+
+FUNCTION init()
+#i ---------------
+#### PARA VARIABLES DEL GLOB_REP Y GOB_REPS#############
+
+    SELECT  USER
+    INTO    g_usuario
+    FROM    tab_afore_local
+
+    SELECT  *
+    INTO    g_seg_modulo.*
+    FROM    seg_modulo
+    WHERE   modulo_cod = 'tra'
+
+   LET HOY = TODAY
+	
+END FUNCTION       
+
+
+FUNCTION consulta()
+#c---------------
+
+        SELECT COUNT(*)      
+        INTO   aux_verifica
+        FROM   dis_cuenta
+        WHERE  folio=reg_fol.folio AND          
+               subcuenta in (7,8)  AND          
+               tipo_movimiento in (1,3,4,5)     
+
+        IF (aux_verifica = 0) THEN                                                     
+           PROMPT "FOLIO INEXISTENTE <enter para continuar>" ATTRIBUTE (REVERSE) FOR CHAR enter                                                                         
+           RETURN                                                                         
+        END IF                                                                         
+	DECLARE cur_1 CURSOR FOR 
+
+	SELECT subcuenta,
+               tipo_movimiento,
+               sum(monto_en_pesos),
+               count(*)
+	FROM   dis_cuenta
+	WHERE  folio=reg_fol.folio AND
+               subcuenta in (7,8)  AND
+               tipo_movimiento in (1,3,4,5)
+	GROUP BY 1,2
+	ORDER BY 1,2
+LET i=1
+LET montot=0
+
+	FOREACH cur_1 INTO  reg_total.subcuenta,    
+                            reg_total.tipo_movimiento,
+                            reg_total.monto_en_pesos,
+                            reg_total.cuenta
+		CASE reg_total.subcuenta 
+       			WHEN 7 LET reg_total.desc_subcuenta='SAR' EXIT CASE
+			WHEN 8 LET reg_total.desc_subcuenta='VIV' EXIT CASE
+		END CASE
+
+        	CASE reg_total.tipo_movimiento
+			WHEN 1 LET reg_total.desc_mov ='APORTE'   EXIT CASE
+			WHEN 3 LET reg_total.desc_mov ='REND.'    EXIT CASE
+     	   	        WHEN 4 LET reg_total.desc_mov ='INTERES'  EXIT CASE
+     	     	        WHEN 5 LET reg_total.desc_mov ='ACT.   '  EXIT CASE 
+        	END CASE LET montot = montot + reg_total.monto_en_pesos
+        	LET totregs=totregs +  reg_total.cuenta
+			DISPLAY reg_total.* TO scr_1[i].*
+        	LET i=i+1
+        END FOREACH
+                DISPLAY montot,totregs TO montot,totregs
+END FUNCTION        
+
+FUNCTION asigna_globales()
+#ag-----------------------
+
+DEFINE   l_fecha_par                  DATE
+
+   LET  g_tblprovliq           =            "dis_cuenta b"
+
+#== ASIGNACION DE VARIABLES QUE SE UTILIZA EL PROGRAMA GLOB_REP.4gl======
+
+   LET  g_tabname              =            g_tblprovliq
+
+   CALL define_querys()
+   PREPARE q_arr_1 FROM g_sql_05
+   DECLARE cursor_2  CURSOR  FOR q_arr_1
+
+   FOREACH cursor_2  USING g_folio
+   INTO g_fecha_accion
+   END FOREACH
+
+
+   SELECT  COUNT(*)
+   INTO   g_total_cuentas
+   FROM   tra_det_trasp_sal a 
+   WHERE  a.folio       =        g_folio
+
+   LET    l_fecha_par              =             MDY(MONTH(g_fecha_accion),"01"
+,YEAR(g_fecha_accion))
+
+   LET    g_fecha_parti            =             l_fecha_par
+
+   LET    g_tipo_desc1             =             "LIQUIDACION ICE-AF IMSS POR TIPO MOV"
+   LET    g_tipo_desc2             =             "LIQUIDACION ICE-AF IMSS POR SUBCUENTA"
+   LET    g_tipo_desc3             =             "LIQUIDACION ICE-AF IMSS POR NSS"      
+
+   LET    g_nombre_programa        =             "TRAL009"
+
+   LET    g_tip_rep                =             "LIQ"
+
+END FUNCTION

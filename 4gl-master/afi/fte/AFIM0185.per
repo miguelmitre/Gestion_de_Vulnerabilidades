@@ -1,0 +1,29 @@
+DATABASE FORMONLY
+SCREEN
+{
+       1  Usuario         : [g          ] 
+ 
+       2  N.S.S.          : [c          ] 
+
+       3  Numero de folio : [b         ] 
+
+       4  Tipo solicitud  : [a ]                                   .
+
+       5  CURP            : [f                 ] 
+    
+       6  Cod promotor    : [d    ] 
+
+       7  Estado          : [e          ]
+}
+END
+
+ATTRIBUTES
+g = FORMONLY.usuario         TYPE CHAR     ;
+c = FORMONLY.n_seguro        TYPE CHAR     ;
+b = FORMONLY.n_folio         TYPE DECIMAL  ;
+a = FORMONLY.tipo_solicitud  TYPE SMALLINT,COMMENTS="1) Reg. 2) Trasp.";
+f = FORMONLY.n_unico         TYPE CHAR, UPSHIFT;
+d = FORMONLY.cod_promotor    TYPE CHAR     ;
+e = FORMONLY.status_interno  TYPE SMALLINT ;
+INSTRUCTIONS
+DELIMITERS " "

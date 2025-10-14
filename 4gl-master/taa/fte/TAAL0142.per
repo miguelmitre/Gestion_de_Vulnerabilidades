@@ -1,0 +1,21 @@
+DATABASE safre_af
+SCREEN
+{
+---------------------------------------------------------------------
+          REPORTE GLOBAL TRASPASOS AFORE-AFORE RECEPTORA
+---------------------------------------------------------------------
+
+
+               Ingresar Fecha de Liquidacion: [vs        ]
+
+ 
+                                           
+
+
+
+}
+TABLES
+ taa_viv_recepcion
+ATTRIBUTES
+vs=taa_viv_recepcion.fecha_mov_banxico, FORMAT = "DD/MM/YYYY",
+   COMMENTS = "Fecha de liquidacion dd/mm/aaaa";

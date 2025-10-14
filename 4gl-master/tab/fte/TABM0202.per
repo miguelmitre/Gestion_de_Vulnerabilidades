@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+           Codigo                       Descripcion
+\g----------------------------------------------------------------------------\g
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_instituto
+ATTRIBUTES
+a=tab_instituto.insti_cod;
+b=tab_instituto.insti_desc;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_instituto.insti_cod,tab_instituto.insti_desc);
+END

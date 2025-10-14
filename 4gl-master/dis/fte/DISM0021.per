@@ -1,0 +1,33 @@
+DATABASE safre_af
+SCREEN
+{
+                                                                          .
+
+	Numero Seguro Social  [a          ]   
+
+        Nombre del Trabajador [s                                        ]
+
+	CURP del Trabajador   [b                ]
+
+	Monto en pesos        [c         ]
+
+	Fecha de Pago         [d         ]
+
+	Fecha de Valor        [e         ]
+
+	Entidad Receptora     [f         ]
+
+	Fecha de recepcion    [g         ]
+
+}
+TABLES 
+aporte_ventanilla
+ATTRIBUTES
+a=aporte_ventanilla.nss;
+s=formonly.g_nombres TYPE CHAR;
+b=aporte_ventanilla.curp,NOENTRY;
+c=aporte_ventanilla.monto_en_pesos;
+d=aporte_ventanilla.fecha_pago ,FORMAT="DD/MM/YYYY";
+e=aporte_ventanilla.fecha_valor,FORMAT="DD/MM/YYYY";
+f=aporte_ventanilla.entidad_rec;
+g=aporte_ventanilla.fecha_recep ,FORMAT="DD/MM/YYYY";

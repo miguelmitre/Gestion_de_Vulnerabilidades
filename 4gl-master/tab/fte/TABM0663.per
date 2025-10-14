@@ -1,0 +1,24 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+         Codigo                  Descripcion               Abreviatura
+\g----------------------------------------------------------------------------\g
+        [a    ]           [b                      ]           [c  ]
+        [a    ]           [b                      ]           [c  ]
+        [a    ]           [b                      ]           [c  ]
+        [a    ]           [b                      ]           [c  ]
+        [a    ]           [b                      ]           [c  ]
+        [a    ]           [b                      ]           [c  ]
+        [a    ]           [b                      ]           [c  ]
+        [a    ]           [b                      ]           [c  ]
+        [a    ]           [b                      ]           [c  ]
+        [a    ]           [b                      ]           [c  ]
+\g----------------------------------------------------------------------------\g
+}
+ATTRIBUTES
+a=FORMONLY.moneda_cod;
+b=FORMONLY.vmoneda_desc,UPSHIFT;
+c=FORMONLY.vmoneda_abrevia,UPSHIFT;
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](FORMONLY.moneda_cod,FORMONLY.vmoneda_desc,FORMONLY.vmoneda_abrevia)

@@ -1,0 +1,30 @@
+DATABASE formonly
+SCREEN
+{
+                                                                        .
+
+    FECHA lIQUIDACION  : [fl        ]   FOLIO LIQUIDACION:[fol        ]
+
+
+    INDIQUE LA FECHA DE CORTE :[fc        ]
+
+
+
+
+    DESEA GENERAR LA LIQUIDACION  S/N : [a ]
+
+
+
+
+
+
+
+}
+ATTRIBUTES
+fl=formonly.g_fecha_liquida TYPE DATE, FORMAT="dd/mm/yyyy",NOENTRY;
+fc=formonly.g_fecha_corte  TYPE DATE, FORMAT="dd/mm/yyyy";
+fol=formonly.g_folio, NOENTRY;
+a=formonly.v_respuesta TYPE CHAR,UPSHIFT;
+INSTRUCTIONS
+DELIMITERS " "
+

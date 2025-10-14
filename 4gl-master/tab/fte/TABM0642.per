@@ -1,0 +1,27 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+   Estado            Descripcion               Fecha actualiza     Usuario
+   Marca
+\g----------------------------------------------------------------------------\g
+  [a   ]      [b                        ]      [c         ]      [d       ]
+  [a   ]      [b                        ]      [c         ]      [d       ]
+  [a   ]      [b                        ]      [c         ]      [d       ]
+  [a   ]      [b                        ]      [c         ]      [d       ]
+  [a   ]      [b                        ]      [c         ]      [d       ]
+  [a   ]      [b                        ]      [c         ]      [d       ]
+  [a   ]      [b                        ]      [c         ]      [d       ]
+  [a   ]      [b                        ]      [c         ]      [d       ]
+  [a   ]      [b                        ]      [c         ]      [d       ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_estado_marca
+ATTRIBUTES
+a=tab_estado_marca.marca_estado;
+b=tab_estado_marca.marca_desc,UPSHIFT;  
+c=tab_estado_marca.fecha_actualiza;
+d=tab_estado_marca.usuario;
+INSTRUCTIONS
+SCREEN RECORD scr_1[9](tab_estado_marca.marca_estado,tab_estado_marca.marca_desc,tab_estado_marca.fecha_actualiza,tab_estado_marca.usuario) 

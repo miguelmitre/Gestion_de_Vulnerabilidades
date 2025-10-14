@@ -1,0 +1,75 @@
+DATABASE safre_af
+SCREEN
+{
+
+Num.Nomina  [f01            ] Gpo Venta [f03       ][f04                 ]
+Cod.Promotor [f02       ] Tipo Promot.[f05][f06                          ]
+Asesor [f07]                     Reg. : [m1      ] Total Reg. : [mm      ]
+
+NSS  [g01          ] CURP [g04               ]  F. Nacimiento [g08       ]
+RFC [g02          ]     F.Alta    [h17       ] F.Envio Consar [g09       ]
+Escolaridad  [g]  F. Alta Consar  [g10       ]     F.Vigencia [h15       ]
+Fecha Renuncia Afore      [g11       ]  F.Primera Inscripcion [h16       ]
+Apellido Paterno  [g05               ]  Fecha Baja Consar     [g12       ]
+Apellido Materno  [g06               ] R.Eval.[g13] Sexo[g14] E.Naci [g15]
+Nombre            [g07                             ] F.CONSAR [ma        ]
+
+Calle [h01                       ]No.Ext.[h02       ] No.Int. [h03       ]
+Codigo Postal [h04  ]  Colonia   [h05                                    ]
+Delegacion    [h06  ] [h07                                               ]
+Ciudad        [h08  ] [h09                           ] Tel    [h12       ]
+Estado        [h10  ] [h11                           ] Tel2   [h13       ]
+Correo Elect  [h14                                     ]
+}
+TABLES
+    pro_mae_promotor
+
+ATTRIBUTES
+f01 = codven                                      ;
+f02 = cod_promotor                                ;
+f03 = FORMONLY.agenc_cod     TYPE CHAR            ;
+f04 = FORMONLY.desagenc                           ,NOENTRY;
+f05 = nivel                                       ;
+f06 = formonly.DESNIVEL                           ,NOENTRY;
+f07 = FORMONLY.ind_asesor                         ,NOENTRY;
+m1  = formonly.son                                ,NOENTRY;
+g01 = seguro               , UPSHIFT              ;
+g02 = rfc                                         ;
+--g03 = FORMONLY.homonimia   , UPSHIFT              ;
+g04 = unico                , UPSHIFT              ;
+g   = escolar              , UPSHIFT              ;
+g05 = paterno              , UPSHIFT              ;
+g06 = materno              , UPSHIFT              ;
+g07 = nombres              , UPSHIFT              ;
+g08 = fnaci                , FORMAT ="dd-mm-yyyy" ;
+g09 = fenvio               , FORMAT ="dd-mm-yyyy" ,NOENTRY;
+g10 = fecha_registro       , FORMAT ="dd-mm-yyyy" ,NOENTRY;
+g11 = fecha_baja           , FORMAT= "dd-mm-yyyy" ;
+g12 = fecha_suspende                              ,NOENTRY;
+g13 = resuelva                                    ;
+g14 = FORMONLY.sexo        ,NOENTRY               ;
+g15 = FORMONLY.edo_naci    ,NOENTRY               ;
+h01 = calle                , UPSHIFT              ;
+h02 = numero               , UPSHIFT              ;
+h03 = dpto                 , UPSHIFT              ;
+h04 = codpos                                      ;
+h05 = colonia              , UPSHIFT              ,NOENTRY;
+h06 = deleg                                       ;
+h07 = FORMONLY.desdeleg                           ,NOENTRY;
+h08 = ciudad                                      ;
+h09 = FORMONLY.desciudad                          ,NOENTRY;
+h10 = estado                                      ;
+h11 = FORMONLY.desestad                           ,NOENTRY;
+h12 = fono                 , UPSHIFT              ;
+h13 = fono2                , UPSHIFT              ;
+h14 = correo                                      ;
+h15 = fvigencia            , FORMAT ="dd-mm-yyyy" ,NOENTRY;
+h16 = fprimera             , FORMAT ="dd-mm-yyyy" ,NOENTRY;
+h17 = falta                , FORMAT ="dd-mm-yyyy" ,NOENTRY;
+ma  = FORMONLY.ftermino TYPE DATE, FORMAT= "dd-mm-yyyy" ,NOENTRY;
+
+mm = formonly.total_reg                         ,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[1](codven THRU ftermino);
+DELIMITERS " "
+

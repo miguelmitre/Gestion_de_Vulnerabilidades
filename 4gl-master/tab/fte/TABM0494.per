@@ -1,0 +1,27 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+------------------------------------------------------------------------------
+ CODIGO              DESCRIPCION 
+------------------------------------------------------------------------------ 
+ [a   ] [b                                                                  ] 
+ [a   ] [b                                                                  ] 
+ [a   ] [b                                                                  ] 
+ [a   ] [b                                                                  ] 
+ [a   ] [b                                                                  ] 
+ [a   ] [b                                                                  ] 
+ [a   ] [b                                                                  ] 
+ [a   ] [b                                                                  ] 
+ [a   ] [b                                                                  ] 
+ [a   ] [b                                                                  ] 
+ [a   ] [b                                                                  ] 
+
+}
+ATTRIBUTES
+a=FORMONLY.error_cod TYPE SMALLINT ;
+b=FORMONLY.error_desc  TYPE CHAR ;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[11](error_cod, error_desc)
+DELIMITERS " "
+                      

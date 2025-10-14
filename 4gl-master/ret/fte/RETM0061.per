@@ -1,0 +1,89 @@
+DATABASE safre_af
+SCREEN
+{
+  --------------------------------------------------------------------------
+  NSS             [a1          ]         Paterno [a9                       ]
+  Tipo Seguro     [a2][a3              ] Materno [a10                      ]
+  Tipo Pension    [a4][a5              ] Nombres [a11                      ]
+  Tipo Prestacion [a6][a7              ] Fecha Solicitud        [a12       ]
+  Importe         [a8            ]       Fecha Emision          [a13       ] 
+  Rechazo : 
+  [a14][a15                           ] [a16][a17                          ]
+  [a18][a19                           ] [a20][a21                          ]
+  DEVOLUCION DE DOCUMENTOS (S/N) :   [e] Estatus    [f               ]
+  [b1] [b2                                                                 ]
+  [b3] [b4                                                                 ]
+  [b5] [b6                                                                 ]
+  [b7] [b8                                                                 ]
+  [b9] [b10                                                                ]
+  [c1] [c2                                                                 ]
+  [c3] [c4                                                                 ]
+  [c5] [c6                                                                 ]
+}
+TABLES
+ret_rechazo_interno, 
+ret_rch_int_benef       
+
+ATTRIBUTES
+a1  = ret_rechazo_interno.nss                           ;
+a2  = ret_rechazo_interno.tipo_seguro           ,UPSHIFT,
+      COMMENTS="PROPORCIONE EL TIPO DE SEGURO          ";
+a3  = FORMONLY.desc_tipo_seguro                 ,NOENTRY;
+a4  = ret_rechazo_interno.tipo_pension          ,UPSHIFT,
+      COMMENTS="PROPORCIONE EL TIPO DE PENSION         ";
+a5  = FORMONLY.desc_tipo_pension                ,NOENTRY;
+a6  = ret_rechazo_interno.tipo_prestacion               ,
+      COMMENTS="PROPORCIONE EL TIPO DE PRESTACION      ";
+a7  = FORMONLY.desc_tipo_prestacion             ,NOENTRY;
+a8  = ret_rechazo_interno.importe                       ,
+      COMMENTS="PROPORCIONE EL IMPORTE DEL RECHAZO     ";
+a9  = ret_rechazo_interno.paterno               ,NOENTRY;
+a10 = ret_rechazo_interno.materno               ,NOENTRY;
+a11 = ret_rechazo_interno.nombres               ,NOENTRY;
+a12 = ret_rechazo_interno.fecha_solicitud       ,FORMAT="DD/MM/YYYY",
+      COMMENTS="PROPORCIONE LA FECHA (DD/MM/AAAA)      ";
+a13 = ret_rechazo_interno.fecha_emision         ,FORMAT="DD/MM/YYYY",
+      COMMENTS="PROPORCIONE LA FECHA (DD/MM/AAAA)      ", REQUIRED;
+a14 = FORMONLY.codigo1                                  ,
+      COMMENTS="PROPORCIONE EL CODIGO DE RECHAZO o 0=AYUDA";
+a15 = FORMONLY.desc_codigo1                     ,NOENTRY;
+a16 = FORMONLY.codigo2                                  ,
+      COMMENTS="PROPORCIONE EL CODIGO DE RECHAZO o 0=AYUDA";
+a17 = FORMONLY.desc_codigo2                     ,NOENTRY;
+a18 = FORMONLY.codigo3                                  ,
+      COMMENTS="PROPORCIONE EL CODIGO DE RECHAZO o 0=AYUDA";
+a19 = FORMONLY.desc_codigo3                     ,NOENTRY;
+a20 = FORMONLY.codigo4                                  ,
+      COMMENTS="PROPORCIONE EL CODIGO DE RECHAZO o 0=AYUDA";
+a21 = FORMONLY.desc_codigo4                     ,NOENTRY;
+e   = ret_rechazo_interno.devolucion_doctos     ,REQUIRED, UPSHIFT;
+f   = FORMONLY.estado                           ,NOENTRY;
+b1  = FORMONLY.docto_cod1                       ,
+      COMMENTS="PROPORCIONE LA CLAVE DE DOCTO. o 0=AYUDA";
+b2  = FORMONLY.docto_desc1                      ,NOENTRY;
+b3  = FORMONLY.docto_cod2                               ,
+      COMMENTS="PROPORCIONE LA CLAVE DE DOCTO. o 0=AYUDA";
+b4  = FORMONLY.docto_desc2                      ,NOENTRY;
+b5  = FORMONLY.docto_cod3                               ,
+      COMMENTS="PROPORCIONE LA CLAVE DE DOCTO. o 0=AYUDA";
+b6  = FORMONLY.docto_desc3                      ,NOENTRY;
+b7  = FORMONLY.docto_cod4                               ,
+      COMMENTS="PROPORCIONE LA CLAVE DE DOCTO. o 0=AYUDA";
+b8  = FORMONLY.docto_desc4                      ,NOENTRY;
+b9  = FORMONLY.docto_cod5                               ,
+      COMMENTS="PROPORCIONE LA CLAVE DE DOCTO. o 0=AYUDA";
+b10 = FORMONLY.docto_desc5                      ,NOENTRY;
+c1  = FORMONLY.docto_cod6                               ,
+      COMMENTS="PROPORCIONE LA CLAVE DE DOCTO. o 0=AYUDA";
+c2  = FORMONLY.docto_desc6                      ,NOENTRY;
+c3  = FORMONLY.docto_cod7                               ,
+      COMMENTS="PROPORCIONE LA CLAVE DE DOCTO. o 0=AYUDA";
+c4  = FORMONLY.docto_desc7                      ,NOENTRY;
+c5  = FORMONLY.docto_cod8                               ,
+      COMMENTS="PROPORCIONE LA CLAVE DE DOCTO. o 0=AYUDA";
+c6  = FORMONLY.docto_desc8                      ,NOENTRY;
+
+INSTRUCTIONS 
+SCREEN RECORD scr_1 [1]
+       (ret_rechazo_interno.nss THRU FORMONLY.docto_desc8)
+DELIMITERS " "

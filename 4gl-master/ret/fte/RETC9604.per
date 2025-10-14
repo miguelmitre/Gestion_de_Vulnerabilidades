@@ -1,0 +1,22 @@
+DATABASE FORMONLY
+SCREEN
+{
+------------------------------------------------
+ Retiro 08 : [a01   ]%  Ahorro Sol  : [b01   ]%
+
+ CV        : [a02   ]%  Vivienda 08 : [b02   ]%
+------------------------------------------------
+}
+END
+
+ATTRIBUTES
+    a01 = FORMONLY.ret08      TYPE DECIMAL (5,2) ;
+    a02 = FORMONLY.cv         TYPE DECIMAL (5,2) ;
+    b01 = FORMONLY.ahorro_sol TYPE DECIMAL (5,2) ;
+    b02 = FORMONLY.viv08      TYPE DECIMAL (5,2) ;
+
+INSTRUCTIONS
+    SCREEN RECORD prc[1](FORMONLY.ret08 THRU FORMONLY.viv08);
+DELIMITERS " "
+
+

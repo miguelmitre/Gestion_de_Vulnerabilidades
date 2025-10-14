@@ -1,0 +1,24 @@
+DATABASE safre_af
+SCREEN
+{
+\g---------------------------------------------------------------\g
+       CODIGO               DESCRIPCION
+\g---------------------------------------------------------------\g
+      [a    ]     [b                                     ]
+      [a    ]     [b                                     ]
+      [a    ]     [b                                     ]
+      [a    ]     [b                                     ]
+      [a    ]     [b                                     ]
+      [a    ]     [b                                     ]
+      [a    ]     [b                                     ]
+      [a    ]     [b                                     ]
+      [a    ]     [b                                     ]
+      [a    ]     [b                                     ]
+}
+TABLES
+tab_canal
+ATTRIBUTES
+a=tab_canal.canal_cod;
+b=tab_canal.canal_desc;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_canal.canal_cod,tab_canal.canal_desc);

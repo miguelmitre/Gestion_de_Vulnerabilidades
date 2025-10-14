@@ -1,0 +1,29 @@
+DATABASE FORMONLY
+SCREEN
+{
+-------------------------------------------------------------------------
+     Codigo                   Descripcion
+-------------------------------------------------------------------------
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+   [a         ]    [b                               ]
+-------------------------------------------------------------------------
+}
+END
+ATTRIBUTES
+a=FORMONLY.ciudad_cod TYPE INTEGER,NOENTRY;
+b=FORMONLY.ciudad_desc TYPE CHAR,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](FORMONLY.ciudad_cod,FORMONLY.ciudad_desc);
+--DELIMITERS "  "
+
+
+
+

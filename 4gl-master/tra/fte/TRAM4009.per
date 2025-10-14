@@ -1,0 +1,23 @@
+-- ABRIL 2013
+DATABASE FORMONLY
+SCREEN
+{
+
+  Tipo fecha_banxico     S/I              sar92           viv92
+  --------------------------------------------------------------
+  [a]  [c         ]   [f      ] [d             ][e             ] 
+  [a]  [c         ]   [f      ] [d             ][e             ] 
+  [a]  [c         ]   [f      ] [d             ][e             ] 
+  [a]  [c         ]   [f      ] [d             ][e             ] 
+  [a]  [c         ]   [f      ] [d             ][e             ] 
+
+}
+ATTRIBUTES
+a=FORMONLY.tipo_icefa   , NOENTRY;
+c=FORMONLY.fech_mov_banxico, NOENTRY;
+f=FORMONLY.sal_int      , NOENTRY;
+d=FORMONLY.sar_92       , NOENTRY;
+e=FORMONLY.viv_92       , NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_ap[5](FORMONLY.tipo_icefa THRU FORMONLY.viv_92);
+DELIMITERS "[]"

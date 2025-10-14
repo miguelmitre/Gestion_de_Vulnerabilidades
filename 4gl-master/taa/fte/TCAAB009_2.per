@@ -1,0 +1,30 @@
+database FORMONLY
+screen 
+{
+\g----------------------------------------------------------------------------\g
+   NSS INDEBI.  NOMBRE                                     TR FEC_TRASPA EDO
+\g----------------------------------------------------------------------------\g
+  [a          |b                                           |c|d         |e  ]
+  [a          |b                                           |c|d         |e  ]
+  [a          |b                                           |c|d         |e  ]
+  [a          |b                                           |c|d         |e  ]
+  [a          |b                                           |c|d         |e  ]
+  [a          |b                                           |c|d         |e  ]
+  [a          |b                                           |c|d         |e  ]
+  [a          |b                                           |c|d         |e  ]
+  [a          |b                                           |c|d         |e  ]
+  [a          |b                                           |c|d         |e  ]
+
+
+}
+end
+attributes
+a    = FORMONLY.nss                   TYPE  INTEGER;
+b    = FORMONLY.nombre                TYPE  CHAR,NOENTRY;
+c    = FORMONLY.tipo_rendi            TYPE  INTEGER,NOENTRY;
+d    = FORMONLY.fecha_liq_inde        TYPE  DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+e    = FORMONLY.estado                TYPE  SMALLINT,NOENTRY;
+INSTRUCTIONS                                                       
+SCREEN RECORD scr_1[10](FORMONLY.nss 
+                   THRU FORMONLY.estado); 
+DELIMITERS " "

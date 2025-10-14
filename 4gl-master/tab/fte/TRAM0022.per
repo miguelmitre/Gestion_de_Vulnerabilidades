@@ -1,0 +1,25 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+                       Codigo           Comprobante
+\g----------------------------------------------------------------------------\g
+                      [a    ]     [b                    ]
+                      [a    ]     [b                    ]
+                      [a    ]     [b                    ]
+                      [a    ]     [b                    ]
+                      [a    ]     [b                    ]
+                      [a    ]     [b                    ]
+                      [a    ]     [b                    ]
+                      [a    ]     [b                    ]
+                      [a    ]     [b                    ]
+                      [a    ]     [b                    ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_tipo_com
+ATTRIBUTES
+a=tab_tipo_com.tipcom_cod;
+b=tab_tipo_com.tipcom_desc;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_tipo_com.tipcom_cod,tab_tipo_com.tipcom_desc);

@@ -1,0 +1,20 @@
+DATABASE FORMONLY
+SCREEN
+{
+------------------------------------------------------------------
+Esquema Comision [a    ][b                                       ]
+Indicador B             [c               ]
+Indicador C             [d               ]
+Indicador D             [e               ]
+Indicador E             [f               ]
+------------------------------------------------------------------
+}
+ATTRIBUTES
+a=FORMONLY.cod_esq_comision TYPE SMALLINT;
+b=FORMONLY.desc_esq_comision TYPE CHAR,UPSHIFT,NOENTRY;
+c=FORMONLY.indicador_b TYPE CHAR,UPSHIFT;
+d=FORMONLY.indicador_c TYPE CHAR,UPSHIFT;
+e=FORMONLY.indicador_d TYPE CHAR,UPSHIFT;
+f=FORMONLY.indicador_e TYPE CHAR,UPSHIFT;
+INSTRUCTIONS
+DELIMITERS "  "

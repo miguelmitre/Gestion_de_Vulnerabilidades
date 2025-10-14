@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+      Codigo       Descripcion
+\g----------------------------------------------------------------------------\g
+     [a   ]    [b                                                        ]
+     [a   ]    [b                                                        ]
+     [a   ]    [b                                                        ]
+     [a   ]    [b                                                        ]
+     [a   ]    [b                                                        ]
+     [a   ]    [b                                                        ]
+     [a   ]    [b                                                        ]
+     [a   ]    [b                                                        ]
+     [a   ]    [b                                                        ]
+     [a   ]    [b                                                        ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_rechazo_op21
+ATTRIBUTES
+a = tab_rechazo_op21.codigo;
+b = tab_rechazo_op21.descripcion;
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](tab_rechazo_op21.codigo,tab_rechazo_op21.descripcion);
+END

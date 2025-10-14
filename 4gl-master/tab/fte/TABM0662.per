@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+    Cod. Moneda            Fecha Aplica                Tipo Cambio    
+\g----------------------------------------------------------------------------\g
+     [a   ]                [b         ]           [c                   ]  
+     [a   ]                [b         ]           [c                   ]  
+     [a   ]                [b         ]           [c                   ]  
+     [a   ]                [b         ]           [c                   ]  
+     [a   ]                [b         ]           [c                   ]  
+     [a   ]                [b         ]           [c                   ]  
+     [a   ]                [b         ]           [c                   ]  
+     [a   ]                [b         ]           [c                   ]  
+     [a   ]                [b         ]           [c                   ]  
+
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_tipo_cambio
+ATTRIBUTES
+a=tab_tipo_cambio.moneda_cod;
+b=tab_tipo_cambio.fecha_aplica,FORMAT = "dd-mm-yyyy";                     
+c=tab_tipo_cambio.tipo_cambio;                     
+INSTRUCTIONS
+SCREEN RECORD scr_1[9](tab_tipo_cambio.moneda_cod,tab_tipo_cambio.fecha_aplica,tab_tipo_cambio.tipo_cambio)

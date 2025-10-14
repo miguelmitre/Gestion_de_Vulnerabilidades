@@ -1,0 +1,30 @@
+DATABASE formonly
+SCREEN
+{
+                                                                            .
+
+
+
+
+
+
+
+                  Fecha de Liquidacion         [a         ]
+
+
+                  Desea realizar la operacion  [b]
+
+
+
+
+
+
+}
+ATTRIBUTES
+a = FORMONLY.vfliquida TYPE DATE,FORMAT = "DD/MM/YYYY",
+    COMMENTS = "Ingrese la fecha en que se realizo la liquidacion";
+
+b = FORMONLY.vpregunta TYPE CHAR,UPSHIFT,INCLUDE = ("S","N"),
+    COMMENTS = "Utilice S para iniciar y N para cancelar";
+INSTRUCTIONS
+DELIMITERS " "

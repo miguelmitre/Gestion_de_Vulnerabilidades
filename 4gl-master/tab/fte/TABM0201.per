@@ -1,0 +1,28 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+
+
+
+
+  Codigo Institutos Recaudadores      [a           ]
+
+
+
+
+  Descripcion Institutos Recaudadores [b                                   ]
+
+
+
+
+
+}
+TABLES
+tab_instituto
+ATTRIBUTES
+a=tab_instituto.insti_cod;
+b=tab_instituto.insti_desc,COMMENTS="Escriba la descripcion de inst. recaudador",UPSHIFT;
+END
+

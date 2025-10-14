@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+          Codigo                Descripcion                Abreviatura 
+\g----------------------------------------------------------------------------\g
+         [a     ]           [b                    ]           [c  ]       
+         [a     ]           [b                    ]           [c  ]       
+         [a     ]           [b                    ]           [c  ]       
+         [a     ]           [b                    ]           [c  ]       
+         [a     ]           [b                    ]           [c  ]       
+         [a     ]           [b                    ]           [c  ]       
+         [a     ]           [b                    ]           [c  ]       
+         [a     ]           [b                    ]           [c  ]       
+         [a     ]           [b                    ]           [c  ]       
+
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_moneda
+ATTRIBUTES
+a=tab_moneda.moneda_cod;
+b=tab_moneda.moneda_desc,UPSHIFT;          
+c=tab_moneda.moneda_abrevia,UPSHIFT;
+INSTRUCTIONS
+SCREEN RECORD scr_1[9](tab_moneda.moneda_cod,tab_moneda.moneda_desc,tab_moneda.moneda_abrevia)

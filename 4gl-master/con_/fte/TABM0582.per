@@ -1,0 +1,39 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+  Transaccion           Descripcion
+\g----------------------------------------------------------------------------\g
+    Proceso        
+    [d    ][d1                                                              ]
+    Subcuentas [e    ] [ea   ] [e1    ] [eb   ] [e2   ] [ec   ]
+    [b    ][c1                                                              ]
+           [c2                                                              ]
+           [c3                                                              ]
+           [c4                                                              ]
+           [c5                                                              ]
+           [c6                                                              ]
+           [c7                                                              ]
+           [c8                                                              ]
+\g----------------------------------------------------------------------------\g
+}
+ATTRIBUTES
+d  =FORMONLY.proceso_cod        TYPE CHAR;
+d1 =FORMONLY.proceso_desc       TYPE CHAR,NOENTRY;
+e  =FORMONLY.subcuenta          TYPE INTEGER;
+ea =FORMONLY.desc_sub           TYPE CHAR,NOENTRY;
+e1 =FORMONLY.subcuenta1         TYPE INTEGER;
+eb =FORMONLY.desc_sub1          TYPE CHAR,NOENTRY;
+e2 =FORMONLY.subcuenta2         TYPE INTEGER;
+ec =FORMONLY.desc_sib2          TYPE CHAR,NOENTRY;
+b  =FORMONLY.transaccion_cod    TYPE INTEGER;
+c1 =FORMONLY.descripcion_1      TYPE CHAR;
+c2 =FORMONLY.descripcion_2      TYPE CHAR;
+c3 =FORMONLY.descripcion_3      TYPE CHAR;
+c4 =FORMONLY.descripcion_4      TYPE CHAR;
+c5 =FORMONLY.descripcion_5      TYPE CHAR;
+c6 =FORMONLY.descripcion_6      TYPE CHAR;
+c7 =FORMONLY.descripcion_7      TYPE CHAR;
+c8 =FORMONLY.descripcion_8      TYPE CHAR;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[1](FORMONLY.proceso_cod THRU FORMONLY.descripcion_8)

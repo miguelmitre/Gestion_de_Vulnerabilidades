@@ -1,0 +1,29 @@
+DATABASE formonly
+SCREEN
+{
+                                                                            .
+
+
+         Ingrese el folio      [a1       ]
+
+
+
+         Desea realizar la Operacion   [a]
+
+
+
+
+
+
+
+
+
+
+}
+ATTRIBUTES
+a1=FORMONLY.vfolio TYPE INTEGER;
+a=FORMONLY.vpregunta TYPE CHAR,UPSHIFT,INCLUDE = ("S","N"),
+  COMMENTS = "Utilice S para iniciar y N para cancelar";
+
+INSTRUCTIONS
+DELIMITERS " "

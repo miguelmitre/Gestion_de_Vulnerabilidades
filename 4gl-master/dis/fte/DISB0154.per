@@ -1,0 +1,23 @@
+DATABASE safre_af
+SCREEN
+{
+
+---------------------------------------------------------------
+          FECHA VALOR             MONTO EN PESOS
+---------------------------------------------------------------
+         [c         ]        [f                      ]
+         [c         ]        [f                      ]     
+         [c         ]        [f                      ]     
+         [c         ]        [f                      ]     
+         [c         ]        [f                      ]     
+         [c         ]        [f                      ]     
+         [c         ]        [f                      ]     
+         [c         ]        [f                      ]     
+}
+TABLES
+ dis_cuenta
+ATTRIBUTES
+c=dis_cuenta.fecha_valor,FORMAT ="dd-mm-yyyy";
+f=dis_cuenta.monto_en_pesos;
+INSTRUCTIONS 
+SCREEN RECORD scr_2[8]( dis_cuenta.fecha_valor,dis_cuenta.monto_en_pesos)

@@ -1,0 +1,28 @@
+DATABASE safre_af
+SCREEN
+{
+\g-----------------------------------------------------------------------------\g
+               GRUPO    DESCRIPCION
+\g-----------------------------------------------------------------------------\g
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+\g-----------------------------------------------------------------------------\g
+}
+TABLES
+tab_grupo
+ATTRIBUTES
+a=tab_grupo.grupo;
+b=tab_grupo.descripcion,UPSHIFT;
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](tab_grupo.grupo,tab_grupo.descripcion);
+
+DELIMITERS " "
+

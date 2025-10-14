@@ -1,0 +1,30 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g---------------------------------------------------------------------------\g
+
+
+
+                                    
+    FOLIO     ESTADO           PRESENTACION  
+                              (dd/mm/aaaa)  
+   [a     ]  [d           ]   [e         ] 
+
+
+
+
+
+
+
+
+
+}
+END
+
+ATTRIBUTES
+a=FORMONLY.folio                 TYPE  INTEGER;
+d=FORMONLY.descripcion           TYPE  CHAR,NOENTRY;
+e=FORMONLY.fecha_presentacion    TYPE  DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+INSTRUCTIONS 
+
+DELIMITERS "[]"

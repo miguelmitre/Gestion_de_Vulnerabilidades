@@ -1,0 +1,28 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+    Origen   F.Tasa         Tasa valor         F.Actualiza    Usuario
+\g----------------------------------------------------------------------------\g
+    [a  ]  [b         ]  [c                ]  [d         ]  [e       ]
+    [a  ]  [b         ]  [c                ]  [d         ]  [e       ]
+    [a  ]  [b         ]  [c                ]  [d         ]  [e       ]
+    [a  ]  [b         ]  [c                ]  [d         ]  [e       ]
+    [a  ]  [b         ]  [c                ]  [d         ]  [e       ]
+    [a  ]  [b         ]  [c                ]  [d         ]  [e       ]
+    [a  ]  [b         ]  [c                ]  [d         ]  [e       ]
+    [a  ]  [b         ]  [c                ]  [d         ]  [e       ]
+    [a  ]  [b         ]  [c                ]  [d         ]  [e       ]
+    [a  ]  [b         ]  [c                ]  [d         ]  [e       ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_tasa_ordinaria
+ATTRIBUTES
+a=tab_tasa_ordinaria.tasa_origen,UPSHIFT;
+b=tab_tasa_ordinaria.tasa_fecha,FORMAT = "dd-mm-yyyy";
+c=tab_tasa_ordinaria.tasa_valor;
+d=tab_tasa_ordinaria.fecha_actualiza,FORMAT = "dd-mm-yyyy";
+e=tab_tasa_ordinaria.usuario;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_tasa_ordinaria.tasa_origen THRU tab_tasa_ordinaria.usuario);

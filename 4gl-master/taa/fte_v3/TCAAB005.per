@@ -1,0 +1,38 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+                                                                            .
+               Tipo de Proceso            : [f00          ]
+               Folio de Operacion         : [f5    ]
+               Fecha de Presentacion      : [f1        ]   
+               Fecha de Envio de Saldos   : [f2        ]
+               Fecha de Liquidacion       : [f3        ]
+               Registros a Procesar       :    [f4     ]
+
+
+         Precio Participacion  VIV               : [f12               ]
+         Precio Participacion  AIVS              : [f15               ]
+         Precio de UDIS  para BONO DE PENSION    : [f16               ]
+         Precio SIEFORE 1 : [f6       ] Precio SIEFORE 4  :  [f9       ]
+         Precio SIEFORE 2 : [f7       ] Precio SIEFORE 6  :  [f11      ]
+         Precio SIEFORE 3 : [f8       ]
+
+}
+ATTRIBUTES
+f00=FORMONLY.tipo_traspaso       TYPE CHAR  ,NOENTRY;
+f1=FORMONLY.fecha_presentacion   TYPE DATE  ,FORMAT  ="DD/MM/YYYY",NOENTRY;
+f2=FORMONLY.fecha_envio_saldos   TYPE DATE  ,FORMAT  ="DD/MM/YYYY",NOENTRY;
+f3=FORMONLY.fecha_liquidacion    TYPE DATE  ,FORMAT  ="DD/MM/YYYY",NOENTRY;
+f4=FORMONLY.l_tot_registros      TYPE DEC   ,NOENTRY;
+f5=FORMONLY.folio                TYPE DEC   ,NOENTRY;
+f6=FORMONLY.g_precio_accion_b1   TYPE CHAR  ,NOENTRY;
+f7=FORMONLY.g_precio_accion_b2   TYPE CHAR  ,NOENTRY;
+f8=FORMONLY.g_precio_accion_b3   TYPE CHAR  ,NOENTRY;
+f9=FORMONLY.g_precio_accion_b4   TYPE CHAR  ,NOENTRY;
+f11=FORMONLY.g_precio_accion_b6  TYPE CHAR  ,NOENTRY;
+f12=FORMONLY.precio_parti        TYPE CHAR  ,NOENTRY;
+f15=FORMONLY.precio_aivs         TYPE CHAR  ,NOENTRY;
+f16=FORMONLY.precio_udis         TYPE CHAR  ,NOENTRY;
+INSTRUCTIONS
+DELIMITERS "  "

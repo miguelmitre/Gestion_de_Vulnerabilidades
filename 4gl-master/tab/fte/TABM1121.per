@@ -1,0 +1,36 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+
+              Proceso           [a    ]
+
+              Transaccion       [b      ]
+
+              Siefore           [c  ]     [c1     ]  Analisis [h     ]
+
+              Cuenta            [d        ]  
+
+              Descripcion       [e                        ]
+
+              Tipo              [f] 
+
+              Identificador     [g]
+
+}
+TABLES
+con_traductor
+ATTRIBUTES
+a  = con_traductor.proceso_cod;
+b  = con_traductor.transaccion_cod;
+c  = con_traductor.siefore,INCLUDE = (1,2), COMMENTS = 'Siefore (1) o (2)';
+c1 = FORMONLY.desc_siefore TYPE CHAR,NOENTRY;
+h  = con_traductor.analisis_cod;
+d  = con_traductor.cuenta;
+e  = con_traductor.descripcion;
+f  = con_traductor.tipo,UPSHIFT,INCLUDE = ('A','C'), COMMENTS = '(A) Abono (C) Cargo';
+g  = con_traductor.identificador,INCLUDE = (1,2), COMMENTS = '(1) Pesos (2) Acciones';
+END
+
+

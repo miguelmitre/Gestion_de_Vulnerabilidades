@@ -1,0 +1,43 @@
+DATABASE FORMONLY
+SCREEN
+{
+Tipo reporte [g]
+Nss          [a2         ]
+Periodo      [a3      ]
+
+  Folio      NSS            Nombre      Ope. Fecha mov.    Monto    Val Sel
+-----------------------------------------------------------------------------
+[a      |b          |c                  |d |e         |f            |h  |i|j]
+[a      |b          |c                  |d |e         |f            |h  |i|j]
+[a      |b          |c                  |d |e         |f            |h  |i|j]
+[a      |b          |c                  |d |e         |f            |h  |i|j]
+[a      |b          |c                  |d |e         |f            |h  |i|j]
+[a      |b          |c                  |d |e         |f            |h  |i|j]
+[a      |b          |c                  |d |e         |f            |h  |i|j]
+[a      |b          |c                  |d |e         |f            |h  |i|j]
+-----------------------------------------------------------------------------
+}
+ATTRIBUTES
+g=FORMONLY.x_tipo_reporte     TYPE CHAR,COMMENTS = "Tipo reporte: <2> INUSUAL  <3> PREOCUPANTE",
+                                          INCLUDE = ("2","3");
+a2=FORMONLY.x_nss           TYPE CHAR;
+a3=FORMONLY.x_periodo_reporte TYPE CHAR,
+             COMMENTS = " Formato de periodo Relevante <AAAAMM> y para Inusual/Preocupante <AAAAMMDD> ";
+
+a=FORMONLY.folio            TYPE INTEGER,NOENTRY;
+b=FORMONLY.nss              TYPE CHAR,NOENTRY;
+c=FORMONLY.nombre           TYPE CHAR,NOENTRY;
+d=FORMONLY.tipo_operacion   TYPE CHAR,NOENTRY;
+e=FORMONLY.fecha_movimiento TYPE DATE,FORMAT= "DD/MM/YYYY",NOENTRY;
+f=FORMONLY.monto_en_pesos   TYPE DECIMAL(16,6),NOENTRY;
+h=FORMONLY.condicion_cod    TYPE SMALLINT,NOENTRY;
+
+i=FORMONLY.seleccion       TYPE CHAR,COMMENTS = " SELECCION CON <X> ",
+                                     INCLUDE = (NULL," ","X"),UPSHIFT,REVERSE;
+j=FORMONLY.sele            TYPE CHAR, INCLUDE = (NULL," ","A"),UPSHIFT,INVISIBLE,NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[8] (FORMONLY.folio THRU FORMONLY.sele)
+DELIMITERS " "
+
+

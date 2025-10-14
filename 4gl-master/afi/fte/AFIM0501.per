@@ -1,0 +1,29 @@
+DATABASE FORMONLY
+SCREEN
+{
+-----------------------------------------------------------------------------
+Reg.Pat.IMSS [b          ][a                                         ]
+
+Reg.Fed.Contribuyentes  [c            ]     Telefono      [d         ]
+
+Domicilio :
+
+Calle [e                                       ] No. [f              ] 
+Codigo Postal [g    ]  Colonia [h                              ]
+Municipio / Delegacion [i                             ]
+}
+END
+ATTRIBUTES
+b=FORMONLY.reg_patronal TYPE CHAR,UPSHIFT;
+a=FORMONLY.razon_social TYPE CHAR,UPSHIFT,COMMENTS="Ingrese Razon Social";
+c=FORMONLY.reg_fed_contrib TYPE CHAR,UPSHIFT;
+d=FORMONLY.telefono TYPE CHAR,UPSHIFT;
+e=FORMONLY.calle TYPE CHAR,UPSHIFT;
+f=FORMONLY.numero TYPE CHAR, UPSHIFT;
+g=FORMONLY.cod_pos TYPE CHAR, UPSHIFT;
+h=FORMONLY.colonia TYPE CHAR, UPSHIFT;
+i=FORMONLY.delegacion TYPE CHAR, UPSHIFT, NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[1](FORMONLY.reg_patronal THRU FORMONLY.delegacion);
+DELIMITERS "  "
+

@@ -1,0 +1,36 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+                       
+        
+
+           Tipo de Pago : [a] [a01                            ]
+    
+                    30 dias Salario
+                    Base Cotizacion : [a02              ]
+                    
+                    10 veces Salario
+                    Min. Vigente DF : [a03              ]
+                    
+                    --------------------------------------
+                    
+                    Monto a Pagar   : [a04              ]
+
+
+} 
+TABLES
+    ret_parcial  ,
+    ret_ctr_pago
+
+ATTRIBUTES
+-- Datos generales
+    a   = ret_parcial.tipo_pago  ,    NOENTRY;
+    a01 = FORMONLY.desc_tipo_pago,    NOENTRY;
+    a02 = ret_ctr_pago.mto_1     ,    NOENTRY;
+    a03 = ret_ctr_pago.mto_2     ,    NOENTRY;
+    a04 = ret_ctr_pago.mto_pago  ,    NOENTRY;
+
+INSTRUCTIONS
+    SCREEN RECORD scr_t1[1] (ret_parcial.tipo_pago THRU ret_ctr_pago.mto_pago)
+

@@ -1,0 +1,24 @@
+DATABASE formonly
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+            COD. POS.                           COLONIA  
+\g----------------------------------------------------------------------------\g
+             [a    ]              [b                                   ]
+             [a    ]              [b                                   ]
+             [a    ]              [b                                   ]
+             [a    ]              [b                                   ]
+             [a    ]              [b                                   ]
+             [a    ]              [b                                   ]
+             [a    ]              [b                                   ]
+             [a    ]              [b                                   ]
+             [a    ]              [b                                   ]
+             [a    ]              [b                                   ]
+\g----------------------------------------------------------------------------\g
+}
+END
+ATTRIBUTES
+a=formonly.cpos_cod;
+b=FORMONLY.colon_desc;                           
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](formonly.cpos_cod,FORMONLY.colon_desc);

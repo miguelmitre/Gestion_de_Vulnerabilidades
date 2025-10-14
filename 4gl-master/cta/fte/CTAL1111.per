@@ -1,0 +1,30 @@
+DATABASE safre_af
+SCREEN
+{
+
+---------------------------------------------------------------------------
+FOL     MOV  SUB  SIE   FLIQUIDA       ACCIONES             PESOS
+---------------------------------------------------------------------------
+[aa    ][a  ][b ][c  ][d         ][e                 ][f                  ]
+[aa    ][a  ][b ][c  ][d         ][e                 ][f                  ]
+[aa    ][a  ][b ][c  ][d         ][e                 ][f                  ]
+[aa    ][a  ][b ][c  ][d         ][e                 ][f                  ]
+[aa    ][a  ][b ][c  ][d         ][e                 ][f                  ]
+[aa    ][a  ][b ][c  ][d         ][e                 ][f                  ]
+[aa    ][a  ][b ][c  ][d         ][e                 ][f                  ]
+[aa    ][a  ][b ][c  ][d         ][e                 ][f                  ]
+}
+TABLES
+ dis_cuenta
+ATTRIBUTES
+aa=dis_cuenta.folio;
+a=dis_cuenta.tipo_movimiento;
+b=dis_cuenta.subcuenta;
+c=dis_cuenta.siefore ;
+d=dis_cuenta.fecha_conversion, FORMAT="dd-mm-yyyy";
+e=dis_cuenta.monto_en_acciones;
+f=dis_cuenta.monto_en_pesos;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[8](dis_cuenta.folio,dis_cuenta.tipo_movimiento,dis_cuenta.subcuenta,
+                       dis_cuenta.siefore,dis_cuenta.fecha_conversion,
+                       dis_cuenta.monto_en_acciones,dis_cuenta.monto_en_pesos)

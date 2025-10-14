@@ -1,0 +1,29 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+                                                                           .
+
+
+              
+
+
+	               Fecha a generar :  [d            ] 
+
+
+
+                       Fecha envio     :  [e         ]
+
+
+
+
+
+}
+ATTRIBUTES
+d=FORMONLY.fecha_conversion TYPE DATE, FORMAT = "DD/MM/YYYY",
+  COMMENTS="Fecha de liquidacion [DD/MM/YYYY]";
+e=FORMONLY.fecha_arch TYPE DATE, FORMAT = "DD/MM/YYYY",
+  COMMENTS="Fecha de envio de estadistica [DD/MM/YYYY]";
+INSTRUCTIONS
+DELIMITERS "  "
+

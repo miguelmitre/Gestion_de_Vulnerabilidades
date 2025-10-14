@@ -1,0 +1,41 @@
+DATABASE safre_af
+SCREEN
+{
+------------------------------------------------------------------------------
+Folio                    [f000       ]            N.S.S.         [f007       ]
+R.F.C.                   [f009         ]    
+Clave Cedente Cta.       [f003  ]                 Fecha solicitud [x12       ]
+Apellido Paterno         [f010                                               ]
+Apellido Materno         [f011                                               ]
+Nombres                  [f012                                               ]
+NSS Icefa                [f017       ]
+RFC Icefa                [f018         ]
+Nro.Control Icefa        [f019                ]
+Nombre Trab.Icefa        [f020                      ]
+Diagnostico Proceso #1   [a7 ][a1                                            ]
+
+
+
+
+
+}
+end
+tables
+    tra_det_devol
+attributes
+{ MASTER }
+f000 = tra_det_devol.folio;
+f007 = tra_det_devol.n_seguro;
+f009 = tra_det_devol.rfc,UPSHIFT;
+f003 = tra_det_devol.cve_ced_cuenta;
+x12  = tra_det_devol.fech_solicitud    ,FORMAT="dd-mm-yyyy";
+f010 = tra_det_devol.paterno,UPSHIFT;
+f011 = tra_det_devol.materno,UPSHIFT;
+f012 = tra_det_devol.nombre,UPSHIFT;
+{ DETALLE }
+f017 = tra_det_devol.n_seguro_ent;
+f018 = tra_det_devol.rfc_ent,UPSHIFT;
+f019 = tra_det_devol.nro_ctrl_icefa;
+f020 = tra_det_devol.nombre_trab_icefa,UPSHIFT;
+a7   = tra_det_devol.diag_proceso;
+a1   = FORMONLY.desc1 TYPE CHAR,NOENTRY;

@@ -1,0 +1,28 @@
+DATABASE formonly
+SCREEN
+{
+                                                                          .
+
+
+
+
+              INGRESE FOLIO ................ : [a         ]
+              PERIODO DE LIQUIDACIÓN
+              INGRESE FECHA INICIAL ........ : [b         ]
+              INGRESE FECHA FINAL .......... : [c         ]
+
+
+
+
+
+
+
+
+
+}
+ATTRIBUTES
+ a = FORMONLY.folio               TYPE INTEGER, COMMENTS="INGRESE FOLIO DE LA LIQUIDACION";
+ b = formonly.fecha_liquida_ini   TYPE DATE, FORMAT="dd/mm/YYYY", COMMENTS="DD/MM/AAAA";
+ c = formonly.fecha_liquida_fin   TYPE DATE, FORMAT="dd/mm/YYYY", COMMENTS="DD/MM/AAAA";
+INSTRUCTIONS
+DELIMITERS " "

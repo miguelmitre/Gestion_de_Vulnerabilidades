@@ -1,0 +1,40 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                       [g11           ]
+               Precio SB2:[f09          ]       Precio SB1:[f10          ]
+
+  SUBCTA.       ACCIONES            PESOS        ACCIONES           PESOS
+[f00   ][f01           ][f02            ][f03           ][f04            ]
+[f00   ][f01           ][f02            ][f03           ][f04            ]
+[f00   ][f01           ][f02            ][f03           ][f04            ]
+[f00   ][f01           ][f02            ][f03           ][f04            ]
+[f00   ][f01           ][f02            ][f03           ][f04            ]
+[f00   ][f01           ][f02            ][f03           ][f04            ]
+[f00   ][f01           ][f02            ][f03           ][f04            ]
+[f00   ][f01           ][f02            ][f03           ][f04            ]
+[f00   ][f01           ][f02            ][f03           ][f04            ]
+
+=========================================================================
+Total:  [f05           ][f06            ][f07           ][f08            ]
+}
+ATTRIBUTES
+f00= FORMONLY.subcuenta;
+f01= FORMONLY.acciones2;
+f02= FORMONLY.pesos2;
+f03= FORMONLY.acciones1;
+f04= FORMONLY.pesos1;
+f05= FORMONLY.tot_acciones2;
+f06= FORMONLY.tot_pesos2;
+f07= FORMONLY.tot_acciones1;
+f08= FORMONLY.tot_pesos1;
+f09= FORMONLY.precio_sb2;
+f10= FORMONLY.precio_sb1;
+g11= FORMONLY.fecha       TYPE DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+
+INSTRUCTIONS
+
+   SCREEN RECORD arr_decimos[9] (subcuenta,acciones2,pesos2,acciones1,pesos1)
+
+
+DELIMITERS  " "

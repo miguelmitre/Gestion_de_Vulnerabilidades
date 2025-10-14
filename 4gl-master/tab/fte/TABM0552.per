@@ -1,0 +1,25 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+  Banco  Plaza  Sucur.                Descripcion 
+\g----------------------------------------------------------------------------\g
+  [a   ] [b   ] [c   ] [d                                                  ]
+  [a   ] [b   ] [c   ] [d                                                  ]
+  [a   ] [b   ] [c   ] [d                                                  ]
+  [a   ] [b   ] [c   ] [d                                                  ]
+  [a   ] [b   ] [c   ] [d                                                  ]
+  [a   ] [b   ] [c   ] [d                                                  ]
+  [a   ] [b   ] [c   ] [d                                                  ]
+  [a   ] [b   ] [c   ] [d                                                  ]
+  [a   ] [b   ] [c   ] [d                                                  ]
+  [a   ] [b   ] [c   ] [d                                                  ]
+\g----------------------------------------------------------------------------\g
+}
+ATTRIBUTES
+a=FORMONLY.cod_banco;
+b=FORMONLY.cod_plaza;
+c=FORMONLY.cod_sucursal;
+d=FORMONLY.descripcion;
+INSTRUCTIONS 
+SCREEN RECORD scr_1 [10](cod_banco, cod_plaza, cod_sucursal, descripcion);

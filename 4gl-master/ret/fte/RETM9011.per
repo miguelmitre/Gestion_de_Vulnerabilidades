@@ -1,0 +1,66 @@
+DATABASE safre_af
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+  NSS-IMSS    [a1         ]          Nombre    [a5                         ]
+  NSS-ISSSTE  [a2         ]          Paterno   [a6                         ]
+  CURP        [a3                ]   Materno   [a7                         ]
+  RFC         [a4           ]        Fecha Nacimiento [a8        ]       
+  Tipo_Inversion [a9][a10          ] Tipo_Solicitud [a11][a12              ]
+  Tipo_trabajador[e1][e2                                                   ]
+
+  Tipo Retiro    [b1][d_1                   ]   Fecha de Baja    [b9        ]
+  Tipo Beneficio [b2 ][d_2                   ]  Fecha Solicitud  [c1        ] 
+  No Pensionista [b3     ]                      Ent de Tramite   [c2]     
+  Fecha inicio Pension [b4        ]             Fecha Val Ahorro [c4        ]  
+  Cve. Doc. Prov [b][d                        ] Porcentaje Ahorro[c5    ]
+  Fec.Sol.Susp.[b6        ] No. Oficio [c6        ] Fecha Oficio [c7        ]
+  Fec.Sol.Reac.[b7        ] Entidad Oficio   [c8] Porcentaje Fon. Viv[c9    ]
+  RFC Depend.[b8          ] Nom Depend.[c10                                 ]
+  Ramo[c11  ]               Cve. pagaduria [c12  ] Fecha Val Viv [c13       ]
+}
+TABLES
+ret_sol_issste_tot ,tab_retiro_issste, tab_beneficio_issste                   
+tab_doc_prob
+
+ATTRIBUTES
+a1= ret_sol_issste_tot.nss_imss      ,UPSHIFT,PICTURE="A##########";
+a2= ret_sol_issste_tot.nss_issste    ,UPSHIFT;
+a3= ret_sol_issste_tot.curp          ,UPSHIFT;
+a4= FORMONLY.rfc TYPE CHAR           ,UPSHIFT;
+a5= FORMONLY.nombre_afore  TYPE CHAR ,UPSHIFT;
+a6= FORMONLY.paterno_afore TYPE CHAR ,UPSHIFT;
+a7= FORMONLY.materno_afore TYPE CHAR ,UPSHIFT;
+a8= ret_sol_issste_tot.fecha_nac     ,FORMAT="DD/MM/YYYY", NOENTRY;
+a9= ret_sol_issste_tot.tipo_inversion,NOENTRY;
+a10=FORMONLY.desc_inversion TYPE CHAR, NOENTRY;
+a11=FORMONLY.tipo_solicitud TYPE CHAR, NOENTRY;
+a12=FORMONLY.desc_solicitud TYPE CHAR, NOENTRY;
+e1= FORMONLY.tipo_trabajador TYPE CHAR, NOENTRY;
+e2= FORMONLY.desc_trabajador TYPE CHAR, NOENTRY;
+
+b1= tab_retiro_issste.tipo_retiro        ;
+d_1=tab_retiro_issste.desc_retiro        ,NOENTRY;
+b2= tab_beneficio_issste.tipo_beneficio  ;
+d_2=tab_beneficio_issste.desc_beneficio  ,NOENTRY;
+b3= ret_sol_issste_tot.n_pensionista     ,UPSHIFT ;
+b4= ret_sol_issste_tot.fecha_ini_pen     ,FORMAT="DD/MM/YYYY";
+b = tab_doc_prob.docprob_cod             ;
+d = tab_doc_prob.docprob_desc            ,NOENTRY;
+b6= ret_sol_issste_tot.fec_sol_susp      ,FORMAT="DD/MM/YYYY";
+b7= ret_sol_issste_tot.fec_sol_reac      ,FORMAT="DD/MM/YYYY";
+b9= ret_sol_issste_tot.fecha_baja        ,FORMAT="DD/MM/YYYY";
+c1= ret_sol_issste_tot.fecha_solicitud   ,FORMAT="DD/MM/YYYY";
+c2= ret_sol_issste_tot.entidad_tramite   ;
+c4= ret_sol_issste_tot.fecha_val_ahorro  ,FORMAT="DD/MM/YYYY";
+c5= ret_sol_issste_tot.porcentaje_ahorro ;
+c6= ret_sol_issste_tot.n_oficio          ,UPSHIFT,COMMENTS=" TECLEE EL NUMERO DE OFICIO FORMATO 'AA########'",PICTURE="AA########";
+c7= ret_sol_issste_tot.fecha_oficio      ,FORMAT="DD/MM/YYYY";
+c8= ret_sol_issste_tot.entidad_oficio    ;
+c9= ret_sol_issste_tot.porcentaje_fon_viv;
+b8= ret_sol_issste_tot.rfc_dependencia   ,UPSHIFT ;
+c10=ret_sol_issste_tot.nom_dependencia   ,UPSHIFT ;
+c11=ret_sol_issste_tot.cve_ramo          ,UPSHIFT ;
+c12=ret_sol_issste_tot.cve_pagaduria     ,UPSHIFT ;
+c13=ret_sol_issste_tot.fecha_val_viv     ,FORMAT="DD/MM/YYYY",NOENTRY ;
+

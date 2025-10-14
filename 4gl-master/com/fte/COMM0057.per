@@ -1,0 +1,28 @@
+DATABASE FORMONLY
+SCREEN
+{
+------------------------------------------------------------------
+     FECHA      HORA   META   META   META   META   META   META
+                       AFI1   AFI2   AFI3   TRA1   TRA2   TRA3
+
+ [a         |b       |c     |d     |e     |f     |g     |h     ]
+ [a         |b       |c     |d     |e     |f     |g     |h     ]
+ [a         |b       |c     |d     |e     |f     |g     |h     ]
+ [a         |b       |c     |d     |e     |f     |g     |h     ]
+ [a         |b       |c     |d     |e     |f     |g     |h     ]
+
+
+}
+END
+ATTRIBUTES
+a = FORMONLY.vfecha_cambio    TYPE DATE,UPSHIFT;
+b = FORMONLY.vhora_cambio     TYPE CHAR,UPSHIFT;
+c = FORMONLY.vmeta_afi1;
+d = FORMONLY.vmeta_afi2;
+e = FORMONLY.vmeta_afi3;
+f = FORMONLY.vmeta_tra1;
+g = FORMONLY.vmeta_tra2;
+h = FORMONLY.vmeta_tra3;
+INSTRUCTIONS
+SCREEN RECORD scr_1[05](FORMONLY.vfecha_cambio THRU FORMONLY.vmeta_tra3);
+DELIMITERS "  "

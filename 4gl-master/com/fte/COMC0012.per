@@ -1,0 +1,38 @@
+DATABASE safre_af
+SCREEN
+{
+   Periodo: [g     ]    Vigencia: [h       ]  Total comision: [i           ]
+-----------------------------------------------------------------------------
+      NSS        FEC SOL     RFC-REFERENCIA  NO.SM   COM      IMPORTE 
+-----------------------------------------------------------------------------
+ [a          ] [b         ] [c            ] [d    ]  [e ]  [f           ][j]
+ [a          ] [b         ] [c            ] [d    ]  [e ]  [f           ][j]
+ [a          ] [b         ] [c            ] [d    ]  [e ]  [f           ][j]
+ [a          ] [b         ] [c            ] [d    ]  [e ]  [f           ][j]
+ [a          ] [b         ] [c            ] [d    ]  [e ]  [f           ][j]
+ [a          ] [b         ] [c            ] [d    ]  [e ]  [f           ][j]
+ [a          ] [b         ] [c            ] [d    ]  [e ]  [f           ][j]
+ [a          ] [b         ] [c            ] [d    ]  [e ]  [f           ][j]
+}
+TABLES
+com_comis_detalle
+afi_mae_afiliado
+
+ATTRIBUTES
+g = FORMONLY.periodo;
+h = FORMONLY.vigencia;
+i = FORMONLY.total_comision;
+
+a = afi_mae_afiliado.n_seguro;
+b = afi_mae_afiliado.fentcons;
+c = afi_mae_afiliado.n_rfc;
+d = com_comis_detalle.num_sm;
+e = FORMONLY.tipo_pago;
+f = com_comis_detalle.monto_comision,FORMAT='-,---,---.--';
+j = com_comis_detalle.cod_esq_comision,INVISIBLE;
+
+INSTRUCTIONS 
+SCREEN RECORD scr_1 (FORMONLY.periodo THRU FORMONLY.total_comision);
+
+SCREEN RECORD scr_2[8](afi_mae_afiliado.n_seguro THRU com_comis_detalle.cod_esq_comision);
+DELIMITERS "  "

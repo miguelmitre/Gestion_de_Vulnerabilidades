@@ -1,0 +1,31 @@
+
+DATABASE formonly 
+SCREEN
+{
+                 ELEGIR OPCION                 
+                              [zz                        ]
+------------------------------------------------------------------
+ COD.POS           COLONIA                   DELEG / MCPO
+ [c    ] [a                        ]  [b                        ]
+ [c    ] [a                        ]  [b                        ]
+ [c    ] [a                        ]  [b                        ]
+ [c    ] [a                        ]  [b                        ]
+ [c    ] [a                        ]  [b                        ]
+ [c    ] [a                        ]  [b                        ]
+------------------------------------------------------------------
+        
+                 < ENTER > Selecciona 
+}
+END
+ATTRIBUTES
+zz=FORMONLY.x_buscar TYPE CHAR,UPSHIFT;
+c=formonly.cod    type char,noentry;
+a=FORMONLY.descrip TYPE char,NOENTRY;
+b=FORMONLY.descripcion TYPE CHAR,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[6](formonly.cod,FORMONLY.descrip,FORMONLY.descripcion);
+DELIMITERS "  "
+
+
+
+

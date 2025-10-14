@@ -1,0 +1,53 @@
+DATABASE safre_af
+SCREEN
+{
+------------------------------------------------------------------------------
+ Tipo Prom  [a  ]         Grp venta   [b           ] Fecha Corte [c         ]
+
+
+------------------------------------------------------------------------------
+ NUM PROMOTOR   TOT AFIL PAGS.   SUM SALRIOS    PROM SALRIO. MIN   TOT COMI     
+------------------------------------------------------------------------------
+ [d         |i             |j              |k                 |m         ]
+ [d         |i             |j              |k                 |m         ]
+ [d         |i             |j              |k                 |m         ]
+ [d         |i             |j              |k                 |m         ]
+ [d         |i             |j              |k                 |m         ]
+ [d         |i             |j              |k                 |m         ]
+ [d         |i             |j              |k                 |m         ]
+ [d         |i             |j              |k                 |m         ]
+ [d         |i             |j              |k                 |m         ]
+
+  Num reg: [r      ]                            Tot. comi pag [s         ] 
+}
+TABLES
+afi_mae_afiliado
+pro_mae_promotor
+com_comis_resumen
+
+ATTRIBUTES
+
+a = com_comis_resumen.cod_tipo_prom,FORMAT='---';
+b = com_comis_resumen.coduni_n1;
+c = com_comis_resumen.fecha_corte, FORMAT='DD-MM-YYYY';
+
+d = com_comis_resumen.codven;
+
+i = com_comis_resumen.total_afiliados;
+j = com_comis_resumen.total_sm;
+k = com_comis_resumen.promedio_sm;
+m = com_comis_resumen.total_comision,FORMAT='---,---.--';
+r = FORMONLY.registros TYPE INTEGER, FORMAT='-------';
+s = FORMONLY.total  TYPE DECIMAL, FORMAT='---,---.--';
+
+INSTRUCTIONS 
+SCREEN RECORD scr_0   (com_comis_resumen.fecha_corte THRU 
+		       com_comis_resumen.cod_tipo_prom);
+SCREEN RECORD scr_1[09](com_comis_resumen.codven THRU
+                       com_comis_resumen.total_afiliados
+                       com_comis_resumen.total_sm     
+                       com_comis_resumen.promedio_sm     
+                       com_comis_resumen.total_comision
+                       );
+SCREEN RECORD scr_3 (FORMONLY.registros THRU FORMONLY.total);
+DELIMITERS "  "

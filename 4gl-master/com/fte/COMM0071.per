@@ -1,0 +1,50 @@
+DATABASE safre_af
+SCREEN
+{
+									    
+Esquema Comision[f000  ][f001                                              ]
+Criterio Calculo[g     ][g2                  ] Abrev.[g3    ]    Calculo [r]
+Minimo Solicitudes [alfa ] %Anticipo [beta  ] Rango Prod [alf1  ] a [alf2  ]
+Fecha Creacion  [f002      ]       Vigencia de [f004      ] a   [f005      ]
+
+    RANGO             RANGO                                      FECHA
+    DESDE             HASTA                                    ACTUALIZA
+   [a    ]           [b    ]        [c              ]         [d         ]
+   [a    ]           [b    ]        [c              ]         [d         ]
+   [a    ]           [b    ]        [c              ]         [d         ]
+   [a    ]           [b    ]        [c              ]         [d         ]
+   [a    ]           [b    ]        [c              ]         [d         ]
+   [a    ]           [b    ]        [c              ]         [d         ]
+   [a    ]           [b    ]        [c              ]         [d         ]
+   [a    ]           [b    ]        [c              ]         [d         ]
+   [a    ]           [b    ]        [c              ]         [d         ]
+   [a    ]           [b    ]        [c              ]         [d         ]
+}
+END
+TABLES
+com_esq_comis
+com_cuadro_comis
+tab_criterio
+ATTRIBUTES
+{ MASTER }
+f000 = com_esq_comis.cod_esq_comision;
+f001 = com_esq_comis.desc_esq_comision,UPSHIFT;
+g    = tab_criterio.criterio_cod;
+g2   = tab_criterio.criterio_desc,NOENTRY;
+g3   = tab_criterio.abreviatura,NOENTRY;
+r    = tab_criterio.calculo_cod,NOENTRY;
+alfa = com_esq_comis.minimo_requerido;
+beta = com_esq_comis.anticipo;
+alf1 = com_esq_comis.prod_desde;
+alf2 = com_esq_comis.prod_hasta;
+f002 = com_esq_comis.fecha_crea_esq,FORMAT="dd-mm-yyyy",NOENTRY;
+f004 = com_esq_comis.fecha_desde,FORMAT="dd-mm-yyyy";
+f005 = com_esq_comis.fecha_hasta,FORMAT="dd-mm-yyyy";
+{ DETALLE }
+a=com_cuadro_comis.rango_desde,NOENTRY;
+b=com_cuadro_comis.rango_hasta;
+c=com_cuadro_comis.monto_comision;
+d=com_cuadro_comis.fecha_actualiza,NOENTRY,FORMAT="dd-mm-yyyy";
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](com_cuadro_comis.rango_desde THRU com_cuadro_comis.fecha_actualiza);
+DELIMITERS "  "

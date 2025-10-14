@@ -1,0 +1,37 @@
+DATABASE safre_af
+SCREEN
+{
+
+  S1:[h               ]     S2:[i               ]     PAVIS:[j               ]
+\g----------------------------------------------------------------------------\g
+  FOLIO   SIE   MOV   SUB  FECHA_VALOR   ACCIONES/PAVIS      TOTAL_PESOS
+\g----------------------------------------------------------------------------\g
+ [aa    ] [e ] [a  ] [b ] [c         ] [d              ] [g                ]
+ [aa    ] [e ] [a  ] [b ] [c         ] [d              ] [g                ]
+ [aa    ] [e ] [a  ] [b ] [c         ] [d              ] [g                ]
+ [aa    ] [e ] [a  ] [b ] [c         ] [d              ] [g                ]
+ [aa    ] [e ] [a  ] [b ] [c         ] [d              ] [g                ]
+ [aa    ] [e ] [a  ] [b ] [c         ] [d              ] [g                ]
+ [aa    ] [e ] [a  ] [b ] [c         ] [d              ] [g                ]
+ [aa    ] [e ] [a  ] [b ] [c         ] [d              ] [g                ]
+ [aa    ] [e ] [a  ] [b ] [c         ] [d              ] [g                ]
+ [aa    ] [e ] [a  ] [b ] [c         ] [d              ] [g                ]
+ [aa    ] [e ] [a  ] [b ] [c         ] [d              ] [g                ]
+ [aa    ] [e ] [a  ] [b ] [c         ] [d              ] [g                ]
+}
+TABLES
+ dis_provision
+ATTRIBUTES
+ h=FORMONLY.g_b1;
+ i=FORMONLY.g_b2;
+ j=FORMONLY.g_pavis;
+aa=dis_provision.folio;
+e=formonly.siefore type char;
+a=dis_provision.tipo_movimiento;
+b=dis_provision.subcuenta;
+c=dis_provision.fecha_valor ,FORMAT ="dd-mm-yyyy";
+d=dis_provision.monto_en_acciones;
+g=dis_provision.monto_en_pesos;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[12](dis_provision.folio THRU dis_provision.monto_en_pesos)
+

@@ -1,0 +1,27 @@
+DATABASE safre_af
+SCREEN
+{
+   REG CONSAR      NOMBRE DEL PROMOTOR              F INGRESO   TIPO  EST
+
+  [f000      ][f001                             ] [f002      ][f003 ][f004]
+  [f000      ][f001                             ] [f002      ][f003 ][f004]
+  [f000      ][f001                             ] [f002      ][f003 ][f004]
+  [f000      ][f001                             ] [f002      ][f003 ][f004]
+  [f000      ][f001                             ] [f002      ][f003 ][f004]
+  [f000      ][f001                             ] [f002      ][f003 ][f004]
+  [f000      ][f001                             ] [f002      ][f003 ][f004]
+  [f000      ][f001                             ] [f002      ][f003 ][f004]
+  [f000      ][f001                             ] [f002      ][f003 ][f004]
+}
+END
+TABLES
+pro_mae_promotor
+ATTRIBUTES
+f000 = pro_mae_promotor.codven;
+f001 = FORMONLY.g_nombre TYPE CHAR;
+f002 = pro_mae_promotor.fingre,FORMAT = "dd-mm-yyyy";
+f003 = FORMONLY.cod_tipo_prom TYPE INTEGER;
+f004 = FORMONLY.estado TYPE CHAR;
+INSTRUCTIONS
+SCREEN RECORD scr_1[9](pro_mae_promotor.codven THRU FORMONLY.estado);
+DELIMITERS "  "

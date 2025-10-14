@@ -1,0 +1,27 @@
+DATABASE FORMONLY
+SCREEN
+{
+  Folio      Fec Archivo      Aportaciones          Intereses        Selec
+----------------------------------------------------------------------------
+ [a     ]  |  [b         ] [c                ] [d                ]  |  [e]
+ [a     ]  |  [b         ] [c                ] [d                ]  |  [e]
+ [a     ]  |  [b         ] [c                ] [d                ]  |  [e]
+ [a     ]  |  [b         ] [c                ] [d                ]  |  [e]
+ [a     ]  |  [b         ] [c                ] [d                ]  |  [e]
+ [a     ]  |  [b         ] [c                ] [d                ]  |  [e]
+ [a     ]  |  [b         ] [c                ] [d                ]  |  [e]
+ [a     ]  |  [b         ] [c                ] [d                ]  |  [e]
+---------------------------------------------------------------------------
+                    TOTAL  [f                ] [g                ]
+}
+ATTRIBUTES
+a=FORMONLY.folio          TYPE INTEGER,NOENTRY;
+b=FORMONLY.fecha_archivo  TYPE DATE,FORMAT  ="dd/mm/yyyy",NOENTRY;
+c=FORMONLY.aportacion     TYPE DECIMAL(16,2),FORMAT ="--,---,---,---.--",NOENTRY;
+d=FORMONLY.interes        TYPE DECIMAL(16,2),FORMAT ="--,---,---,---.--",NOENTRY;
+e=FORMONLY.seleccion      TYPE CHAR,UPSHIFT;
+f=FORMONLY.totala         TYPE DECIMAL(16,2),FORMAT ="--,---,---,---.--",NOENTRY;
+g=FORMONLY.totalc         TYPE DECIMAL(16,2),FORMAT ="--,---,---,---.--",NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_liquida[8] (FORMONLY.folio thru FORMONLY.seleccion)

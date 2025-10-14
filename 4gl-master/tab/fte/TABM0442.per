@@ -1,0 +1,25 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+        Fecha                   Descripcion de dia feriado
+\g----------------------------------------------------------------------------\g
+    [a         ]  [b                                                    ]  
+    [a         ]  [b                                                    ] 
+    [a         ]  [b                                                    ]
+    [a         ]  [b                                                    ]
+    [a         ]  [b                                                    ] 
+    [a         ]  [b                                                    ]
+    [a         ]  [b                                                    ]
+    [a         ]  [b                                                    ]
+    [a         ]  [b                                                    ]
+    [a         ]  [b                                                    ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_feriado
+ATTRIBUTES
+a=tab_feriado.feria_fecha,FORMAT = "dd-mm-yyyy";
+b=tab_feriado.feria_desc;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_feriado.feria_fecha,tab_feriado.feria_desc);

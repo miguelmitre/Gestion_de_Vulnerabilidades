@@ -1,0 +1,27 @@
+DATABASE safre_af
+
+SCREEN
+{
+                                                                          .
+
+	AL EJECUTAR ESTE PROCESO SERA GENERADO UN ARCHIVO PLANO LLAMADO
+	" EAAAAMMDD.TAA " DONDE  : AAAA => A&O DE PROCESO
+	                         : MM   => MES DE PROCESO
+	                         : DD   => DIA DE PROCESO
+	RESCATE EL ARCHIVO DESDE EL DIRECTORIO 
+        
+
+  Fecha Inicio:[d         ]
+
+  Fecha Fin   :[e         ]
+
+
+
+}
+tables
+afi_solicitud
+ATTRIBUTES
+d=FORMONLY.fecha_ini TYPE DATE, FORMAT = 'DDMMYYYY', COMMENTS = "Formato DD-MM-AAAA";
+e=FORMONLY.fecha_fin TYPE DATE, FORMAT = 'DDMMYYYY', COMMENTS = "Formato DD-MM-AAAA";
+INSTRUCTIONS
+DELIMITERS "  "

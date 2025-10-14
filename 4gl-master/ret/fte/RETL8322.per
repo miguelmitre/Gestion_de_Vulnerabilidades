@@ -1,0 +1,43 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                                           .
+
+   AFORE [a01]                       Semana del [a02       ] al [a03       ]
+         [a04                     ]                                                                          
+
+                             Num        Importe      Imp Sol     Imp Pagado
+                        Trabajadores   Ret 92/97    Infonavit    Infonavit 
+Total Tramites Reg 73    [b01      ][b02         ][b03         ] [b04      ]
+                                                                            
+Tramites ant. 12/01/12   [b01      ][b02         ][b03         ] [b04      ]
+   Aceptados             [b01      ][b02         ][b03         ] [b04      ]
+   Rechazados            [b01      ][b02         ][b03         ] [b04      ]
+                                                                            
+Tramites pos. 12/01/12   [b01      ][b02         ][b03         ] [b04      ]
+   Aceptados             [b01      ][b02         ][b03         ] [b04      ]
+   Rechazados            [b01      ][b02         ][b03         ] [b04      ]
+
+}
+
+ATTRIBUTES
+
+    a01 = FORMONLY.cod_afore            TYPE SMALLINT   , NOENTRY;
+
+    a02 = FORMONLY.inicio               TYPE DATE    ,
+            FORMAT   = "DD/MM/YYYY", NOENTRY ;
+            
+    a03 = FORMONLY.fin                  TYPE DATE    ,
+            FORMAT   = "DD/MM/YYYY", NOENTRY ;
+            
+    a04 = FORMONLY.desc_afore           TYPE CHAR       , NOENTRY;
+
+    -- -----------------------------------------------------------------------------
+
+    b01 = FORMONLY.num_trabajadores     TYPE INTEGER      , NOENTRY ;
+    b02 = FORMONLY.imp_ret_92_97        TYPE DECIMAL(10,2), NOENTRY ;
+    b03 = FORMONLY.imp_sol_infonavit    TYPE DECIMAL(10,2), NOENTRY ;
+    b04 = FORMONLY.imp_pagado_infonavit TYPE DECIMAL(10,2), NOENTRY ;
+
+INSTRUCTIONS
+    SCREEN RECORD scr_totales[7](FORMONLY.num_trabajadores THRU FORMONLY.imp_pagado_infonavit);

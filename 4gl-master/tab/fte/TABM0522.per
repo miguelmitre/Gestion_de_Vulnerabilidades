@@ -1,0 +1,33 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+  Modulo  id_aportante                   Descripcion
+\g----------------------------------------------------------------------------\g
+  [a   ] [b          ] [c                                                  ]
+  [a   ] [b          ] [c                                                  ] 
+  [a   ] [b          ] [c                                                  ] 
+  [a   ] [b          ] [c                                                  ] 
+  [a   ] [b          ] [c                                                  ] 
+  [a   ] [b          ] [c                                                  ]
+  [a   ] [b          ] [c                                                  ] 
+  [a   ] [b          ] [c                                                  ]
+  [a   ] [b          ] [c                                                  ] 
+  [a   ] [b          ] [c                                                  ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_id_aportante
+ATTRIBUTES
+a=tab_id_aportante.modulo,UPSHIFT;
+b=tab_id_aportante.id_aportante,UPSHIFT; 
+c=tab_id_aportante.descripcion,NOENTRY;       
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](tab_id_aportante.modulo,tab_id_aportante.id_aportante,tab_id_aportante.descripcion);
+END
+                                    
+
+
+
+
+

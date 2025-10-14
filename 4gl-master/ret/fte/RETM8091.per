@@ -1,0 +1,80 @@
+DATABASE safre_af
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+ NSS      [a01        ]                 Paterno [a04                      ]
+ RFC      [a02          ]               Materno [a05                      ]
+ Curp     [a03               ]          Nombres [a06                      ]
+ ----------------------------------------------------------------------------
+ Folio Solicitud :[b01       ]         Forma de Pago : [c] [b71           ]
+ Fecha Solicitud :[b02       ]         Salario Base Cot    : [b08        ]
+ No. Resolucion  :[b03       ]         Pago Desempleo      : [b09        ]
+ Tipo Retiro     :[b4][b41           ] Fecha Resolucion    : [b10       ] 
+ Tipo Prestacion :[b5][b51           ] Fecha Fall/Mat/Des  : [b11       ] 
+ Modalidad Retiro:[b] [b61           ] Impt Autorizado Mat : [b12        ]   
+ -------------------------------------------------------------------------[r]
+ Codigo Rechazo   :[c01 ][c02                                          ]
+ Fecha Captura    :[c03       ]          Folio Interno       :[c10        ]
+ Fecha Modifica   :[c04       ]          Consecutivo         :[c11        ]
+ Fecha Confirma   :[c05       ]          Usuario Captura     :[c12         ]
+ Fecha Liquidacion:[c06       ]          Usuario Modifica    :[c13         ]
+ Estado Solicitud :[c7][c08            ] Usuario Confirma    :[c14         ]
+ Fecha Envio      :[c09       ]          Diagnostico Procesar:[c15]
+} 
+TABLES
+ret_parcial
+ret_parcial_tx
+
+ATTRIBUTES
+-- Datos generales
+    a01 = ret_parcial.nss;
+    a02 = FORMONLY.rfc,                   NOENTRY;
+    a03 = FORMONLY.curp,                  NOENTRY,UPSHIFT;
+    a04 = FORMONLY.paterno,               NOENTRY,UPSHIFT;
+    a05 = FORMONLY.materno,               NOENTRY,UPSHIFT;
+    a06 = FORMONLY.nombres,               NOENTRY,UPSHIFT;
+
+-- Datos de la Solicitud
+    b01 = ret_parcial.folio_solicitud;
+    b02 = ret_parcial.fecha_solicitud,    FORMAT="DD-MM-YYYY";
+    b03 = ret_parcial.num_resolucion,     FORMAT="##########";
+    b4  = ret_parcial.tipo_retiro,        NOENTRY;
+    b41 = FORMONLY.desc_tipo_ret,         NOENTRY;
+    b5  = ret_parcial.tipo_prestacion,    INCLUDE=(6,7),
+        COMMENTS="SOLO PUEDE SER TIPO 6 Desempleo o 7 Matrimonio";
+    b51 = FORMONLY.desc_tipo_prest,       NOENTRY;
+
+    b   = ret_parcial.tipo_desempleo  , UPSHIFT ;
+    b61 = FORMONLY.desc_tipo_desempleo, UPSHIFT, NOENTRY;
+    c   = ret_parcial.tipo_pago       ;
+    b71 = FORMONLY.desc_tipo_pago,    NOENTRY;
+
+    b08 = ret_parcial.salario_base_cot;
+    b09 = ret_parcial.pago_desempleo,     NOENTRY;
+    
+    b10 = ret_parcial.fecha_resolucion,   FORMAT="DD-MM-YYYY";
+    b11 = ret_parcial.fecha_fall_mat_des, FORMAT="DD-MM-YYYY";
+    b12 = ret_parcial.impt_autorizado;
+    
+-- Datos de control    
+    c01 = ret_parcial.rechazo_cod,        NOENTRY;
+    c02 = FORMONLY.desc_cod_rech,         NOENTRY;
+
+    r   = ret_parcial.cod_rechazo_ent,    PICTURE = "#";
+
+    c03 = ret_parcial.fecha_captura,      NOENTRY, FORMAT="DD-MM-YYYY";
+    c04 = ret_parcial.fecha_modifica,     NOENTRY, FORMAT="DD-MM-YYYY";
+    c05 = ret_parcial.fecha_confirma,     NOENTRY, FORMAT="DD-MM-YYYY";
+    c06 = ret_parcial_tx.fecha_pago,      NOENTRY, FORMAT="DD-MM-YYYY";
+    c10 = ret_parcial.folio,              NOENTRY;
+    c11 = ret_parcial.consecutivo,        NOENTRY;
+    c12 = ret_parcial.usuario_captura,    NOENTRY;
+    c13 = ret_parcial.usuario_modifica,   NOENTRY;
+    c14 = ret_parcial.usuario_confirma,   NOENTRY;
+    c7  = ret_parcial.estado_solicitud,   NOENTRY;
+    c08 = FORMONLY.estado_sol_desc TYPE CHAR, NOENTRY;
+    c09 = ret_parcial.fecha_envio,        NOENTRY, FORMAT="DD-MM-YYYY";
+    c15 = FORMONLY.diag_cuenta_ind TYPE CHAR, NOENTRY;
+
+INSTRUCTIONS
+    SCREEN RECORD scr_1[1] (ret_parcial.nss THRU FORMONLY.diag_cuenta_ind)

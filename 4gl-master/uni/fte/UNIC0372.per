@@ -1,0 +1,33 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+
+        Consecutivo     NSS                      NSS
+ Folio   Registro    Unificador  Diagnostico  Unificado  Diagnostico Estado
+----------------------------------------------------------------------------
+
+[a    ]   [b  ]     [c          ]   [d ]     [e          ]   [f ]     [g ] 
+[a    ]   [b  ]     [c          ]   [d ]     [e          ]   [f ]     [g ]
+[a    ]   [b  ]     [c          ]   [d ]     [e          ]   [f ]     [g ]
+[a    ]   [b  ]     [c          ]   [d ]     [e          ]   [f ]     [g ]
+[a    ]   [b  ]     [c          ]   [d ]     [e          ]   [f ]     [g ]
+[a    ]   [b  ]     [c          ]   [d ]     [e          ]   [f ]     [g ]
+[a    ]   [b  ]     [c          ]   [d ]     [e          ]   [f ]     [g ]
+[a    ]   [b  ]     [c          ]   [d ]     [e          ]   [f ]     [g ]
+[a    ]   [b  ]     [c          ]   [d ]     [e          ]   [f ]     [g ]
+[a    ]   [b  ]     [c          ]   [d ]     [e          ]   [f ]     [g ]
+
+
+}
+ATTRIBUTES
+a= FORMONLY.folio                TYPE INTEGER;
+b= FORMONLY.consecutivo_reg      TYPE SMALLINT;
+c= FORMONLY.nss_uni              TYPE CHAR;
+d= FORMONLY.diagnostico_nss_uni  TYPE CHAR;
+e= FORMONLY.nss_cta1             TYPE CHAR;
+f= FORMONLY.diagnostico_nss_cta1 TYPE CHAR;
+g= FORMONLY.estado               TYPE SMALLINT;  
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](FORMONLY.folio THRU FORMONLY.estado);
+DELIMITERS "  "

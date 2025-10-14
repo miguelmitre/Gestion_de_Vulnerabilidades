@@ -1,0 +1,26 @@
+DATABASE FORMONLY
+SCREEN size 24 by 80
+{
+ Folio       NSS              Nombre           Ope. Fecha mov.    Monto
+----------------------------------------------------------------------------
+[a      |b          |c                         |d |e         |f            ]
+[a      |b          |c                         |d |e         |f            ]
+[a      |b          |c                         |d |e         |f            ]
+[a      |b          |c                         |d |e         |f            ]
+[a      |b          |c                         |d |e         |f            ]
+[a      |b          |c                         |d |e         |f            ]
+[a      |b          |c                         |d |e         |f            ]
+[a      |b          |c                         |d |e         |f            ]
+}
+ATTRIBUTES
+
+a=FORMONLY.folio            TYPE INTEGER;
+b=FORMONLY.nss              TYPE CHAR;
+c=FORMONLY.nombre           TYPE CHAR;
+d=FORMONLY.tipo_operacion   TYPE CHAR;
+e=FORMONLY.fecha_movimiento TYPE DATE,FORMAT= "DD/MM/YYYY";
+f=FORMONLY.monto_en_pesos   TYPE DECIMAL(16,6);
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[8] (FORMONLY.folio THRU FORMONLY.monto_en_pesos)
+DELIMITERS " "

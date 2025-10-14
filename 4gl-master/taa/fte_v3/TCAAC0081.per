@@ -1,0 +1,32 @@
+DATABASE FORMONLY
+SCREEN
+{                                                  
+                                                                             .
+
+             TIPO    DE  TRASPASO               : [a]
+             TIPO    DE  REVERSO                : [o]
+
+ 
+
+ 
+           
+
+             FOLIO   A   REVERSAR               : [fl        ]
+             FECHA   DE  PRESENTACION           : [f2        ]
+             FECHA   DE  ENVIO DE SALDOS        : [f3        ]
+             FECHA   DE  LIQUIDACION            : [f4        ]
+
+
+
+}
+ATTRIBUTES
+a=FORMONLY.F_tipo_traspaso        TYPE  SMALLINT, INCLUDE=(1,2,3,4),
+     COMMENTS=" Tipo de Traspaso : 1=Solicitud,2=Complementario,3=Internet y 4=Procesos   ";
+o=FORMONLY.F_opc_reverso          TYPE  SMALLINT, INCLUDE=(1:5),
+     COMMENTS=" 1=Carga Op. 01   3=Notificación de Saldos  4=Liquidacion  5=Rechazos de Saldos";
+fl=FORMONLY.F_folio               TYPE  INTEGER,NOENTRY;
+f2=FORMONLY.F_fecha_presentacion  TYPE  DATE,FORMAT ="DD/MM/YYYY",NOENTRY;
+f3=FORMONLY.F_fecha_envio_saldos  TYPE  DATE,FORMAT ="DD/MM/YYYY",NOENTRY;
+f4=FORMONLY.F_fecha_liquidacion   TYPE  DATE,FORMAT ="DD/MM/YYYY",NOENTRY;
+--INSTRUCTIONS
+--DELIMITERS "  "

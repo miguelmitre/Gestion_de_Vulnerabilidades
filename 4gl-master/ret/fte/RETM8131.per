@@ -1,0 +1,48 @@
+DATABASE safre_af
+SCREEN
+{
+
+______________________________________________________________________________
+   Nss        |   Op 14  |TR| F Ini Pen|Diag| F Transf |F Id Extem| Estado
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+[x|a          |b         |c |d         |e   |f         |g         |h         ]
+[x|a          |b         |c |d         |e   |f         |g         |h         ]
+[x|a          |b         |c |d         |e   |f         |g         |h         ]
+[x|a          |b         |c |d         |e   |f         |g         |h         ]
+[x|a          |b         |c |d         |e   |f         |g         |h         ]
+[x|a          |b         |c |d         |e   |f         |g         |h         ]
+[x|a          |b         |c |d         |e   |f         |g         |h         ]
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+              ____________________________________________
+             | Sec Pension Perido Pago T Seguro T Pensión |
+             |¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+             |[i          |j          |k       |l        ]|
+              ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+}
+TABLES
+ret_extemporanea
+ret_transf_rx
+ret_cza_lote
+ret_estado
+END
+ATTRIBUTES
+x= FORMONLY.x                               ;
+a= ret_extemporanea.nss            ,NOENTRY ;
+b= ret_extemporanea.fecha_envio    ,FORMAT='dd-mm-yyyy',NOENTRY ;
+c= ret_transf_rx.tipo_retiro       ,NOENTRY ;
+d= ret_transf_rx.fecha_ini_pen     ,FORMAT='dd-mm-yyyy',NOENTRY ;
+e= ret_transf_rx.diag_registro     ,NOENTRY ;
+f= ret_cza_lote.fecha_valor_trans  ,FORMAT='dd-mm-yyyy',NOENTRY ;
+g= ret_extemporanea.fecha_conversion,FORMAT='dd-mm-yyyy',NOENTRY ;
+h= ret_estado.descripcion          ,NOENTRY ;
+i= ret_transf_rx.sec_pension       ,NOENTRY ;
+j= ret_extemporanea.periodo_pago   ,NOENTRY ;
+k= ret_transf_rx.tipo_seguro       ,NOENTRY ; 
+l= ret_transf_rx.tipo_pension      ,NOENTRY ;
+END
+INSTRUCTIONS
+    SCREEN RECORD scr_813[7](FORMONLY.x THRU ret_estado.descripcion);
+    SCREEN RECORD scr_813_1[1](ret_transf_rx.sec_pension THRU 
+                             ret_transf_rx.tipo_pension);
+    DELIMITERS " ";
+END

@@ -1,0 +1,34 @@
+DATABASE FORMONLY
+SCREEN SIZE 24 BY 80
+{
+                                                                            .
+
+
+[a    |b         |c |d          |e    |f                                 |g ]
+[a    |b         |c |d          |e    |f                                 |g ]
+[a    |b         |c |d          |e    |f                                 |g ]
+[a    |b         |c |d          |e    |f                                 |g ]
+[a    |b         |c |d          |e    |f                                 |g ]
+[a    |b         |c |d          |e    |f                                 |g ]
+[a    |b         |c |d          |e    |f                                 |g ]
+[a    |b         |c |d          |e    |f                                 |g ]
+[a    |b         |c |d          |e    |f                                 |g ]
+[a    |b         |c |d          |e    |f                                 |g ]
+[a    |b         |c |d          |e    |f                                 |g ]
+[a    |b         |c |d          |e    |f                                 |g ]
+[a    |b         |c |d          |e    |f                                 |g ]
+
+
+}
+ATTRIBUTES
+a=FORMONLY.xfolio           TYPE INTEGER,NOENTRY;
+b=FORMONLY.xtipo_nss        TYPE CHAR,NOENTRY;
+c=FORMONLY.xoperacion       TYPE SMALLINT,NOENTRY;
+d=FORMONLY.xn_seguro        TYPE CHAR,NOENTRY;
+e=FORMONLY.xn_folio         TYPE INTEGER,NOENTRY;
+f=FORMONLY.xnombres         TYPE CHAR,NOENTRY;
+g=FORMONLY.xtipo_solicitud  TYPE SMALLINT,NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[13](FORMONLY.xfolio THRU FORMONLY.xtipo_solicitud)
+DELIMITERS " "

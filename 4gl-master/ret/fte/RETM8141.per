@@ -1,0 +1,61 @@
+DATABASE safre_af
+SCREEN
+{
+
+Nss:[x          ]
+______________________________________________________________________________
+       RFC       | CURP             |Nombre
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+Af:[o            |p                 |q                                       ]
+Ap:[r            |s                 |t                                       ]
+______________________________________________________________________________
+ Id Tram|Id aporte |Consec Tram|Perodo Pago|Folio SUA|Id Arc|Id Viv| Estado
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ 
+[a      |b         |c          |d          |e        |f     |g     |h        ]
+[a      |b         |c          |d          |e        |f     |g     |h        ]
+[a      |b         |c          |d          |e        |f     |g     |h        ]
+______________________________________________________________________________
+F Conversion|  Folio | Consec Lote|  Op 14     |  RCV          |  VIV97      
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+[i          |j       |k           |l           |m              |n            ]
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+}
+TABLES
+ret_extemporanea
+afi_mae_afiliado
+ret_estado
+ret_aporte
+dis_det_aporte
+END
+ATTRIBUTES
+a=ret_aporte.id_tramite ;
+b=ret_aporte.id_aporte  ,NOENTRY;
+c=ret_aporte.consec_tramite,NOENTRY;
+d=ret_aporte.periodo_pago,NOENTRY;
+e=FORMONLY.folio_sua    ,NOENTRY;
+f=FORMONLY.id_arc       ,NOENTRY;
+g=FORMONLY.id_viv       ,NOENTRY;
+h=ret_estado.descripcion,NOENTRY;
+i=ret_aporte.fecha_conversion,FORMAT='DD-MM-YYYY',NOENTRY; 
+j=ret_aporte.folio,NOENTRY;
+k=ret_aporte.consecutivo_lote,NOENTRY;
+l=ret_extemporanea.fecha_envio ,FORMAT='DD-MM-YYYY',NOENTRY;
+m=ret_aporte.importe_rcv,NOENTRY;
+n=ret_aporte.importe_viv97,NOENTRY;
+x=afi_mae_afiliado.n_seguro ,NOENTRY;
+o=afi_mae_afiliado.n_rfc ,NOENTRY;
+p=afi_mae_afiliado.n_unico,NOENTRY;
+q=FORMONLY.nombre_afiliado,NOENTRY;
+r=FORMONLY.a_n_rfc,NOENTRY;
+s=FORMONLY.a_n_unico,NOENTRY;
+t=FORMONLY.nombre_aporte,NOENTRY;
+END
+INSTRUCTIONS
+    SCREEN RECORD scr_814[3](ret_aporte.id_tramite THRU 
+                             ret_estado.descripcion);
+    SCREEN RECORD scr_814_1[1](ret_aporte.fecha_conversion THRU 
+                               ret_aporte.importe_viv97)
+    SCREEN RECORD scr_814_2[1](afi_mae_afiliado.n_seguro THRU 
+                               FORMONLY.nombre_aporte);
+    DELIMITERS " ";
+END

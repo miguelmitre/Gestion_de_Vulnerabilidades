@@ -1,0 +1,28 @@
+DATABASE safre_af
+SCREEN
+{
+\g-----------------------------------------------------------------------------\g
+                CLAVE   DESCRIPCION
+\g-----------------------------------------------------------------------------\g
+                [a ]   [b                                        ]
+                [a ]   [b                                        ]
+                [a ]   [b                                        ]
+                [a ]   [b                                        ]
+                [a ]   [b                                        ]
+                [a ]   [b                                        ]
+                [a ]   [b                                        ]
+                [a ]   [b                                        ]
+                [a ]   [b                                        ]
+                [a ]   [b                                        ]
+\g-----------------------------------------------------------------------------\g
+}
+TABLES
+tab_seguro
+ATTRIBUTES
+a=tab_seguro.clave,UPSHIFT;
+b=tab_seguro.descripcion,UPSHIFT;
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](tab_seguro.clave,tab_seguro.descripcion);
+
+DELIMITERS " "
+

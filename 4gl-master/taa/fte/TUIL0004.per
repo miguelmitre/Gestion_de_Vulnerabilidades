@@ -1,0 +1,31 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g---------------------------------------------------------------------------\g
+                                    
+     FOLIO     ESTADO          PRESENTACION     PROVISION       LIQUIDACION
+    [a     ]  [d           ]  [e         ]     [f         ]    [g         ]
+    [a     ]  [d           ]  [e         ]     [f         ]    [g         ]
+    [a     ]  [d           ]  [e         ]     [f         ]    [g         ]
+    [a     ]  [d           ]  [e         ]     [f         ]    [g         ]
+    [a     ]  [d           ]  [e         ]     [f         ]    [g         ]
+    [a     ]  [d           ]  [e         ]     [f         ]    [g         ]
+    [a     ]  [d           ]  [e         ]     [f         ]    [g         ]
+    [a     ]  [d           ]  [e         ]     [f         ]    [g         ]
+    [a     ]  [d           ]  [e         ]     [f         ]    [g         ]
+    [a     ]  [d           ]  [e         ]     [f         ]    [g         ]
+    [a     ]  [d           ]  [e         ]     [f         ]    [g         ]
+    [a     ]  [d           ]  [e         ]     [f         ]    [g         ]
+
+}
+END
+
+ATTRIBUTES
+a=FORMONLY.folio                 TYPE  INTEGER;
+d=FORMONLY.desc_estado           TYPE  CHAR,NOENTRY;
+e=FORMONLY.f_presentacion        TYPE  DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+f=FORMONLY.f_envio_saldo         TYPE  DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+g=FORMONLY.f_liquidacion         TYPE  DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[12](FORMONLY.folio THRU FORMONLY.f_liquidacion)
+DELIMITERS "[]"

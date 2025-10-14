@@ -1,0 +1,29 @@
+database FORMONLY
+screen
+{
+\g-----------------------------------------------------------------------------\g
+ Mod. Codigo         Descripcion corta             Descripcion larga
+\g-----------------------------------------------------------------------------\g
+[f   |f000 |f001                      |f003                               |a]
+[f   |f000 |f001                      |f003                               |a]
+[f   |f000 |f001                      |f003                               |a]
+[f   |f000 |f001                      |f003                               |a]
+[f   |f000 |f001                      |f003                               |a]
+[f   |f000 |f001                      |f003                               |a]
+[f   |f000 |f001                      |f003                               |a]
+[f   |f000 |f001                      |f003                               |a]
+[f   |f000 |f001                      |f003                               |a]
+[f   |f000 |f001                      |f003                               |a]
+\g-----------------------------------------------------------------------------\g
+}
+end
+attributes
+f=FORMONLY.modulo_cod TYPE CHAR,DOWNSHIFT;
+f000 = FORMONLY.rdeta_cod TYPE CHAR;
+f001 = FORMONLY.rdeta_desc_c TYPE CHAR;
+f003 = FORMONLY.rdeta_desc_l TYPE CHAR;
+a    = FORMONLY.tipo_rechazo TYPE CHAR;
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](FORMONLY.modulo_cod  THRU FORMONLY.tipo_rechazo);
+DELIMITERS " "
+

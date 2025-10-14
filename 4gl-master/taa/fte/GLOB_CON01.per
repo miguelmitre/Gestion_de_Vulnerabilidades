@@ -1,0 +1,32 @@
+DATABASE  FORMONLY
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+   FOLIO  SIE  SUB  T.M   FECHA LIQUI    ACCIONES/PAVIS      TOTAL_PESOS
+\g----------------------------------------------------------------------------\g
+ [aa    ] [c ] [b ] [m  ] [d         ] [e               ] [f               ]
+ [aa    ] [c ] [b ] [m  ] [d         ] [e               ] [f               ]
+ [aa    ] [c ] [b ] [m  ] [d         ] [e               ] [f               ]
+ [aa    ] [c ] [b ] [m  ] [d         ] [e               ] [f               ]
+ [aa    ] [c ] [b ] [m  ] [d         ] [e               ] [f               ]
+ [aa    ] [c ] [b ] [m  ] [d         ] [e               ] [f               ]
+ [aa    ] [c ] [b ] [m  ] [d         ] [e               ] [f               ]
+ [aa    ] [c ] [b ] [m  ] [d         ] [e               ] [f               ]
+ [aa    ] [c ] [b ] [m  ] [d         ] [e               ] [f               ]
+ [aa    ] [c ] [b ] [m  ] [d         ] [e               ] [f               ]
+ [aa    ] [c ] [b ] [m  ] [d         ] [e               ] [f               ]
+ [aa    ] [c ] [b ] [m  ] [d         ] [e               ] [f               ]
+ [aa    ] [c ] [b ] [m  ] [d         ] [e               ] [f               ]
+ [aa    ] [c ] [b ] [m  ] [d         ] [e               ] [f               ]
+ [aa    ] [c ] [b ] [m  ] [d         ] [e               ] [f               ]
+}
+ATTRIBUTES
+aa=FORMONLY.folio;
+c=formonly.siefore type char;
+b=FORMONLY.subcuenta;
+m=FORMONLY.tipo_movimiento;
+d=FORMONLY.fecha_conversion   TYPE  DATE,FORMAT="dd-mm-yyyy";
+e=FORMONLY.monto_en_acciones;
+f=FORMONLY.monto_en_pesos;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[15](FORMONLY.folio THRU FORMONLY.monto_en_pesos)

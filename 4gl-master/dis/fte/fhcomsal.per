@@ -1,0 +1,37 @@
+database safre_af@safre_lnx_shm
+screen size 24 by 80
+{
+folio              [f000       ]
+siefore            [f001  ]
+subcuenta          [f002  ]
+fecha_corte        [f003      ]
+fecha_aplica       [f004      ]
+posicion_total     [f005             ]
+provision_siefore  [f006             ]
+tasa_comis         [f007         ]
+ctas_proc          [f008       ]
+provision_afore    [f009             ]
+fecha_ini          [f010               ]
+fecha_fin          [f011               ]
+estado             [f012  ]
+usuario            [f013    ]
+}
+end
+tables
+cta_his_com_saldo
+attributes
+f000 = cta_his_com_saldo.folio;
+f001 = cta_his_com_saldo.siefore;
+f002 = cta_his_com_saldo.subcuenta;
+f003 = cta_his_com_saldo.fecha_corte;
+f004 = cta_his_com_saldo.fecha_aplica;
+f005 = cta_his_com_saldo.posicion_total;
+f006 = cta_his_com_saldo.provision_siefore;
+f007 = cta_his_com_saldo.tasa_comis;
+f008 = cta_his_com_saldo.ctas_proc;
+f009 = cta_his_com_saldo.provision_afore;
+f010 = cta_his_com_saldo.fecha_ini;
+f011 = cta_his_com_saldo.fecha_fin;
+f012 = cta_his_com_saldo.estado;
+f013 = cta_his_com_saldo.usuario;
+end

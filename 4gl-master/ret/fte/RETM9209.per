@@ -1,0 +1,63 @@
+DATABASE FORMONLY 
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+ Paterno [a01                            ] Parentesco [a04                 ] 
+ Materno [a02                            ]            [a04                 ]
+ Nombre  [a03                            ] Teléfono   [a05                 ]
+ 
+ Secuencia Pensión [b1                  ]        Ultimo Aporte SARISSSTE 
+ Regimen       [b2|b02                  ] Fecha                 [b7        ]
+ Tipo Seguro   [b3|b03                  ] Importe         [b8              ]
+ Numero ISSSTE           [b4            ] 18 X Importe    [b9              ]
+                                          10%  SARISSSTE  [b10             ]
+                                          Importe a Pagar [b11             ]
+                                                                                   
+                                         
+                                         
+ Solicita Constancia de Retención Si/No[d]                                         
+ 
+ No de Solicitud [c01             ]    Fecha Solicitud      [c04           ] 
+ Usuario         [c02             ]    Folio de Solicitud   [c05           ]
+ Fecha Captura   [c03             ]    Num Cuenta           [c06           ] 
+}
+END   
+ATTRIBUTES
+a03 = FORMONLY.nombre                       TYPE CHAR,UPSHIFT                        ;
+a01 = FORMONLY.apellido_paterno             TYPE CHAR,UPSHIFT                        ;
+a02 = FORMONLY.apellido_materno             TYPE CHAR,UPSHIFT                        ;
+a04 = FORMONLY.lc_paren                     TYPE CHAR,UPSHIFT                        ;
+a05 = FORMONLY.lc_telef                     TYPE CHAR,UPSHIFT                        ;
+--
+b1  = FORMONLY.sec_pension                  TYPE CHAR,UPSHIFT                        ;
+b2  = FORMONLY.regimen                      TYPE CHAR,UPSHIFT                        ;
+b02 = FORMONLY.regimen_des                  TYPE CHAR,UPSHIFT                        ;
+b3  = FORMONLY.tipo_seguro                  TYPE CHAR,UPSHIFT                        ;
+b03 = FORMONLY.tipo_seguro_des              TYPE CHAR,UPSHIFT                        ;
+b4  = FORMONLY.num_issste                   TYPE CHAR,UPSHIFT                        ;
+
+b7  = FORMONLY.f_ultimo_aporte              TYPE DATE,     FORMAT = 'dd/mm/yyyy'     ;
+b8  = FORMONLY.mto_ultimo_aporte            TYPE CHAR,UPSHIFT                        ;
+b9  = FORMONLY.mto_18ultimo_aporte          TYPE CHAR,UPSHIFT                        ;
+b10 = FORMONLY.mto_10p_sarissste            TYPE CHAR,UPSHIFT                        ;
+b11 = FORMONLY.mto_a_pagar                  TYPE CHAR,UPSHIFT                        ;
+---b12 = FORMONLY.lc_estad_cod                 TYPE CHAR,UPSHIFT                        ;
+---b13 = FORMONLY.lc_estad_desc                TYPE CHAR,UPSHIFT                        ;
+---b14 = FORMONLY.lc_deleg_cod                 TYPE CHAR,UPSHIFT                        ;
+---b15 = FORMONLY.lc_deleg_desc                TYPE CHAR,UPSHIFT                        ;
+
+
+--
+c01 = FORMONLY.consecutivo                  TYPE CHAR,UPSHIFT,NOENTRY                ; 
+c02 = FORMONLY.usuario_captura              TYPE CHAR,UPSHIFT,NOENTRY                ;
+c04 = FORMONLY.fecha_solicitud              TYPE DATE,        FORMAT = "dd/mm/yyyy"  ;
+c05 = FORMONLY.folio                        TYPE CHAR,UPSHIFT                        ;
+c03 = FORMONLY.fecha_captura                TYPE DATE,        FORMAT = "dd/mm/yyyy"  ;
+c06 = FORMONLY.num_cuenta                   TYPE CHAR,UPSHIFT                        ;
+
+d   = FORMONLY.constancia                   TYPE CHAR,UPSHIFT,INCLUDE = ("S","N")    ;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1 [2]
+       (FORMONLY.lc_paren THRU FORMONLY.lc_paren)
+DELIMITERS " "

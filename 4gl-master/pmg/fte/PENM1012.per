@@ -1,0 +1,33 @@
+DATABASE FORMONLY
+SCREEN
+{              
+                                                                           .
+
+                                                   FECHA            SEC   
+        NSS                 NOMBRE                CAPTURA    RET  CONTRATO
+[x][c01        ][c02                           ][c03       ] [d]    [e ]  
+[x][c01        ][c02                           ][c03       ] [d]    [e ]  
+[x][c01        ][c02                           ][c03       ] [d]    [e ]  
+[x][c01        ][c02                           ][c03       ] [d]    [e ]  
+[x][c01        ][c02                           ][c03       ] [d]    [e ]  
+[x][c01        ][c02                           ][c03       ] [d]    [e ]  
+[x][c01        ][c02                           ][c03       ] [d]    [e ]  
+[x][c01        ][c02                           ][c03       ] [d]    [e ]  
+[x][c01        ][c02                           ][c03       ] [d]    [e ]  
+[x][c01        ][c02                           ][c03       ] [d]    [e ]  
+[x][c01        ][c02                           ][c03       ] [d]    [e ]  
+[x][c01        ][c02                           ][c03       ] [d]    [e ]  
+}
+
+ATTRIBUTES
+    x   = FORMONLY.id_confirma          TYPE CHAR     , 
+            INCLUDE = ("x","C") ;
+    
+    c01 = FORMONLY.nss                  TYPE CHAR     , NOENTRY ;
+    c02 = FORMONLY.nombre_comp          TYPE CHAR     , NOENTRY ;
+    c03 = FORMONLY.fecha_cap            TYPE DATE     , FORMAT = "DD-MM-YYYY", NOENTRY ;
+    d   = FORMONLY.tipo_retiro          TYPE CHAR     , NOENTRY ;
+    e   = FORMONLY.sec_contrato         TYPE SMALLINT , NOENTRY ;
+
+INSTRUCTIONS
+    SCREEN RECORD scr_soli[12](FORMONLY.id_confirma THRU FORMONLY.sec_contrato);

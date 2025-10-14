@@ -1,0 +1,29 @@
+
+DATABASE FORMONLY
+SCREEN
+{
+ 
+
+ Codigo Puesto: [a     ][b                                                 ]
+------------------------------------------------------------------------------
+
+                    Meta No. Afiliaciones :  [c     ]
+                    Meta Calidad          :  [d     ]
+                    Meta Suma S.M.        :  [e     ]
+
+                    Calidad de Cuenta     :  [f     ] %
+
+}
+END
+ATTRIBUTES
+a=FORMONLY.cod_puesto TYPE INTEGER,NOENTRY;
+b=FORMONLY.desc_tipo  TYPE CHAR,NOENTRY;
+c=FORMONLY.meta_afi1  TYPE DECIMAL,NOENTRY;
+d=FORMONLY.meta_afi2  TYPE DECIMAL,NOENTRY;
+e=FORMONLY.meta_afi3  TYPE DECIMAL,NOENTRY;
+f=FORMONLY.meta_tra1  TYPE DECIMAL,NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_meta[1](FORMONLY.meta_afi1 THRU FORMONLY.meta_tra1);
+DELIMITERS "  "
+

@@ -1,0 +1,37 @@
+DATABASE safre_af
+SCREEN
+{
+
+--------------------------------------------------------------------------
+SIE  FOLIO  MOV       SUB         MONTO EN PESOS       MONTO EN ACCIONES
+--------------------------------------------------------------------------
+[d ][j     ][a ] [b   ] [c    ] [f                  ][g                  ]
+[d ][j     ][a ] [b   ] [c    ] [f                  ][g                  ]
+[d ][j     ][a ] [b   ] [c    ] [f                  ][g                  ]
+[d ][j     ][a ] [b   ] [c    ] [f                  ][g                  ]
+[d ][j     ][a ] [b   ] [c    ] [f                  ][g                  ]
+[d ][j     ][a ] [b   ] [c    ] [f                  ][g                  ]
+[d ][j     ][a ] [b   ] [c    ] [f                  ][g                  ]
+[d ][j     ][a ] [b   ] [c    ] [f                  ][g                  ]
+                    TOTAL   :   [h                  ][i                  ]
+}
+TABLES
+ dis_provision
+ATTRIBUTES
+d=dis_provision.siefore;
+j=dis_provision.folio;
+a=dis_provision.tipo_movimiento;
+b=dis_provision.subcuenta;
+c=FORMONLY.subct;
+f=dis_provision.monto_en_pesos;
+g=dis_provision.monto_en_acciones;
+
+h=FORMONLY.total_en_pesos;
+i=FORMONLY.total_en_acciones;
+
+INSTRUCTIONS 
+SCREEN RECORD scr_1[8](dis_provision.siefore,dis_provision.folio,
+                       dis_provision.tipo_movimiento,dis_provision.subcuenta,
+                       FORMONLY.subct, dis_provision.monto_en_pesos,
+                       dis_provision.monto_en_acciones)
+SCREEN RECORD scr_2[1](FORMONLY.total_en_pesos, FORMONLY.total_en_acciones);

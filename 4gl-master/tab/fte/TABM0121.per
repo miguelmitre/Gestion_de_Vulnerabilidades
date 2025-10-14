@@ -1,0 +1,27 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+
+
+ 	Codigo Sub-Cuenta      [a    ]
+
+
+
+ 	Descripcion Sub-Cuenta [b                                        ]
+
+
+
+        Descripcion corta      [c    ]
+
+
+
+
+}
+TABLES
+tab_subcuenta
+ATTRIBUTES
+a=tab_subcuenta.subct_cod;
+b=tab_subcuenta.subct_desc,UPSHIFT;
+c=tab_subcuenta.subct_corta,UPSHIFT;

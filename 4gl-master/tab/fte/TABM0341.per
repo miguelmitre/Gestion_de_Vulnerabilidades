@@ -1,0 +1,37 @@
+DATABASE safre_af
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+
+     Sie/Part[a    ] [b                                                 ]
+
+     Desde   [c         ]          Hasta [d         ]
+
+\g--------------------------------------------------------------------------\g
+  Fecha           SIEFORE               Precio accion    
+ [e         ]  [f ][g           ]    [h               ][j      ]
+ [e         ]  [f ][g           ]    [h               ][j      ]
+ [e         ]  [f ][g           ]    [h               ][j      ]
+ [e         ]  [f ][g           ]    [h               ][j      ]
+ [e         ]  [f ][g           ]    [h               ][j      ]
+ [e         ]  [f ][g           ]    [h               ][j      ]
+ [e         ]  [f ][g           ]    [h               ][j      ]
+ [e         ]  [f ][g           ]    [h               ][j      ]
+ [e         ]  [f ][g           ]    [h               ][j      ]
+}
+TABLES
+tab_siefore_local 
+glo_valor_accion
+ATTRIBUTES
+a=tab_siefore_local.codigo_siefore;
+b=tab_siefore_local.razon_social,UPSHIFT;
+c=formonly.desde type date,FORMAT="dd/mm/yyyy";
+d=formonly.hasta type date,FORMAT="dd/mm/yyyy";
+e=formonly.fecha_valuacion type date, FORMAT="dd/mm/yyyy";
+f=formonly.cod_siefore type smallint;
+g=formonly.razon_social, UPSHIFT;
+h=formonly.precio_del_dia ;
+j=formonly.rowid,INVISIBLE;
+INSTRUCTIONS
+DELIMITERS " "
+SCREEN RECORD scr_1[9](formonly.fecha_valuacion THRU formonly.rowid)

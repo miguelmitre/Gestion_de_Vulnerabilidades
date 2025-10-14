@@ -1,0 +1,38 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+----------------------------------------------------------------------------
+ TIPO N.S.S.      F.Traspaso  CVE.   F.Acuse      Folio carga  Env.PROCESAR
+----------------------------------------------------------------------------
+[x][a          ] [b         ] [c  ] [d         ] [e         ]  [f         ]
+[x][a          ] [b         ] [c  ] [d         ] [e         ]  [f         ]
+[x][a          ] [b         ] [c  ] [d         ] [e         ]  [f         ]
+[x][a          ] [b         ] [c  ] [d         ] [e         ]  [f         ]
+[x][a          ] [b         ] [c  ] [d         ] [e         ]  [f         ]
+[x][a          ] [b         ] [c  ] [d         ] [e         ]  [f         ]
+[x][a          ] [b         ] [c  ] [d         ] [e         ]  [f         ]
+[x][a          ] [b         ] [c  ] [d         ] [e         ]  [f         ]
+[x][a          ] [b         ] [c  ] [d         ] [e         ]  [f         ]
+
+
+___________________________________________________________________________
+}
+ATTRIBUTES
+x=FORMONLY.tipo_con       TYPE CHAR,NOENTRY;
+a=FORMONLY.nss            TYPE CHAR,NOENTRY;
+b=FORMONLY.fecha_traspaso TYPE DATE,FORMAT="dd/mm/yyyy",NOENTRY;
+c=FORMONLY.constancia     TYPE CHAR,NOENTRY;
+d=FORMONLY.fec_acuse      TYPE DATE,FORMAT="dd/mm/yyyy",NOENTRY;
+e=FORMONLY.folio          TYPE INTEGER,NOENTRY;
+f=FORMONLY.desc           TYPE CHAR,NOENTRY;
+INSTRUCTIONS
+    SCREEN RECORD scr_1[9](FORMONLY.tipo_con,
+                           FORMONLY.nss,
+                           FORMONLY.fecha_traspaso,
+                           FORMONLY.constancia,
+                           FORMONLY.fec_acuse,
+                           FORMONLY.folio,
+                           FORMONLY.desc);
+DELIMITERS " "
+

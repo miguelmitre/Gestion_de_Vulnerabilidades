@@ -1,0 +1,27 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                         [f0        ] .
+         PROCESO DE REVERSO DE CONSTANCIAS
+                 TRASPASO, LIQUIDACION Y REGISTRO
+
+             0) CONSTANCIA	30280 
+             1) CONSTANCIA	30201
+             2) CONSTANCIA	30202
+             3) CONSTANCIA	30501
+             4) CONSTANCIA	30203
+             5) CONSTANCIA	30221
+
+                     OPCION DE REVERSO   :        [op]
+                     FECHA DE CERTIFICACION  : [fr        ]
+                     NSS A REVERSAR    : [fl         ] 
+ 
+} 
+ATTRIBUTES
+f0=FORMONLY.fecha  TYPE DATE ,FORMAT ="DD/MM/YYYY",NOENTRY;
+op=FORMONLY.opcion TYPE SMALLINT, INCLUDE=(0,1,2,3,4,5);
+fr=FORMONLY.v_fecha_mov_banxico TYPE DATE, FORMAT="dd/mm/yyyy",
+           COMMENTS=" Digite la Fecha de Liquidacion (dd/mm/yyyy)";
+fl=FORMONLY.in_nss TYPE CHAR;
+INSTRUCTIONS
+DELIMITERS "  "

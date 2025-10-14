@@ -1,0 +1,33 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+  Proc  Trans Siefore        Cuenta     Descripcion             Tip Id Analis 
+\g----------------------------------------------------------------------------\g
+  [a    |b    |c |c1         |d        |e                        |f |g|h     ]
+  [a    |b    |c |c1         |d        |e                        |f |g|h     ]
+  [a    |b    |c |c1         |d        |e                        |f |g|h     ]
+  [a    |b    |c |c1         |d        |e                        |f |g|h     ]
+  [a    |b    |c |c1         |d        |e                        |f |g|h     ]
+  [a    |b    |c |c1         |d        |e                        |f |g|h     ]
+  [a    |b    |c |c1         |d        |e                        |f |g|h     ]
+  [a    |b    |c |c1         |d        |e                        |f |g|h     ]
+  [a    |b    |c |c1         |d        |e                        |f |g|h     ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+con_traductor
+ATTRIBUTES
+a  = con_traductor.proceso_cod;
+b  = con_traductor.transaccion_cod;
+c  = con_traductor.siefore;
+c1 = FORMONLY.desc_siefore TYPE CHAR,NOENTRY;
+d  = con_traductor.cuenta;
+e  = con_traductor.descripcion;
+f  = con_traductor.tipo;
+g  = con_traductor.identificador;
+h  = con_traductor.analisis_cod;
+INSTRUCTIONS
+SCREEN RECORD scr_1[9](proceso_cod THRU analisis_cod);
+DELIMITERS "  "
+END

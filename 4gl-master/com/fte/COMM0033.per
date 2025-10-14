@@ -1,0 +1,18 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                  
+CODIGO       NOMBRE DE LA UNIDAD             
+[f000      ][f001                                    ]
+[f000      ][f001                                    ]
+[f000      ][f001                                    ]
+[f000      ][f001                                    ]
+[f000      ][f001                                    ]
+}
+END
+ATTRIBUTES
+f000 = FORMONLY.codigo;
+f001 = FORMONLY.descripcion,UPSHIFT;
+INSTRUCTIONS
+SCREEN RECORD scr_1[5](FORMONLY.codigo THRU FORMONLY.descripcion);
+DELIMITERS "  "

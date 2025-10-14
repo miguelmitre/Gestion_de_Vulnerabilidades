@@ -1,0 +1,27 @@
+DATABASE formonly
+SCREEN
+{
+                                                                             .
+
+
+
+
+
+
+                    PERIODO A PROCESAR : [a   ]
+
+
+      FECHA INICIO : [fi        ]    FECHA FIN : [ff        ]
+
+
+
+
+}
+ATTRIBUTES
+a=FORMONLY.vperiodo TYPE SMALLINT, COMMENTS = "Ingrese el periodo 'AAAA'";
+fi=FORMONLY.vfecha_ini TYPE DATE, FORMAT = "DD/MM/YYYY", NOENTRY;
+ff=FORMONLY.vfecha_fin TYPE DATE, FORMAT = "DD/MM/YYYY", NOENTRY;
+
+INSTRUCTIONS
+DELIMITERS " "
+

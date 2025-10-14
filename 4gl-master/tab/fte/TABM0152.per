@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+           Codigo                       Descripcion
+\g----------------------------------------------------------------------------\g
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_agencia
+ATTRIBUTES
+a=tab_agencia.agenc_cod;
+b=tab_agencia.agenc_desc;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_agencia.agenc_cod,tab_agencia.agenc_desc);
+END

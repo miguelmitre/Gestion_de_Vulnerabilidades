@@ -1,0 +1,25 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                         [f0        ] .
+
+
+                       CONSULTA DE PROCESOS 
+
+
+                 1) CONSULTA CREDITOS EN GARANTIA 
+                 2) CONSULTA USO CREDITO 
+                 3) CONSULTA DEVOLUCION DE EXCEDENTES 
+                 4) SALIR
+         
+
+
+
+                                  OPCION DE CONSULTA   :     [o]
+
+}
+ATTRIBUTES
+f0=FORMONLY.fecha  TYPE DATE ,FORMAT ="DD/MM/YY",NOENTRY;
+o=FORMONLY.opcion TYPE SMALLINT, INCLUDE=(1,2,3,4);
+INSTRUCTIONS
+DELIMITERS "  "

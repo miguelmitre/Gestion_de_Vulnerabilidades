@@ -1,0 +1,25 @@
+DATABASE FORMONLY
+SCREEN
+{
+UTILICE EL * ( ASTERICO ) COMO COMODIN
+INGRESE EL STRING DE BUSQUEDA [zz                        ]
+---------------------------------------------------------
+   TIP TRASPASO              DESCRIPCION
+   [a         ]    [b                              ]
+   [a         ]    [b                              ]
+   [a         ]    [b                              ]
+   [a         ]    [b                              ]
+   [a         ]    [b                              ]
+   [a         ]    [b                              ]
+---------------------------------------------------------
+      < F3 > Avanza Pagina   < F4 > Retrocede Pagina        
+                 < ENTER > Selecciona 
+}
+END
+ATTRIBUTES
+zz=FORMONLY.x_buscar TYPE CHAR,UPSHIFT;
+a=FORMONLY.origen_traspaso TYPE INTEGER,NOENTRY;
+b=FORMONLY.descripcion  TYPE CHAR,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[6](FORMONLY.origen_traspaso,FORMONLY.descripcion);
+DELIMITERS "  "

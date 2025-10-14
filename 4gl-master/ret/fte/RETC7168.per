@@ -1,0 +1,37 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+
+NSS :               [a          ] 
+Secuencia Pension:  [b ]
+Periodo Pago :      [c     ] 
+Id Tramite :        [d      ]
+Diagnostico :       [e                        ]
+
+---------------------------------FECHA/HORA------------------------------
+Recepcion Sol. PROCESAR: [s                  ] 
+Envio Sol. SAFRE:        [t                  ] 
+Recep. Resp. SAFRE:      [u                  ] 
+Resp. Sol. PROCESAR:     [v                  ]
+
+
+
+}
+END
+ATTRIBUTES
+a=FORMONLY.nss TYPE CHAR, NOENTRY;
+b=FORMONLY.sec_pension TYPE CHAR, NOENTRY;
+c=FORMONLY.periodo_pago TYPE CHAR, NOENTRY;
+d=FORMONLY.id_tramite TYPE INT, NOENTRY;
+e=FORMONLY.Diagnostico TYPE INT, NOENTRY;
+s=FORMONLY.rec_procesar TYPE CHAR, NOENTRY;
+t=FORMONLY.env_safre TYPE CHAR, NOENTRY;
+u=FORMONLY.rec_safre TYPE CHAR, NOENTRY;
+v=FORMONLY.resp_safre TYPE CHAR, NOENTRY;
+END
+
+INSTRUCTIONS
+SCREEN RECORD src_d8[1] (FORMONLY.nss THRU  FORMONLY.resp_safre);
+DELIMITERS "  "
+END 

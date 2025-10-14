@@ -1,0 +1,50 @@
+DATABASE safre_af
+SCREEN
+{
+------------------------------------------------------------------------------
+Folio                    [f000       ]            N.S.S.         [f007       ]
+R.F.C.                   [f009         ]    
+Clave Cedente Cta.       [f003  ]        Fecha Presentacion Desde [x12       ]
+Apellido Paterno         [f010                                               ]
+Apellido Materno         [f011                                               ]
+Nombres                  [f012                                               ]
+NSS Icefa                [f017       ]
+RFC Icefa                [f018         ]
+Nro.Control Icefa        [f019                ]
+Nombre Trab.Icefa        [f020                      ]
+Diagnostico Proceso #1   [a7 ][a1                                            ]
+Diagnostico Proceso #2   [a8 ][a2                                            ]
+Diagnostico Proceso #3   [a9 ][a3                                            ]
+Diagnostico Proceso #4   [b0 ][a4                                            ]
+Diagnostico Proceso #5   [b1 ][a5                                            ]
+
+}
+end
+tables
+tra_det_rechazo
+attributes
+{ MASTER }
+f000 = tra_det_rechazo.folio;
+f007 = tra_det_rechazo.n_seguro;
+f009 = tra_det_rechazo.rfc,UPSHIFT;
+--f001 = tra_det_rechazo.correlativo;
+f003 = tra_det_rechazo.cve_ced_cuenta;
+x12  = tra_det_rechazo.fech_presentacion ,FORMAT="dd-mm-yyyy";
+f010 = tra_det_rechazo.paterno,UPSHIFT;
+f011 = tra_det_rechazo.materno,UPSHIFT;
+f012 = tra_det_rechazo.nombres,UPSHIFT;
+{ DETALLE }
+f017 = tra_det_rechazo.n_seguro_ent;
+f018 = tra_det_rechazo.rfc_ent,UPSHIFT;
+f019 = tra_det_rechazo.nro_ctrl_icefa;
+f020 = tra_det_rechazo.nombre_trab_icefa,UPSHIFT;
+a7   = tra_det_rechazo.diag_proceso_1;
+a1   = FORMONLY.desc1 TYPE CHAR,NOENTRY;
+a8   = tra_det_rechazo.diag_proceso_2;
+a2   = FORMONLY.desc2 TYPE CHAR,NOENTRY;
+a9   = tra_det_rechazo.diag_proceso_3;
+a3   = FORMONLY.desc3 TYPE CHAR,NOENTRY;
+b0   = tra_det_rechazo.diag_proceso_4;
+a4   = FORMONLY.desc4 TYPE CHAR,NOENTRY;
+b1   = tra_det_rechazo.diag_proceso_5;
+a5   = FORMONLY.desc5 TYPE CHAR,NOENTRY;

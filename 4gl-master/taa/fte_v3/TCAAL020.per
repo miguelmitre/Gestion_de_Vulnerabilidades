@@ -1,0 +1,33 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                       [f            ]     .
+
+
+             Tipo    de  Traspaso             :   [dl                     ]
+             Folio   de  Operacion            :       [f0    ]
+             Fecha   de  Presentacion         :   [f1        ]
+             Fecha   de  Envio de Saldos      :   [f2        ]
+             Fecha   de  Liquidacion          :   [f3        ]
+             Registros a Procesar             :       [f4    ]
+             Registros   Procesados           :       [f5    ]
+
+
+
+
+
+
+
+
+}
+ATTRIBUTES
+f=FORMONLY.fecha                 TYPE  DATE ,FORMAT ="DD/MM/YYYY",NOENTRY;
+f0=FORMONLY.folio                TYPE  INTEGER,NOENTRY;
+dl=FORMONLY.desc_tipo            TYPE  CHAR, NOENTRY;
+f1=FORMONLY.fecha_presentacion   TYPE  DATE  ,FORMAT ="DD/MM/YYYY",NOENTRY;
+f2=FORMONLY.fecha_envio_saldos   TYPE  DATE  ,FORMAT ="DD/MM/YYYY",NOENTRY;
+f3=FORMONLY.fecha_liquidacion    TYPE  DATE  ,FORMAT ="DD/MM/YYYY",NOENTRY;
+f4=FORMONLY.l_registros          TYPE  DEC   ,NOENTRY;
+f5=FORMONLY.l_procesados         TYPE  DEC   ,NOENTRY;
+INSTRUCTIONS
+DELIMITERS "  "

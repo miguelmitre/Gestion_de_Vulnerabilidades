@@ -1,0 +1,46 @@
+DATABASE safre_af
+SCREEN
+{
+									    .
+Codigo Impuesto [f000  ][f001                                              ]
+Monto Excento   [g            ]Porcentaje Iva [h      ]
+Fecha Creacion  [f002      ]   Vigencia de     [f004      ]  a  [f005      ]   
+
+      LIMITE           LIMITE             CUOTA       PORCENTAJE  FECHA
+      INFERIOR         SUPERIOR           FIJA                    ACTUALIZA
+ [a              ] [b              ] [c              ] [d     ] [e         ]
+ [a              ] [b              ] [c              ] [d     ] [e         ]
+ [a              ] [b              ] [c              ] [d     ] [e         ]
+ [a              ] [b              ] [c              ] [d     ] [e         ]
+ [a              ] [b              ] [c              ] [d     ] [e         ]
+ [a              ] [b              ] [c              ] [d     ] [e         ]
+ [a              ] [b              ] [c              ] [d     ] [e         ]
+ [a              ] [b              ] [c              ] [d     ] [e         ]
+ [a              ] [b              ] [c              ] [d     ] [e         ]
+ [a              ] [b              ] [c              ] [d     ] [e         ]
+}
+END
+TABLES
+com_esq_ispt
+com_cuadro_ispt
+ATTRIBUTES
+{ MASTER }
+f000 = com_esq_ispt.cod_esq_ispt,COMMENTS="CAPTURE CODIGO";
+f001 = com_esq_ispt.desc_esq_ispt,UPSHIFT,
+                                  COMMENTS="CAPTURE DESCRIPCION DE CODIGO";
+g    = com_esq_ispt.monto_excento;
+h    = com_esq_ispt.porcentaje_iva,FORMAT="---.---";
+f002 = com_esq_ispt.fecha_creacion,FORMAT="dd-mm-yyyy",NOENTRY;
+f004 = com_esq_ispt.fecha_desde,FORMAT="dd-mm-yyyy",
+                                COMMENTS="FORMATO = DD-MM-YYYY";
+f005 = com_esq_ispt.fecha_hasta,FORMAT="dd-mm-yyyy",
+                                COMMENTS="FORMATO = DD-MM-YYYY";
+{ DETALLE }
+a=com_cuadro_ispt.limite_inf,NOENTRY,FORMAT="----,---,---.--";
+b=com_cuadro_ispt.limite_sup,FORMAT="----,---,---.--";
+c=com_cuadro_ispt.cuota_fija,FORMAT="----,---,---.--";
+D=com_cuadro_ispt.porcentaje,FORMAT="---.--";
+e=com_cuadro_ispt.fecha_actualiza,NOENTRY,FORMAT="dd-mm-yyyy";
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](com_cuadro_ispt.limite_inf THRU com_cuadro_ispt.fecha_actualiza);
+DELIMITERS "  "

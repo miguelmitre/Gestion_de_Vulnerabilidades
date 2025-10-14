@@ -1,0 +1,28 @@
+DATABASE safre_af
+
+SCREEN
+{
+                                                                          .
+
+	AL EJECUTAR ESTE PROCESO SERA GENERADO UN ARCHIVO PLANO LLAMADO
+	" EAAAAMMDD.TAA " DONDE  : AAAA => A&O DE PROCESO
+	                         : MM   => MES DE PROCESO
+	                         : DD   => DIA DE PROCESO
+	RESCATE EL ARCHIVO DESDE EL DIRECTORIO 
+        
+
+
+              CAPTURE LA FECHA DE ENVIO DEL ARCHIVO  [a         ]
+
+              ESTA SEGURO DE QUE LA FECHA ES CORRECTA (S/N) ? [d]
+
+
+}
+tables
+afi_solicitud
+ATTRIBUTES
+a=FORMONLY.fecha_envio TYPE DATE, FORMAT ="DD/MM/YYYY",
+COMMENTS ="Capture la fecha en formato DD/MM/YYYY";
+d=FORMONLY.generar TYPE CHAR, UPSHIFT,AUTONEXT;
+INSTRUCTIONS
+DELIMITERS "  "

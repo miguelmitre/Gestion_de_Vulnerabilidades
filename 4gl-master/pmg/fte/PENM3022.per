@@ -1,0 +1,26 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                                          .
+  EDAD  INICIO VIG.  TASA      URV HOMBRE          URV HOMBRE
+ [a  ] [b         ] [d      ] [e                ] [f                ]
+ [a  ] [b         ] [d      ] [e                ] [f                ]
+ [a  ] [b         ] [d      ] [e                ] [f                ]
+ [a  ] [b         ] [d      ] [e                ] [f                ]
+ [a  ] [b         ] [d      ] [e                ] [f                ]
+ [a  ] [b         ] [d      ] [e                ] [f                ]
+ [a  ] [b         ] [d      ] [e                ] [f                ]
+ [a  ] [b         ] [d      ] [e                ] [f                ]
+ [a  ] [b         ] [d      ] [e                ] [f                ]
+ [a  ] [b         ] [d      ] [e                ] [f                ]
+}
+END
+ATTRIBUTES
+a=FORMONLY.edad          TYPE INTEGER,NOENTRY;
+b=FORMONLY.ini_vigencia  TYPE CHAR,NOENTRY;
+d=FORMONLY.tasa          TYPE CHAR,NOENTRY;
+e=FORMONLY.urv_hombre    TYPE CHAR,NOENTRY;
+f=FORMONLY.urv_mujer     TYPE CHAR,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](FORMONLY.edad, FORMONLY.ini_vigencia, FORMONLY.tasa, FORMONLY.urv_hombre, FORMONLY.urv_mujer);
+DELIMITERS "  "

@@ -1,0 +1,29 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+
+
+
+
+
+            Fecha corte                  [a         ]
+                                          
+            Fecha corte reliquidacion    [b         ]
+
+            Indicador Reliquidacion      [c ] 
+
+
+
+
+
+
+}
+TABLES
+com_calendario_rel
+ATTRIBUTES
+a=com_calendario_rel.fecha_corte,FORMAT = "DD-MM-YYYY",DEFAULT=TODAY;
+b=com_calendario_rel.fecha_corte_rel,FORMAT = "DD-MM-YYYY",DEFAULT=TODAY;
+c=com_calendario_rel.indicador_rel, DEFAULT=0;
+END

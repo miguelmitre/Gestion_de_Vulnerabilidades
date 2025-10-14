@@ -1,0 +1,37 @@
+DATABASE safre_af
+SCREEN
+{
+___________________________________________________________________________      
+      Numero de Folio         :  [a         ]   Tipo Solic. [aa] 
+      
+      Posicion                :  [b         ]
+     
+      Caja                    :  [c         ]
+      
+      Numero Seguro Social    :  [d          ]
+     
+      Nombre(s)               :  [e                                 ]
+      
+      Paterno                 :  [f                                  ]  
+     
+      Materno                 :  [g                                  ]
+     
+      Status Interno          :  [h                                  ]
+
+}
+TABLES
+afi_mae_afiliado
+ATTRIBUTES
+a=afi_mae_afiliado.n_folio, FORMAT ="##########";
+aa=afi_mae_afiliado.tipo_solicitud;
+b=afi_mae_afiliado.ubicacion;
+c=afi_mae_afiliado.indicador_b;
+d=afi_mae_afiliado.n_seguro;
+e=afi_mae_afiliado.nombres;
+f=afi_mae_afiliado.paterno;
+g=afi_mae_afiliado.materno;
+h=FORMONLY.vstatus;
+INSTRUCTIONS
+DELIMITERS " "
+
+

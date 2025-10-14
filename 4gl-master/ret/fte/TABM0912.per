@@ -1,0 +1,28 @@
+DATABASE safre_af
+SCREEN
+{
+\g-----------------------------------------------------------------------------\g
+                              GRUPO  SUBCUENTA
+\g-----------------------------------------------------------------------------\g
+                              [a   ]   [b   ]
+                              [a   ]   [b   ]
+                              [a   ]   [b   ]
+                              [a   ]   [b   ]
+                              [a   ]   [b   ]
+                              [a   ]   [b   ]
+                              [a   ]   [b   ]
+                              [a   ]   [b   ]
+                              [a   ]   [b   ]
+                              [a   ]   [b   ]
+\g-----------------------------------------------------------------------------\g
+}
+TABLES
+tab_agrupa_subcta
+ATTRIBUTES
+a=tab_agrupa_subcta.grupo;
+b=tab_agrupa_subcta.subcuenta;
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](tab_agrupa_subcta.grupo,tab_agrupa_subcta.subcuenta);
+
+DELIMITERS " "
+

@@ -1,0 +1,30 @@
+DATABASE FORMONLY
+SCREEN
+{
+         Tipo Archivo                      : IMSS e ISSSTE                
+         Tipo de Operacion                 : Solicitudes 01                  .
+         Nombre de archivo a procesar?...  :[d                          ] 
+         Folio Operacion para el Archivo   :[f0        ]      
+         Fecha presentacion de solicitud   :[f1        ]   
+         Fecha de envio saldos             :[f2        ]  
+         Fecha de liquidacion              :[f3        ]
+
+
+
+
+
+
+
+   [x]
+
+
+}
+ATTRIBUTES
+d=FORMONLY.nom_archivo            TYPE CHAR;
+f0=FORMONLY.folio                 TYPE DEC  ,NOENTRY;
+f1=FORMONLY.fecha_presentacion    TYPE DATE ,FORMAT ="DD/MM/YYYY",NOENTRY;
+f2=FORMONLY.fecha_envio_saldos    TYPE DATE ,FORMAT ="DD/MM/YYYY",NOENTRY;
+f3=FORMONLY.fecha_liquidacion     TYPE DATE ,FORMAT ="DD/MM/YYYY",NOENTRY;
+x=FORMONLY.muestra_log ,INVISIBLE;
+INSTRUCTIONS
+DELIMITERS "  "

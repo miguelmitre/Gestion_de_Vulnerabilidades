@@ -1,0 +1,35 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+   Tipo                                                      Antiguedad
+ Comision Subcuenta  % comision     Valor  Siefore   %      Desde  Hasta
+
+ [a    ]   [b    ]  [c         ]  [d       ][e  ][h     ][f       ][g       ]
+ [a    ]   [b    ]  [c         ]  [d       ][e  ][h     ][f       ][g       ]
+ [a    ]   [b    ]  [c         ]  [d       ][e  ][h     ][f       ][g       ]
+ [a    ]   [b    ]  [c         ]  [d       ][e  ][h     ][f       ][g       ]
+ [a    ]   [b    ]  [c         ]  [d       ][e  ][h     ][f       ][g       ]
+ [a    ]   [b    ]  [c         ]  [d       ][e  ][h     ][f       ][g       ]
+ [a    ]   [b    ]  [c         ]  [d       ][e  ][h     ][f       ][g       ]
+ [a    ]   [b    ]  [c         ]  [d       ][e  ][h     ][f       ][g       ]
+ [a    ]   [b    ]  [c         ]  [d       ][e  ][h     ][f       ][g       ]
+ [a    ]   [b    ]  [c         ]  [d       ][e  ][h     ][f       ][g       ]
+
+
+}
+TABLES
+dis_val_comision
+ATTRIBUTES
+a=dis_val_comision.tipo_comision;
+b=dis_val_comision.subcuenta;
+c=dis_val_comision.val_porcentaje;
+d=dis_val_comision.val_pesos;
+e=dis_val_comision.siefore;
+h=dis_val_comision.porcentaje_sie;
+f=dis_val_comision.antiguedad_desde;
+g=dis_val_comision.antiguedad_hasta;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10] (dis_val_comision.tipo_comision THRU dis_val_comision.antiguedad_hasta)
+--DELIMITERS "  "

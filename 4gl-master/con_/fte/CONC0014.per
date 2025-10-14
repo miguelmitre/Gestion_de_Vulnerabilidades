@@ -1,0 +1,33 @@
+DATABASE formonly
+SCREEN
+{
+                                                                            .
+
+
+   Proceso:[a    ][b                                                       ]
+   Folio de Liquidacion [a1        ]
+   Fecha de Liquidacion [c         ]
+
+              S A F R E         T E S O R E R I A    CONCILIACION
+               Acciones             Acciones           Acciones
+           [d               ]   [f               ]    [h     ]
+               Pesos                 Pesos   
+           [e               ]   [g               ]
+
+
+
+}
+ATTRIBUTES
+a=FORMONLY.vproceso          TYPE CHAR;
+b=FORMONLY.vdescripcion      TYPE CHAR,NOENTRY;
+a1=FORMONLY.vfolio           TYPE INTEGER;
+c=FORMONLY.vfecha            TYPE DATE, FORMAT="dd/mm/yyyy",
+  COMMENTS = "Digite la fecha a procesar (dd/mm/yyyy)";
+d=FORMONLY.vaccion_safre     TYPE DECIMAL, FORMAT= "------------&.&&", NOENTRY;
+e=FORMONLY.vprecio_safre     TYPE DECIMAL, FORMAT= "------------&.&&", NOENTRY;
+f=FORMONLY.vaccion_tesoreria TYPE DECIMAL, FORMAT= "------------&.&&";
+g=FORMONLY.vprecio_tesoreria TYPE DECIMAL, FORMAT= "------------&.&&";
+h=FORMONLY.vdif_concilia     TYPE DECIMAL, FORMAT= "--&.&&",NOENTRY;
+
+INSTRUCTIONS
+DELIMITERS " "

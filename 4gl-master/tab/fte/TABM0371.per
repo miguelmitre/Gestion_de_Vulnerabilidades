@@ -1,0 +1,27 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+
+
+
+
+
+     Codigo de Rechazo CURP      [a           ]
+
+
+
+
+     Descripcion de Rechazo CURP [b                                       ]
+
+
+
+
+}
+TABLES
+tab_rch_curp
+ATTRIBUTES
+a=tab_rch_curp.curp_cod_rech;
+b=tab_rch_curp.des_rechazo,COMMENTS="Escriba la descripcion de Rechazo de CURP",UPSHIFT;
+END

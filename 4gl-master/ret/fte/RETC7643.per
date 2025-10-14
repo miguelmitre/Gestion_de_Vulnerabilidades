@@ -1,0 +1,38 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+
+       NSS      F.REGISTRO       ORIGEN       NIVEL REINV.    ESTADO
+------------------------------------------------------------------------------
+[c1         ][c2      ][c3               ][c4       ][c5                     ]
+[c1         ][c2      ][c3               ][c4       ][c5                     ]
+[c1         ][c2      ][c3               ][c4       ][c5                     ]
+[c1         ][c2      ][c3               ][c4       ][c5                     ]
+[c1         ][c2      ][c3               ][c4       ][c5                     ]
+[c1         ][c2      ][c3               ][c4       ][c5                     ]
+[c1         ][c2      ][c3               ][c4       ][c5                     ]
+[c1         ][c2      ][c3               ][c4       ][c5                     ]
+[c1         ][c2      ][c3               ][c4       ][c5                     ]
+[c1         ][c2      ][c3               ][c4       ][c5                     ]
+[c1         ][c2      ][c3               ][c4       ][c5                     ]
+[c1         ][c2      ][c3               ][c4       ][c5                     ]
+
+}
+END
+
+ATTRIBUTES
+c1 = FORMONLY.nss;
+c2 = FORMONLY.fecha_registro TYPE DATE, FORMAT="DD/MM/YY";
+c3 = FORMONLY.desc_origen_reinv;
+c4 = FORMONLY.desc_nivel_reinv;
+c5 = FORMONLY.estado_solicitud;
+END
+
+INSTRUCTIONS
+  SCREEN RECORD sa_result[12]( FORMONLY.nss, FORMONLY.fecha_registro, 
+                              FORMONLY.desc_origen_reinv, FORMONLY.desc_nivel_reinv,
+                              FORMONLY.estado_solicitud);
+
+
+                              

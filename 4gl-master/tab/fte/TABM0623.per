@@ -1,0 +1,22 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g------------------------------------------------------\g
+       Marca                Descripcion
+\g------------------------------------------------------\g
+      [a   ]       [b                             ]
+      [a   ]       [b                             ]
+      [a   ]       [b                             ]
+      [a   ]       [b                             ]
+      [a   ]       [b                             ]
+      [a   ]       [b                             ]
+\g------------------------------------------------------\g
+
+}                                                                              
+ATTRIBUTES
+a=FORMONLY.marca_cod;
+b=FORMONLY.marca_desc,UPSHIFT;
+INSTRUCTIONS
+SCREEN RECORD scr_1[6](FORMONLY.marca_cod THRU FORMONLY.marca_desc); 
+END
+         

@@ -1,0 +1,72 @@
+DATABASE safre_af
+SCREEN
+{
+Estado de la solicitud [i ] [j                                        ]
+Num.Solicitud     [a1        ]        Diagnostico          [b1]
+Num.Nomina        [a2             ]   Fecha Nacimiento     [b2        ]
+Cod.Promotor      [a9        ]        Fecha Baja afore     [b3        ]
+Nro.Seguro Social [a3         ]       Fecha Ingreso Afore  [b4        ]
+Nro.R.F.C.        [a4           ]     Fecha Envio Consar   [b5        ]
+Nro.C.U.R.P.      [a5                ]Fecha Autorizacion   [b6        ]
+Asesor:[f07] Vigencia:[f08       ]    Fecha Proceso Afore  [b7        ]
+Apellido Paterno  [a6                ]Result.Eval. [b8 ] Hrs.Cap. [b9 ]
+Apellido Materno  [a7                ]Gdo.Esc. [b10] Sexo [b11]
+Nombre            [a8                                      ] Edo.Naci [b12]
+                                                                           .
+Calle [c1                                      ]No.Ext.[c2  ] No.Int. [c3  ]
+Codigo Postal [c4   ]  Colonia   [c5                                       ]
+Delegacion    [c6   ] [c7                                                  ]
+Ciudad        [c8   ] [c9                            ] Tel      [c12       ]
+Estado        [c10  ] [c11                           ] Tel2     [c13       ]
+Correo Elect  [c14                                     ]
+}
+TABLES
+pro_solicitud
+ATTRIBUTES
+i = pro_solicitud.status_interno     ,NOENTRY                    ;
+j = FORMONLY.desc_status_corta       ,NOENTRY                    ;
+
+a1 = pro_solicitud.nro_solicitud                                 ;
+a2 = pro_solicitud.codven                                        ;
+a9 = pro_solicitud.cod_promotor                                  ;
+a3 = pro_solicitud.seguro            ,UPSHIFT                    ;
+a4 = pro_solicitud.rfc               ,UPSHIFT                    ;
+a5 = pro_solicitud.unico             ,UPSHIFT                    ;
+f07 = FORMONLY.ind_asesor                                ,NOENTRY;
+f08 = pro_solicitud.fvigencia        ,FORMAT="dd/mm/yyyy",NOENTRY;
+a6 = pro_solicitud.paterno           ,UPSHIFT                    ;
+a7 = pro_solicitud.materno           ,UPSHIFT                    ;
+a8 = pro_solicitud.nombres           ,UPSHIFT                    ;
+
+b1 = pro_solicitud.diag_proceso      ,NOENTRY                    ;
+b2 = pro_solicitud.fnaci             ,FORMAT="dd/mm/yyyy"        ;
+b3 = pro_solicitud.fecha_baja        ,FORMAT="dd/mm/yyyy"        ;
+b4 = pro_solicitud.fingre            ,FORMAT="dd/mm/yyyy"        ;
+b5 = pro_solicitud.fenvio            ,FORMAT="dd/mm/yyyy",NOENTRY;
+b6 = pro_solicitud.fecha_registro    ,FORMAT="dd/mm/yyyy",NOENTRY;
+b7 = pro_solicitud.fecha_proceso     ,FORMAT="dd/mm/yyyy",NOENTRY;
+b8 = pro_solicitud.resuelva                                      ;
+b9 = pro_solicitud.horas_capacit                                 ;
+--b10= pro_solicitud.tipo_recibo                                 ;
+b10= pro_solicitud.escolar           ,UPSHIFT                    ;
+b11 = FORMONLY.sexo                  ,NOENTRY                    ;
+b12 = FORMONLY.edo_naci              ,NOENTRY                    ;
+
+c1 = pro_solicitud.calle             ,UPSHIFT                    ;
+c2 = pro_solicitud.numero            ,UPSHIFT                    ;
+c3 = pro_solicitud.dpto              ,UPSHIFT                    ;
+c4 = pro_solicitud.codpos                                        ;
+c5 = pro_solicitud.colonia           ,UPSHIFT,NOENTRY            ;
+c6 = pro_solicitud.deleg             ,NOENTRY                    ;
+c7 = FORMONLY.delegdesc              ,NOENTRY                    ;
+c8 = pro_solicitud.ciudad            ,NOENTRY                    ;
+c9 = FORMONLY.ciudaddesc             ,NOENTRY                    ;
+c10 = pro_solicitud.estado           ,NOENTRY                    ;
+c11 = FORMONLY.estadodesc            ,NOENTRY                    ;
+c12 = pro_solicitud.fono             ,UPSHIFT                    ;
+c13 = pro_solicitud.fono2            ,UPSHIFT                    ;
+c14 = pro_solicitud.correo                                       ;
+
+INSTRUCTIONS
+DELIMITERS " "
+SCREEN RECORD scr_1[1](pro_solicitud.status_interno THRU pro_solicitud.correo);

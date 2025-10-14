@@ -1,0 +1,44 @@
+DATABASE safre_af
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+   Folio Afili.[a1        ]  T.S.[a] F.Certifi [a5        ]
+   NSS         [a2         ]         Paterno   [a6                           ]
+   RFC         [a3           ]       Materno   [a7                           ]
+   CURP        [a4                ]  Nombres   [a8                           ]
+
+   T.Reclamante [b1] [b2                       ]    Fecha Captura [b3        ]
+   Nss Reclamante [b4         ]
+   Paterno        [b5                                      ]
+   Materno        [b6                                      ]
+   Nombres        [b7                                      ]
+
+
+   Usuario      [c1        ]                          
+                                           
+   
+                                             
+
+}
+TABLES
+afi_mae_afiliado, sep_det_reg_sol_reclamante
+ATTRIBUTES
+a1=afi_mae_afiliado.n_folio            , AUTONEXT ;
+a =afi_mae_afiliado.tipo_solicitud     , AUTONEXT ;
+a2=afi_mae_afiliado.n_seguro           , AUTONEXT , UPSHIFT;
+a3=afi_mae_afiliado.n_rfc              , NOENTRY , UPSHIFT;
+a4=afi_mae_afiliado.n_unico            , NOENTRY  ;
+a5=afi_mae_afiliado.fentcons           , FORMAT = "DD/MM/YYYY";
+a6=afi_mae_afiliado.paterno            , AUTONEXT ;
+a7=afi_mae_afiliado.materno            , AUTONEXT , UPSHIFT;
+a8=afi_mae_afiliado.nombres            , AUTONEXT , UPSHIFT;
+b1=sep_det_reg_sol_reclamante.tipo_reclamante  , AUTONEXT;
+b2=FORMONLY.reclamante_desc TYPE CHAR,UPSHIFT;
+b3=sep_det_reg_sol_reclamante.fecha_captura  , FORMAT = "DD-MM-YYYY",NOENTRY;
+b4=FORMONLY.nss TYPE CHAR ,NOENTRY;
+b5=FORMONLY.paterno2     TYPE CHAR, UPSHIFT;
+b6=FORMONLY.materno2     TYPE CHAR, UPSHIFT;
+b7=FORMONLY.nombres2     TYPE CHAR, UPSHIFT;
+c1=sep_det_reg_sol_reclamante.usuario  ,NOENTRY;
+INSTRUCTIONS 
+DELIMITERS "[]"

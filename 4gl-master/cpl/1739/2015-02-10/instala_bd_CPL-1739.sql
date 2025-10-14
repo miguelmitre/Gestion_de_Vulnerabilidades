@@ -1,0 +1,3 @@
+EXECUTE PROCEDURE desmarca_cuenta('53987417085',620,2658729,0,620,'lizzette');
+EXECUTE PROCEDURE desmarca_cuenta('23907518189',620,10300170,0,620,'lizzette');
+EXECUTE PROCEDURE desmarca_cuenta('68978115704',620,1403283,0,620,'lizzette');

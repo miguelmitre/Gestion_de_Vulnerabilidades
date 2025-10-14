@@ -1,0 +1,34 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                       [f            ]     .
+
+
+             Folio   de  Devolucion Comision  :       [f01   ]
+             Fecha   de  Liquidacion          :   [f2        ]
+             Registros a Procesar             :       [f3    ]
+             Registros   Procesados           :       [f4    ]
+
+      Precio de Participacion   VIV  : [f5                ]
+      Precio de Siefore 1 : [f6        ] Precio de Siefore 4: [f9       ]
+      Precio de Siefore 2 : [f7        ] Precio de Siefore 6: [f11      ]
+      Precio de Siefore 3 : [f8        ] 
+
+
+
+
+}
+ATTRIBUTES
+f=FORMONLY.fecha                 TYPE DATE ,FORMAT ="DD/MM/YYYY",NOENTRY;
+f01=FORMONLY.folio_ind           TYPE INTEGER,NOENTRY;
+f2=FORMONLY.fecha_liquidacion    TYPE DATE  ,FORMAT ="DD/MM/YYYY",NOENTRY;
+f3=FORMONLY.l_registros          TYPE DEC   ,NOENTRY;
+f4=FORMONLY.l_procesados         TYPE DEC   ,NOENTRY;
+f5=FORMONLY.precio_parti         TYPE CHAR  ,NOENTRY;
+f6=FORMONLY.precio_accion_b1     TYPE CHAR  ,NOENTRY;
+f7=FORMONLY.precio_accion_b2     TYPE CHAR  ,NOENTRY;
+f8=FORMONLY.precio_accion_b3     TYPE CHAR  ,NOENTRY;
+f9=FORMONLY.precio_accion_b4     TYPE CHAR  ,NOENTRY;
+f11=FORMONLY.precio_accion_b6     TYPE CHAR  ,NOENTRY;
+INSTRUCTIONS
+DELIMITERS "  "

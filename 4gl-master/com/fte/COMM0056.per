@@ -1,0 +1,30 @@
+DATABASE FORMONLY
+SCREEN
+{
+-----------------------------------------------------------------------------
+  FECHA       HORA     DESCRIP              RED  CAN  PUE   COM   BON  VIGE
+
+[a         ][b       ][c                  ][d  ][e  ][f  ] [g  ] [h  ] [i  ]
+[a         ][b       ][c                  ][d  ][e  ][f  ] [g  ] [h  ] [i  ]
+[a         ][b       ][c                  ][d  ][e  ][f  ] [g  ] [h  ] [i  ]
+[a         ][b       ][c                  ][d  ][e  ][f  ] [g  ] [h  ] [i  ]
+[a         ][b       ][c                  ][d  ][e  ][f  ] [g  ] [h  ] [i  ]
+[a         ][b       ][c                  ][d  ][e  ][f  ] [g  ] [h  ] [i  ]
+[a         ][b       ][c                  ][d  ][e  ][f  ] [g  ] [h  ] [i  ]
+[a         ][b       ][c                  ][d  ][e  ][f  ] [g  ] [h  ] [i  ]
+-----------------------------------------------------------------------------
+}
+END
+ATTRIBUTES
+a = FORMONLY.vfecha_cambio    TYPE DATE,UPSHIFT;
+b = FORMONLY.vhora_cambio     TYPE CHAR,UPSHIFT;
+c = FORMONLY.vdesc_tipo       TYPE CHAR,UPSHIFT;
+d = FORMONLY.vred_cod;
+e = FORMONLY.vcanal_cod;
+f = FORMONLY.vpuesto_cod;
+g = FORMONLY.vindicador_comision;
+h = FORMONLY.vindicador_bono;
+i = FORMONLY.vvigen_complemento;
+INSTRUCTIONS
+SCREEN RECORD scr_1[08](FORMONLY.vfecha_cambio THRU FORMONLY.vvigen_complemento);
+DELIMITERS "  "

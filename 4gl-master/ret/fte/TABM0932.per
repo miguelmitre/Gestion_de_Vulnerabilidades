@@ -1,0 +1,28 @@
+DATABASE safre_af
+SCREEN
+{
+\g-----------------------------------------------------------------------------\g
+               CODIGO    DESCRIPCION
+\g-----------------------------------------------------------------------------\g
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+             [a    ]   [b                                        ]
+\g-----------------------------------------------------------------------------\g
+}
+TABLES
+tab_aseguradora
+ATTRIBUTES
+a=tab_aseguradora.aseguradora;
+b=tab_aseguradora.descripcion,UPSHIFT;
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](tab_aseguradora.aseguradora,tab_aseguradora.descripcion);
+
+DELIMITERS " "
+

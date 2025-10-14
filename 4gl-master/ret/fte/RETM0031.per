@@ -1,0 +1,62 @@
+DATABASE safre_af
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+ Folio Afili.[a1                ]       F.Certifi [a5        ] [z]
+ NSS                [a2         ]       Paterno   [a6                     ]
+ RFC              [a3           ]       Materno   [a7                     ]
+ CURP        [a4                ]       Nombres   [a8                     ]
+
+ Saldo Acciones Siefore 1[b1              ]   F.Referencia  [b3        ]
+ Saldo Acciones Siefore 3[b4              ]   F.Solicitud   [c7        ]
+ Saldo Pesos   [b2              ]             F.Captura     [f2        ]
+                                              F.Ult.Proceso [f3        ]
+ Folio Solic.  [c1              ]         Pension        [g1]      
+ Tipo Retiro   [c2][d1              ]     Deduccion      [g2]
+ Monto Solic.  [c3              ]         F.Deduccion    [g3        ]
+ % Solic.      [c4              ]         Monto Deducido [g4              ]
+ Tipo Pago     [c5][d2              ]     Rechazo Afore  [g5  ]             
+ Edad          [c6 ]                      Consecutivo    [c8        ]
+                                            
+ Usuario [f1      ] Estado Sol.[h1]
+}
+TABLES
+    afi_mae_afiliado
+ATTRIBUTES
+z=FORMONLY.var_nula               TYPE CHAR                       ;
+a1=afi_mae_afiliado.n_folio     , AUTONEXT                        ;
+a2=afi_mae_afiliado.n_seguro    , AUTONEXT , UPSHIFT              ;
+a3=FORMONLY.n_rfc               , AUTONEXT , UPSHIFT              ;
+a4=afi_mae_afiliado.n_unico     , AUTONEXT , UPSHIFT              ;
+a5=afi_mae_afiliado.fentcons    , FORMAT = "DD/MM/YYYY"           ;
+a6=afi_mae_afiliado.paterno     , AUTONEXT , UPSHIFT              ;
+a7=afi_mae_afiliado.materno     , AUTONEXT , UPSHIFT              ;
+a8=afi_mae_afiliado.nombres     , AUTONEXT , UPSHIFT              ;
+b1=FORMONLY.monto_en_acciones_sb1 TYPE DECIMAL                    ;
+b4=FORMONLY.monto_en_acciones_sb3 TYPE DECIMAL                    ;
+b2=FORMONLY.monto_en_pesos        TYPE DECIMAL                    ;
+b3=FORMONLY.fecha_ult_ret         TYPE DATE ,FORMAT = "DD/MM/YYYY";
+c1=FORMONLY.n_folio_sol           TYPE INTEGER                    ;
+c2=FORMONLY.tipo_ret              TYPE SMALLINT                   ;
+d1=FORMONLY.des_tipo_ret          TYPE CHAR, NOENTRY              ;
+c3=FORMONLY.mto_solic             TYPE DECIMAL                    ;
+c4=FORMONLY.porcentaje_solic      TYPE SMALLINT                   ;
+c5=FORMONLY.tipo_pago             TYPE SMALLINT                   ;
+c6=FORMONLY.edad                                                  ;
+d2=FORMONLY.des_tipo_pago         TYPE CHAR, NOENTRY              ;
+c7=FORMONLY.fecha_solic           TYPE DATE, FORMAT="DD/MM/YYYY"  ;
+f2=FORMONLY.fecha_captura         TYPE DATE, FORMAT="DD/MM/YYYY"  ;
+f3=FORMONLY.ultimo_proceso        TYPE DATE, FORMAT="DD/MM/YYYY",NOENTRY;
+g1=FORMONLY.pension_invalidez     TYPE CHAR,COMMENTS="INGRESE S/N",UPSHIFT;
+g2=FORMONLY.deduccion             TYPE CHAR,COMMENTS="INGRESE S/N",UPSHIFT;
+g3=FORMONLY.fecha_deduccion       TYPE DATE, FORMAT="DD/MM/YYYY"  ;
+g4=FORMONLY.mto_deducido          TYPE DECIMAL                    ;
+g5 = FORMONLY.cod_rechazo_ent TYPE SMALLINT, FORMAT = "####";
+c8=FORMONLY.consecutivo           TYPE INTEGER                    ;
+f1=FORMONLY.usuario               TYPE CHAR                       ;
+h1=FORMONLY.estado                TYPE SMALLINT, NOENTRY          ;
+INSTRUCTIONS 
+DELIMITERS " "
+SCREEN RECORD scr_1[1](FORMONLY.var_nula THRU afi_mae_afiliado.nombres);
+SCREEN RECORD scr_2[1](FORMONLY.monto_en_acciones_sb1 THRU FORMONLY.estado);
+SCREEN RECORD scr_3[1](FORMONLY.var_nula THRU FORMONLY.estado);

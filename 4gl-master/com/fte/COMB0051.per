@@ -1,0 +1,28 @@
+DATABASE safre_af
+SCREEN
+{
+
+                                                                        .
+
+
+
+
+        Fecha de Corte                    [a         ]
+
+        Fecha de Corte Reliquidada        [b         ]
+
+
+
+
+
+
+
+}
+tables
+com_comis_detalle
+ATTRIBUTES
+a=FORMONLY.fecha_corte TYPE DATE,FORMAT="dd-mm-yyyy";
+b=FORMONLY.fecha_corte_rel TYPE DATE,FORMAT="dd-mm-yyyy";
+INSTRUCTIONS
+SCREEN RECORD scr_0 (FORMONLY.fecha_corte THRU FORMONLY.fecha_corte_rel)
+

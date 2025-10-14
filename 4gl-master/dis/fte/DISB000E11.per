@@ -1,0 +1,80 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+ Folio [a      ]  Fecha Proceso [b         ]   Fecha Liquidacion [c         ]
+
+-Sub------Aportaciones-----------------------------------Total_liquidacion----
+RET I [d                    ] [de                   ] [dt                   ]
+CV  I [e                    ] [ee                   ] [et                   ]
+SAR I [h                    ] [he                   ] [ht                   ]
+Aho.T [j                    ] [je                   ] [jt                   ]
+Aho.D [k                    ] [ke                   ] [kt                   ]
+----------Intereses--------------------------------------Total liquidacion----
+RET I [m                    ] [me                   ] [mt                   ]
+CV  I [o                    ] [oe                   ] [ot                   ]
+SAR I [p                    ] [pe                   ] [pt                   ]
+Aho.T [q                    ] [qe                   ] [qt                   ]
+Aho.D [r                    ] [re                   ] [rt                   ]
+----------Total------------------------------------------Total liquidacion----
+T.RCV [s                    ] [se                   ] [st                   ]
+T.SAR [t                    ] [te                   ] [tt                   ]
+T.AHO [u                    ] [ue                   ] [ut                   ]
+}
+ATTRIBUTES
+a=FORMONLY.folio             TYPE INTEGER;
+b=FORMONLY.fecha_proceso     TYPE DATE,          FORMAT  ="dd-mm-yyyy",NOENTRY;
+c=FORMONLY.fecha_liquidacion TYPE DATE,          FORMAT  ="dd-mm-yyyy";
+
+d =FORMONLY.aporte_ret       TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+de=FORMONLY.aporte_ret_ex    TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+dt=FORMONLY.aporte_ret_neto  TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+
+e =FORMONLY.aporte_cv        TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+ee=FORMONLY.aporte_cv_ex     TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+et=FORMONLY.aporte_cv_neto   TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+
+h =FORMONLY.aporte_sar       TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+he=FORMONLY.aporte_sar_ex    TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+ht=FORMONLY.aporte_sar_neto  TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+
+j =FORMONLY.aporte_aht       TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+je=FORMONLY.aporte_aht_ex    TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+jt=FORMONLY.aporte_aht_neto  TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+
+k =FORMONLY.aporte_ahd       TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+ke=FORMONLY.aporte_ahd_ex    TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+kt=FORMONLY.aporte_ahd_neto  TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+
+m =FORMONLY.itra_ret         TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+me=FORMONLY.itra_ret_ex      TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+mt=FORMONLY.itra_ret_neto    TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+
+o =FORMONLY.itra_cv          TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+oe=FORMONLY.itra_cv_ex       TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+ot=FORMONLY.itra_cv_neto     TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+
+p =FORMONLY.itra_sar         TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+pe=FORMONLY.itra_sar_ex      TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+pt=FORMONLY.itra_sar_neto    TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+
+q =FORMONLY.itra_aht         TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+qe=FORMONLY.itra_aht_ex      TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+qt=FORMONLY.itra_aht_neto    TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+
+r =FORMONLY.itra_ahd         TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+re=FORMONLY.itra_ahd_ex      TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+rt=FORMONLY.itra_ahd_neto    TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+
+s =FORMONLY.tot_rcv          TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+se=FORMONLY.tot_rcv_ex       TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+st=FORMONLY.tot_rcv_neto     TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+
+t =FORMONLY.tot_sar          TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+te=FORMONLY.tot_sar_ex       TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+tt=FORMONLY.tot_sar_neto     TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+
+u =FORMONLY.tot_aho          TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+ue=FORMONLY.tot_aho_ex       TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+ut=FORMONLY.tot_aho_neto     TYPE DECIMAL(16,2), FORMAT="--,---,---,---,---.--";
+

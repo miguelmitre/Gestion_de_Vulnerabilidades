@@ -1,0 +1,29 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                       [f            ]     .
+
+                      CONTROL  DE  REGISTROS
+
+                         << IMSS >>
+             Registros a Procesar             :     [f7     ]
+             Cuentas Inhabilitadas            :     [f8     ]
+
+                         << ISSSTE >>
+             Registros a Procesar             :     [f9     ]
+             Cuentas Inhabilitadas            :     [f10    ]
+
+             Procesados IMSS e ISSSTE...      :     [f11    ]
+
+
+
+}
+ATTRIBUTES
+f=FORMONLY.fecha  TYPE DATE ,FORMAT ="DD/MM/YYYY",NOENTRY;
+f7=FORMONLY.l_imss               TYPE DEC   ,NOENTRY;
+f8=FORMONLY.l_imss_inh           TYPE DEC   ,NOENTRY;
+f9=FORMONLY.l_issste             TYPE DEC   ,NOENTRY;
+f10=FORMONLY.l_issste_inh         TYPE DEC   ,NOENTRY;
+f11=FORMONLY.l_procesados         TYPE DEC   ,NOENTRY;
+INSTRUCTIONS
+DELIMITERS "  "

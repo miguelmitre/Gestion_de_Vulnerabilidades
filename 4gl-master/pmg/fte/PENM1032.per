@@ -1,0 +1,64 @@
+DATABASE formonly
+SCREEN
+{
+\g------------------------------------------------------------------------------\g
+  NSS:[a1         |a2                  |a3                  |a4              ]
+
+
+  Fecha de inicio de Pension : [b01       ]
+  Saldo al dia RCV           : [b02             ]
+  Saldo Vivienda             : [b03             ]
+
+                       MONTO NORMAL                   MONTO CON EL 11%
+  
+   Retroactivo      [c01             ]              [c02             ]
+  
+  Suficiencia de saldo:
+  
+   INCLUYENDO VIVIENDA     [d]                             [f]
+   SIN VIVIENDA            [e]                             [g]
+
+}
+END
+
+ATTRIBUTES
+
+    a1 = FORMONLY.nss                                              ;
+    a2 = FORMONLY.paterno                      ,NOENTRY            ;
+    a3 = FORMONLY.materno                      ,NOENTRY            ;
+    a4 = FORMONLY.nombres                      ,NOENTRY            ;
+
+    --------
+    
+    b01     = FORMONLY.fecha_ini_pen    TYPE DATE ,
+                                        FORMAT = "DD/MM/YYYY",
+                                        NOENTRY;
+    
+    b02     = FORMONLY.pesos_rcv        TYPE DECIMAL, 
+                                        FORMAT = "########&.&&&&&&",
+                                        NOENTRY;
+
+    b03     = FORMONLY.pesos_viv        TYPE DECIMAL, 
+                                        FORMAT = "########&.&&&&&&",
+                                        NOENTRY;    
+    
+    --------    
+    
+    c01     = FORMONLY.retroactivo      TYPE DECIMAL, 
+                                        FORMAT = "########&.&&&&&&",
+                                        NOENTRY;    
+
+    c02     = FORMONLY.retroactivo_11p  TYPE DECIMAL, 
+                                        FORMAT = "########&.&&&&&&",
+                                        NOENTRY;        
+
+    d       = FORMONLY.suf_con_viv      TYPE CHAR, NOENTRY;        
+    e       = FORMONLY.suf_sin_viv      TYPE CHAR, NOENTRY;            
+
+    f       = FORMONLY.suf_con_viv_11p  TYPE CHAR, NOENTRY;        
+    g       = FORMONLY.suf_sin_viv_11p  TYPE CHAR, NOENTRY;            
+    
+INSTRUCTIONS
+    SCREEN RECORD scr_det[1](FORMONLY.pesos_rcv THRU FORMONLY.suf_sin_viv_11p);
+
+DELIMITERS " "

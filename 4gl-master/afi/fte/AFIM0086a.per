@@ -1,0 +1,29 @@
+DATABASE FORMONLY
+SCREEN
+{
+      < 1 > Numero lote     : [a          ]                          .
+
+      < 2 > Tipo solicitud  : [b ] 
+
+      < 3 > Fecha           : [c         ] 
+    
+      < 4 > Operador        : [d       ] 
+ 
+      < 5 > Estado          : [e ] 
+
+      < 6 > No. Solic       : [f    ] 
+ 
+     
+
+}
+END
+
+ATTRIBUTES
+a = FORMONLY.lote	     TYPE INTEGER;
+b = FORMONLY.tipo_solicitud  TYPE SMALLINT,COMMENTS="1) Reg. 2) Trasp.";
+c = FORMONLY.fecha           TYPE DATE, COMMENTS="Formato Fecha DD-MM-YYYY", FORMAT = "DD-MM-YYYY" ;
+d = FORMONLY.usuario         TYPE CHAR     ;
+e = FORMONLY.estado	     TYPE CHAR 	   ;
+f = FORMONLY.no_solic	     TYPE INTEGER  ;
+INSTRUCTIONS
+DELIMITERS " "

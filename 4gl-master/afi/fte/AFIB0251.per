@@ -1,0 +1,34 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+ 
+
+[a          ] [b         ]  [c         ]      [e         ]        [d    ]
+[a          ] [b         ]  [c         ]      [e         ]        [d    ]
+[a          ] [b         ]  [c         ]      [e         ]        [d    ]
+[a          ] [b         ]  [c         ]      [e         ]        [d    ]
+[a          ] [b         ]  [c         ]      [e         ]        [d    ]
+[a          ] [b         ]  [c         ]      [e         ]        [d    ]
+[a          ] [b         ]  [c         ]      [e         ]        [d    ]
+[a          ] [b         ]  [c         ]      [e         ]        [d    ]
+[a          ] [b         ]  [c         ]      [e         ]        [d    ]
+[a          ] [b         ]  [c         ]      [e         ]        [d    ]
+[a          ] [b         ]  [c         ]      [e         ]        [d    ]
+[a          ] [b         ]  [c         ]      [e         ]        [d    ]
+
+}
+END
+
+ATTRIBUTES
+
+a=FORMONLY.n_seguro TYPE CHAR;
+b=FORMONLY.folio_sol TYPE CHAR;
+c=FORMONLY.n_folio TYPE CHAR;
+e=FORMONLY.fecha_presentacion TYPE DATE, FORMAT='DD/MM/YYYY';
+d=FORMONLY.status_interno TYPE SMALLINT;
+
+INSTRUCTIONS 
+SCREEN RECORD scr_1[12](FORMONLY.n_seguro THRU FORMONLY.status_interno)
+DELIMITERS "  "

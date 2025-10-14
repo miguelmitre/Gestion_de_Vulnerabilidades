@@ -1,0 +1,27 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                       [f0           ]
+
+
+
+         PROCESO DE GENERACION DE ARCHIVO DE TRASPASO DE CUENTAS
+
+
+         FOLIO A LIQUIDAR     : [fl        ]
+
+         FECHA DE LIQUIDACION : [tl        ]
+
+         MONTO A LIQUIDAR     : [m                 ]
+
+
+
+
+}
+ATTRIBUTES
+f0=FORMONLY.fecha  TYPE DATE, FORMAT ="DD/MM/YY",NOENTRY;
+fl=FORMONLY.vfolio TYPE INTEGER;
+tl=FORMONLY.vfecha_liquida TYPE DATE, FORMAT="DD/MM/YYYY", COMMENTS= "TECLEE LA FECHA CON FORMATO 'DD/MM/AAAA'";
+m=FORMONLY.monto TYPE DECIMAL, NOENTRY;
+INSTRUCTIONS
+DELIMITERS "  "

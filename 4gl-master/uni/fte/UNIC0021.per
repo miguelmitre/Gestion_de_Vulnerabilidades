@@ -1,0 +1,33 @@
+DATABASE FORMONLY
+SCREEN
+{
+                          
+                                     
+ Folio : [a        ]                            
+---------------------------------------------------------------------------
+
+
+ [b  ][c          ][e  ][d                                                 ]
+ [b  ][c          ][e  ][d                                                 ]
+ [b  ][c          ][e  ][d                                                 ]
+ [b  ][c          ][e  ][d                                                 ]
+ [b  ][c          ][e  ][d                                                 ]
+ [b  ][c          ][e  ][d                                                 ]
+ [b  ][c          ][e  ][d                                                 ]
+ [b  ][c          ][e  ][d                                                 ]
+ [b  ][c          ][e  ][d                                                 ]
+ [b  ][c          ][e  ][d                                                 ]
+ [b  ][c          ][e  ][d                                                 ]
+
+}
+ATTRIBUTES
+a = FORMONLY.folio TYPE INTEGER;
+b = FORMONLY.marca TYPE CHAR,UPSHIFT;
+c = FORMONLY.nss_uni TYPE CHAR,NOENTRY;
+e = FORMONLY.cve_afo TYPE CHAR,NOENTRY;
+d = FORMONLY.nombre TYPE CHAR,NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[11](FORMONLY.marca THRU FORMONLY.nombre);
+DELIMITERS " "
+

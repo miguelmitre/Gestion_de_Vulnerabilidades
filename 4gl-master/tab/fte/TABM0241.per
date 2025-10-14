@@ -1,0 +1,29 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+
+
+
+
+ 	Codigo          [a    ]
+
+
+ 	Descripcion     [b                                                 ]
+
+
+ 	Tipo de Movto.  [d    ]
+
+
+
+
+}
+TABLES
+tab_movimiento
+ATTRIBUTES
+a=tab_movimiento.codigo;
+b=tab_movimiento.descripcion,UPSHIFT;
+d=tab_movimiento.tipo;
+--INSTRUCTIONS 
+--DELIMITERS "  "

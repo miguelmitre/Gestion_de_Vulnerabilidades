@@ -1,0 +1,39 @@
+database FORMONLY
+screen 
+{
+\g-----------------------------------------------------------------------------\g
+                           < CTRL - P Impresion >                      
+    Tip Sol Folio Sol  NSS         Nombre          Domicilio    ME Rechazo 
+    ----------------------------------------------------------------------
+    [a     |b         |c          |d              |f           |g |h     ]
+    [a     |b         |c          |d              |f           |g |h     ]
+    [a     |b         |c          |d              |f           |g |h     ]
+    [a     |b         |c          |d              |f           |g |h     ]
+    [a     |b         |c          |d              |f           |g |h     ]
+    [a     |b         |c          |d              |f           |g |h     ] 
+    [a     |b         |c          |d              |f           |g |h     ] 
+    [a     |b         |c          |d              |f           |g |h     ] 
+    [a     |b         |c          |d              |f           |g |h     ] 
+    [a     |b         |c          |d              |f           |g |h     ] 
+    [a     |b         |c          |d              |f           |g |h     ] 
+    [a     |b         |c          |d              |f           |g |h     ] 
+\g-----------------------------------------------------------------------------\g
+    Total Reg:[i      ]  Tot Reg Sin Dom:[j     ] Tot Reg Dom Dup:[k     ] 
+}
+end
+attributes
+a  = FORMONLY.tipo_solicitud TYPE CHAR, NOENTRY;
+b  = FORMONLY.n_folio TYPE DECIMAL, NOENTRY;
+c  = FORMONLY.n_seguro TYPE CHAR;
+d  = FORMONLY.nombre TYPE CHAR, NOENTRY;
+f  = FORMONLY.domicilio TYPE CHAR, NOENTRY;
+g  = FORMONLY.marca_envio TYPE CHAR, NOENTRY;
+h  = FORMONLY.rechazo TYPE CHAR, NOENTRY;
+
+i   = FORMONLY.total_reg TYPE INTEGER, FORMAT = "###,##&", NOENTRY;
+j   = FORMONLY.total_sd TYPE INTEGER, FORMAT = "##,##&", NOENTRY;
+k   = FORMONLY.total_dd TYPE INTEGER, FORMAT = "##,##&", NOENTRY;
+
+INSTRUCTIONS                                                       
+SCREEN RECORD scr_1[12](FORMONLY.tipo_solicitud THRU FORMONLY.rechazo); 
+DELIMITERS " "

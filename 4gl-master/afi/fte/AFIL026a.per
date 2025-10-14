@@ -1,0 +1,33 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+      < 1 > N.S.S.	    : [a          ] 
+
+      < 2 > Paterno         : [b                   ]
+
+      < 3 > Materno         : [c                   ]                 .
+
+      < 4 > Nombres         : [d                   ] 
+
+      < 5 > Fecha Actualiza : [e         ] 
+    
+      < 6 > Fec. Trans. Lote: [f         ] 
+ 
+      < 7 > Status cuenta   : [g ] 
+
+
+}
+END
+
+ATTRIBUTES
+a = FORMONLY.n_seguro	     TYPE CHAR;
+b = FORMONLY.paterno_proc    TYPE CHAR, UPSHIFT;
+c = FORMONLY.materno_proc    TYPE CHAR, UPSHIFT;
+d = FORMONLY.nombres_proc    TYPE CHAR, UPSHIFT;
+e = FORMONLY.factualiza      TYPE DATE, FORMAT='DD/MM/YYYY';
+f = FORMONLY.f_transf_lote   TYPE DATE, FORMAT='DD/MM/YYYY';
+g = FORMONLY.status_cta      TYPE SMALLINT, COMMENTS = "NULO <MARCAR>   0 <MARCAR>   1 <MARCAR>   2 <DESMARCAR>";
+
+INSTRUCTIONS
+DELIMITERS " "

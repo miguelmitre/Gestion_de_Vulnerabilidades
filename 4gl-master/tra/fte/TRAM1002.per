@@ -1,0 +1,69 @@
+DATABASE safre_af
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+   Folio Afili.[a1        ]  T.S.[a]  F.Certifi [a5        ]
+   NSS         [a2         ]          Paterno   [a6                       ]
+   RFC         [a3           ]        Materno   [a7                       ]
+   CURP        [a4                ]   Nombres   [a8                       ]
+         [x ][x1]                                         [e ][e1            ] 
+   Folio Sol. [b1           ] F.C.[b5        ]            F.Conf[b55       ] 
+   NSS        [b2           ] Pat.[b6                                      ]
+   RFC        [b3           ] Mat.[b7                                      ]
+   Fecha Res. [b4           ] Nom.[b8                                      ]
+   Cve.Sector [d1 ][d2                       ]          
+   Orig.Trasp [d3 ][d4                       ]          
+   Cve.Icefa  [c1 ][c2                       ]            
+   Nro.Cuenta [c3                            ]   Fecha genera     [c8        ]
+   Sar92ISSSTE[c3_1          ]                   F.Ult.Proceso    [c9        ]
+   Viv92ISSSTE[c3_2          ]                   Fecha liquidacion[c10       ]
+   Fuente     [c4  ]                            Diagnostico            [c11 ]  
+   Usuario    [c5         ]    [d]        [c12                               ] 
+}
+TABLES
+tra_mae_icefa_issste, afi_mae_afiliado, tab_tipo_com
+ATTRIBUTES
+a1=afi_mae_afiliado.n_folio           , AUTONEXT ;
+a =afi_mae_afiliado.tipo_solicitud    , AUTONEXT ;
+a2=afi_mae_afiliado.n_seguro          , AUTONEXT , UPSHIFT;
+a3=afi_mae_afiliado.n_rfc             , NOENTRY, UPSHIFT;
+a4=afi_mae_afiliado.n_unico           , NOENTRY  ;
+a5=afi_mae_afiliado.fentcons          , FORMAT = "DD/MM/YYYY";
+a6=afi_mae_afiliado.paterno           , AUTONEXT ;
+a7=afi_mae_afiliado.materno           , AUTONEXT , UPSHIFT;
+a8=afi_mae_afiliado.nombres           , AUTONEXT , UPSHIFT;
+x=FORMONLY.c1 ,REVERSE;
+x1=FORMONLY.c2 ,REVERSE;
+b1=tra_mae_icefa_issste.n_folio_tra         ;
+b2=tra_mae_icefa_issste.nss                  , UPSHIFT;
+b3=tra_mae_icefa_issste.rfc                  , UPSHIFT;
+b4=tra_mae_icefa_issste.fecha_solic_tra      , FORMAT = "DD/MM/YYYY",NOENTRY;
+b5=tra_mae_icefa_issste.fecha_captura        , FORMAT = "DD/MM/YYYY",NOENTRY;
+b55=tra_mae_icefa_issste.fecha_comp_icefa   , FORMAT = "DD/MM/YYYY",NOENTRY;
+b6=FORMONLY.paterno2         TYPE CHAR, UPSHIFT;
+b7=FORMONLY.materno2     TYPE CHAR, UPSHIFT;
+b8=FORMONLY.nombres2     TYPE CHAR, UPSHIFT;
+d1=tra_mae_icefa_issste.cve_sector       ;
+d2=FORMONLY.desc_sector           ,NOENTRY;
+d3=FORMONLY.origen_traspaso          ;
+d4=FORMONLY.descripcion                ,NOENTRY;
+c1=tra_mae_icefa_issste.icefa_cod             ;
+c2=FORMONLY.des_icefa  TYPE CHAR       , NOENTRY;
+c3=tra_mae_icefa_issste.nro_int_cta           , UPSHIFT;
+c3_1=tra_mae_icefa_issste.saldo_sar_92       ,NOENTRY;
+c3_2=tra_mae_icefa_issste.saldo_viv_92       ,NOENTRY;
+c4=tra_mae_icefa_issste.fuente               , NOENTRY;
+c5=tra_mae_icefa_issste.usuario               , UPSHIFT;
+--c6=tra_mae_icefa_issste.tipo_comp_icefa    ,NOENTRY,INVISIBLE ;
+--c7=tab_tipo_com.tipcom_desc         ,NOENTRY,INVISIBLE ;
+c8=tra_mae_icefa_issste.fecha_genera        , NOENTRY,FORMAT = "DD/MM/YYYY";
+c9=tra_mae_icefa_issste.fecha_proceso       , NOENTRY,FORMAT = "DD/MM/YYYY";
+c10=FORMONLY.fecha_liquidacion       TYPE DATE ,FORMAT = "DD/MM/YYYY";
+e=tra_mae_icefa_issste.status            , NOENTRY,REVERSE;
+e1=FORMONLY.des_status            , NOENTRY,REVERSE;
+d=tra_mae_icefa_issste.correlativo     ,INVISIBLE,NOENTRY;
+c11=FORMONLY.diag_proceso            TYPE CHAR;
+c12=FORMONLY.des_diagnostico         TYPE CHAR;
+INSTRUCTIONS 
+SCREEN RECORD scr_1 [1](FORMONLY.c1 THRU FORMONLY.des_diagnostico)
+DELIMITERS "[]"

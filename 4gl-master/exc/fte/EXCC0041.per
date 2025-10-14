@@ -1,0 +1,47 @@
+DATABASE safre_af
+SCREEN 
+{
+-----------------------------------------------------------------------------
+
+
+  [f000      ] [f001      ] [f111   ]   [f002 ]      [f003    ]   [f004    ]
+  [f000      ] [f001      ] [f111   ]   [f002 ]      [f003    ]   [f004    ]
+  [f000      ] [f001      ] [f111   ]   [f002 ]      [f003    ]   [f004    ]
+  [f000      ] [f001      ] [f111   ]   [f002 ]      [f003    ]   [f004    ]
+  [f000      ] [f001      ] [f111   ]   [f002 ]      [f003    ]   [f004    ]
+  [f000      ] [f001      ] [f111   ]   [f002 ]      [f003    ]   [f004    ]
+  [f000      ] [f001      ] [f111   ]   [f002 ]      [f003    ]   [f004    ]
+  [f000      ] [f001      ] [f111   ]   [f002 ]      [f003    ]   [f004    ]
+
+
+[f010                                                ]     [f005           ]
+                                                           [f006           ]
+                                                           [f007           ]
+                                                           [f008           ]
+                                                           [f009           ]
+}
+END
+TABLES
+dis_ctrl_proceso
+ATTRIBUTES
+f000 = dis_ctrl_proceso.fecha_proceso,FORMAT="DD-MM-YYYY";
+f001 = dis_ctrl_proceso.proceso_cod,UPSHIFT;
+f111 = dis_ctrl_proceso.folio;
+f002 = dis_ctrl_proceso.etapa_cod;
+f003 = dis_ctrl_proceso.hora_inicial,NOENTRY;
+f004 = dis_ctrl_proceso.hora_final,NOENTRY;
+
+f010 = dis_ctrl_proceso.resultado,NOENTRY;
+f005 = dis_ctrl_proceso.parametro1,NOENTRY;
+f006 = dis_ctrl_proceso.parametro2,NOENTRY;
+f007 = dis_ctrl_proceso.parametro3,NOENTRY;
+f008 = dis_ctrl_proceso.parametro4,NOENTRY;
+f009 = dis_ctrl_proceso.parametro5,NOENTRY;
+
+END
+INSTRUCTIONS
+SCREEN RECORD scr_1[8](dis_ctrl_proceso.fecha_proceso THRU 
+                      dis_ctrl_proceso.hora_final)
+SCREEN RECORD scr_2[1](dis_ctrl_proceso.resultado THRU 
+                      dis_ctrl_proceso.parametro5)
+DELIMITERS " "

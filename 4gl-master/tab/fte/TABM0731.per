@@ -1,0 +1,33 @@
+DATABASE safre_af
+SCREEN 
+{
+\g----------------------------------------------------------------------------g\
+
+
+
+
+  Codigo Devolucion  [f000 ]
+
+
+  Descripcion        [f003                                                 ]
+                     [f003                                                 ]
+                     [f003                                                 ]
+
+
+  Tipo Codigo        [a] [b                                       ]
+
+  Tipo Diagnostico   [c] [d                                       ]
+
+
+}
+END
+TABLES
+tab_dev_taa
+ATTRIBUTEs
+f000 = tab_dev_taa.cod_rech;
+f003 = tab_dev_taa.desc_rech ,WORDWRAP COMPRESS,UPSHIFT;
+a    = tab_dev_taa.tipo,INCLUDE=(1,2,3),COMMENTS = "Tipo de rechazo es <1> Operativo  <2> Validacion  <3> Validacion a reenviar",UPSHIFT;
+b    = formonly.desc_tipo TYPE CHAR, UPSHIFT, NOENTRY;
+c    = tab_dev_taa.tipo_diag, INCLUDE=(1,2,3),COMMENTS = "Tip Diag <1> Result Llamada Verif TAA  <2> Val Imag  <3> Cancelación Folio",UPSHIFT;
+d    = formonly.desc_diag TYPE CHAR, UPSHIFT, NOENTRY;
+END

@@ -1,0 +1,22 @@
+DATABASE FORMONLY
+SCREEN
+{
+---------------------------------------------------------------------
+       REPORTE DETALLADO TRASPASOS AFORE-AFORE RECEPTORA OP. 06
+---------------------------------------------------------------------
+
+
+               Ingresar Fecha Inicial       : [fi        ]
+               Ingresar Fecha Final         : [ff        ]
+
+ Archivo a Generar en la Ruta: safre_lst
+                                           
+
+
+
+}
+ATTRIBUTES
+fi=FORMONLY.vfecha_ini TYPE DATE,FORMAT = "DD/MM/YYYY",
+   COMMENTS = "Fecha Inicio         dd/mm/aaaa";
+ff=FORMONLY.vfecha_fin TYPE DATE, FORMAT = "DD/MM/YYYY",
+   COMMENTS = "Fecha fin            dd/mm/aaaa";

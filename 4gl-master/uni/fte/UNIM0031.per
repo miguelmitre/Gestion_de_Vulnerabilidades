@@ -1,0 +1,38 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+                                                     
+
+   NSS    :[a1         ]          Fecha Solicitud:[a11       ]             .
+   CURP   :[a2               ]                                    
+   Paterno:[a3                                      ]
+   Materno:[a4                                      ]
+   Nombre :[a5                                      ]
+
+
+   NSS    :[a6         ]
+   CURP   :[a7                ]          
+   Paterno:[a8                                      ]
+   Materno:[a9                                      ]
+   Nombre :[a10                                     ]
+
+
+
+}
+ATTRIBUTES
+a1=FORMONLY.nss_uni         TYPE CHAR,UPSHIFT;
+a2=FORMONLY.curp            TYPE CHAR,UPSHIFT;
+a3=FORMONLY.paterno         TYPE CHAR,UPSHIFT;
+a4=FORMONLY.materno         TYPE CHAR,UPSHIFT;
+a5=FORMONLY.nombre          TYPE CHAR,UPSHIFT;
+
+a6=FORMONLY.nss_cta1        TYPE CHAR,UPSHIFT;
+a7=FORMONLY.curp_cta1       TYPE CHAR,UPSHIFT;
+a8=FORMONLY.paterno_cta1    TYPE CHAR,UPSHIFT;
+a9=FORMONLY.materno_cta1    TYPE CHAR,UPSHIFT;
+a10=FORMONLY.nombre_cta1    TYPE CHAR,UPSHIFT;
+a11=FORMONLY.fecha_solicitud TYPE DATE,FORMAT="dd-mm-yyyy";
+
+INSTRUCTIONS
+DELIMITERS "  "

@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+    Diagnostico                     Descripcion                  
+\g----------------------------------------------------------------------------\g
+       [a  ]              [b                                  ] 
+       [a  ]              [b                                  ] 
+       [a  ]              [b                                  ] 
+       [a  ]              [b                                  ] 
+       [a  ]              [b                                  ] 
+       [a  ]              [b                                  ] 
+       [a  ]              [b                                  ] 
+       [a  ]              [b                                  ] 
+       [a  ]              [b                                  ] 
+       [a  ]              [b                                  ] 
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_pendiente_taa
+ATTRIBUTES
+a=tab_pendiente_taa.pend_cod;
+b=tab_pendiente_taa.pend_desc;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_pendiente_taa.pend_cod , tab_pendiente_taa.pend_desc);
+END

@@ -1,0 +1,53 @@
+DATABASE safre_af
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+ Folio Afili.[a1                ]       F.Certifi [a5        ] [z]
+ NSS                [a2         ]       Paterno   [a6                     ]
+ RFC              [a3           ]       Materno   [a7                     ]
+ CURP        [a4                ]       Nombres   [a8                     ]
+
+ Saldo Aciones [b1              ]       F.Referencia [b3        ]
+ Saldo Pesos   [b2              ]
+
+ Folio Solic.  [c1              ]       T.Identific. [c6][d3            ]
+ Tipo Retiro   [c2][d1              ]   F.Solicitud  [c7        ]
+ Monto Solic.  [c3              ]
+ % Solic.      [c4              ]
+ Tipo Pago     [c5][d2              ]   Consecutivo  [c8        ]
+   
+
+ Usuario [f1      ]  F.Captura[f2        ]  F.Ultimo Proceso [f3        ]
+}
+TABLES
+    afi_mae_afiliado
+ATTRIBUTES
+z=FORMONLY.var_nula TYPE CHAR;
+a1=afi_mae_afiliado.n_folio    , AUTONEXT ;
+a2=afi_mae_afiliado.n_seguro   , AUTONEXT , UPSHIFT;
+a3=FORMONLY.n_rfc      , AUTONEXT , UPSHIFT;
+a4=afi_mae_afiliado.n_unico    , AUTONEXT , UPSHIFT;
+a5=afi_mae_afiliado.fentcons   , FORMAT = "DD/MM/YYYY";
+a6=afi_mae_afiliado.paterno    , AUTONEXT ;
+a7=afi_mae_afiliado.materno    , AUTONEXT , UPSHIFT;
+a8=afi_mae_afiliado.nombres    , AUTONEXT , UPSHIFT;
+b1=FORMONLY.monto_en_acciones     TYPE DECIMAL                   ;
+b2=FORMONLY.monto_en_pesos        TYPE DECIMAL                    ;
+b3=FORMONLY.fecha_ult_ret        TYPE DATE ,FORMAT = "DD/MM/YYYY";
+c1=FORMONLY.n_folio_sol          TYPE INTEGER                    ;
+c2=FORMONLY.tipo_ret             TYPE SMALLINT                   ;
+d1=FORMONLY.des_tipo_ret         TYPE CHAR, NOENTRY              ;
+c3=FORMONLY.mto_solic            TYPE DECIMAL                    ;
+c4=FORMONLY.porcentaje_solic     TYPE SMALLINT                   ;
+c5=FORMONLY.tipo_pago            TYPE SMALLINT                   ;
+d2=FORMONLY.des_tipo_pago        TYPE CHAR, NOENTRY              ;
+c6=FORMONLY.tipo_identif         TYPE SMALLINT                   ;
+d3=FORMONLY.des_tipo_identif     TYPE CHAR, NOENTRY              ;
+c7=FORMONLY.fecha_solic          TYPE DATE, FORMAT="DD/MM/YYYY"  ;
+c8=FORMONLY.consecutivo          TYPE INTEGER                    ;
+f1=FORMONLY.usuario              TYPE CHAR                       ;
+f2=FORMONLY.fecha_captura        TYPE DATE, FORMAT="DD/MM/YYYY"  ;
+f3=FORMONLY.ultimo_proceso                , NOENTRY              ;
+INSTRUCTIONS 
+SCREEN RECORD scr_3[1](afi_mae_afiliado.n_folio THRU FORMONLY.ultimo_proceso);
+DELIMITERS " "

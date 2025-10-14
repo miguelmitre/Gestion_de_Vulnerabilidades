@@ -1,0 +1,26 @@
+DATABASE FORMONLY
+SCREEN
+{
+--------------------------------------------------------------------------
+ CODIGO OPERACION     [a  ][d       ] 
+
+ DIAGNOSTICO PROCESO  [f  ][b                                            ]
+
+ NOMBRE PROCANASE     [c                                                 ]
+
+ FECHA RECHAZO        [e         ]
+---------------------------------------------------------------------------
+      < F3 > Avanza Pagina   < F4 > Retrocede Pagina        
+}
+END
+ATTRIBUTES
+a=FORMONLY.codigo TYPE INTEGER,NOENTRY;
+d=FORMONLY.desc_cod TYPE CHAR,NOENTRY;
+f=FORMONLY.diagnostico TYPE CHAR,NOENTRY;
+b=FORMONLY.descripcion TYPE CHAR,NOENTRY;
+C=FORMONLY.nombre TYPE CHAR,NOENTRY;
+e=FORMONLY.fecha_rechazo TYPE DATE, FORMAT="DD/MM/YYYY",NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[1](FORMONLY.codigo THRU FORMONLY.fecha_rechazo);
+DELIMITERS "  "
+

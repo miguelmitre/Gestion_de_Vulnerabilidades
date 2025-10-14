@@ -1,0 +1,53 @@
+DATABASE safre_af
+SCREEN
+{
+                                                                          .
+
+ Numero Seguro Social:[a          ][g                                     ]
+ Tipo de Operacion   :[gg]
+ Origen Devolucion   :[h  ][hh                                        ]
+ Fecha Afectacion    :[f         ]
+ Cargo o Abono       :[z]
+
+                               Monto Quebrantado    Importes a Devolver(Pesos)
+Viv  F.Liquid.  F.Devoluc     Pesos      Particip.      Monto      Intereses
+[a1|a2        |a3        |a4          |a5          |a6          |a7          ]
+[a1|a2        |a3        |a4          |a5          |a6          |a7          ]
+[a1|a2        |a3        |a4          |a5          |a6          |a7          ]
+[a1|a2        |a3        |a4          |a5          |a6          |a7          ]
+[a1|a2        |a3        |a4          |a5          |a6          |a7          ]
+}
+TABLES
+    inf_his_oper97
+
+ATTRIBUTES
+a = nss                                                                 ;
+g = FORMONLY.nombre          TYPE CHAR   ,NOENTRY                       ;
+gg= opera_devolucion        ,COMMENTS="OPERACION 97, 98"                ;
+h = origen_devolucion                                                   ;
+hh= FORMONLY.desc_devolucion TYPE CHAR   ,NOENTRY                       ;
+f = fecha_afectacion,        FORMAT="DD-MM-YYYY", COMMENTS="DD-MM-AAAA" ;
+z = FORMONLY.cargo_abono     TYPE CHAR   ,UPSHIFT                       ;
+
+
+a1 = tipo_viv               ,COMMENTS="TIPO DE VIVIENTA 92, 97"         ;
+a2 = fecha_valor_trasp      ,FORMAT="DD-MM-YYYY",COMMENTS="DD-MM-AAAA"  ;
+a3 = fecha_valor_devol      ,FORMAT="DD-MM-YYYY",COMMENTS="DD-MM-AAAA"  ;
+
+a4 = mto_pesos_orig         ,FORMAT="########&.&&"                      ;
+a5 = mto_parti_dev          ,FORMAT="####&.&&&&&&"                      ;
+a6 = mto_pesos_dev          ,FORMAT="#,###,##&.&&", NOENTRY             ;
+a7 = int_pesos_dev          ,FORMAT="#,###,##&.&&" , NOENTRY            ;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[5](tipo_viv THRU int_pesos_dev);
+SCREEN RECORD scr_2[5](tipo_viv THRU int_pesos_dev);
+
+SCREEN RECORD scr  ( nss,
+                     nombre,
+                     opera_devolucion,
+                     origen_devolucion,
+                     fecha_afectacion,
+                     cargo_abono)
+
+DELIMITERS "  "

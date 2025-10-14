@@ -1,0 +1,27 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                         [f0        ] .
+
+         PROCESO DE REVERSO DE SALDO CERO                         
+                                                       
+
+             1) REVERSAR PREPARA INFORMACION CUOTA - SALDOS
+             2) REVERSAR IDENTIFICACION ALTAS 01 Y 02
+             4) REVERSAR GENERA    ARCHIVO SALDO CERO OP 99
+             5) REVERSAR RECEPCION ARCHIVO SALDO CERO OP 99
+                                     
+
+                     OPCION DE REVERSO   :   [op]
+                     FECHA DE CORTE      :   [f1        ]                                                 
+                     NOMBRE ARCHIVO      :   [f2                  ]
+
+
+}
+ATTRIBUTES
+f0=FORMONLY.fecha  TYPE DATE ,FORMAT ="DD/MM/YYYY",NOENTRY;                              
+f1=FORMONLY.vfecha_corte TYPE DATE, FORMAT = "DD/MM/YYYY", COMMENTS = "Formato fecha DD/MM/AAAA";
+f2=FORMONLY.vnombre_archivo TYPE CHAR, COMMENTS = "Nombre Archivo Recepcion Saldo Cero Op 99";
+op=FORMONLY.opcion TYPE SMALLINT, INCLUDE=(1,2,4,5);
+INSTRUCTIONS
+DELIMITERS "  "

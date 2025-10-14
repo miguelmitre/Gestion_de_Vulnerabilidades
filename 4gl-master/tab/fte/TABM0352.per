@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+           Codigo                       Descripcion
+\g----------------------------------------------------------------------------\g
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_area
+ATTRIBUTES
+a=tab_area.area_cod;
+b=tab_area.area_desc;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_area.area_cod,tab_area.area_desc);
+END

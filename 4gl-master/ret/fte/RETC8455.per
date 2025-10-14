@@ -1,0 +1,34 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g------------------------------------------------------------------------------\g
+             SECUENCIA    FECHA      FOLIO    USUARIO               FECHA    
+     NSS      PENSION     CARGA      CARGA     CARGA     ESTADO     ENVIO
+
+[a          ]   [b ]   [c         ][d       ][e       ][f        ][g         ]
+[a          ]   [b ]   [c         ][d       ][e       ][f        ][g         ]
+[a          ]   [b ]   [c         ][d       ][e       ][f        ][g         ]
+[a          ]   [b ]   [c         ][d       ][e       ][f        ][g         ]
+[a          ]   [b ]   [c         ][d       ][e       ][f        ][g         ]
+[a          ]   [b ]   [c         ][d       ][e       ][f        ][g         ]
+[a          ]   [b ]   [c         ][d       ][e       ][f        ][g         ]
+[a          ]   [b ]   [c         ][d       ][e       ][f        ][g         ]
+[a          ]   [b ]   [c         ][d       ][e       ][f        ][g         ]
+[a          ]   [b ]   [c         ][d       ][e       ][f        ][g         ]
+[a          ]   [b ]   [c         ][d       ][e       ][f        ][g         ]
+[a          ]   [b ]   [c         ][d       ][e       ][f        ][g         ]
+[a          ]   [b ]   [c         ][d       ][e       ][f        ][g         ]
+
+}
+ATTRIBUTES
+a = FORMONLY.nss              , NOENTRY ;
+b = FORMONLY.sec_pension      , NOENTRY ;
+c = FORMONLY.fecha_carga      TYPE DATE, FORMAT="DD/MM/YYYY", NOENTRY ;
+d = FORMONLY.folio_carga      , NOENTRY ;
+e = FORMONLY.usr_carga        , NOENTRY ;
+f = FORMONLY.estado           , NOENTRY ;
+g = FORMONLY.fecha_envio      TYPE DATE, FORMAT="DD/MM/YYYY", NOENTRY ;
+END
+INSTRUCTIONS
+SCREEN RECORD sa_especial[13](FORMONLY.nss THRU FORMONLY.fecha_envio);
+END

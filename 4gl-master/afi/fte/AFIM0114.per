@@ -1,0 +1,26 @@
+DATABASE FORMONLY
+SCREEN
+{
+--------------------------------------------------------------------------
+ STATUS RENAPO  : [a   ] 
+ DESCRIPCION    : [b                                                     ]
+ FECHA ASIGNA   : [e         ]  FECHA RECHAZO : [r         ]
+ PATERNO RENAPO : [p                                       ]
+ MATERNO RENAPO : [m                                       ]
+ NOMBRES RENAPO : [n                                       ]
+---------------------------------------------------------------------------
+              < F3 > Avanza Pagina   < F4 > Retrocede Pagina        
+}
+END
+ATTRIBUTES
+a=FORMONLY.codigo TYPE INTEGER,NOENTRY;
+b=FORMONLY.descripcion TYPE CHAR,NOENTRY;
+e=FORMONLY.fecha_asignacion TYPE DATE, FORMAT="DD/MM/YYYY",NOENTRY;
+r=FORMONLY.fecha_rechazo TYPE DATE, FORMAT="DD/MM/YYYY",NOENTRY;
+p=FORMONLY.paterno TYPE CHAR, NOENTRY;
+m=FORMONLY.materno TYPE CHAR, NOENTRY;
+n=FORMONLY.nombres TYPE CHAR, NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[1](FORMONLY.codigo THRU FORMONLY.nombres);
+DELIMITERS "  "
+

@@ -1,0 +1,30 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                                          .
+
+    NSS               NOMBRE                               ACC. SIEFORE 1
+ [a          ]  [b                      ]                [c               ]
+ [a          ]  [b                      ]                [c               ]
+ [a          ]  [b                      ]                [c               ]
+ [a          ]  [b                      ]                [c               ]
+ [a          ]  [b                      ]                [c               ]
+ [a          ]  [b                      ]                [c               ]
+ [a          ]  [b                      ]                [c               ]
+ [a          ]  [b                      ]                [c               ]
+ [a          ]  [b                      ]                [c               ]
+ [a          ]  [b                      ]                [c               ]
+ [a          ]  [b                      ]                [c               ]
+ [a          ]  [b                      ]                [c               ]
+
+                                                   TOTAL [c1              ]
+}
+
+ATTRIBUTES
+	a = FORMONLY.n_seguro            TYPE CHAR,   NOENTRY ;
+	b = FORMONLY.nombre              TYPE CHAR,   NOENTRY ;
+	c = FORMONLY.mto_acc_sb1         TYPE DECIMAL,NOENTRY ;
+	c1 = FORMONLY.tot_acc_sb1        TYPE DECIMAL         ;
+
+INSTRUCTIONS
+	SCREEN RECORD scr_1[12]( FORMONLY.n_seguro, FORMONLY.nombre, FORMONLY.mto_acc_sb1 )

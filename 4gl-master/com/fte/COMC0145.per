@@ -1,0 +1,30 @@
+DATABASE safre_af
+SCREEN
+{
+   Folio       Nss    T.S.       Nombre
+------------------------------------------------------------------------------
+ [i       |j          |k |l                                                 ]
+ [o                                                                         ]
+ [i       |j          |k |l                                                 ]
+ [o                                                                         ]
+ [i       |j          |k |l                                                 ]
+ [o                                                                         ]
+
+}
+TABLES
+afi_solicitud
+afi_rechaza_cert
+
+ATTRIBUTES
+
+i = afi_solicitud.n_folio;
+j = afi_solicitud.n_seguro;
+k = afi_solicitud.tipo_solicitud;
+l = FORMONLY.nombre TYPE CHAR;
+o = afi_rechaza_cert.observacion;
+
+INSTRUCTIONS 
+
+SCREEN RECORD scr_0[3](afi_solicitud.n_folio THRU 
+		       afi_rechaza_cert.observacion);
+DELIMITERS "  "

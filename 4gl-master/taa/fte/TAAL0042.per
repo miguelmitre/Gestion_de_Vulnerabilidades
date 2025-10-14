@@ -1,0 +1,29 @@
+DATABASE safre_af
+SCREEN
+{
+
+-------------------------------------------------------------------------
+ AFORE     SIEFORE            ACCIONES              PESOS
+-------------------------------------------------------------------------
+ [a  ] [b][c         ][d                   ][e                   ]
+ [a  ] [b][c         ][d                   ][e                   ]
+ [a  ] [b][c         ][d                   ][e                   ]
+ [a  ] [b][c         ][d                   ][e                   ]
+ [a  ] [b][c         ][d                   ][e                   ]
+ [a  ] [b][c         ][d                   ][e                   ]
+ [a  ] [b][c         ][d                   ][e                   ]
+ [a  ] [b][c         ][d                   ][e                   ]
+ [a  ] [b][c         ][d                   ][e                   ]
+ [a  ] [b][c         ][d                   ][e                   ]
+}
+TABLES
+dis_cuenta
+ATTRIBUTES
+a=FORMONLY.cve_ced_cuenta TYPE SMALLINT;
+b=FORMONLY.siefore_cod  TYPE SMALLINT;
+c=FORMONLY.siefore_desc TYPE CHAR;
+d=FORMONLY.no_tot_acc TYPE DECIMAL;
+e=FORMONLY.saldo_subc TYPE DECIMAL;
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](FORMONLY.cve_ced_cuenta THRU FORMONLY.saldo_subc)
+DELIMITERS "[]"

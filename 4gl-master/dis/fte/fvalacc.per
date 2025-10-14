@@ -1,0 +1,33 @@
+database safre_af@safre_lnx_shm
+screen size 24 by 80
+{
+codigo_siefore     [f000  ]
+precio_del_dia     [f001         ]
+fecha_operacion    [f002      ]
+fecha_valuacion    [f003      ]
+monto_comis_saldos [f004               ]
+acc_circ_cap_fijo  [f005                   ]
+acc_circ_res_esp   [f006                   ]
+acc_circ_inv_perm  [f007                   ]
+acc_circ_traba     [f008                   ]
+acc_circ_traba_vol [f009                   ]
+acc_circ_inv_afore [f010                   ]
+acc_circ_totales   [f011                   ]
+}
+end
+tables
+glo_valor_accion
+attributes
+f000 = glo_valor_accion.codigo_siefore;
+f001 = glo_valor_accion.precio_del_dia;
+f002 = glo_valor_accion.fecha_operacion;
+f003 = glo_valor_accion.fecha_valuacion;
+f004 = glo_valor_accion.monto_comis_saldos;
+f005 = glo_valor_accion.acc_circ_cap_fijo;
+f006 = glo_valor_accion.acc_circ_res_esp;
+f007 = glo_valor_accion.acc_circ_inv_perm;
+f008 = glo_valor_accion.acc_circ_traba;
+f009 = glo_valor_accion.acc_circ_traba_vol;
+f010 = glo_valor_accion.acc_circ_inv_afore;
+f011 = glo_valor_accion.acc_circ_totales;
+end

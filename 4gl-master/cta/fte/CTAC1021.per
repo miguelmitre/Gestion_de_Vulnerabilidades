@@ -1,0 +1,43 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+N.S.S.    [s          ]  RFC [r            ]   C.U.R.P.  [u                 ]
+Paterno   [p                         ]    Materno[m                         ]
+Nombres   [n                         ]    Fecha de Nacimiento    [t         ]
+No. Folio [nf        ]   Tipo solicitud   [ts]                               
+-----------------------------------------------------------------------------
+ GRUPO SUBCUENTA                                    SIEFORE     PORCENTAJE  
+-----------------------------------------------------------------------------
+ [f0][f1                                        ]  [f2        ]  [f3    ] 
+ [f0][f1                                        ]  [f2        ]  [f3    ] 
+ [f0][f1                                        ]  [f2        ]  [f3    ] 
+ [f0][f1                                        ]  [f2        ]  [f3    ] 
+ [f0][f1                                        ]  [f2        ]  [f3    ] 
+ [f0][f1                                        ]  [f2        ]  [f3    ] 
+ [f0][f1                                        ]  [f2        ]  [f3    ] 
+ [f0][f1                                        ]  [f2        ]  [f3    ]
+ [f0][f1                                        ]  [f2        ]  [f3    ]
+ [f0][f1                                        ]  [f2        ]  [f3    ]
+}
+END
+ATTRIBUTES
+s=FORMONLY.n_seguro TYPE CHAR,UPSHIFT;
+r=FORMONLY.n_rfc TYPE CHAR,UPSHIFT;
+u=FORMONLY.n_unico TYPE CHAR,UPSHIFT;
+p=FORMONLY.paterno TYPE CHAR,UPSHIFT;
+m=FORMONLY.materno TYPE CHAR,UPSHIFT;
+n=FORMONLY.nombres TYPE CHAR,UPSHIFT;
+t=FORMONLY.fena TYPE DATE,FORMAT="dd-mm-yyyy";
+nf=FORMONLY.n_folio TYPE INTEGER;
+ts=FORMONLY.tipo_solicitud TYPE SMALLINT;
+
+f0=FORMONLY.grupo_regimen TYPE SMALLINT;
+f1=FORMONLY.desc_grupo TYPE CHAR;
+f2=FORMONLY.siefore TYPE CHAR;
+f3=FORMONLY.porcentaje TYPE DECIMAL(5,2),FORMAT="###.##";
+
+INSTRUCTIONS 
+SCREEN RECORD scr1[10](grupo_regimen THRU porcentaje);
+DELIMITERS " "
+

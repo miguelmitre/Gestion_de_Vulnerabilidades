@@ -1,0 +1,27 @@
+DATABASE safre_af
+SCREEN
+{
+
+
+--------------------------------------------------------------------------
+ NSS              Solicitud             Respuesta            Tiempo Real
+                    h:m:s                 h:m:s               Respuesta  
+--------------------------------------------------------------------------
+[a          ] [b                  ] [c                  ]  [d           ]      
+[a          ] [b                  ] [c                  ]  [d           ]      
+[a          ] [b                  ] [c                  ]  [d           ]      
+[a          ] [b                  ] [c                  ]  [d           ]      
+[a          ] [b                  ] [c                  ]  [d           ]      
+[a          ] [b                  ] [c                  ]  [d           ]      
+[a          ] [b                  ] [c                  ]  [d           ]      
+[a          ] [b                  ] [c                  ]  [d           ]      
+}
+TABLES
+cta_solicitud_regimen
+ATTRIBUTES
+a =cta_solicitud_regimen.nss;
+b =cta_solicitud_regimen.fecha_inicio;
+c =cta_solicitud_regimen.fecha_fin;
+d =FORMONLY.resultado TYPE INTERVAL MINUTE TO SECOND;
+INSTRUCTIONS
+SCREEN RECORD scr_1[8](nss THRU resultado)

@@ -1,0 +1,47 @@
+DATABASE safre_af
+SCREEN
+{
+
+
+
+Nombre    [a                                                     ]
+CURP      [b                 ]                                   
+Telefono  [c         ]                                           
+Parentesco[d ][d1                                                ]
+                                                                 
+Nombre    [e                                                     ]
+CURP      [f                 ]                                   
+Telefono  [g         ]                                           
+Parentesco[h ][h1                                                ]
+                                                                 
+N° Jefe Inmediato       [i         ]                             
+CURP Jefe Inmediato           [j                 ]               
+Tipo de contratacion          [k ][k1                   ]               
+Numero de Empleado            [l                 ]               
+Entidad Federativa de trabajo [m    ] [m1                        ]
+
+}
+TABLES
+pro_solicitud
+
+ATTRIBUTES
+a  = FORMONLY.nombre1                  ;
+b  = FORMONLY.curp1                    ;
+c  = FORMONLY.telefono1                ;
+d  = FORMONLY.parentesco1              ;
+d1 = FORMONLY.desc_parentesco1         ;
+e  = FORMONLY.nombre2                  ;
+f  = FORMONLY.curp2                    ;
+g  = FORMONLY.telefono2                ;
+h  = FORMONLY.parentesco2              ;
+h1 = FORMONLY.desc_parentesco2         ;
+i  = FORMONLY.num_jefe                 ;
+j  = FORMONLY.curpjefe                 ;
+k  = FORMONLY.tipo_contratacion        ;
+k1 = FORMONLY.desc_tipo_contratacion   ;
+l  = FORMONLY.numero_empleado          ;
+m  = FORMONLY.entidad_federativa       ;
+m1 = FORMONLY.desc_entidad_federativa  ;
+
+INSTRUCTIONS  
+DELIMITERS " "

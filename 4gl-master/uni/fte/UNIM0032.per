@@ -1,0 +1,28 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+    NSS Unificador       NSS Unificados        Fecha solicitud  Estado
+\g----------------------------------------------------------------------------\g
+    [a          ]        [b          ]         [c         ]     [d  ]
+    [a          ]        [b          ]         [c         ]     [d  ]
+    [a          ]        [b          ]         [c         ]     [d  ]
+    [a          ]        [b          ]         [c         ]     [d  ]
+    [a          ]        [b          ]         [c         ]     [d  ]
+    [a          ]        [b          ]         [c         ]     [d  ]
+    [a          ]        [b          ]         [c         ]     [d  ]
+    [a          ]        [b          ]         [c         ]     [d  ]
+    [a          ]        [b          ]         [c         ]     [d  ]
+    [a          ]        [b          ]         [c         ]     [d  ]
+\g----------------------------------------------------------------------------\g
+}
+
+ATTRIBUTES
+a=FORMONLY.nss_uni         TYPE CHAR;
+b=FORMONLY.nss_cta1        TYPE CHAR;
+c=FORMONLY.fecha_solicitud TYPE DATE,FORMAT="dd-mm-yyyy";
+d=FORMONLY.estado          TYPE SMALLINT;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](FORMONLY.nss_uni THRU FORMONLY.estado);
+DELIMITERS "  "

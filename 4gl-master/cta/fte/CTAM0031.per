@@ -1,0 +1,61 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+
+
+   NSS [a1         ][a2                                                   ]
+   Domicilio [a3                                                          ]
+   Del. o Mpio.[a4                  ]Cd/Edo[a5                            ]
+   CURP[a6                ]Telefono[a7      ] Fecha Certificado[a8        ]
+
+   Marca [b1 |b2                                 ]  F. Emision [b7        ]
+   Revision Visual [x ][x1                         ]
+   Identificacion  [y][y1                         ] 
+   Folio id        [y2                ]
+   Dias  [b3]           Tipo Solicitud[b5]          Folio        [b8      ]
+   Fecha Recepcion[b4        ] Emision[b6]      Fecha Reemision[b9        ]
+
+   Fecha Recepcion[c1        ] Tipo Solicitud [c4]   Folio Rechazo[c5     ]
+   Motivo Rechazo [c2 |c3                                                 ]
+   Identificacion [c7|c8                      ]Folio Id[c9                ]
+                                                     Total Envios [c6 ]
+}
+ATTRIBUTES
+a1=FORMONLY.nss             TYPE CHAR,UPSHIFT;
+a2=FORMONLY.nombre          TYPE CHAR,UPSHIFT,NOENTRY;
+a3=FORMONLY.domicilio       TYPE CHAR,REQUIRED,UPSHIFT,NOENTRY;
+a4=FORMONLY.delegacion      TYPE CHAR,REQUIRED,UPSHIFT,NOENTRY;
+a5=FORMONLY.ciudad          TYPE CHAR,REQUIRED,UPSHIFT,NOENTRY;
+a6=FORMONLY.curp            TYPE CHAR,REQUIRED,UPSHIFT,NOENTRY;
+a7=FORMONLY.telefono        TYPE CHAR,REQUIRED,UPSHIFT,NOENTRY;
+a8=FORMONLY.fecha_certifica TYPE DATE,FORMAT="dd-mm-yyyy",NOENTRY;
+
+b1=FORMONLY.marca             TYPE SMALLINT,UPSHIFT, NOENTRY;
+b2=FORMONLY.desc_marca        TYPE CHAR,UPSHIFT, NOENTRY;
+x=FORMONLY.visual             TYPE SMALLINT,UPSHIFT;
+x1=FORMONLY.desc_visual       TYPE CHAR,UPSHIFT, NOENTRY;
+y=FORMONLY.id                 TYPE SMALLINT,UPSHIFT;
+y1=FORMONLY.desc_id           TYPE CHAR,UPSHIFT, NOENTRY;
+y2=FORMONLY.folio_id          TYPE CHAR,UPSHIFT;
+b3=FORMONLY.dia               TYPE SMALLINT,UPSHIFT, NOENTRY;
+b4=FORMONLY.fecha_solicitud   TYPE DATE,FORMAT="dd-mm-yyyy";
+b5=FORMONLY.tipo_solicitud    TYPE SMALLINT,UPSHIFT;
+b6=FORMONLY.emision           TYPE SMALLINT,UPSHIFT, NOENTRY;
+b7=FORMONLY.fecha_emision     TYPE DATE,FORMAT="dd-mm-yyyy",NOENTRY;
+b8=FORMONLY.folio             TYPE DECIMAL,UPSHIFT, NOENTRY;
+b9=FORMONLY.fecha_reimpresion TYPE DATE,FORMAT="dd-mm-yyyy";
+
+c1=FORMONLY.fecha_rechazo  TYPE DATE,FORMAT="dd-mm-yyyy";
+c2=FORMONLY.motivo_rechazo TYPE SMALLINT,UPSHIFT, NOENTRY;
+c3=FORMONLY.desc_rechazo   TYPE CHAR,UPSHIFT, NOENTRY;
+c4=FORMONLY.tipo_emision   TYPE SMALLINT,UPSHIFT,INCLUDE = (1,2),
+COMMENTS = "Solo puede ser tipo 1 o 2";
+c7=FORMONLY.id_rech        TYPE SMALLINT,UPSHIFT;
+c8=FORMONLY.desc_id_rech   TYPE CHAR,UPSHIFT, NOENTRY;
+c9=FORMONLY.id_folio_rech  TYPE CHAR,UPSHIFT;
+c5=FORMONLY.folio_rechazo  TYPE DECIMAL,UPSHIFT, NOENTRY;
+c6=FORMONLY.total_envio    TYPE SMALLINT,UPSHIFT, NOENTRY;
+
+INSTRUCTIONS
+DELIMITERS "  "

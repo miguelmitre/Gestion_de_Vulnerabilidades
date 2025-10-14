@@ -1,0 +1,32 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g---------------------------------------------------------------------------\g
+
+
+
+                                    
+    FOLIO     ESTADO           PRESENTACION     ENVIA_SALDO      LIQUIDACION
+                              (dd/mm/aaaa)     (dd/mm/aaaa)     (dd/mm/aaaa)  
+   [a     ]  [d           ]   [e         ]     [f         ]     [g         ]
+
+
+
+
+
+
+
+
+
+}
+END
+
+ATTRIBUTES
+a=FORMONLY.folio                 TYPE  INTEGER;
+d=FORMONLY.desc_estado           TYPE  CHAR,NOENTRY;
+e=FORMONLY.f_presentacion        TYPE  DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+f=FORMONLY.f_provision           TYPE  DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+g=FORMONLY.f_liquidacion         TYPE  DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+INSTRUCTIONS 
+
+DELIMITERS "[]"

@@ -1,0 +1,51 @@
+database FORMONLY
+screen 
+{
+\g-----------------------------------------------------------------------------\g
+       NSS:[e1         ]   CURP:[e2                ]   RFC:[e3           ]   
+    Nombre:[e4                                                           ]
+    F Cert:[e5        ] F Apert:[e6        ]         F Nac:[e7        ]
+    F Conversion Inicial:[e8        ]      F Conversion Final:[e9        ]
+    ------ < CTRL - P Impresion > ----------------------------------------
+    Sie Sub TM  Folio    Id Aport     Acciones        Pesos      F Conver 
+    [d1|d2|d3 |d4     |d5         |d6            |d7            |d8      ]    
+    [d1|d2|d3 |d4     |d5         |d6            |d7            |d8      ]
+    [d1|d2|d3 |d4     |d5         |d6            |d7            |d8      ]
+    [d1|d2|d3 |d4     |d5         |d6            |d7            |d8      ] 
+    [d1|d2|d3 |d4     |d5         |d6            |d7            |d8      ] 
+    [d1|d2|d3 |d4     |d5         |d6            |d7            |d8      ] 
+    [d1|d2|d3 |d4     |d5         |d6            |d7            |d8      ] 
+    [d1|d2|d3 |d4     |d5         |d6            |d7            |d8      ] 
+    [d1|d2|d3 |d4     |d5         |d6            |d7            |d8      ] 
+\g-----------------------------------------------------------------------------\g
+    Edad:[s1 ] Regimen Edad:[s2] Regimen Actual:[s3]    Total Reg:[s4    ]
+}
+end
+attributes
+e1  = FORMONLY.nss TYPE CHAR, NOENTRY;
+e2  = FORMONLY.curp TYPE CHAR, NOENTRY;
+e3  = FORMONLY.rfc  TYPE CHAR, NOENTRY;
+e4  = FORMONLY.nombre TYPE CHAR, NOENTRY;
+e5  = FORMONLY.fecha_cert TYPE DATE, FORMAT = "DD/MM/YYYY", NOENTRY;
+e6  = FORMONLY.fecha_aper TYPE DATE, FORMAT = "DD/MM/YYYY", NOENTRY;
+e7  = FORMONLY.fecha_naci TYPE DATE, FORMAT = "DD/MM/YYYY", NOENTRY;
+e8  = FORMONLY.fconv_ini TYPE DATE, FORMAT = "DD/MM/YYYY", COMMENTS = "Formato Fecha Conversion Inicial dd/mm/aaaa";
+e9  = FORMONLY.fconv_fin TYPE DATE, FORMAT = "DD/MM/YYYY", COMMENTS = "Formato Fecha Conversion Final dd/mm/aaaa";
+
+d1  = FORMONLY.siefore TYPE SMALLINT, NOENTRY;
+d2  = FORMONLY.subcuenta TYPE SMALLINT, NOENTRY;
+d3  = FORMONLY.tipo_movimiento TYPE SMALLINT, NOENTRY;
+d4  = FORMONLY.folio TYPE INTEGER, NOENTRY;
+d5  = FORMONLY.id_aportante TYPE CHAR, NOENTRY;
+d6  = FORMONLY.monto_en_acciones TYPE DECIMAL, NOENTRY;
+d7  = FORMONLY.monto_en_pesos TYPE DECIMAL, NOENTRY;
+d8  = FORMONLY.fecha_conversion TYPE DATE, FORMAT = "DDMMYYYY", NOENTRY;
+
+s1  = FORMONLY.edad TYPE SMALLINT, NOENTRY;
+s2  = FORMONLY.reg_edad TYPE SMALLINT, NOENTRY;
+s3  = FORMONLY.reg_actual TYPE SMALLINT, NOENTRY;
+s4  = FORMONLY.total_arh TYPE INTEGER, FORMAT = "##,##&", NOENTRY;
+
+INSTRUCTIONS                                                       
+SCREEN RECORD scr_3[09](FORMONLY.siefore THRU FORMONLY.fecha_conversion); 
+DELIMITERS " "

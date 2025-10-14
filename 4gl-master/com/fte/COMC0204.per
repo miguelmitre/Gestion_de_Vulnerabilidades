@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+  Cod promotor       Nombre
+------------------------------------------------------------------------------
+ [i          |l                                              ]
+ [i          |l                                              ]
+ [i          |l                                              ]
+ [i          |l                                              ]
+ [i          |l                                              ]
+ [i          |l                                              ]
+
+}
+TABLES
+pro_mae_promotor
+
+ATTRIBUTES
+
+i = pro_mae_promotor.cod_promotor;
+l = FORMONLY.nombre TYPE CHAR;
+
+INSTRUCTIONS 
+
+SCREEN RECORD scr_0[6](pro_mae_promotor.cod_promotor THRU 
+		       FORMONLY.nombre);
+DELIMITERS "  "

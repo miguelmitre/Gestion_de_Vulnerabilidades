@@ -1,0 +1,32 @@
+DATABASE safre_af
+SCREEN
+{
+\g-----------------------------------------------------------------------------\g
+
+
+
+
+    CODIGO DE RETIRO      [a]
+
+    MOVIMIENTO            [b     ] 
+
+    DESCRIPCION DE RETIRO 
+    [c                                                            ]
+
+    NOMBRE ARCHIVO PLANO  [d    ]
+          
+
+
+
+}
+TABLES
+tab_retiro
+ATTRIBUTES
+a=tab_retiro.tipo_retiro,include=("A" TO "Z"),COMMENTS="--TIPO DE RETIRO (A-Z)--",UPSHIFT;
+b=tab_retiro.movimiento;
+c=tab_retiro.descripcion,UPSHIFT;
+d=tab_retiro.nom_archivo,UPSHIFT;
+INSTRUCTIONS
+DELIMITERS " "
+END
+

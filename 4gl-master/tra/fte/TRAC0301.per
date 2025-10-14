@@ -1,0 +1,34 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+
+
+       STATUS        DESCRIPCION                    REGISTROS           [s   ]  
+     ----------------------------------------------------------
+
+      [a   ]  [b                            ]  [c            ] 
+      [a   ]  [b                            ]  [c            ] 
+      [a   ]  [b                            ]  [c            ] 
+      [a   ]  [b                            ]  [c            ] 
+      [a   ]  [b                            ]  [c            ] 
+      [a   ]  [b                            ]  [c            ] 
+
+     -----------------------------------------------------------
+      [e                                    ]  [d            ]
+
+
+}
+END
+ATTRIBUTES
+s=FORMONLY.sss           TYPE CHAR	,NOENTRY	;
+a=FORMONLY.status        TYPE SMALLINT	,NOENTRY	;  
+b=FORMONLY.des_estado    TYPE CHAR	,NOENTRY	;
+c=FORMONLY.cuenta        TYPE INTEGER	,NOENTRY	;
+d=FORMONLY.cuenta1       TYPE INTEGER	,NOENTRY	;
+e=FORMONLY.cad           TYPE CHAR	,NOENTRY	;
+END
+INSTRUCTIONS
+SCREEN RECORD reg_cuenta[6] (FORMONLY.status,FORMONLY.des_estado,FORMONLY.cuenta)
+DELIMITERS " "
+END

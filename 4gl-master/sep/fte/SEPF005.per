@@ -1,0 +1,40 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+
+
+------------------------------------------------------------------------------
+       folio  clasif  afo     nss      nss asociado  edo   descripcion
+[g  ][a      ][b ][f][c  ][d          ][e          ][i  ][h                  ]
+[g  ][a      ][b ][f][c  ][d          ][e          ][i  ][h                  ]
+[g  ][a      ][b ][f][c  ][d          ][e          ][i  ][h                  ]
+[g  ][a      ][b ][f][c  ][d          ][e          ][i  ][h                  ]
+[g  ][a      ][b ][f][c  ][d          ][e          ][i  ][h                  ]
+[g  ][a      ][b ][f][c  ][d          ][e          ][i  ][h                  ]
+[g  ][a      ][b ][f][c  ][d          ][e          ][i  ][h                  ]
+[g  ][a      ][b ][f][c  ][d          ][e          ][i  ][h                  ]
+[g  ][a      ][b ][f][c  ][d          ][e          ][i  ][h                  ]
+[g  ][a      ][b ][f][c  ][d          ][e          ][i  ][h                  ]
+
+ [x1  ]Registros 
+}
+ATTRIBUTES
+
+g = FORMONLY.arc_1 TYPE INTEGER,NOENTRY;
+a = FORMONLY.folio TYPE INTEGER;
+b = FORMONLY.diag_confronta TYPE CHAR,UPSHIFT,INCLUDE = ("01","02","03","04","05"),
+    COMMENTS = "Resultado del diagnostico de la confronta (01 al 05)";
+f = FORMONLY.clasifica_separacion TYPE CHAR,UPSHIFT,INCLUDE = ("A","B","C","D",""),
+    COMMENTS = "Clasificacion procedente (A,B,C)";
+c = FORMONLY.clave_admon TYPE CHAR,NOENTRY;
+d = FORMONLY.n_seguro TYPE CHAR,NOENTRY;
+e = FORMONLY.nss_asociado TYPE CHAR,NOENTRY;
+i = FORMONLY.estado     TYPE CHAR,INCLUDE = (0,1,2,3,4,5,6,7,8,9,10); 
+h = FORMONLY.estado_desc TYPE CHAR,NOENTRY;
+x1= FORMONLY.total_pa TYPE INTEGER,NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](FORMONLY.arc_1 THRU FORMONLY.estado_desc);
+DELIMITERS "[]"
+

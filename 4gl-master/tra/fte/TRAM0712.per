@@ -1,0 +1,57 @@
+DATABASE safre_af
+SCREEN
+{
+   
+ TIPO CRITERIO:[aa ][aa1                       ]  FOLIO CONFRONTA:[x         ]
+ ICEFA        :[bb ][bb1                       ]            
+
+    CORRELATIVO    NSS AFORE      NSS ICEFA      RFC ICEFA          
+   [j          ] [a          ]  [b          ]  [c            ]     [x1       ] 
+   N.CTRL      : [k                             ]          Folio UAEP[zz     ]
+   PATERNO     : [g                                       ]
+   MATERNO     : [h                                       ]
+   NOMBRES     : [i                                       ]
+   SAR92_ISSSTE: [s        ]                                         
+   VIV92_ISSSTE: [v        ]    [z1 ][z                                      ]
+   Reg: [f      ]
+                                  NSS AFORE      RFC AFORE                     
+                                [l          ]  [m            ]          
+   PATERNO     : [p                                       ]
+   MATERNO     : [q                                       ]
+   NOMBRES     : [r                                       ] 
+}
+TABLES 
+tra_criterio
+tab_icefa
+tra_det_automatico
+ATTRIBUTES
+aa  = tra_criterio.criterio_cod           ,NOENTRY;
+aa1 = tra_criterio.vector                 ,NOENTRY;
+x   = tra_det_automatico.folio_interno    ,NOENTRY;
+bb  = tab_icefa.icefa_cod                 ,NOENTRY;
+bb1 = tab_icefa.icefa_desc                ,NOENTRY;
+j   = tra_det_automatico.correlativo      ,NOENTRY;
+a   = tra_det_automatico.n_seguro         ,NOENTRY;
+b   = tra_det_automatico.n_seguro_ent     ,NOENTRY;
+c   = tra_det_automatico.rfc_ent          ,NOENTRY;
+x1  = FORMONLY.usuario                    ,NOENTRY;
+k   = tra_det_automatico.nro_ctrl_icefa   ,NOENTRY;
+zz  = FORMONLY.folio_uaep                 TYPE INTEGER;
+g   = FORMONLY.paterno                    ,NOENTRY;
+h   = FORMONLY.materno                    ,NOENTRY;
+i   = FORMONLY.nombres                    ,NOENTRY;
+s   = tra_det_automatico.saldo_sar_92     ,NOENTRY;
+v   = tra_det_automatico.saldo_viv_92     ,NOENTRY;
+z1  = FORMONLY.estado                     ,NOENTRY,REVERSE;
+z   = FORMONLY.estado_desc                ,NOENTRY,REVERSE;
+f   = FORMONLY.num_lin                    ,NOENTRY;
+l   = FORMONLY.n_seguro_a                 ,NOENTRY;
+m   = FORMONLY.n_rfc_a                    ,NOENTRY;
+p   = FORMONLY.paterno_a                  ,NOENTRY;
+q   = FORMONLY.materno_a                  ,NOENTRY;
+r   = FORMONLY.nombres_a                  ,NOENTRY;
+INSTRUCTIONS
+DELIMITERS "[]"
+SCREEN RECORD sr_ctr_folio1[1] (tra_criterio.criterio_cod THRU FORMONLY.nombres_a)
+SCREEN RECORD sr_ctr_folio2[1] (tra_criterio.criterio_cod THRU FORMONLY.nombres_a)
+SCREEN RECORD  sr_ctr_afi[1] (FORMONLY.n_seguro_a  THRU  FORMONLY.nombres_a)

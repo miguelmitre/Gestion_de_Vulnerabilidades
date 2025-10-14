@@ -1,0 +1,58 @@
+DATABASE safre_af
+SCREEN
+{
+
+
+ Folio Tramite Procesar: [a                                                 ]
+ NSS                  :[b           ]   Folio    :[c               ]
+ Diagnostico          :[d  ]
+ Nombre IMSS          :[e                                                 ]
+ Nombre PROCANASE     :[f                                                 ]
+ Nombre     DBNSAR    :[g                                                 ]
+ A. Paterno DBNSAR    :[h                                                 ]
+ A. Materno DBNSAR    :[i                                                 ]
+ Tipo Prestacion      :[j]-[j1          ]   Salario Base Cotizacion
+ Fecha Fall. Mat./Des.:[k         ]              Tipo A :   [l            ]
+ Fecha Inicio vigencia:[m         ]              Tipo B :   [n            ]
+ Fecha Fin vigencia   :[o         ]   Id Pago Complementario :[p]
+ Numero de Resolucion :[q         ]      Mto Retiro Original :[r          ]
+ Saldo Ant al Retiro :[s          ]  Id Aportacion CS: [t]
+
+ Fecha Recepcion:   [u         ]  Hora Recepcion: [v        ]
+
+}
+END
+
+TABLES
+    ret_parcial_resol
+
+ATTRIBUTES
+a  = ret_parcial_resol.folio_t_procesar   , NOENTRY;
+b  = ret_parcial_resol.nss                , NOENTRY;
+c  = ret_parcial_resol.folio              , NOENTRY;
+d  = ret_parcial_resol.diag_procesar      , NOENTRY;
+e  = ret_parcial_resol.nombre_imss        , NOENTRY;
+f  = ret_parcial_resol.nombre_procanase   , NOENTRY;
+g  = ret_parcial_resol.nombre_bdnsar      , NOENTRY;
+h  = ret_parcial_resol.paterno_bdnsar     , NOENTRY;
+i  = ret_parcial_resol.materno_bdnsar     , NOENTRY;
+j  = ret_parcial_resol.tipo_prestacion    , NOENTRY;
+j1 = FORMONLY.desc_prestacion             , NOENTRY ;
+k  = ret_parcial_resol.fecha_fall_mat_des , FORMAT="DD/MM/YYYY" ,NOENTRY;
+l  = ret_parcial_resol.salario_base_a     , FORMAT = "#########&.##" ,NOENTRY;
+m  = ret_parcial_resol.fecha_ini_vigencia , FORMAT="DD/MM/YYYY" ,NOENTRY;
+n  = ret_parcial_resol.salario_base_b     , FORMAT = "#########&.##" ,NOENTRY;
+o  = ret_parcial_resol.fecha_fin_vigencia , FORMAT="DD/MM/YYYY" ,NOENTRY;
+p  = ret_parcial_resol.id_complemento     , NOENTRY;
+q  = ret_parcial_resol.num_resolucion     , NOENTRY;
+r  = ret_parcial_resol.monto_pagado       , FORMAT = "#######&.##",NOENTRY;
+s  = ret_parcial_resol.saldo_rcv_ant      , FORMAT = "#######&.##",NOENTRY;
+t  = ret_parcial_resol.id_aportacion_cs   , NOENTRY;
+u  = FORMONLY.fecha TYPE DATE, FORMAT="DD/MM/YYYY"  , NOENTRY ;
+v  = FORMONLY.hora, NOENTRY;
+
+INSTRUCTIONS
+    SCREEN RECORD scr_1[1](ret_parcial_resol.folio_t_procesar THRU FORMONLY.hora); 
+    DELIMITERS " "
+END
+

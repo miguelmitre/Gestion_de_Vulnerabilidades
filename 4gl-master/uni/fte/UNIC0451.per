@@ -1,0 +1,49 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+
+\g-----------------------------------------------------------------------------\g
+   Folio liquida [c1     ] Tipo [c2]   Unificador [c3         ]
+
+   [a1         ]   [t1             ]      [a2         ]    [t2             ]
+   [a1         ]   [t1             ]      [a2         ]    [t2             ]
+   [a1         ]   [t1             ]      [a2         ]    [t2             ]
+   [a1         ]   [t1             ]      [a2         ]    [t2             ]
+   [a1         ]   [t1             ]      [a2         ]    [t2             ]
+
+
+   [b1]   [b2]   [b3 ]   [b4              ]  [b5              ] [b6        ]
+   [b1]   [b2]   [b3 ]   [b4              ]  [b5              ] [b6        ]
+   [b1]   [b2]   [b3 ]   [b4              ]  [b5              ] [b6        ]
+   [b1]   [b2]   [b3 ]   [b4              ]  [b5              ] [b6        ]
+   [b1]   [b2]   [b3 ]   [b4              ]  [b5              ] [b6        ]
+
+}
+ATTRIBUTES
+c1=FORMONLY.vfolio_liquida           TYPE INTEGER;
+c2=FORMONLY.vtipo                    TYPE SMALLINT,INCLUDE=(1,2),
+   COMMENTS="  <1> NORMAL  <2> COMPLEMENTARIAS";
+c3=FORMONLY.vnss                     TYPE CHAR;
+
+a1=FORMONLY.nss_uni            TYPE CHAR;
+t1=FORMONLY.total_traspasado   TYPE DECIMAL;
+
+a2=FORMONLY.nss_cta1           TYPE CHAR;
+t2=FORMONLY.total_traspasar    TYPE DECIMAL;
+
+b1=FORMONLY.subcuenta          TYPE SMALLINT;
+b2=FORMONLY.siefore            TYPE SMALLINT;
+b3=FORMONLY.tipo_movimiento    TYPE SMALLINT;
+b4=FORMONLY.monto_en_acciones  TYPE DECIMAL;
+b5=FORMONLY.monto_en_pesos     TYPE DECIMAL;
+b6=FORMONLY.fecha_liquida      TYPE DATE;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[5](FORMONLY.nss_uni   THRU FORMONLY.total_traspasado)
+SCREEN RECORD scr_2[5](FORMONLY.nss_cta1  THRU FORMONLY.total_traspasar)
+SCREEN RECORD scr_3[5](FORMONLY.subcuenta THRU FORMONLY.fecha_liquida)
+
+DELIMITERS " "
+
+

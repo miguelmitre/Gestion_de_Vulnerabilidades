@@ -1,0 +1,31 @@
+DATABASE safre_af
+SCREEN 
+{
+    TIPO PROMOTOR : [z1        ]                   .
+    DESCRIPCION   : [z2                         ]
+
+    TIPO PROM.   DESCRIPCION         
+   [a         ] [b                              ]
+   [a         ] [b                              ]
+   [a         ] [b                              ]
+   [a         ] [b                              ]
+   [a         ] [b                              ]
+   [a         ] [b                              ]
+   [a         ] [b                              ]
+   [a         ] [b                              ]
+}
+
+TABLES
+    com_tipo_promotor
+
+ATTRIBUTES
+z1 = FORMONLY.cod_tipo_prom ,UPSHIFT;
+z2 = FORMONLY.desc_tipo     ,UPSHIFT;
+
+a = com_tipo_promotor.cod_tipo_prom ;
+b = com_tipo_promotor.desc_tipo     ;
+
+INSTRUCTIONS
+    SCREEN RECORD scr_1[8](com_tipo_promotor.cod_tipo_prom,com_tipo_promotor.desc_tipo)
+DELIMITERS "[]"
+

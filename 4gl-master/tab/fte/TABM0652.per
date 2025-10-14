@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+           Codigo                       Descripcion
+\g----------------------------------------------------------------------------\g
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_sucursal
+ATTRIBUTES
+a=tab_sucursal.suc_cod;
+b=tab_sucursal.suc_desc;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_sucursal.suc_cod,tab_sucursal.suc_desc);
+END

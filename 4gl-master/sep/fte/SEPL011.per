@@ -1,0 +1,37 @@
+DATABASE FORMONLY
+SCREEN
+{
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+
+nss invadido[nss        ][nom                                 ] folio[folio  ]
+
+%sep Fec_Liquid.   Scta  T_Mov  Id_Aportante         Acciones           Pesos
+[p ][a         ]   [b ]  [c  ]  [d         ]  [e             ] [f            ]
+[p ][a         ]   [b ]  [c  ]  [d         ]  [e             ] [f            ]
+[p ][a         ]   [b ]  [c  ]  [d         ]  [e             ] [f            ]
+[p ][a         ]   [b ]  [c  ]  [d         ]  [e             ] [f            ]
+[p ][a         ]   [b ]  [c  ]  [d         ]  [e             ] [f            ]
+[p ][a         ]   [b ]  [c  ]  [d         ]  [e             ] [f            ]
+[p ][a         ]   [b ]  [c  ]  [d         ]  [e             ] [f            ]
+[p ][a         ]   [b ]  [c  ]  [d         ]  [e             ] [f            ]
+[p ][a         ]   [b ]  [c  ]  [d         ]  [e             ] [f            ]
+[p ][a         ]   [b ]  [c  ]  [d         ]  [e             ] [f            ]
+[p ][a         ]   [b ]  [c  ]  [d         ]  [e             ] [f            ]
+[p ][a         ]   [b ]  [c  ]  [d         ]  [e             ] [f            ]
+
+}
+ATTRIBUTES
+nss =FORMONLY.g_nss                  TYPE  CHAR;
+nom =FORMONLY.nombre                 TYPE  CHAR,NOENTRY;
+folio =FORMONLY.folio                TYPE  INTEGER,NOENTRY;
+p   =FORMONLY.porc_sep               TYPE  INTEGER;
+a   =FORMONLY.fecha_conversion       TYPE  DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+b   =FORMONLY.subcuenta              TYPE  CHAR,NOENTRY;
+c   =FORMONLY.tipo_movimiento        TYPE  CHAR,NOENTRY;
+d   =FORMONLY.id_aportante           TYPE  CHAR,NOENTRY;
+e   =FORMONLY.acciones               TYPE  CHAR,NOENTRY;
+f   =FORMONLY.pesos                  TYPE  CHAR,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_movtos[12](FORMONLY.porc_sep      THRU  FORMONLY.pesos);
+

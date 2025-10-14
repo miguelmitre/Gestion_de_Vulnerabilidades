@@ -1,0 +1,30 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+-----------------------------------------------------------------------------
+   Nss              Tipo  de     Fecha de       Dias        Seleccion
+		   Prestacion   Resolucion  Transcurridos    
+-----------------------------------------------------------------------------
+  [a          ]      [b ]      [c         ]    [d   ]          [e]
+  [a          ]      [b ]      [c         ]    [d   ]          [e]
+  [a          ]      [b ]      [c         ]    [d   ]          [e]
+  [a          ]      [b ]      [c         ]    [d   ]          [e]
+  [a          ]      [b ]      [c         ]    [d   ]          [e]
+  [a          ]      [b ]      [c         ]    [d   ]          [e]
+  [a          ]      [b ]      [c         ]    [d   ]          [e]
+  [a          ]      [b ]      [c         ]    [d   ]          [e]
+  [a          ]      [b ]      [c         ]    [d   ]          [e]
+  [a          ]      [b ]      [c         ]    [d   ]          [e]
+-----------------------------------------------------------------------------
+}
+ATTRIBUTES
+a=FORMONLY.n_seguro           TYPE CHAR,NOENTRY;
+b=FORMONLY.tipo_prestacion    TYPE SMALLINT,NOENTRY;
+c=FORMONLY.fecha_resolucion   TYPE DATE,FORMAT  ="dd/mm/yyyy",NOENTRY;
+d=FORMONLY.dias_transcurridos TYPE SMALLINT,NOENTRY;
+e=FORMONLY.seleccion          TYPE CHAR,UPSHIFT,
+COMMENTS= " TECLE UNA X PARA SELECCIONAR LOS REGISTROS A ELIMINAR";
+
+INSTRUCTIONS
+SCREEN RECORD scr_caducas[10] (FORMONLY.n_seguro thru FORMONLY.seleccion)

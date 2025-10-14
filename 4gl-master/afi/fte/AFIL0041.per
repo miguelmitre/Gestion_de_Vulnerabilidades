@@ -1,0 +1,29 @@
+
+
+DATABASE formonly
+SCREEN
+{
+                                                                          .
+
+
+
+
+                   Numero Seguro Social : [a          ]
+
+                   Numero de folio      : [c       ]
+
+                   Fecha de aceptacion  : [b          ]
+
+
+
+
+
+
+
+}
+ATTRIBUTES
+a=FORMONLY.segur TYPE CHAR, UPSHIFT,AUTONEXT;
+c=FORMONLY.folio TYPE CHAR, UPSHIFT,AUTONEXT;
+b=FORMONLY.fech TYPE DATE,FORMAT="DD/MM/YY",UPSHIFT ;
+INSTRUCTIONS
+DELIMITERS "  "

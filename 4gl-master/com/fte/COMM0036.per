@@ -1,0 +1,28 @@
+DATABASE safre_af
+SCREEN
+{
+   CODIGO                                              U.SUPER.             
+  [f000      ]    [f001                          ]    [f002      ]   [a   ]
+  [f000      ]    [f001                          ]    [f002      ]   [a   ]
+  [f000      ]    [f001                          ]    [f002      ]   [a   ]
+  [f000      ]    [f001                          ]    [f002      ]   [a   ]
+  [f000      ]    [f001                          ]    [f002      ]   [a   ]
+  [f000      ]    [f001                          ]    [f002      ]   [a   ]
+  [f000      ]    [f001                          ]    [f002      ]   [a   ]
+  [f000      ]    [f001                          ]    [f002      ]   [a   ]
+  [f000      ]    [f001                          ]    [f002      ]   [a   ]
+  [f000      ]    [f001                          ]    [f002      ]   [a   ]
+  [f000      ]    [f001                          ]    [f002      ]   [a   ]
+}
+END
+TABLES
+com_nivel1
+ATTRIBUTES
+f000 = com_nivel1.coduni_n1;
+f001 = com_nivel1.nombre_uni_n1,UPSHIFT;
+f002 = com_nivel1.uni_superior_n1;
+a    = FORMONLY.cont1 TYPE INTEGER;
+INSTRUCTIONS
+SCREEN RECORD scr_1[11](com_nivel1.coduni_n1 THRU com_nivel1.uni_superior_n1);
+SCREEN RECORD scr_2[11](com_nivel1.coduni_n1 THRU FORMONLY.cont1);
+DELIMITERS "  "

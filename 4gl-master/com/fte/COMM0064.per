@@ -1,0 +1,26 @@
+DATABASE FORMONLY
+SCREEN
+{
+------------------------------------------------------------------
+    FECHA        HORA      META NO.    META     META      CALIDAD
+                             AFI.     CALIDAD  SUMA SM    CUENTA
+
+ [a         ]  [b       ]  [c     ]  [d     ]  [e     ]  [f     ]
+ [a         ]  [b       ]  [c     ]  [d     ]  [e     ]  [f     ]
+ [a         ]  [b       ]  [c     ]  [d     ]  [e     ]  [f     ]
+ [a         ]  [b       ]  [c     ]  [d     ]  [e     ]  [f     ]
+ [a         ]  [b       ]  [c     ]  [d     ]  [e     ]  [f     ]
+
+
+}
+END
+ATTRIBUTES
+a = FORMONLY.vfecha_cambio    TYPE DATE,UPSHIFT;
+b = FORMONLY.vhora_cambio     TYPE CHAR,UPSHIFT;
+c = FORMONLY.vmeta_afi1;
+d = FORMONLY.vmeta_afi2;
+e = FORMONLY.vmeta_afi3;
+f = FORMONLY.vmeta_tra1;
+INSTRUCTIONS
+SCREEN RECORD scr_1[05](FORMONLY.vfecha_cambio THRU FORMONLY.vmeta_tra1);
+DELIMITERS "  "

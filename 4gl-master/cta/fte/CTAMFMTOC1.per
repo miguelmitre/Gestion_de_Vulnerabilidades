@@ -1,0 +1,29 @@
+DATABASE formonly
+SCREEN
+{
+                                                                        .
+
+
+
+
+    INDIQUE FECHA DE CORTE DE TRANSF.DECIMOS :[fc        ]
+
+
+
+
+    DESEA EJECUTAR EL PROCESO (S/N) : [a ]
+
+
+
+
+
+
+
+}
+ATTRIBUTES
+fc=formonly.g_fecha_corte  TYPE DATE, FORMAT="dd/mm/yyyy",
+   COMMENTS="Ej. 30/06/2005   o   31/12/2005";
+a=formonly.v_respuesta TYPE CHAR,UPSHIFT;
+INSTRUCTIONS
+DELIMITERS " "
+

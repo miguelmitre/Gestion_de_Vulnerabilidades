@@ -1,0 +1,34 @@
+database safre_af
+screen size 24 by 80
+{
+folio    [f000       ] fecha_recepcion [f001      ] consecutivo [f006       ]
+n_seguro [f007       ] reg_patronal_imss  [f017       ]
+
+ret [f022   ] soc   [f029   ] a_ces [f025   ] esp   [f031   ] a_esp [f034   ]
+ces [f024   ] est   [f030   ] vol   [f026   ] a_soc [f032   ]
+v97 [f028   ] a_ret [f023   ] compl [f027   ] a_est [f033   ]
+}
+end
+tables
+dis_det_aporte
+attributes
+f000 = dis_det_aporte.folio;
+f001 = dis_det_aporte.fecha_recepcion;
+f006 = dis_det_aporte.consec_reg_lote;
+f007 = dis_det_aporte.n_seguro;
+f017 = dis_det_aporte.reg_patronal_imss;
+
+f022 = dis_det_aporte.impt_ret;
+f023 = dis_det_aporte.impt_act_rec_ret;
+f024 = dis_det_aporte.impt_ces_vej;
+f025 = dis_det_aporte.impt_act_r_ces_vej;
+f026 = dis_det_aporte.impt_aport_vol;
+f027 = dis_det_aporte.impt_aport_compl;
+f028 = dis_det_aporte.impt_aport_pat;
+f029 = dis_det_aporte.impt_cuota_soc;
+f030 = dis_det_aporte.impt_aport_est;
+f031 = dis_det_aporte.impt_aport_esp;
+f032 = dis_det_aporte.impt_act_cuo_soc;
+f033 = dis_det_aporte.impt_act_aport_est;
+f034 = dis_det_aporte.impt_act_cuo_esp;
+end

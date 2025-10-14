@@ -1,0 +1,38 @@
+DATABASE safre_af
+SCREEN
+{
+
+--------------------------------------------------------------------------
+ 
+ 
+ NSS                  :[a          ]    
+ 
+ Consecutivo          :[c          ]
+ 
+ Folio                :[l      ]
+
+ Diagnostico          :[m          ]    
+
+ Nombre del archivo   :[n              ]
+
+
+
+}
+END
+TABLES
+ret_parcial_resp16
+ret_cza_resp16
+
+ATTRIBUTES
+a = ret_parcial_resp16.nss                                    ;
+l = ret_parcial_resp16.diag_procesar                          ;
+c = ret_parcial_resp16.consecutivo                            ;
+
+m = ret_cza_resp16.folio                                      ;
+n = ret_cza_resp16.nom_archivo           ,UPSHIFT             ;
+
+INSTRUCTIONS
+ SCREEN RECORD scr_1[1](ret_parcial_resp16.nss THRU ret_cza_resp16.nom_archivo); 
+ DELIMITERS " "
+END
+

@@ -1,0 +1,39 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g---------------------------------------------------------------------------\g
+                NRO. FOLIO INTERNO  : [m1       ]
+   
+ F.INTERNO   NSS          BAN.  NRO.CUENTA     NOMBRES
+[d1       ] [d3         ] [d4 ][d5           ][d6                           ]
+[d1       ] [d3         ] [d4 ][d5           ][d6                           ]
+[d1       ] [d3         ] [d4 ][d5           ][d6                           ]
+[d1       ] [d3         ] [d4 ][d5           ][d6                           ]
+[d1       ] [d3         ] [d4 ][d5           ][d6                           ]
+[d1       ] [d3         ] [d4 ][d5           ][d6                           ]
+------------------------------------------------------------------------------  
+   COD.  DESCRICION 
+   [s1 ] [s2                                                                ]
+   [s1 ] [s2                                                                ]
+   [s1 ] [s2                                                                ]
+
+
+
+}
+END
+ATTRIBUTES
+    m1 = FORMONLY.folio           TYPE INTEGER ;
+    d1 = FORMONLY.folio2              ;
+    d3 = FORMONLY.n_seguro       ,NOENTRY      ;
+    d4 = FORMONLY.cve_ced_cuenta ,NOENTRY      ;
+    d5 = FORMONLY.nro_ctrl_icefa ,NOENTRY      ;
+    d6 = FORMONLY.nombres        ,NOENTRY      ;
+    s1 = FORMONLY.cod_error                    ;
+    s2 = FORMONLY.des_error                    ;
+END
+INSTRUCTIONS
+    DELIMITERS " ";
+    SCREEN RECORD scr_1[6](folio2,n_seguro,cve_ced_cuenta,
+                           nro_ctrl_icefa,nombres);
+    SCREEN RECORD scr_2[3](cod_error,des_error);
+END

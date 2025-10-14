@@ -1,0 +1,65 @@
+DATABASE FORMONLY
+SCREEN
+{
+N.S.S.         [a          ] [b                                             ]
+Fecha Registro [c         ]Fecha Apertura [d         ] Actividad[am         ]
+Marca[mm                                              ]Fecha Marca[fm       ]
+                                |                   
+[ e|f  |g          |h          ]| Subcuenta[m                               ]
+[ e|f  |g          |h          ]| Fecha   Mov Sief     Monto $      Acciones 
+[ e|f  |g          |h          ]|[n       |o  |p |x|q          |y|r         ]
+[ e|f  |g          |h          ]|[n       |o  |p |x|q          |y|r         ]
+[ e|f  |g          |h          ]|[n       |o  |p |x|q          |y|r         ]
+[ e|f  |g          |h          ]|[n       |o  |p |x|q          |y|r         ]
+[ e|f  |g          |h          ]|[n       |o  |p |x|q          |y|r         ]
+[ e|f  |g          |h          ]|[n       |o  |p |x|q          |y|r         ]
+[ e|f  |g          |h          ]|[n       |o  |p |x|q          |y|r         ]
+[ e|f  |g          |h          ]|[n       |o  |p |x|q          |y|r         ]
+
+  SAR [i           |j          ]| Total Subcuenta [s           ][t          ]
+  VIV [k           |l          ]| [z|z|z|z|z|z|z|z]
+TOTAL [aa          |bb         ]| Precio Accion al Dia:  [u    ] [w         ]
+}
+ATTRIBUTES
+a=FORMONLY.n_seguro        TYPE CHAR;
+b=FORMONLY.nombre          TYPE CHAR,NOENTRY;
+c=FORMONLY.fec_1           TYPE DATE,FORMAT="dd-mm-yyyy",NOENTRY;
+d=FORMONLY.fec_2           TYPE DATE,FORMAT="dd-mm-yyyy",NOENTRY;
+
+mm=FORMONLY.marca          TYPE CHAR;
+fm=FORMONLY.fec_marca      TYPE DATE,FORMAT="dd-mm-yyyy",NOENTRY;
+am=FORMONLY.actividad      TYPE CHAR;
+
+e=FORMONLY.subct_cod       TYPE SMALLINT, NOENTRY;
+f=FORMONLY.subct_corta     TYPE CHAR, NOENTRY;
+g=FORMONLY.monto_pesos     TYPE DECIMAL, FORMAT= "-------&.&&", NOENTRY;
+h=FORMONLY.monto_acciones  TYPE DECIMAL, FORMAT= "-------&.&&", NOENTRY;
+
+i=FORMONLY.tmonto_pesos    TYPE DECIMAL, FORMAT= "--------&.&&", NOENTRY;
+j=FORMONLY.tmonto_acciones TYPE DECIMAL, FORMAT= "-------&.&&", NOENTRY;
+k=FORMONLY.tmonto_vivienda TYPE DECIMAL, FORMAT= "--------&.&&", NOENTRY;
+l=FORMONLY.tmonto_cero     TYPE DECIMAL, FORMAT= "-------&.&&", NOENTRY;
+aa=FORMONLY.tcuenta_pesos  TYPE DECIMAL, FORMAT ="--------&.&&", NOENTRY;
+bb=FORMONLY.tcuenta_accion TYPE DECIMAL, FORMAT ="-------&.&&", NOENTRY;
+
+m=FORMONLY.desc_larga      TYPE CHAR, UPSHIFT, NOENTRY;
+
+n=FORMONLY.f_pago          TYPE DATE,FORMAT="dd-mm-yy",NOENTRY;
+o=FORMONLY.tipo_mvto       TYPE INTEGER, NOENTRY;
+p=FORMONLY.siefore         TYPE SMALLINT, NOENTRY;
+q=FORMONLY.mto_pesos       TYPE DECIMAL, FORMAT = "-----&.&&", NOENTRY;
+r=FORMONLY.mto_accion      TYPE DECIMAL, FORMAT = "------&.&&", NOENTRY;
+x=FORMONLY.folio_sua       TYPE CHAR, INVISIBLE, NOENTRY;
+y=FORMONLY.folio           TYPE CHAR, INVISIBLE, NOENTRY;
+z=FORMONLY.consecutivo    TYPE INTEGER, INVISIBLE, NOENTRY;
+
+s=FORMONLY.ttmonto_pesos    TYPE DECIMAL, FORMAT = "------&.&&", NOENTRY;
+t=FORMONLY.ttmonto_acciones TYPE DECIMAL, FORMAT = "-------&.&&", NOENTRY;
+
+u=FORMONLY.vfecha_accion    TYPE DATE, FORMAT="dd-mm", NOENTRY;
+w=FORMONLY.vprecio_accion   TYPE DECIMAL, FORMAT = "##&.&&&&&&", NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](FORMONLY.subct_cod THRU FORMONLY.monto_acciones);
+SCREEN RECORD scr_2[8](FORMONLY.f_pago THRU FORMONLY.consecutivo);
+DELIMITERS "  "

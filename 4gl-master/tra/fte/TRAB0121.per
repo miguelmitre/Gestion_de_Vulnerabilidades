@@ -1,0 +1,21 @@
+database safre_af
+screen size 24 by 80
+{
+
+ COND.  DESCRIPCION
+ [a0 ] [f000                     ]           
+ [a0 ] [f000                     ]
+ [a0 ] [f000                     ]
+ [a0 ] [f000                     ]
+ [a0 ] [f000                     ]
+}
+end
+tables
+tra_st_doctos
+attributes
+a0 = tra_st_doctos.cod_cal;
+f000 = tra_st_doctos.desc_cal;
+end
+INSTRUCTIONS
+    SCREEN RECORD   sa_st_doctos[5]
+                   (tra_st_doctos.cod_cal,tra_st_doctos.desc_cal)

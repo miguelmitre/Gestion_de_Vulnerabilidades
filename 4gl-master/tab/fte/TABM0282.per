@@ -1,0 +1,24 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+           Codigo                       Descripcion
+\g----------------------------------------------------------------------------\g
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+        [a          ] [b                                                  ]     
+\g----------------------------------------------------------------------------\g
+}
+ATTRIBUTES
+a=FORMONLY.icefa_cod TYPE CHAR ;
+b=FORMONLY.icefa_desc TYPE CHAR;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](FORMONLY.icefa_cod,FORMONLY.icefa_desc);
+END

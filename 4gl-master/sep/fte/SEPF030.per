@@ -1,0 +1,46 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+
+
+------------------------------------------------------------------------------
+        Diag      Invadido      Asociado   Fm Infosar   TP         IdSol
+[a  ] [b ][c] [d          ] [e          ] [f         ] [g ] [h              ]
+[a  ] [b ][c] [d          ] [e          ] [f         ] [g ] [h              ]
+[a  ] [b ][c] [d          ] [e          ] [f         ] [g ] [h              ]
+[a  ] [b ][c] [d          ] [e          ] [f         ] [g ] [h              ]
+[a  ] [b ][c] [d          ] [e          ] [f         ] [g ] [h              ]
+[a  ] [b ][c] [d          ] [e          ] [f         ] [g ] [h              ]
+[a  ] [b ][c] [d          ] [e          ] [f         ] [g ] [h              ]
+[a  ] [b ][c] [d          ] [e          ] [f         ] [g ] [h              ]
+[a  ] [b ][c] [d          ] [e          ] [f         ] [g ] [h              ]
+[a  ] [b ][c] [d          ] [e          ] [f         ] [g ] [h              ]
+
+ [x1  ]Registros de [x2   ]en total
+}
+ATTRIBUTES
+
+a = FORMONLY.arc_1 TYPE INTEGER,NOENTRY;
+b = FORMONLY.diag_confrona TYPE CHAR, INCLUDE = ("01","02","03","04","05"),
+    COMMENTS = "Resultado del diagnostico de la confronta (01 al 05)";
+c = FORMONLY.clasifica_separacion TYPE CHAR,UPSHIFT,
+    INCLUDE = ("A","B","C","D",""),
+    COMMENTS = "Clasificacion procedente (A,B,C)";
+d = FORMONLY.n_seguro TYPE CHAR,NOENTRY,
+    COMMENTS = "Nss que se enuentra invadido";
+e = FORMONLY.nss TYPE CHAR,NOENTRY,
+    COMMENTS = "Nss asociado al invadido";
+f = FORMONLY.fecha_marca_infosar TYPE CHAR,NOENTRY,
+    COMMENTS = "Fecha en la que se marco el invadido en infosar";
+g = FORMONLY.traspaso_previo TYPE CHAR,NOENTRY,
+    COMMENTS = "01 Invadido proviene de un traspaso previo";
+h = FORMONLY.correlativo TYPE INTEGER ,NOENTRY,
+    COMMENTS = "Identificador de la Solicitud de Separacion";
+x1= FORMONLY.total_pa TYPE INTEGER,NOENTRY;
+x2= FORMONLY.tot_folio_ts TYPE INTEGER,NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](FORMONLY.arc_1 THRU FORMONLY.correlativo);
+DELIMITERS "[]"
+

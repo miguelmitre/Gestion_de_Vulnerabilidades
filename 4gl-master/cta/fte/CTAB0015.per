@@ -1,0 +1,27 @@
+DATABASE FORMONLY
+SCREEN
+{
+                               NSS : [a          ]
+
+------------------------------------------------------------------------------
+ Tipo de estado        Fecha de inicio         Fecha de fin 
+    cuenta                de periodo            de periodo
+
+     [b  ]               [c         ]          [d         ]
+     [b  ]               [c         ]          [d         ]
+     [b  ]               [c         ]          [d         ]
+     [b  ]               [c         ]          [d         ]
+     [b  ]               [c         ]          [d         ]
+     [b  ]               [c         ]          [d         ]
+
+}
+ATTRIBUTES
+a  =FORMONLY.nss             TYPE CHAR;
+b = FORMONLY.tipo_informe    TYPE SMALLINT;
+c  =FORMONLY.fecha_inicio    TYPE DATE,FORMAT="dd-mm-yyyy";
+d  =FORMONLY.fecha_fin       TYPE DATE,FORMAT="dd-mm-yyyy";
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[6] (FORMONLY.tipo_informe THRU FORMONLY.fecha_fin)
+DELIMITERS " "
+

@@ -1,0 +1,21 @@
+DATABASE FORMONLY
+SCREEN
+{
+---------------------------------------------------
+  CODIGO        DESCRIPCION              MARCA
+   [a ] [b                              ] [c]
+   [a ] [b                              ] [c]
+   [a ] [b                              ] [c]
+
+   Para marcar digite una X
+---------------------------------------------------
+}
+END
+ATTRIBUTES
+a = FORMONLY.codigo       TYPE CHAR                           ;
+b = FORMONLY.descripcion  TYPE CHAR,UPSHIFT                   ;
+c = FORMONLY.marcado      TYPE CHAR,UPSHIFT,AUTONEXT          ;
+INSTRUCTIONS
+SCREEN RECORD scr_1[3](FORMONLY.codigo THRU FORMONLY.marcado) ;
+DELIMITERS "  "
+

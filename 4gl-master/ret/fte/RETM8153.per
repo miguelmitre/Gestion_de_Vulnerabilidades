@@ -1,0 +1,16 @@
+DATABASE FORMONLY               
+SCREEN 
+{
+                                                       .
+  [a  ]  [b                                            ]
+  [a  ]  [b                                            ]
+  [a  ]  [b                                            ]
+}
+END
+ATTRIBUTES
+a = FORMONLY.tipo_retiro ;
+b = FORMONLY.desc_tipo_ret;
+END 
+INSTRUCTIONS
+SCREEN RECORD sa_tipo_ret[3](FORMONLY.tipo_retiro,FORMONLY.desc_tipo_ret)
+END 

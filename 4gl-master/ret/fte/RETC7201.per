@@ -1,0 +1,35 @@
+DATABASE FORMONLY
+SCREEN
+{              
+                                                                           .
+
+
+                           LIQUIDACION DE DERECHO OTORGADO                                        
+     
+                            Fecha :           [a01       ]                  
+
+                            Seleccionar         Folio           
+                               [x]           [a02        ]        
+                               [x]           [a02        ]        
+                               [x]           [a02        ]        
+ 
+
+
+
+
+
+}
+
+ATTRIBUTES
+    a01 = FORMONLY.fecha_conversion     TYPE DATE, FORMAT ="DD/MM/YYYY";
+    x   = FORMONLY.sel                  TYPE CHAR,
+            INCLUDE  = ("x") ,
+            COMMENTS = " INGRESE UNA x PARA MARCAR EL FOLIO, ESPACIO PARA DESMARCAR ";
+    a02 = FORMONLY.folio                TYPE INTEGER           ;
+
+INSTRUCTIONS
+    SCREEN RECORD scr_reg[3](FORMONLY.sel THRU FORMONLY.folio);
+    DELIMITERS " "
+END
+
+

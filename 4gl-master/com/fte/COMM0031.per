@@ -1,0 +1,36 @@
+DATABASE safre_af
+SCREEN
+{
+                                                                          .
+
+ CODIGO                                      U.SUPER. 
+[f000      ][f001                          ][f002      ][a   ][b   ][c   ]
+[f000      ][f001                          ][f002      ][a   ][b   ][c   ]
+[f000      ][f001                          ][f002      ][a   ][b   ][c   ]
+[f000      ][f001                          ][f002      ][a   ][b   ][c   ]
+[f000      ][f001                          ][f002      ][a   ][b   ][c   ]
+[f000      ][f001                          ][f002      ][a   ][b   ][c   ]
+[f000      ][f001                          ][f002      ][a   ][b   ][c   ]
+[f000      ][f001                          ][f002      ][a   ][b   ][c   ]
+[f000      ][f001                          ][f002      ][a   ][b   ][c   ]
+[f000      ][f001                          ][f002      ][a   ][b   ][c   ]
+[f000      ][f001                          ][f002      ][a   ][b   ][c   ]
+[f000      ][f001                          ][f002      ][a   ][b   ][c   ]
+[f000      ][f001                          ][f002      ][a   ][b   ][c   ]
+[f000      ][f001                          ][f002      ][a   ][b   ][c   ]
+[f000      ][f001                          ][f002      ][a   ][b   ][c   ]
+}
+END
+TABLES
+com_nivel4
+ATTRIBUTES
+f000 = com_nivel4.coduni_n4;
+f001 = com_nivel4.nombre_uni_n4,UPSHIFT;
+f002 = com_nivel4.uni_superior_n4;
+a    = FORMONLY.cont3 TYPE INTEGER;
+b    = FORMONLY.cont2 TYPE INTEGER;
+c    = FORMONLY.cont1 TYPE INTEGER;
+INSTRUCTIONS
+SCREEN RECORD scr_1[15](com_nivel4.coduni_n4 THRU com_nivel4.uni_superior_n4);
+SCREEN RECORD scr_2[15](com_nivel4.coduni_n4 THRU FORMONLY.cont1);
+DELIMITERS "  "

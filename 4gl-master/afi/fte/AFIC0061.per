@@ -1,0 +1,33 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+
+           Archivo : [a               ]   Folio : [b          ]                           
+---------------------------------------------------------------------------
+
+
+
+
+ 
+ 
+ 
+
+
+
+
+
+                         TOTAL DE NSS : [e        ]
+
+}
+ATTRIBUTES
+a = FORMONLY.nom_archivo TYPE CHAR;
+b = FORMONLY.vfolio      TYPE INTEGER;
+--c = FORMONLY.nss_sol   TYPE CHAR,UPSHIFT,NOENTRY;
+--d = FORMONLY.curp_sol  TYPE CHAR,UPSHIFT,NOENTRY;
+e = FORMONLY.nss_tot     TYPE INTEGER,NOENTRY;
+
+--INSTRUCTIONS
+--SCREEN RECORD scr_1[10](FORMONLY.nss_sol THRU FORMONLY.curp_sol);
+--DELIMITERS " "
+

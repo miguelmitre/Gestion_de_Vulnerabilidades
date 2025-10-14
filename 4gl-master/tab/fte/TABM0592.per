@@ -1,0 +1,28 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+    Codigo           Descripcion                                         Mov
+\g----------------------------------------------------------------------------\g
+  [b    ][c                                                             ][d ]
+  [b    ][c                                                             ][d ]
+  [b    ][c                                                             ][d ]
+  [b    ][c                                                             ][d ]
+  [b    ][c                                                             ][d ]
+  [b    ][c                                                             ][d ]
+  [b    ][c                                                             ][d ]
+  [b    ][c                                                             ][d ]
+  [b    ][c                                                             ][d ]
+  [b    ][c                                                             ][d ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_proceso
+ATTRIBUTES
+b=tab_proceso.proceso_cod;
+c=tab_proceso.descripcion;
+d=tab_proceso.movimiento;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_proceso.proceso_cod,
+                        tab_proceso.descripcion,
+                        tab_proceso.movimiento);

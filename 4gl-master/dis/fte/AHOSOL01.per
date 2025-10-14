@@ -1,0 +1,34 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+
+
+
+      NSS    : [a          ]   CURP : [b                 ]
+
+      NOMBRE : [c                                                 ]
+
+      Sueldo Basico al 2009         : [d         ]
+
+      Meses de Periodos a Dic. 2009 : [e    ]
+
+      Monto de AHORRO SOL.          : [f         ]
+
+      Folio de la Resolucion        : [g      ]
+
+      Fecha de la Resolucion        : [h         ]
+                                                                           .
+}
+ATTRIBUTES
+a = FORMONLY.nss  TYPE CHAR,REVERSE;
+b = FORMONLY.curp TYPE CHAR,UPSHIFT,REVERSE;
+c = FORMONLY.nombre TYPE CHAR, NOENTRY,REVERSE;
+d = FORMONLY.sdo_bas TYPE DEC(7,2),REVERSE;
+e = FORMONLY.meses09 TYPE SMALLINT,REVERSE;
+f = FORMONLY.mon_aho_sol TYPE DEC(10,2),REVERSE;
+g = FORMONLY.folio_resol TYPE INTEGER,REVERSE;
+h = FORMONLY.fecha_resol TYPE DATE,FORMAT = "dd-mm-yyyy",REVERSE, COMMENTS= "TECLEE LA FECHA RESOLUCION 'DD-MM-YYYY'";
+
+INSTRUCTIONS
+DELIMITERS "  "

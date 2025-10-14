@@ -1,0 +1,25 @@
+DATABASE safre_af 
+SCREEN 
+{
+
+\g----------------------------------------------------------------------------\g
+       Codigo ocupacion            Descripcion del ocupacion
+\g----------------------------------------------------------------------------\g
+         [a       ]         [b                                      ]
+         [a       ]         [b                                      ]
+         [a       ]         [b                                      ]
+         [a       ]         [b                                      ]
+         [a       ]         [b                                      ]
+         [a       ]         [b                                      ]
+         [a       ]         [b                                      ]
+\g----------------------------------------------------------------------------\g
+
+
+}
+TABLES
+tab_siefore_local 
+ATTRIBUTES
+a=tab_siefore_local.codigo_siefore;
+b=tab_siefore_local.razon_social;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[7](tab_siefore_local.codigo_siefore THRU tab_siefore_local.razon_social);

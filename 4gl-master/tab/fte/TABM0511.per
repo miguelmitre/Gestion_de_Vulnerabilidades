@@ -1,0 +1,30 @@
+DATABASE FORMONLY                                                        
+SCREEN                                                                   
+{                                                                        
+                 
+
+
+ [ des_lay       ]   [f02   ]
+ [ des_ley       ]   [f01   ]
+
+ [descrip    ] [f03                                                        ]
+               [f03                                                        ]
+               [f03                                                        ]
+               [f03                                                        ]
+               [f03                                                        ]
+               [f03                                                        ]
+               [f03                                                        ]
+               [f03                                                        ]
+               [f03                                                        ]
+
+
+}                                                                        
+ATTRIBUTES                                                               
+des_ley=formonly.d_ley;
+des_lay=formonly.d_lay;
+descrip=formonly.d_des;
+f01=FORMONLY.leyenda_cod TYPE SMALLINT ;                                   
+f02=FORMONLY.layout_cod TYPE SMALLINT ;                                   
+f03=FORMONLY.leyenda TYPE TEXT,wordwrap compress,program="vi", comments = "Presione ! para invocar editor."; 
+INSTRUCTIONS                                                             
+DELIMITERS " "

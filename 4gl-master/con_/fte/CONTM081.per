@@ -1,0 +1,31 @@
+DATABASE safre_af
+SCREEN
+{
+
+
+  Transaccion   |      Descripcion  Transaccion     | Debito/Credito  |  
+\g-----------------------------------------------------------------------\g
+  [a          ] | [b                               ]|       [c ]      | 
+  [a          ] | [b                               ]|       [c ]      | 
+  [a          ] | [b                               ]|       [c ]      | 
+  [a          ] | [b                               ]|       [c ]      | 
+  [a          ] | [b                               ]|       [c ]      | 
+  [a          ] | [b                               ]|       [c ]      | 
+  [a          ] | [b                               ]|       [c ]      | 
+  [a          ] | [b                               ]|       [c ]      | 
+  [a          ] | [b                               ]|       [c ]      | 
+  [a          ] | [b                               ]|       [c ]      | 
+  [a          ] | [b                               ]|       [c ]      | 
+  [a          ] | [b                               ]|       [c ]      | 
+\g-----------------------------------------------------------------------\g
+}              
+TABLES
+tab_transaccion
+ATTRIBUTES
+a=tab_transaccion.transa_cod;
+b=tab_transaccion.transa_desc;
+c=tab_transaccion.debito_credito;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[12](tab_transaccion.transa_cod, tab_transaccion.transa_desc,
+	               tab_transaccion.debito_credito);
+DELIMITERS " "

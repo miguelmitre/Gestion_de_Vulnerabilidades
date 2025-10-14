@@ -1,0 +1,29 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+                                                                           .
+
+
+              
+
+                         PERIODO A PROCESAR:
+
+                DEL [a            ] AL [b            ]
+
+
+
+
+
+
+
+
+}
+ATTRIBUTES
+a = FORMONLY.fecini TYPE DATE, FORMAT = "DD/MM/YYYY", REVERSE,
+  COMMENTS = "Fecha Inicial [DD/MM/YYYY]";
+b = FORMONLY.fecfin TYPE DATE, FORMAT = "DD/MM/YYYY", REVERSE,
+  COMMENTS = "Fecha Final [DD/MM/YYYY]";
+INSTRUCTIONS
+DELIMITERS "  "
+

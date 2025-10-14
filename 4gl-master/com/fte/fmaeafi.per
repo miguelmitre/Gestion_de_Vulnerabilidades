@@ -1,0 +1,34 @@
+database safre_af@safre_banc_shm
+screen size 24 by 80
+{
+n_seguro           [f000       ]
+fentcons           [f016      ]
+salario_base_comis [f045          ]
+salario_actual     [f046          ]
+codven             [f050      ]
+coduni_n1          [f048      ]
+agenc_cod          [f021      ]
+n_folio            [f007      ]
+cod_promotor       [f012      ]
+tipo_solicitud     [f032  ]
+cod_esq_comision   [f036  ]
+indicador_comision [f049  ]
+}
+end
+tables
+afi_mae_afiliado
+attributes
+f000 = afi_mae_afiliado.n_seguro;
+f016 = afi_mae_afiliado.fentcons;
+f045 = afi_mae_afiliado.salario_base_comis;
+f046 = afi_mae_afiliado.salario_actual;
+f050 = afi_mae_afiliado.codven;
+f048 = afi_mae_afiliado.coduni_n1;
+f021 = afi_mae_afiliado.agenc_cod;
+f007 = afi_mae_afiliado.n_folio;
+f012 = afi_mae_afiliado.cod_promotor;
+f032 = afi_mae_afiliado.tipo_solicitud;
+f036 = afi_mae_afiliado.cod_esq_comision;
+f049 = afi_mae_afiliado.indicador_comision;
+
+end

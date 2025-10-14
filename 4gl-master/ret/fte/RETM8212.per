@@ -1,0 +1,27 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                                          .
+
+
+
+
+        INGRESE EL NOMBRE DEL ARCHIVO A PROCESAR  : [a                 ]
+
+        FOLIO DE GENERACION DE ARCHIVO BANCOPPEL  : [b        ]
+
+
+
+
+
+
+
+
+}
+ATTRIBUTES
+    a = FORMONLY.nom_archivo, UPSHIFT;
+    b = FORMONLY.folio TYPE INTEGER ,
+    COMMENTS = " INGRESE EL FOLIO DE GENERACION DEL ARCHIVO BANCOPPEL ";
+
+INSTRUCTIONS
+    DELIMITERS "  "

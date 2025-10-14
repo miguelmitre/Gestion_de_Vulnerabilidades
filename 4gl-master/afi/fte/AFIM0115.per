@@ -1,0 +1,25 @@
+DATABASE FORMONLY
+SCREEN
+{
+--------------------------------------------------------------------------
+ MARCA DIAG     : [a   ] 
+ DESCRIPCION    : [b                                                     ]
+ PATERNO RENAPO : [p                                       ]
+ MATERNO RENAPO : [m                                       ]
+ NOMBRES RENAPO : [n                                       ]
+ F TRANSF LOTE  : [e         ] 
+---------------------------------------------------------------------------
+              < F3 > Avanza Pagina   < F4 > Retrocede Pagina        
+}
+END
+ATTRIBUTES
+a=FORMONLY.codigo TYPE INTEGER,NOENTRY;
+b=FORMONLY.descripcion TYPE CHAR,NOENTRY;
+p=FORMONLY.paterno TYPE CHAR, NOENTRY;
+m=FORMONLY.materno TYPE CHAR, NOENTRY;
+n=FORMONLY.nombres TYPE CHAR, NOENTRY;
+e=FORMONLY.fecha_rechazo TYPE DATE, FORMAT="DD/MM/YYYY",NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_1[1](FORMONLY.codigo THRU FORMONLY.fecha_rechazo);
+DELIMITERS "  "
+

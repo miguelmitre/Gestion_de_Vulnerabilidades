@@ -1,0 +1,33 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g_____________________________________________________________________________\g
+ Folio  [a       ]
+\g-----------------------------------------------------------------------------\g
+     NSS   Sub Sie.  Monto        Pesos       Pesos     Comision   Plusvalia
+           cta.     Acciones      Actual    Historicos
+\g-----------------------------------------------------------------------------\g
+[b          |c |i|d           |e          |f         |g          |h         ]
+[b          |c |i|d           |e          |f         |g          |h         ]
+[b          |c |i|d           |e          |f         |g          |h         ]
+[b          |c |i|d           |e          |f         |g          |h         ]
+[b          |c |i|d           |e          |f         |g          |h         ]
+[b          |c |i|d           |e          |f         |g          |h         ]
+[b          |c |i|d           |e          |f         |g          |h         ]
+\g-----------------------------------------------------------------------------\g
+}
+ATTRIBUTES
+a=FORMONLY.x_folio TYPE INTEGER;
+
+b=FORMONLY.nss TYPE CHAR;
+c=FORMONLY.subcuenta TYPE SMALLINT;
+i=FORMONLY.codigo_siefore TYPE SMALLINT;
+d=FORMONLY.monto_en_acciones TYPE DECIMAL;
+e=FORMONLY.monto_pesos_act TYPE DECIMAL;
+f=FORMONLY.monto_pesos_his TYPE DECIMAL;
+g=FORMONLY.monto_comision TYPE DECIMAL;
+h=FORMONLY.monto_plusvalia TYPE DECIMAL;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[7](FORMONLY.nss THRU FORMONLY.monto_plusvalia);
+DELIMITERS " " 

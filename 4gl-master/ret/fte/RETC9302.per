@@ -1,0 +1,69 @@
+DATABASE safre_af
+SCREEN
+{
+ 
+ CURP              :[a01               ]    Tipo movimiento  :[b01]          
+ Sec. de Pension   :[a2]                    Tipo de Retiro   :[c]           
+ Folio             :[a03        ]           Regimen          :[b2]          
+ NSS               :[a04        ]           Tipo Seguro      :[b3]          
+ Numero ISSSTE     :[a05        ]           Tipo Pension     :[b4]          
+ Nombre  Datamart  :[a06                 ]  Clave Pension    :[b05]         
+ Paterno Datamart  :[a07                 ]  Tipo Prestacion  :[b6]          
+ Materno Datamart  :[a08                 ]  Fecha Ini. Pen.  :[b07       ]  
+ Nombre  Afore     :[a09                 ]  Fecha Resolucion :[b08       ]  
+ Paterno Afore     :[a10                 ]  Semanas Cotizadas:[b09  ]       
+ Materno Afore     :[a11                 ]  Diag. Datamart   :[b10]         
+ Num de Consecion  :[a12      ]             Estado [v ][v_1              ] 
+ Delegacion        :[a13]                   Cargado via :[b11            ]
+___________________________________________________________________________
+ Fecha Datamart    :[c01       ]   Fecha Operacion :[c03       ]   
+ Fecha de Carga    :[c02       ]   Nombre Archivo  :[c04                  ] 
+}
+END
+
+TABLES
+    ret_datamart_issste
+    ret_cza_datamart
+
+ATTRIBUTES
+    a01 = ret_datamart_issste.curp                                   ;
+    a2  = ret_datamart_issste.sec_pension                            ;
+    a03 = ret_datamart_issste.folio                                  ;
+    a04 = ret_datamart_issste.nss                                    ;
+    a05 = ret_datamart_issste.nss_issste                             ;    
+    a06 = ret_datamart_issste.nombre_datamart                        ;
+    a07 = ret_datamart_issste.paterno_datamart                       ;
+    a08 = ret_datamart_issste.materno_datamart                       ;
+    a09 = ret_datamart_issste.nombre_afore                           ;
+    a10 = ret_datamart_issste.paterno_afore                          ; 
+    a11 = ret_datamart_issste.materno_afore                          ; 
+    a12 = ret_datamart_issste.num_concesion                          ;
+    a13 = ret_datamart_issste.delegacion                             ;
+    
+    b01 = ret_datamart_issste.tipo_movimiento                        ;
+    c   = ret_datamart_issste.tipo_retiro                            ;
+    b2  = ret_datamart_issste.regimen                                ;
+    b3  = ret_datamart_issste.tipo_seguro                            ;
+    b4  = ret_datamart_issste.tipo_pension                           ; 
+    b05 = ret_datamart_issste.cve_pension                            ; 
+    b6  = ret_datamart_issste.tipo_prestacion                        ;  
+    b07 = ret_datamart_issste.fecha_ini_pen    , FORMAT="DD/MM/YYYY" ;
+    b08 = ret_datamart_issste.fecha_resolucion , FORMAT="DD/MM/YYYY" ;
+    b09 = ret_datamart_issste.semanas_cotizadas                      ;
+    b10 = ret_datamart_issste.diag_datamart                          ;
+    b11 = FORMONLY.desc_cargado                                      ;
+    
+    v   = ret_cza_datamart.estado_lote                               ;
+    v_1 = FORMONLY.desc_estado                                       ;
+    
+    c01 =ret_cza_datamart.fecha_datamart , FORMAT="DD/MM/YYYY"       ; 
+    c02 =ret_cza_datamart.fecha_carga    , FORMAT="DD/MM/YYYY"       ;
+    c03 =ret_cza_datamart.fecha_proceso  , FORMAT="DD/MM/YYYY"       ;
+    c04 =ret_cza_datamart.nom_archivo                                ;
+
+
+
+INSTRUCTIONS
+    SCREEN RECORD scr1[1](ret_datamart_issste.curp THRU ret_cza_datamart.nom_archivo);
+    DELIMITERS " "
+END

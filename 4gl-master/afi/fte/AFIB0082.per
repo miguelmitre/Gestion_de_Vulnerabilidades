@@ -1,0 +1,20 @@
+DATABASE FORMONLY
+SCREEN
+{
+			     .
+ [a ][b                   ]
+ [a ][b                   ]
+ [a ][b                   ]
+ [a ][b                   ]
+ [a ][b                   ]
+ [a ][b                   ]
+
+Ingrese Opcion de Envio [c ] 
+}
+ATTRIBUTES
+a=FORMONLY.cod TYPE CHAR,NOENTRY;
+b=FORMONLY.desc TYPE CHAR,NOENTRY;
+c=FORMONLY.g_opcion TYPE CHAR,UPSHIFT;
+INSTRUCTIONS
+SCREEN RECORD scr_1[6](FORMONLY.cod,FORMONLY.desc);
+DELIMITERS "  "

@@ -1,0 +1,27 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------\g
+      COD POST  COD COL                 DESCRIPCION  
+\g----------------------------------------------------------------------\g
+      [i    ]   [j    ]   [k                                       ] 
+      [i    ]   [j    ]   [k                                       ] 
+      [i    ]   [j    ]   [k                                       ] 
+      [i    ]   [j    ]   [k                                       ] 
+      [i    ]   [j    ]   [k                                       ] 
+      [i    ]   [j    ]   [k                                       ] 
+      [i    ]   [j    ]   [k                                       ] 
+      [i    ]   [j    ]   [k                                       ] 
+      [i    ]   [j    ]   [k                                       ] 
+      [i    ]   [j    ]   [k                                       ] 
+}
+TABLES
+tab_colonia
+ATTRIBUTES
+i=tab_colonia.cpos_cod,picture='#####';
+j=tab_colonia.colon_cod;
+k=tab_colonia.colon_desc,UPSHIFT;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_colonia.cpos_cod THRU tab_colonia.colon_desc);
+
+

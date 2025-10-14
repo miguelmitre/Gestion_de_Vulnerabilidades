@@ -1,0 +1,71 @@
+DATABASE safre_af
+SCREEN
+{
+ CURP              :[a01               ]   Tipo de Retiro    :[c]          
+ Sec. de Pension   :[a2]                   Regimen           :[b1]         
+ Folio             :[a03  ]                Tipo Seguro       :[b2]          
+ NSS               :[a04        ]          Tipo Pension      :[b3]         
+ Numero ISSSTE     :[a05        ]          Clave Pension     :[b04]        
+ Nombre  Datamart  :[a06                 ] Tipo Prestacion   :[b5]         
+ Paterno Datamart  :[a07                 ] Fecha Ini. Pen.   :[b06       ] 
+ Materno Datamart  :[a08                 ] Fecha Resolucion  :[b07       ] 
+ Nombre  Afore     :[a09                 ] Semanas Cotizadas :[b08  ]      
+ Paterno Afore     :[a10                 ] Diag. Registro    :[b09]        
+ Materno Afore     :[a11                 ] Estado Sub. Viv.  :[d]
+ Num de Consecion  :[a12      ]       Monto Sol. ISSSTE :[b10            ]
+ Delegacion        :[a13]             Intereses Viv 08  :[b11            ]
+ Tipo movimiento   :[a14]                  Estado [v ][v_1               ]
+___________________________________________________________________________
+ Fecha Valor Trans :[c01       ]   Fecha Operacion :[c03       ]   
+ Fecha de Carga    :[c02       ]   Nombre Archivo  :[c04                  ] 
+}
+END
+
+TABLES
+    ret_trans_issste
+    ret_cza_lote
+
+ATTRIBUTES
+    a01 = ret_trans_issste.curp                                   ;
+    a2  = ret_trans_issste.sec_pension                            ;
+    a03 = ret_trans_issste.folio                                  ;
+    a04 = ret_trans_issste.nss                                    ;
+    a05 = ret_trans_issste.num_issste                             ;    
+    a06 = ret_trans_issste.nombre_datamart                        ;
+    a07 = ret_trans_issste.paterno_datamart                       ;
+    a08 = ret_trans_issste.materno_datamart                       ;
+    a09 = ret_trans_issste.nombre_afore                           ;
+    a10 = ret_trans_issste.paterno_afore                          ; 
+    a11 = ret_trans_issste.materno_afore                          ; 
+    a12 = ret_trans_issste.num_concesion                          ;
+    a13 = ret_trans_issste.delegacion                             ;
+    a14 = ret_trans_issste.tipo_movimiento                        ;
+
+    c   = ret_trans_issste.tipo_retiro                            ;
+    b1  = ret_trans_issste.regimen                                ;
+    b2  = ret_trans_issste.tipo_seguro                            ;
+    b3  = ret_trans_issste.tipo_pension                           ; 
+    b04 = ret_trans_issste.cve_pension                            ; 
+    b5  = ret_trans_issste.tipo_prestacion                        ;  
+    b06 = ret_trans_issste.fecha_ini_pen    , FORMAT="DD/MM/YYYY" ;
+    b07 = ret_trans_issste.fecha_resolucion , FORMAT="DD/MM/YYYY" ;
+    b08 = ret_trans_issste.semanas_cotizadas                      ;
+    b09 = ret_trans_issste.diag_registro                          ;
+    
+    b10 = FORMONLY.mto_solic_issste TYPE DECIMAL (8,2)            ;
+    d   = FORMONLY.estado_sub_viv TYPE SMALLINT                   ;
+    b11 = FORMONLY.acc_viv08_bdsviv TYPE DECIMAL (8,2)            ;
+   
+    
+    v   = ret_cza_lote.estado_lote                                ;
+    v_1 = FORMONLY.desc_estado                                    ;
+    
+    c01 =ret_cza_lote.fecha_valor_trans , FORMAT="DD/MM/YYYY"     ; 
+    c02 =ret_cza_lote.fecha_carga       , FORMAT="DD/MM/YYYY"     ;
+    c03 =ret_cza_lote.fecha_operacion   , FORMAT="DD/MM/YYYY"     ;
+    c04 =ret_cza_lote.nom_archivo                                 ;
+
+INSTRUCTIONS
+    SCREEN RECORD scr1[1](ret_trans_issste.curp THRU ret_cza_lote.nom_archivo);
+    DELIMITERS " "
+END

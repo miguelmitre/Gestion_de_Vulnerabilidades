@@ -1,0 +1,33 @@
+DATABASE safre_af
+SCREEN 
+{
+                                                                           .
+
+
+
+        Tasa origen             :  [a0 ]
+
+        Fecha de la tasa        :  [f000      ]
+
+        Valor de la tasa        :  [f001              ]
+
+        Fecha de actualizacion  :  [f002      ]
+
+        Usuario                 :  [f003      ]
+
+
+
+
+}
+END
+TABLES
+tab_tasa_remanente
+ATTRIBUTES
+a0 = tab_tasa_remanente.tasa_origen,COMMENTS = "La tasa origen es <VIV> o <RCV> ",UPSHIFT;
+f000 = tab_tasa_remanente.tasa_fecha,
+    COMMENTS="Siempre debe iniciarse con fecha del 1o. dia del mes siguiente ",
+   FORMAT = "dd-mm-yyyy";
+f001 = tab_tasa_remanente.tasa_valor;
+f002 = tab_tasa_remanente.fecha_actualiza,FORMAT = "dd-mm-yyyy",NOENTRY;
+f003 = tab_tasa_remanente.usuario,NOENTRY;
+END

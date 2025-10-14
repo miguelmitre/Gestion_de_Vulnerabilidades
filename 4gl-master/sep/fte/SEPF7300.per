@@ -1,0 +1,38 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+
+
+------------------------------------------------------------------------------
+ Id   Id Sol  Invadido     F.Sol       Estado Sol WS       Estado Sep
+------------------------------------------------------------------------------
+[a   ][c     ][d          ][f         ][g ][g1           ][h ][h1            ]
+[a   ][c     ][d          ][f         ][g ][g1           ][h ][h1            ]
+[a   ][c     ][d          ][f         ][g ][g1           ][h ][h1            ]
+[a   ][c     ][d          ][f         ][g ][g1           ][h ][h1            ]
+[a   ][c     ][d          ][f         ][g ][g1           ][h ][h1            ]
+[a   ][c     ][d          ][f         ][g ][g1           ][h ][h1            ]
+[a   ][c     ][d          ][f         ][g ][g1           ][h ][h1            ]
+[a   ][c     ][d          ][f         ][g ][g1           ][h ][h1            ]
+[a   ][c     ][d          ][f         ][g ][g1           ][h ][h1            ]
+
+[x1  ]Registros de [x2   ] en total
+
+}
+ATTRIBUTES
+a = FORMONLY.arc_1 TYPE INTEGER,NOENTRY;
+c = FORMONLY.idsolicitudseparacion TYPE INTEGER,NOENTRY;
+d = FORMONLY.nssInvadido TYPE CHAR,NOENTRY;
+f = FORMONLY.fechaalta TYPE DATE, FORMAT="DD-MM-YYYY",NOENTRY;
+--f = FORMONLY.fechaalta TYPE CHAR,NOENTRY;
+g = FORMONLY.estado_sol TYPE SMALLINT,NOENTRY;
+g1= FORMONLY.des_estado_sol TYPE CHAR,NOENTRY;
+h = FORMONLY.estado_sep TYPE SMALLINT,NOENTRY;
+h1= FORMONLY.des_estado_sep TYPE CHAR,NOENTRY;
+x1= FORMONLY.total_pa TYPE INTEGER,NOENTRY;
+x2= FORMONLY.tot_folio_ts TYPE INTEGER,NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[9](FORMONLY.arc_1 THRU FORMONLY.des_estado_sep);
+DELIMITERS "[]"

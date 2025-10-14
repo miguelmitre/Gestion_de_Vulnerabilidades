@@ -1,0 +1,25 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+            Codigo               Descripcion
+\g----------------------------------------------------------------------------\g
+           [a    ]     [b                                     ]
+           [a    ]     [b                                     ]
+           [a    ]     [b                                     ]
+           [a    ]     [b                                     ]
+           [a    ]     [b                                     ]
+           [a    ]     [b                                     ]
+           [a    ]     [b                                     ]
+           [a    ]     [b                                     ]
+           [a    ]     [b                                     ]
+           [a    ]     [b                                     ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_localidad
+ATTRIBUTES
+a=tab_localidad.local_cod;
+b=tab_localidad.local_desc;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_localidad.local_cod,tab_localidad.local_desc);

@@ -1,0 +1,71 @@
+DATABASE safre_af
+SCREEN
+{
+
+Agente Promotor      [za        ] [zb                                       ]  
+Clave Referente      [ref       ] [nef                                      ]
+Estructura Comercial [d         ] [eee                                      ]
+-----------------------------------------------------------------------------
+Tipo Reg. [v]                 Folio solic [zz      ] Fecha Firma [aaaa      ] 
+Folio estado cuenta [aa      ]  Afore cedente  [bb ] [cc                    ] 
+Fecha Emision [fec       ]  No. Operac  [h         ] Fecha Recep [dddd      ]
+		Nombre del Trabajador segun id. oficial      
+Apellido Paterno       [e                                       ] 
+Apellido Materno       [f                                       ]
+Nombres                [g                                       ] 
+
+N.S.S.  [a          ]  R.F.C.  [c            ] CURP      [b                 ] 
+Sexo [o][p     ] Edo Civil [rrr][rrrr        ] Fecha nacimiento  [j         ]
+Salario [jc                   ] Ind credito infonavit [u]
+Entidad Nacimiento [m ][n                    ] Pais [q  ][qqq               ]
+Tipo Documento Probatorio    Folio        Docto Probatorio   Cod error orig
+[r] [rrrrr                ] [s         ] [t               ]      [eo  ]
+}              
+TABLES 
+afi_solicitud
+pro_mae_promotor
+tab_doc_prob
+tab_agencia
+
+ATTRIBUTES
+
+za  = FORMONLY.cod_promotor TYPE CHAR;
+zb  = FORMONLY.nom_promotor TYPE CHAR, UPSHIFT, NOENTRY;
+ref = pro_mae_promotor.codven;
+nef = FORMONLY.desc_codven TYPE CHAR, UPSHIFT, NOENTRY;
+d   = FORMONLY.agenc_cod TYPE CHAR,NOENTRY;
+eee = tab_agencia.agenc_desc,NOENTRY;
+v   = FORMONLY.tipo_solicitud TYPE SMALLINT,COMMENTS="Registro: 1) Inicial, 2) Traspaso, 3) Unificacion, 4) Virtual";
+zz  = afi_solicitud.n_folio,FORMAT="&&&&&&&&";
+aaaa= FORMONLY.fecha_elaboracion TYPE DATE,FORMAT="dd-mm-yyyy";
+aa  = FORMONLY.folio_edo_cta TYPE CHAR,UPSHIFT,
+      COMMENTS="Folio Estado de Cuenta";   
+bb  = FORMONLY.cod_afore_ced TYPE SMALLINT,COMMENTS="Clave de la Afore";  
+cc  = FORMONLY.desc_afore TYPE CHAR,UPSHIFT,NOENTRY;          
+fec = FORMONLY.fecha_emision TYPE DATE, FORMAT="DD/MM/YYYY";
+h   = FORMONLY.n_operac TYPE INTEGER,NOENTRY;
+dddd= afi_solicitud.frecafor,FORMAT="dd-mm-yyyy";
+e   = afi_solicitud.paterno,UPSHIFT;
+f   = afi_solicitud.materno,UPSHIFT;
+g   = afi_solicitud.nombres,UPSHIFT;
+a   = afi_solicitud.n_seguro,UPSHIFT; 
+c   = afi_solicitud.n_rfc,UPSHIFT;
+b   = afi_solicitud.n_unico,UPSHIFT;
+o   = afi_solicitud.sexo;
+p   = FORMONLY.desc_sexo TYPE CHAR,UPSHIFT,NOENTRY;
+rrr = FORMONLY.edo_civil TYPE SMALLINT;
+rrrr= FORMONLY.desc_edo_civil TYPE CHAR,NOENTRY;
+j   = afi_solicitud.fena,FORMAT="dd-mm-yyyy";
+jc  = afi_solicitud.salario_base_comis;
+u   = afi_solicitud.ind_infonavit,UPSHIFT;
+m   = afi_solicitud.estadon;
+n   = FORMONLY.desc_estadon TYPE CHAR,UPSHIFT,NOENTRY;
+q   = afi_solicitud.nacionalidad,UPSHIFT;
+qqq = FORMONLY.desc_nacionalidad TYPE CHAR,NOENTRY;
+r   = afi_solicitud.tip_prob,UPSHIFT;
+rrrrr = tab_doc_prob.docprob_desc,NOENTRY;
+s   = FORMONLY.fol_prob TYPE CHAR; ---, FORMAT="&&&&&&&&&&";
+t   = afi_solicitud.doc_prob,UPSHIFT;
+eo  = FORMONLY.cod_error_orig TYPE SMALLINT, PICTURE="####";
+INSTRUCTIONS
+DELIMITERS "  "

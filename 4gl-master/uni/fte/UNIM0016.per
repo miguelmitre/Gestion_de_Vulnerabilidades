@@ -1,0 +1,30 @@
+DATABASE formonly
+SCREEN
+{
+[x|a          |b |c  |e                             |g  |f          |h |i  |y]
+[x|a          |b |c  |e                             |g  |f          |h |i  |y]
+[x|a          |b |c  |e                             |g  |f          |h |i  |y]
+[x|a          |b |c  |e                             |g  |f          |h |i  |y]
+[x|a          |b |c  |e                             |g  |f          |h |i  |y]
+[x|a          |b |c  |e                             |g  |f          |h |i  |y]
+[x|a          |b |c  |e                             |g  |f          |h |i  |y]
+[x|a          |b |c  |e                             |g  |f          |h |i  |y]
+[x|a          |b |c  |e                             |g  |f          |h |i  |y]
+
+}
+ATTRIBUTES
+x=FORMONLY.x              TYPE CHAR; 
+a=FORMONLY.nss            TYPE CHAR,NOENTRY;
+b=FORMONLY.tipo_ent       TYPE CHAR,NOENTRY;
+c=FORMONLY.cve_ent_nss    TYPE CHAR,NOENTRY;
+e=FORMONLY.nombre         TYPE CHAR,NOENTRY;
+g=FORMONLY.cve_afo_recep  TYPE CHAR,NOENTRY;
+f=FORMONLY.nss_cta1       TYPE CHAR,NOENTRY;
+h=FORMONLY.tipo_ent_cta1  TYPE CHAR,NOENTRY;
+i=FORMONLY.cve_ent_cta1   TYPE CHAR,NOENTRY;
+y=FORMONLY.y              TYPE CHAR; 
+INSTRUCTIONS 
+SCREEN RECORD scr_6  [9](nss THRU cve_ent_cta1)
+SCREEN RECORD scr_6a [9](x THRU cve_afo_recep)
+SCREEN RECORD scr_6b [9](nss_cta1 THRU y)
+DELIMITERS " "

@@ -1,0 +1,24 @@
+DATABASE FORMONLY
+SCREEN
+{
+NSS UNIFICADOR [a          ]
+------------------------------------------------------------
+
+[b ][c          ][e  ][d                                       ]
+[b ][c          ][e  ][d                                       ]
+[b ][c          ][e  ][d                                       ]
+[b ][c          ][e  ][d                                       ]
+[b ][c          ][e  ][d                                       ]
+}
+ATTRIBUTES
+a = FORMONLY.nss_prueba TYPE CHAR,REVERSE;
+b = FORMONLY.marca_cta1 TYPE CHAR,UPSHIFT,INCLUDE = ("01","02","04","05"),
+    COMMENTS = "Ingrese el diagnostico de la confronta";
+c = FORMONLY.nss_cta1 TYPE CHAR,NOENTRY;
+e = FORMONLY.cve_afo1 TYPE CHAR,NOENTRY;
+d = FORMONLY.nombre_cta1 TYPE CHAR,NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_2[5](FORMONLY.marca_cta1 THRU FORMONLY.nombre_cta1);
+DELIMITERS " "
+

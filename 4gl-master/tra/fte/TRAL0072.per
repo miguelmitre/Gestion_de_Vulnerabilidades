@@ -1,0 +1,32 @@
+DATABASE safre_af
+SCREEN
+{
+       BANCO          SAR 92       VIVIENDA 92     APORTACIONES 
+     ----------------------------------------------------------      .
+    [d1   ] [a1            ] [b1              ] [c1           ]
+    [d1   ] [a1            ] [b1              ] [c1           ]
+    [d1   ] [a1            ] [b1              ] [c1           ]
+    [d1   ] [a1            ] [b1              ] [c1           ]
+
+
+
+  TOTAL   : [e1            ] [f1              ] [g1           ]
+
+
+
+}
+TABLES
+tra_det_trasp_sal
+ATTRIBUTES
+d1=tra_det_trasp_sal.cve_ced_cuenta,NOENTRY;
+a1=tra_det_trasp_sal.saldo_sar_92,NOENTRY ;
+b1=tra_det_trasp_sal.saldo_viv_92,NOENTRY ;
+c1=FORMONLY.cuenta TYPE INTEGER,NOENTRY;
+e1=FORMONLY.sumsar92 TYPE DECIMAL(13,2);
+f1=FORMONLY.sumviv92 TYPE DECIMAL(13,2);
+g1=FORMONLY.cuenta1  TYPE INTEGER;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[4] (tra_det_trasp_sal.cve_ced_cuenta THRU FORMONLY.cuenta)
+SCREEN RECORD scr_2 (FORMONLY.sumsar92 THRU FORMONLY.cuenta1)
+DELIMITERS " "

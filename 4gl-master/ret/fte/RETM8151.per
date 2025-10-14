@@ -1,0 +1,72 @@
+DATABASE safre_af
+SCREEN
+{
+\g------------------------------------------------------------------------------\g
+  NSS         [a1         ]            Paterno   [a4                       ]
+  RFC         [a2           ]          Materno   [a5                       ]
+  CURP        [a3                 ]    Nombres   [a6                       ]
+
+  Tipo Retiro [b1][b2                    ]    Diag. Procesar    [b12]       
+  Tipo Prestacion [b3][b4                ]    Fecha Resolucion  [b13       ]
+  Regimen         [b5][b6                ]    Fecha Ini. Pension[b14       ]
+  Tipo Seguro     [b7][b8                ]    Porc. Valuacion   [b15   ]
+  Tipo Pension    [b9][b10               ]   %Ret97   %CV    %CS     %VIV   
+  Sec. de Pension [b11]                     [b16   ][b17   ][b18   ][b19   ]
+ 
+  Folio           [c1     ]        Consecutivo  [c6     ] 
+  Estado          [e] [e2         ]Diag. Afore  [c7 ][c8                    ]
+  Fecha Carga     [c2         ]    Arch. Carga  [c9                  ]
+  Fecha Prov.     [c3         ]    Usr. Prov.   [c10       ]             
+  Fecha Envio     [c4         ]    Usr. Envio   [c11       ]   Edo. Marca    
+  Fecha Liquida   [c5         ]    Usr. Liquida [c13       ][c14            ]
+}
+TABLES
+ret_transf_rx
+
+ATTRIBUTES
+
+a1=ret_transf_rx.nss                                         ;
+a2=FORMONLY.n_rfc                                            ;
+a3=ret_transf_rx.curp                                        ;
+a4=FORMONLY.paterno_afore                ,UPSHIFT            ;
+a5=FORMONLY.materno_afore                ,UPSHIFT            ;
+a6=FORMONLY.nombre_afore                 ,UPSHIFT            ;
+
+b1=FORMONLY.tipo_retiro TYPE CHAR        ,UPSHIFT            ;
+b2=FORMONLY.desc_tipo_ret                ,UPSHIFT,NOENTRY    ;
+b3=ret_transf_rx.tipo_prestacion                             ;
+b4=FORMONLY.desc_prestacion              ,UPSHIFT,NOENTRY    ;
+b5=ret_transf_rx.regimen                                     ;
+b6=FORMONLY.desc_regimen                 ,UPSHIFT,NOENTRY    ;
+b7=ret_transf_rx.tipo_seguro             ,UPSHIFT            ;
+b8=FORMONLY.desc_seguro                  ,UPSHIFT,NOENTRY    ;
+b9=ret_transf_rx.tipo_pension            ,UPSHIFT            ;
+b10=FORMONLY.desc_pension                 ,UPSHIFT,NOENTRY    ;
+b11=ret_transf_rx.sec_pension                                ;
+b12=FORMONLY.diag_procesar     TYPE SMALLINT                 ;
+b13=ret_transf_rx.fecha_resolucion       ,FORMAT="DD/MM/YYYY";
+b14=ret_transf_rx.fecha_ini_pen          ,FORMAT="DD/MM/YYYY";
+b15=ret_transf_rx.porcentaje_val                             ;
+b16=ret_transf_rx.porcentaje_ret97                           ;
+b17=ret_transf_rx.porcentaje_cv                              ;
+b18=ret_transf_rx.porcentaje_cs                              ;
+b19=ret_transf_rx.porcentaje_viv                             ;
+
+c1=FORMONLY.folio                                            ;
+c6=FORMONLY.consecutivo        TYPE DECIMAL(11,0)            ;
+e =FORMONLY.estado_solicitud   TYPE SMALLINT                 ;
+e2=FORMONLY.desc_estado                  ,UPSHIFT,NOENTRY    ;
+c7=FORMONLY.diag_afore         TYPE SMALLINT                 ;
+c8=FORMONLY.desc_diag_afore              ,UPSHIFT,NOENTRY    ;
+c2=FORMONLY.fecha_carga        TYPE DATE ,FORMAT="DD/MM/YYYY";
+c9=FORMONLY.nom_archivo                  ,UPSHIFT            ;
+c3=FORMONLY.fecha_provision    TYPE DATE ,FORMAT="DD/MM/YYYY";
+c10=FORMONLY.usr_provision                                   ;
+c4=FORMONLY.fecha_envio        TYPE DATE ,FORMAT="DD/MM/YYYY";
+c11=FORMONLY.usr_envio                                       ;
+c5=FORMONLY.fecha_liquida      TYPE DATE ,FORMAT="DD/MM/YYYY";
+c13=FORMONLY.usr_liquida                                     ;
+c14=FORMONLY.edo_marca                                       ;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[1](ret_transf_rx.nss THRU FORMONLY.edo_marca)

@@ -1,0 +1,35 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+                                                                             .
+
+
+ NUMERO    T.S.                  STATUS                  TOTAL
+
+[a     ] [c |d            |e  |f                    ][g         ]
+[a     ] [c |d            |e  |f                    ][g         ]
+[a     ] [c |d            |e  |f                    ][g         ]
+[a     ] [c |d            |e  |f                    ][g         ]
+[a     ] [c |d            |e  |f                    ][g         ]
+[a     ] [c |d            |e  |f                    ][g         ]
+[a     ] [c |d            |e  |f                    ][g         ]
+[a     ] [c |d            |e  |f                    ][g         ]
+[a     ] [c |d            |e  |f                    ][g         ]
+[a     ] [c |d            |e  |f                    ][g         ]
+
+
+
+}
+ATTRIBUTES
+a  = formonly.numero TYPE INTEGER;
+c  = formonly.tipo_solicitud TYPE SMALLINT;
+d  = formonly.desc_solicitud TYPE SMALLINT;
+e  = formonly.status_interno TYPE SMALLINT;
+f  = formonly.estado_desc TYPE INTEGER;
+g  = formonly.total TYPE INTEGER;
+
+INSTRUCTIONS
+  SCREEN RECORD scr_1[10](formonly.numero THRU formonly.total)
+DELIMITERS " "
+

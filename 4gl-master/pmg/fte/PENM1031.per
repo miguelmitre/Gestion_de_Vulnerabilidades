@@ -1,0 +1,31 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                                          .
+
+
+
+
+                               NSS   : [a          ]
+
+        Fecha de Inicio de Pension   : [b         ]
+
+
+
+
+
+
+
+
+}
+ATTRIBUTES
+    a =FORMONLY.nss TYPE INTEGER,
+                    COMMENTS=" INGRESE EL NSS A CONSULTAR";
+    
+    b = FORMONLY.fecha_ini_pen  
+                    TYPE DATE ,
+                    FORMAT      = "DD/MM/YYYY", 
+                    COMMENTS    = "INGRESE LA FECHA DE INICIO DE PENSION ('DD/MM/AAAA') ";  
+
+INSTRUCTIONS
+    DELIMITERS "  "

@@ -1,0 +1,29 @@
+DATABASE safre_af
+SCREEN
+{
+\g-----------------------------------------------------------------------------\g
+
+
+ 
+
+
+
+  CLAVE DE TIPO DE PRESTACION       [a0]
+
+
+  DESCRIPCION DE TIPO DE PRESTACION [f000                                    ]
+
+
+
+
+
+
+}
+TABLES
+tab_prestacion
+ATTRIBUTES
+a0   = tab_prestacion.tipo_prestacion;
+f000 = tab_prestacion.descripcion,UPSHIFT;
+INSTRUCTIONS
+DELIMITERS " "
+END

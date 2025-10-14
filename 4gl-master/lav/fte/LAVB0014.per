@@ -1,0 +1,39 @@
+DATABASE FORMONLY
+SCREEN
+{
+Tipo reporte [g]
+Nss          [a2         ]
+Periodo      [a3      ]
+
+Folio       NSS             Nombre       Ope. Fecha mov.   Monto     Val. Est
+-----------------------------------------------------------------------------
+[a      |b          |c                   |d |e         |f            |h  |i ]
+[a      |b          |c                   |d |e         |f            |h  |i ]
+[a      |b          |c                   |d |e         |f            |h  |i ]
+[a      |b          |c                   |d |e         |f            |h  |i ]
+[a      |b          |c                   |d |e         |f            |h  |i ]
+[a      |b          |c                   |d |e         |f            |h  |i ]
+[a      |b          |c                   |d |e         |f            |h  |i ]
+[a      |b          |c                   |d |e         |f            |h  |i ]
+-----------------------------------------------------------------------------
+}
+ATTRIBUTES
+g=FORMONLY.tipo_reporte     TYPE SMALLINT,COMMENTS = "Tipo reporte: <1> RELEVANTE  <2> INUSUAL  <3> PREOCUPANTE",
+                                          INCLUDE = (1,2,3);
+a2=FORMONLY.x_nss           TYPE CHAR;
+a3=FORMONLY.periodo_reporte TYPE CHAR,
+             COMMENTS = " Formato de periodo Relevante <AAAAMM> y para Inusual/Preocupante <AAAAMMDD> ";
+
+a=FORMONLY.folio            TYPE INTEGER;
+b=FORMONLY.nss              TYPE CHAR;
+c=FORMONLY.nombre           TYPE CHAR;
+d=FORMONLY.tipo_operacion   TYPE CHAR;
+e=FORMONLY.fecha_movimiento TYPE DATE,FORMAT= "DD/MM/YYYY";
+f=FORMONLY.monto_en_pesos   TYPE DECIMAL(16,6);
+h=FORMONLY.condicion_cod    TYPE SMALLINT;
+i=FORMONLY.estado           TYPE SMALLINT;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[8] (FORMONLY.folio THRU FORMONLY.estado)
+DELIMITERS " "
+

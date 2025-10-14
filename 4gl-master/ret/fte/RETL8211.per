@@ -1,0 +1,27 @@
+DATABASE safre_af
+SCREEN
+{
+                                                                         .
+
+
+
+
+
+                     FOLIO                : [f1        ]    
+                     FECHA DE PROVISION   : [f2        ]    
+
+
+
+
+
+
+
+
+}
+TABLES
+ret_transf_rx,dis_cuenta
+ATTRIBUTES
+f1=FORMONLY.folio;
+f2=FORMONLY.fecha_conversion TYPE DATE ,FORMAT ="DD-MM-YYYY";
+INSTRUCTIONS
+DELIMITERS " "

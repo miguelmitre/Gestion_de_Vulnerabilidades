@@ -1,0 +1,32 @@
+DATABASE safre_af
+SCREEN
+{
+\g____________________________________________________________________________\g
+   Marca      Marca       Codigo       Codigo       Fecha        Usuario
+  Entrante    Activa    Convivencia    Rechazo     Actualiza
+\g----------------------------------------------------------------------------\g
+  [a    ]    [b    ]    [c        ]   [d     ]   [e         ]  [f        ]
+  [a    ]    [b    ]    [c        ]   [d     ]   [e         ]  [f        ]
+  [a    ]    [b    ]    [c        ]   [d     ]   [e         ]  [f        ]
+  [a    ]    [b    ]    [c        ]   [d     ]   [e         ]  [f        ]
+  [a    ]    [b    ]    [c        ]   [d     ]   [e         ]  [f        ]
+  [a    ]    [b    ]    [c        ]   [d     ]   [e         ]  [f        ]
+  [a    ]    [b    ]    [c        ]   [d     ]   [e         ]  [f        ]
+  [a    ]    [b    ]    [c        ]   [d     ]   [e         ]  [f        ]
+  [a    ]    [b    ]    [c        ]   [d     ]   [e         ]  [f        ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+cta_convivencia
+ATTRIBUTES
+a=cta_convivencia.marca_entra;
+b=cta_convivencia.marca_activa;
+c=cta_convivencia.convive_cod;
+d=cta_convivencia.rechazo_cod;       
+e=cta_convivencia.fecha_actualiza;
+f=cta_convivencia.usuario;
+INSTRUCTIONS
+SCREEN RECORD scr_1[9](cta_convivencia.marca_entra,cta_convivencia.marca_activa,
+cta_convivencia.convive_cod,cta_convivencia.rechazo_cod,cta_convivencia.fecha_actualiza,cta_convivencia.usuario); 
+END
+

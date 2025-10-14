@@ -1,0 +1,34 @@
+DATABASE safre_af
+SCREEN
+{
+   Folio       Nss    T.S. Fec.Soli.  Salario     Estado   
+------------------------------------------------------------------------------
+ [i       |j          |k |l         |m         |p  |r                       ]
+ [i       |j          |k |l         |m         |p  |r                       ]
+ [i       |j          |k |l         |m         |p  |r                       ]
+ [i       |j          |k |l         |m         |p  |r                       ]
+ [i       |j          |k |l         |m         |p  |r                       ]
+ [i       |j          |k |l         |m         |p  |r                       ]
+
+  Registros Selecionados [s      ]               
+}
+TABLES
+afi_solicitud
+
+ATTRIBUTES
+
+i = afi_solicitud.n_folio;
+j = afi_solicitud.n_seguro;
+k = afi_solicitud.tipo_solicitud;
+l = afi_solicitud.frecafor,           FORMAT='DD-MM-YYYY';
+m = afi_solicitud.salario_base_comis, FORMAT='---,---.--';
+p = afi_solicitud.status_interno;
+r = FORMONLY.descripcion TYPE CHAR;
+s = FORMONLY.registros2 TYPE INTEGER,  FORMAT='-------';
+
+INSTRUCTIONS 
+
+SCREEN RECORD scr_0[6](afi_solicitud.n_folio THRU 
+		       FORMONLY.descripcion);
+SCREEN RECORD scr_1 (FORMONLY.registros2);
+DELIMITERS "  "

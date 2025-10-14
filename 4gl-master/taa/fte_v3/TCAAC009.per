@@ -1,0 +1,26 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g---------------------------------------------------------------------------\g
+                                    
+ FOLIO   TIPO_TRASPASO   ESTADO        PRESENTACION  ENVIA_SALDO  LIQUIDACION
+[a     ][b             ][d           ] [e         ] [f         ] [g         ]
+[a     ][b             ][d           ] [e         ] [f         ] [g         ]
+[a     ][b             ][d           ] [e         ] [f         ] [g         ]
+[a     ][b             ][d           ] [e         ] [f         ] [g         ]
+[a     ][b             ][d           ] [e         ] [f         ] [g         ]
+[a     ][b             ][d           ] [e         ] [f         ] [g         ]
+
+}
+END
+
+ATTRIBUTES
+a=FORMONLY.folio                 TYPE  INTEGER,NOENTRY;
+b=FORMONLY.tipo_traspaso         TYPE  CHAR,NOENTRY;
+d=FORMONLY.desc_estado           TYPE  CHAR,NOENTRY;
+e=FORMONLY.f_presentacion        TYPE  DATE,FORMAT="DD/MM/YYYY",NOENTRY;
+f=FORMONLY.f_envio_saldo         TYPE  DATE,FORMAT="DD/MM/YYYY";
+g=FORMONLY.f_liquidacion         TYPE  DATE,FORMAT="DD/MM/YYYY";
+INSTRUCTIONS 
+SCREEN RECORD   scr_1[6](FORMONLY.folio   THRU   FORMONLY.f_liquidacion)
+DELIMITERS "[]"

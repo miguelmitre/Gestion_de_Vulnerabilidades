@@ -1,0 +1,37 @@
+DATABASE safre_af
+SCREEN
+{
+                                                                          .
+
+     NSS AFORE    NSS ICEFA    RFC ICEFA      BAN S1  S2 FECHA MODIFICACION
+             NRO. CUENTA                                          USUARIO
+ [a][b          ][c          ][d            ][e ][f] [g][h                ]
+            [i                             ]                     [j       ]
+
+ [a][b          ][c          ][d            ][e ][f] [g][h                ]
+            [i                             ]                     [j       ]
+
+ [a][b          ][c          ][d            ][e ][f] [g][h                ]
+            [i                             ]                     [j       ]
+
+ [a][b          ][c          ][d            ][e ][f] [g][h                ]
+            [i                             ]                     [j       ]
+
+}
+tables
+    tra_aux_mae_icefa
+
+ATTRIBUTES
+a = FORMONLY.marca  TYPE CHAR, UPSHIFT;
+b = n_seguro      ;
+c = nss           ;
+d = rfc           ;
+e = icefa_cod     ;
+f = status_old    ;
+g = status_new    ;
+h = fecha_proceso ; 
+i = nro_int_cta   ;
+j = usuario       ;
+INSTRUCTIONS
+    SCREEN RECORD scr_1[4](FORMONLY.marca THRU usuario)
+DELIMITERS "  "

@@ -1,0 +1,82 @@
+DATABASE safre_af
+SCREEN
+{
+
+Tipo Reg. [v |v1                              ]      Folio solic [zz        ]
+
+Apellido Paterno [e                                       ] FECHA ACTIVACION
+Apellido Materno [f                                       ]   [fact      ]
+Nombres          [g                                       ]
+Fecha Nacimiento [j         ] Sexo [o|p         ]    CURP[b                 ]
+NSS  [a          ]   RFC  [c            ]  Ent Nac  [m ][n                  ]
+Nacionalidad [q  ][qqq             ]   Profesion [pc  ][pd                  ]
+Act[ac  |ad                 ] IndCred[u|di                   ] CveRendNeto[x]
+
+F Vig Rend [h         ] F Firma [aaaa      ]  F Rec [fsol      ]
+F Cap[dddd      ] Afo ced[bb |cc                  ] Tip Trab[tt|ttt         ]
+Tipo Documento Probatorio  Folio      Docto Probatorio Cod Err Orig Usuario
+[r] [rrrrr                |s         |t               ]   [eo  ]   [us      ]
+
+Agente Promotor      [za        ] [zb                                       ]
+Clave Referente      [ref       ] [nef                                      ]
+Estructura Comercial [d         ] [eee                                      ]
+}
+TABLES 
+afi_solicitud
+pro_mae_promotor
+tab_doc_prob
+tab_agencia
+afi_mae_afiliado
+tab_tipo_solic
+tab_profesion
+tab_actividad
+
+ATTRIBUTES
+
+v   = FORMONLY.tipo_solicitud TYPE SMALLINT;
+v1  = tab_tipo_solic.desc_solicitud,NOENTRY;
+zz  = afi_solicitud.n_folio,FORMAT="&&&&&&&&&&";
+e   = afi_solicitud.paterno,UPSHIFT;
+f   = afi_solicitud.materno,UPSHIFT;
+g   = afi_solicitud.nombres,UPSHIFT;
+j   = afi_solicitud.fena,FORMAT="dd/mm/yyyy";
+o   = afi_solicitud.sexo;
+p   = FORMONLY.desc_sexo TYPE CHAR,UPSHIFT,NOENTRY;
+b   = afi_solicitud.n_unico,UPSHIFT;
+a   = afi_solicitud.n_seguro,UPSHIFT; 
+c   = afi_solicitud.n_rfc,UPSHIFT;
+m   = afi_solicitud.estadon;
+n   = FORMONLY.desc_estadon TYPE CHAR,UPSHIFT,NOENTRY;
+q   = afi_solicitud.nacionalidad,UPSHIFT;
+qqq = FORMONLY.desc_nacionalidad TYPE CHAR,NOENTRY;
+pc  = tab_profesion.profesion_cod;
+pd  = tab_profesion.profesion_desc,UPSHIFT,NOENTRY;
+ac  = tab_actividad.actividad_cod;
+ad  = tab_actividad.actividad_desc,UPSHIFT,NOENTRY;
+u   = afi_solicitud.ind_infonavit,UPSHIFT,INCLUDE = ('0','1','2','3'), COMMENTS
+= '(0)Sin cred (1)Con cred INFONAVIT (2)Con cred 43 BIS (3)Con cred FOVISSSTE';
+di  = FORMONLY.desc_ind_info, NOENTRY;
+x   = FORMONLY.cve_rend_neto TYPE CHAR,COMMENTS = 'Codigo de la siefore ';
+h   = FORMONLY.fecha_emision TYPE DATE, FORMAT="DD/MM/YYYY";
+aaaa= FORMONLY.fecha_elaboracion TYPE DATE,FORMAT="dd/mm/yyyy",NOENTRY;
+fsol= FORMONLY.frecafor TYPE DATE, FORMAT = "dd/mm/yyyy",NOENTRY;
+dddd= FORMONLY.fecha_cap TYPE DATE, FORMAT="dd/mm/yyyy",NOENTRY;
+bb  = FORMONLY.cod_afore_ced TYPE SMALLINT,COMMENTS="Clave de la Afore";
+cc  = FORMONLY.desc_afore TYPE CHAR,UPSHIFT,NOENTRY;
+tt  = FORMONLY.tipo_trab_ind TYPE CHAR, NOENTRY;
+ttt = FORMONLY.desc_tipo_trab_ind TYPE CHAR, NOENTRY;
+r   = afi_solicitud.tip_prob,UPSHIFT;
+rrrrr = tab_doc_prob.docprob_desc,NOENTRY;
+s   = FORMONLY.fol_prob TYPE INTEGER, FORMAT="&&&&&&&&&&";
+t   = afi_solicitud.doc_prob,UPSHIFT;
+eo  = FORMONLY.cod_error_orig TYPE SMALLINT;  ---, PICTURE="####";
+us  = FORMONLY.usuario1, NOENTRY;
+za  = FORMONLY.cod_promotor TYPE CHAR;
+zb  = FORMONLY.nom_promotor TYPE CHAR, UPSHIFT, NOENTRY;
+ref = pro_mae_promotor.codven;
+nef = FORMONLY.desc_codven TYPE CHAR, UPSHIFT, NOENTRY;
+d   = FORMONLY.agenc_cod TYPE CHAR,NOENTRY;
+eee = tab_agencia.agenc_desc,NOENTRY;
+fact= FORMONLY.fecha_activ TYPE DATE, FORMAT="dd/mm/yyyy",NOENTRY;
+INSTRUCTIONS
+DELIMITERS "  "

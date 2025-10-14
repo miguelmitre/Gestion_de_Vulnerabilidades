@@ -1,0 +1,35 @@
+DATABASE safre_af
+SCREEN
+{
+\g____________________________________________________________________________\g
+
+
+
+  Marca Entrante      [a   ] [a1                                          ]
+
+
+  Marca Activa        [b   ] [b1                                          ]
+
+
+  Codigo Convivencia  [c   ] [c1                                          ]
+
+ 
+  Codigo Rechazo      [d   ] [d1                                          ]
+
+
+
+}
+TABLES
+cta_convivencia
+ATTRIBUTES
+a=cta_convivencia.marca_entra;
+a1=FORMONLY.vmarca_entra_desc  TYPE CHAR,NOENTRY,UPSHIFT;
+b=cta_convivencia.marca_activa;
+b1=FORMONLY.vmarca_activa_desc  TYPE CHAR,NOENTRY,UPSHIFT;
+c=cta_convivencia.convive_cod;
+c1=FORMONLY.vconvive_desc  TYPE CHAR,NOENTRY,UPSHIFT;
+d=cta_convivencia.rechazo_cod;
+d1=FORMONLY.vrechazo_desc  TYPE CHAR,NOENTRY,UPSHIFT;
+END
+
+

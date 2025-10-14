@@ -1,0 +1,33 @@
+DATABASE safre_af
+SCREEN 
+{
+                                                                           .
+
+
+        Tasa origen             :  [a0 ]
+
+
+        Fecha de la tasa        :  [f000      ]
+
+
+        Valor tasa ordinaria    :  [f001              ]
+
+
+        Valor tasa remanente    :  [f002              ]
+
+
+        Valor tasa aplicada     :  [f003              ]
+
+}
+END
+TABLES
+tab_tasa_ordinaria
+ATTRIBUTES
+a0 = tab_tasa_ordinaria.tasa_origen,COMMENTS = "La tasa origen es <VIV> o <RCV> o <FOV>",UPSHIFT;
+f000 = tab_tasa_ordinaria.tasa_fecha,
+    COMMENTS="Siempre debe iniciarse con fecha del 1o. dia del mes siguiente ",
+   FORMAT = "dd-mm-yyyy";
+f001 = tab_tasa_ordinaria.tasa_valor;
+f002 = FORMONLY.tasa_remanente;
+f003 = FORMONLY.tasa_valor2;
+END

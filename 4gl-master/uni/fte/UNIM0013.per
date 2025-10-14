@@ -1,0 +1,20 @@
+DATABASE formonly
+SCREEN
+{
+ [a          |b      |c      |d1|d  |e                               |g |f  ]
+ [a          |b      |c      |d1|d  |e                               |g |f  ]
+ [a          |b      |c      |d1|d  |e                               |g |f  ]
+   
+}
+ATTRIBUTES
+a=FORMONLY.nss_cta1       TYPE CHAR,NOENTRY;
+b=FORMONLY.folio          TYPE INTEGER,NOENTRY;
+c=FORMONLY.folio_liquida  TYPE INTEGER,NOENTRY;
+d1=FORMONLY.tipo_ent_cta1 TYPE CHAR,NOENTRY;
+d=FORMONLY.cve_ent_cta1   TYPE CHAR,NOENTRY;
+e=FORMONLY.nombre         TYPE CHAR,NOENTRY;
+g=FORMONLY.diag_unifica   TYPE CHAR,NOENTRY;
+f=FORMONLY.estado         TYPE SMALLINT;
+INSTRUCTIONS 
+SCREEN RECORD scr_3 [3](nss_cta1 THRU estado)
+DELIMITERS " "

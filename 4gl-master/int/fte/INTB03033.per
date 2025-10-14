@@ -1,0 +1,35 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+ FOLIO  :[aa        ]                                                  LIQ.
+       NSS         MONTO NETO                NOMBRE              TM AP SI/NO
+----------------------------------------------------------------------------
+[z|a           |b               |c                               |d |e |f  ]
+[z|a           |b               |c                               |d |e |f  ]
+[z|a           |b               |c                               |d |e |f  ]
+[z|a           |b               |c                               |d |e |f  ]
+[z|a           |b               |c                               |d |e |f  ]
+[z|a           |b               |c                               |d |e |f  ]
+[z|a           |b               |c                               |d |e |f  ]
+[z|a           |b               |c                               |d |e |f  ]
+----------------------------------------------------------------------------
+[g                                      ]
+
+}
+ATTRIBUTES
+aa = FORMONLY.v_folio TYPE INTEGER;
+
+z = FORMONLY.apunta TYPE CHAR, INVISIBLE, AUTONEXT;
+a = FORMONLY.nss        TYPE CHAR, NOENTRY;
+b = FORMONLY.monto_neto TYPE DECIMAL(16,6), FORMAT ="-------------.--", NOENTRY;
+c = FORMONLY.nombre     TYPE CHAR, NOENTRY;
+d = FORMONLY.tipo_movimiento TYPE CHAR, NOENTRY;
+e = FORMONLY.tipo_aportacion TYPE CHAR, NOENTRY;
+f = FORMONLY.liquidado  TYPE CHAR, NOENTRY;
+
+g = FORMONLY.desc_subcta TYPE CHAR, NOENTRY; 
+
+INSTRUCTIONS
+	SCREEN RECORD scr_liquida[8] ( FORMONLY.apunta THRU FORMONLY.liquidado )
+DELIMITERS " "

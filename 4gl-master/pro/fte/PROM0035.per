@@ -1,0 +1,49 @@
+DATABASE FORMONLY 
+SCREEN
+{
+Folio del Lote     [a         ]            Cod.Promotor      [g         ]    
+Fecha Recepcion    [b         ]            Nro.R.F.C.        [h            ]
+Fecha Autorizacion [c         ]    
+Apellido Paterno   [d                 ]
+Apellido Materno   [e                 ]
+Nombre             [f                                       ]  
+
+
+ Dif.  Estado de la solicitud [i ] [j                                     ]
+       Num.Solicitud     [k         ] 
+ [l]   Paterno           [m                                       ]             
+ [l1]  Materno           [n                                       ]
+ [l2]  Nombre            [o                                       ]   
+ [l3]  Nro.R.F.C.        [p            ]  
+       Cod.Promotor      [q         ]     Fecha Ingreso Afore  [s         ]  
+       Fecha Baja afore  [r         ]     Fecha Envio Consar   [t         ] 
+
+
+}            
+ATTRIBUTES
+a=FORMONLY.folio                                               ;
+b=FORMONLY.fecha_carga         TYPE DATE, FORMAT = "dd-mm-yyyy";
+c=FORMONLY.fecha_registro      TYPE DATE, FORMAT ="dd-mm-yyyy" ,NOENTRY;
+d=FORMONLY.paterno             ,UPSHIFT                        ,NOENTRY;
+e=FORMONLY.materno             ,UPSHIFT                        ,NOENTRY;
+f=FORMONLY.nombre              ,UPSHIFT                        ,NOENTRY;
+g=FORMONLY.cod_promotor                                        ,NOENTRY;
+h=FORMONLY.rfc                 ,UPSHIFT                        ,NOENTRY;
+i=FORMONLY.status_interno                                      ,NOENTRY;
+j=FORMONLY.desc_status_corta                                   ,NOENTRY; 
+k=FORMONLY.nro_solicitud                                       ,NOENTRY;
+l=FORMONLY.marca_paterno      ,UPSHIFT                        ,NOENTRY;
+l1=FORMONLY.marca_materno      ,UPSHIFT                        ,NOENTRY;
+l2=FORMONLY.marca_nombre        ,UPSHIFT                        ,NOENTRY;
+l3=FORMONLY.marca_rfc          ,UPSHIFT                        ,NOENTRY;
+m=FORMONLY.paterno_2           ,UPSHIFT                        ,NOENTRY;
+n=FORMONLY.materno_2           ,UPSHIFT                        ,NOENTRY;
+o=FORMONLY.nombre_2            ,UPSHIFT                        ,NOENTRY;
+p=FORMONLY.rfc_2               ,UPSHIFT                        ,NOENTRY;
+q=FORMONLY.cod_promotor_2                                      ,NOENTRY;
+r=FORMONLY.fecha_baja          TYPE DATE, FORMAT = "dd-mm-yyyy",NOENTRY;
+s=FORMONLY.fingre              TYPE DATE, FORMAT ="dd-mm-yyyy" ,NOENTRY;
+t=FORMONLY.fenvio              TYPE DATE, FORMAT ="dd-mm-yyyy" ,NOENTRY;
+INSTRUCTIONS
+DELIMITERS " "
+SCREEN RECORD scr_3[1](FORMONLY.folio THRU FORMONLY.fenvio);

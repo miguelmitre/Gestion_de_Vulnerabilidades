@@ -1,0 +1,23 @@
+DATABASE safre_af
+SCREEN
+{
+\g---------------------------------------------------------------------------\g
+           CODIGO                  DESCRIPCION                    
+\g---------------------------------------------------------------------------\g
+          [a    ]        [b                                       ] 
+          [a    ]        [b                                       ] 
+          [a    ]        [b                                       ] 
+          [a    ]        [b                                       ] 
+          [a    ]        [b                                       ] 
+          [a    ]        [b                                       ] 
+          [a    ]        [b                                       ] 
+          [a    ]        [b                                       ] 
+          [a    ]        [b                                       ] 
+}
+TABLES
+tab_percepcion
+ATTRIBUTES
+a=tab_percepcion.percep_cod;
+b=tab_percepcion.percep_desc;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[09](tab_percepcion.percep_cod THRU tab_percepcion.percep_desc);

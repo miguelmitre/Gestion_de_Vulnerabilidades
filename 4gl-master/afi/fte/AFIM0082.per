@@ -1,0 +1,21 @@
+DATABASE formonly
+SCREEN
+{
+   Tipo     Descripcion
+-------------------------------------------
+  [a  ]   [b                             ]
+  [a  ]   [b                             ]
+  [a  ]   [b                             ]
+  [a  ]   [b                             ]
+  [a  ]   [b                             ]
+  [a  ]   [b                             ]
+-------------------------------------------
+            < ENTER > Seleccinar
+}
+END
+ATTRIBUTES
+a=FORMONLY.tipo TYPE SMALLINT;
+b=FORMONLY.descripcion TYPE CHAR;
+INSTRUCTIONS
+SCREEN RECORD scr_solicitud[6](FORMONLY.tipo, FORMONLY.descripcion);
+DELIMITERS "  "

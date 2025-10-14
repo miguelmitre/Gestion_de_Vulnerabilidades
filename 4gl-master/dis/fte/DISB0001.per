@@ -1,0 +1,32 @@
+DATABASE FORMONLY
+
+SCREEN
+{
+
+
+
+
+
+  Nombre Archivo [a              ]   
+
+
+
+  Folio          [c         ]
+     
+  Fecha Proceso  [d         ]           Fecha Acreditacion [e         ]     .
+
+
+  
+  Subcuenta      [f ]                   Fecha Aplicacion   [g         ]
+
+  Tasa Interes   [i         ]        
+}
+ATTRIBUTES
+a = FORMONLY.nombre_archivo     TYPE CHAR;
+c = FORMONLY.folio              TYPE INTEGER;
+d = FORMONLY.fecha_proceso      TYPE DATE, FORMAT = "DD-MM-YYYY";
+e = FORMONLY.fecha_acreditacion TYPE DATE, FORMAT = "DD-MM-YYYY";
+f = FORMONLY.subcuenta          TYPE SMALLINT,INCLUDE=(1,4),
+                                COMMENTS="Solo puede ser subcuenta 1 o 4";
+g = FORMONLY.fecha_aplicacion   TYPE DATE, FORMAT = "DD-MM-YYYY";
+i = FORMONLY.tasa_interes       TYPE DECIMAL, FORMAT = "---.------";

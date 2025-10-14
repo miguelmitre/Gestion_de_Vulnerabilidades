@@ -1,0 +1,49 @@
+DATABASE formonly
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+
+
+  NSS     [a1         ]          Paterno   [a2                             ]
+                                 Materno   [a3                             ]
+                                 Nombres   [a4                             ]
+  DOMICILIO DEL TRABAJADOR
+
+  Calle   [r1                                      ]
+  Numero  [r2        ]   Numero Interno [r3        ]
+  Colonia [r4                                      ]
+  Estado  [r5][r6                         ] Codigo Postal [r7   ]
+
+  Descripcion del Rechazo     [s1                                          ]
+
+  Fecha Recepcion    [s2        ]
+  Fecha Proceso      [s6        ]
+  Estado             [s3][s4         ]
+  Usuario            [s5      ]
+}
+
+ATTRIBUTES
+a1=FORMONLY.nss            TYPE CHAR,UPSHIFT;
+a2=FORMONLY.paterno        TYPE CHAR,UPSHIFT, NOENTRY;
+a3=FORMONLY.materno        TYPE CHAR,UPSHIFT, NOENTRY;
+a4=FORMONLY.nombre         TYPE CHAR,UPSHIFT, NOENTRY;
+
+r1=FORMONLY.calle          TYPE CHAR,UPSHIFT,NOENTRY;
+r2=FORMONLY.numero         TYPE CHAR,UPSHIFT,NOENTRY;
+r3=FORMONLY.numero_int     TYPE CHAR,UPSHIFT,NOENTRY;
+r4=FORMONLY.colonia        TYPE CHAR,UPSHIFT,NOENTRY;
+r5=FORMONLY.estado         TYPE SMALLINT, NOENTRY;
+r6=FORMONLY.desc_estado    TYPE CHAR,UPSHIFT,NOENTRY;
+r7=FORMONLY.codigo_postal  TYPE CHAR,UPSHIFT,NOENTRY;
+
+s1=FORMONLY.desc_rechazo     TYPE CHAR,UPSHIFT,NOENTRY;
+s6=FORMONLY.fecha_solicitud  TYPE DATE, FORMAT="dd-mm-yyyy";
+s2=FORMONLY.fecha            TYPE DATE, FORMAT="dd-mm-yyyy";
+s3=FORMONLY.status           TYPE SMALLINT;
+s4=FORMONLY.desc_status      TYPE CHAR,UPSHIFT,NOENTRY;
+s5=FORMONLY.usuario          TYPE CHAR,     NOENTRY;
+
+
+INSTRUCTIONS 
+SCREEN RECORD scr_3 [1](FORMONLY.nss THRU FORMONLY.usuario)
+DELIMITERS " "

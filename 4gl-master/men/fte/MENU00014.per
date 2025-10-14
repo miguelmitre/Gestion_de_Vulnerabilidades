@@ -1,0 +1,26 @@
+DATABASE FORMONLY 
+SCREEN
+{
+
+    PERFIL:[a     ]      DESCRIPCION DEL PERFIL 
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ [b|c     ] [d                                                              ]
+ [b|c     ] [d                                                              ]
+ [b|c     ] [d                                                              ]
+ [b|c     ] [d                                                              ]
+ [b|c     ] [d                                                              ]
+ [b|c     ] [d                                                              ]
+ [b|c     ] [d                                                              ]
+ [b|c     ] [d                                                              ]
+ [b|c     ] [d                                                              ]
+ [b|c     ] [d                                                              ]
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+}
+ATTRIBUTES
+a   =FORMONLY.perfil_cons         TYPE  CHAR;
+b   =FORMONLY.cursor              TYPE  CHAR,INVISIBLE;
+c   =FORMONLY.perfil_cod          TYPE  CHAR,NOENTRY;
+d   =FORMONLY.perfil_desc         TYPE  CHAR,NOENTRY;
+INSTRUCTIONS
+SCREEN RECORD scr_perfil[10](FORMONLY.cursor   THRU  FORMONLY.perfil_desc);
+DELIMITERS "  "

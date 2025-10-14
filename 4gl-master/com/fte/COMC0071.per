@@ -1,0 +1,58 @@
+DATABASE safre_af
+SCREEN
+{
+------------------------------------------------------------------------------
+             Sucursal [b        ]                Fec corte [d         ] 
+                                                 
+                                                 
+                                                  
+------------------------------------------------------------------------------
+                                                                            
+ Fecha de corte:       [x         ] Num promo: [h         ]  Tipo promo:[y  ]
+ Nombre del promotor:  [j                                                   ]
+ Nomina del promotor:  [k         ]                                          
+ Sucursal:             [p         ]                                          
+ Fecha Alta Consar:    [n         ]            Mto comision:   [q           ]
+ Fecha Alta empresa:   [m         ]                Subtotal:    [r          ]
+ Fecha Baja Consar:    [o         ]              Reten. IVA:      [t        ]
+ Tipo recibo:          [i]                       Reten. ISR:      [s        ]
+                                              Pago comision:   [u           ]
+
+ Num reg:            [v    ]                  Tot pago comi:   [w           ] 
+}
+TABLES
+pro_mae_promotor
+com_comis_resumen
+
+ATTRIBUTES
+
+b = pro_mae_promotor.agenc_cod;
+d = com_comis_resumen.fecha_corte, FORMAT='DD-MM-YYYY';
+
+x = FORMONLY.fcorte TYPE DATE,FORMAT='DD-MM-YYYY';
+h = com_comis_resumen.codven;
+y = FORMONLY.vtipo_pro TYPE SMALLINT,FORMAT='---';
+i = FORMONLY.vmod_pago TYPE CHAR;
+j = FORMONLY.nombre TYPE CHAR;
+k = FORMONLY.Vcodven TYPE CHAR;
+m = pro_mae_promotor.fingre,FORMAT='DD-MM-YYYY';
+n = pro_mae_promotor.fecha_certifi,FORMAT='DD-MM-YYYY';
+o = pro_mae_promotor.fecha_baja,FORMAT='DD-MM-YYYY';
+p = FORMONLY.Vagenc_cod TYPE CHAR;
+q = com_comis_resumen.total_comision,FORMAT='-,---,---.--';
+r = FORMONLY.vsubtot TYPE DECIMAL(11,2),FORMAT='----,---.--';
+s = FORMONLY.vreten_isr TYPE DECIMAL(6,2),FORMAT='--,---.--';
+t = FORMONLY.vreten_iva TYPE DECIMAL(6,2),FORMAT='--,---.--';
+u = FORMONLY.vmto_pgo TYPE DECIMAL(11,2),FORMAT='-,---,---.--';
+
+v = FORMONLY.registros TYPE INTEGER, FORMAT='-----';
+w = FORMONLY.total  TYPE DECIMAL(12,2), FORMAT='-,---,---.--';
+
+INSTRUCTIONS 
+SCREEN RECORD scr_0   (pro_mae_promotor.agenc_cod THRU
+                       com_comis_resumen.fecha_corte);
+SCREEN RECORD scr_1[01](FORMONLY.fcorte THRU
+                       FORMONLY.vmto_pgo);
+SCREEN RECORD scr_3 (FORMONLY.registros THRU 
+                       FORMONLY.total);
+DELIMITERS "  "

@@ -1,0 +1,27 @@
+DATABASE safre_af 
+SCREEN 
+{
+\g---------------------------------------------------------------------------\g
+Cod.Edo Descripcion Estado Comision                         Desc. Corta
+\g---------------------------------------------------------------------------\g
+[a    ] [b                                                 ][c              ]
+[a    ] [b                                                 ][c              ]
+[a    ] [b                                                 ][c              ]
+[a    ] [b                                                 ][c              ]
+[a    ] [b                                                 ][c              ]
+[a    ] [b                                                 ][c              ]
+[a    ] [b                                                 ][c              ]
+[a    ] [b                                                 ][c              ]
+[a    ] [b                                                 ][c              ]
+\g---------------------------------------------------------------------------\g
+}
+TABLES
+tab_edo_comision
+ATTRIBUTES
+a= FORMONLY.codigo;
+b= FORMONLY.descripcion;
+c= FORMONLY.desc_corta;
+
+INSTRUCTIONS 
+SCREEN RECORD scr_1[9](codigo THRU descripcion,desc_corta);
+END

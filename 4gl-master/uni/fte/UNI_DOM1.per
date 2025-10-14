@@ -1,0 +1,84 @@
+DATABASE FORMONLY
+SCREEN 
+{
+ NSS  [a          ]            Paterno [d                                    ]
+ Folio[b          ]Tipo[y|z  ] Materno [e0                                   ]
+ CURP [c                 ]     Nombres [f                                    ]
+ R.F.C [x1                  ]  Edo/Cta [a1                                   ]
+ Fecha Ingreso  [g         ]           [af                                   ]
+ Fecha Certifica[h         ]   Estatus [i                                    ]
+
+ F Solicitud   [a99       ] Doc Probat   [e|f1               ] Sexo [k|l1    ]
+ F Envio       [b1        ] Folio Doc    [g1                 ] [o|p|q|r|s]
+ F Certifica   [c1        ] Numero Doc   [h1                 ] Infonavit   [m]
+ F Nacimiento  [d1        ] Lugar [i1   ][j1                 ] Pais [n1      ]
+ ____________________________________________________________[a16            ]
+ Calle[a01                                        ]Num[a02       ]-[a03      ]
+ Colonia [a04                                                                ]
+ Del/Mcpo[a06                                 ]C.P[a05  ]Dom[a14|a17         ]
+ Cd./Pobl[a08                                 ]Tel[a12                     |x]
+ Ent.Fed.[a10                                 ]Ext[a13  ]        [a09|a11|a15]
+
+}
+ATTRIBUTES
+a=FORMONLY.nss             TYPE CHAR;
+b=FORMONLY.folio           TYPE INTEGER;
+y=FORMONLY.tipo_solicitud  TYPE SMALLINT,INCLUDE=(0,1,2,5);
+z=FORMONLY.d_tiposolicitud TYPE CHAR,NOENTRY;
+c=FORMONLY.curp            TYPE CHAR,UPSHIFT;
+d=FORMONLY.paterno         TYPE CHAR,UPSHIFT;
+e0=FORMONLY.materno        TYPE CHAR,UPSHIFT;
+f=FORMONLY.nombres         TYPE CHAR,NOENTRY;
+g=FORMONLY.f_ingreso       TYPE DATE,FORMAT="DD-MM-YYYY";
+af=FORMONLY.desc_afore     TYPE CHAR,NOENTRY;
+h=FORMONLY.f_registro      TYPE DATE,FORMAT="DD-MM-YYYY";
+i=FORMONLY.status          TYPE CHAR,NOENTRY;
+x1=FORMONLY.rfc            TYPE CHAR,UPSHIFT;
+a1=FORMONLY.desc_marca     TYPE CHAR,UPSHIFT;
+
+a99 =FORMONLY.f_solicitud    TYPE DATE,FORMAT="DD-MM-YYYY",NOENTRY;
+b1 =FORMONLY.f_envio         TYPE DATE,FORMAT="DD-MM-YYYY",NOENTRY;
+c1 =FORMONLY.f_certifica     TYPE DATE,FORMAT="DD-MM-YYYY",NOENTRY;
+o  =FORMONLY.cod_promotor    TYPE CHAR,NOENTRY,INVISIBLE;
+p  =FORMONLY.nombre_pro      TYPE CHAR,NOENTRY,INVISIBLE;
+q  =FORMONLY.rechazo_cod     TYPE CHAR,NOENTRY,INVISIBLE;
+r  =FORMONLY.rechazo_desc    TYPE CHAR,NOENTRY,INVISIBLE;
+s  =FORMONLY.telefonop       TYPE CHAR,NOENTRY,INVISIBLE;
+
+k  =FORMONLY.sexo            TYPE CHAR,NOENTRY;
+l1 =FORMONLY.desc_sexo       TYPE CHAR,UPSHIFT,NOENTRY;
+d1 =FORMONLY.fena            TYPE DATE,FORMAT="DD-MM-YYYY",NOENTRY;
+i1 =FORMONLY.estadon         TYPE CHAR,NOENTRY;
+j1 =FORMONLY.desc_estadon    TYPE CHAR,UPSHIFT,NOENTRY;
+n1 =FORMONLY.nacionalidad    TYPE CHAR,UPSHIFT;
+
+e  =FORMONLY.tip_aprob       TYPE CHAR,NOENTRY;
+g1 =FORMONLY.fol_aprob       TYPE CHAR,NOENTRY;
+h1 =FORMONLY.doc_aprob       TYPE CHAR,NOENTRY;
+f1 =FORMONLY.docprob_desc    TYPE CHAR,NOENTRY;
+m  =FORMONLY.ind_infonavit   TYPE CHAR,UPSHIFT;
+
+
+
+a01=FORMONLY.calle           TYPE CHAR,NOENTRY;
+a02=FORMONLY.num_ext         TYPE CHAR,NOENTRY;
+a03=FORMONLY.num_int         TYPE CHAR,NOENTRY;
+a04=FORMONLY.colon_desc      TYPE CHAR,UPSHIFT,NOENTRY;
+a05=FORMONLY.codpos          TYPE CHAR,NOENTRY;
+a06=FORMONLY.deleg_desc      TYPE CHAR,UPSHIFT,NOENTRY;
+x=FORMONLY.deleg_cod         TYPE CHAR,NOENTRY,INVISIBLE;
+a08=FORMONLY.ciudad_desc     TYPE CHAR,UPSHIFT,NOENTRY;
+a09=FORMONLY.ciudad_cod      TYPE CHAR,NOENTRY,INVISIBLE;
+a10=FORMONLY.estad_desc      TYPE CHAR,UPSHIFT,NOENTRY;
+a11=FORMONLY.estad_cod       TYPE CHAR,NOENTRY,INVISIBLE;
+a12=FORMONLY.telefono        TYPE CHAR,NOENTRY;
+a13=FORMONLY.extension       TYPE CHAR,NOENTRY;
+a14=FORMONLY.tipo_dom        TYPE INTEGER,NOENTRY;
+a15=FORMONLY.marca_envio     TYPE CHAR,NOENTRY,INVISIBLE;
+a16=FORMONLY.marca_desc      TYPE CHAR,NOENTRY;
+a17=FORMONLY.dom_desc        TYPE CHAR,NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_afi[1](FORMONLY.f_solicitud THRU FORMONLY.ind_infonavit);
+SCREEN RECORD scr_dom[1](FORMONLY.calle THRU FORMONLY.dom_desc);
+DELIMITERS "  "

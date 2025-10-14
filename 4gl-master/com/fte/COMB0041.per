@@ -1,0 +1,32 @@
+DATABASE safre_af
+SCREEN
+{
+
+         								.
+
+
+
+             Codigo Promotor        [a         ]
+
+             Tipo Promotor          [b   ]
+
+    	     Fecha Afiliacion desde [c         ] hasta [d         ]
+
+
+
+
+
+
+}
+tables
+com_comis_resumen
+ATTRIBUTES
+a=com_comis_resumen.codven;
+b=com_comis_resumen.cod_tipo_prom,
+  COMMENTS="Crit.Busq.[ ] Todos Prom, XX:YY rango promo y XX|YY|ZZ Lista promo";
+c=FORMONLY.fecha_desde TYPE DATE,FORMAT="dd-mm-yyyy";
+d=FORMONLY.fecha_hasta TYPE DATE,FORMAT="dd-mm-yyyy";
+
+INSTRUCTIONS
+SCREEN RECORD scr_0 (com_comis_resumen.codven THRU FORMONLY.fecha_hasta)
+DELIMITERS "  "

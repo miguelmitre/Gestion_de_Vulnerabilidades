@@ -1,0 +1,33 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g_____________________________________________________________________________\g
+  Folio[f1    ]    Fecha pre-liquidacion[f2        ]
+\g-----------------------------------------------------------------------------\g
+ Total de registros      Monto a depositar    Participaciones a depositar
+			        RCV                   Vivienda
+                      
+\g-----------------------------------------------------------------------------\g
+     [a    ]       Siefore  1 [b1           ]     [b11              ]
+                   Siefore  2 [b2           ]
+                   Siefore  3 [b3           ]
+                   Siefore  4 [b4           ]
+                   Siefore  5 [b5           ]
+
+
+}
+ATTRIBUTES
+f1=FORMONLY.x_folio TYPE INTEGER;
+f2=FORMONLY.x_fecha TYPE DATE,FORMAT = "DD/MM/YYYY";
+
+a=FORMONLY.total_reg TYPE SMALLINT;
+b1  =FORMONLY.vmonto_sub_rcv   TYPE DECIMAL;
+b2  =FORMONLY.vmonto_sub_rcv2  TYPE DECIMAL;
+b3  =FORMONLY.vmonto_sub_rcv3  TYPE DECIMAL;
+b4  =FORMONLY.vmonto_sub_rcv4  TYPE DECIMAL;
+b5  =FORMONLY.vmonto_sub_rcv5  TYPE DECIMAL;
+b11 =FORMONLY.vmonto_sub_viv   TYPE DECIMAL;
+
+INSTRUCTIONS
+--SCREEN RECORD scr_1[6](dis_cuenta.folio THRU dis_cuenta.monto_en_acciones);
+DELIMITERS " "

@@ -1,0 +1,27 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+    Entidad    Codigo                     Descripcion
+\g----------------------------------------------------------------------------\g
+    [c    ]   [a    ]  [b                                              ]
+    [c    ]   [a    ]  [b                                              ]
+    [c    ]   [a    ]  [b                                              ]
+    [c    ]   [a    ]  [b                                              ]
+    [c    ]   [a    ]  [b                                              ]
+    [c    ]   [a    ]  [b                                              ]
+    [c    ]   [a    ]  [b                                              ]
+    [c    ]   [a    ]  [b                                              ]
+    [c    ]   [a    ]  [b                                              ]
+    [c    ]   [a    ]  [b                                              ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_ciudad
+ATTRIBUTES
+c=tab_ciudad.estad_cod;
+a=tab_ciudad.ciudad_cod;
+b=tab_ciudad.ciudad_desc;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_ciudad.estad_cod THRU tab_ciudad.ciudad_desc);
+--DELIMITERS " "

@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+            Codigo             Descripcion                
+\g----------------------------------------------------------------------------\g
+  [a     ]   [b                                                           ]
+  [a     ]   [b                                                           ]
+  [a     ]   [b                                                           ]
+  [a     ]   [b                                                           ]
+  [a     ]   [b                                                           ]
+  [a     ]   [b                                                           ]
+  [a     ]   [b                                                           ]
+  [a     ]   [b                                                           ]
+  [a     ]   [b                                                           ]
+  [a     ]   [b                                                           ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_causa_llamada
+ATTRIBUTES
+a=tab_causa_llamada.causa;
+b=tab_causa_llamada.descripcion,UPSHIFT;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_causa_llamada.causa,tab_causa_llamada.descripcion);
+

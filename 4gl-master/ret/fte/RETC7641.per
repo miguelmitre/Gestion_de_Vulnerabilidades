@@ -1,0 +1,39 @@
+DATABASE safre_af
+
+SCREEN
+{
+\g---------------------------------------------------------------------------g\
+
+  
+  NSS:  [c1         ]
+  
+  
+  Fecha de Identificacion: [c2        ] al [c3        ]
+
+
+  Tipo Origen: [c4] [c5                                        ]
+
+
+  Estado:      [c6 ] [c7                                        ]
+  
+  
+}
+END
+
+TABLES
+ret_solicitud_saldo
+ret_reinversion
+ret_tipo_origen_reinv
+ret_nivel_reinv
+
+ATTRIBUTES
+ c1 = ret_solicitud_saldo.nss,  COMMENTS = "INGRESA EL NSS A CONSULTAR";                                   
+ c2 = FORMONLY.fecha_registro   TYPE DATE, FORMAT="dd/mm/yyyy", COMMENTS = "INGRESA EL PERIODO DE IDENTIFICACION";
+ c3 = FORMONLY.fecha_registro1  TYPE DATE, FORMAT="dd/mm/yyyy", COMMENTS = "INGRESA EL PERIODO DE IDENTIFICACION";
+
+ 
+ c4 = ret_reinversion.id_tipo_origen_reinv, COMMENTS = "INGRESA O SELECCIONA EL TIPO DE ORIGEN <CONTROL-W> PARA AYUDA";
+ c5 = ret_tipo_origen_reinv.desc_origen_reinv;
+ c6 = ret_reinversion.estado_solicitud, COMMENTS = "INGRESA O SELECCIONA EL ESTADO <CONTROL-W> PARA AYUDA";        
+ c7 = ret_nivel_reinv.desc_nivel_reinv;
+END

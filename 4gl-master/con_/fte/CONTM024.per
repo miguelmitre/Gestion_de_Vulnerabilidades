@@ -1,0 +1,22 @@
+DATABASE safre_af
+SCREEN
+{
+   FOLIO  |  FECHA CONVERS.
+___________________________
+  [a    ] | [b          ]
+  [a    ] | [b          ]
+  [a    ] | [b          ]
+  [a    ] | [b          ]
+  [a    ] | [b          ]
+___________________________
+
+ Formato Fecha: MM/DD/AAAA
+}              
+TABLES
+con_his_archivo
+ATTRIBUTES
+a=con_his_archivo.folio;
+b=con_his_archivo.fecha_conversion;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[5](con_his_archivo.folio, con_his_archivo.fecha_conversion);
+DELIMITERS " "

@@ -1,0 +1,59 @@
+DATABASE safre_af
+SCREEN
+{
+------------------------------------------------------------------------------
+ Promotor   [a         ]                             Fecha Corte [c         ]
+ Tipo Prom  [d  ]          Gpo. Vta.  [e         ]
+ Nombre     [f                                                        ]
+
+
+------------------------------------------------------------------------------
+ Folio      Nss     TS Fec.cert Fec.cort  Salario   SMAS  Pgo   Adelanto  Edo
+------------------------------------------------------------------------------
+[i     |j          |k |l       |m       |n        |o     |p   |q         |mg ]
+[i     |j          |k |l       |m       |n        |o     |p   |q         |mg ]
+[i     |j          |k |l       |m       |n        |o     |p   |q         |mg ]
+[i     |j          |k |l       |m       |n        |o     |p   |q         |mg ]
+[i     |j          |k |l       |m       |n        |o     |p   |q         |mg ]
+[i     |j          |k |l       |m       |n        |o     |p   |q         |mg ]
+
+ Registros Selecionados [r      ]         Total Adelanto  [s             ] 
+
+}
+TABLES
+afi_mae_afiliado
+pro_mae_promotor
+com_comis_detalle
+
+ATTRIBUTES
+
+a = com_comis_detalle.codven;
+c = com_comis_detalle.fecha_corte, FORMAT='DD-MM-YYYY';
+
+d = com_comis_detalle.cod_tipo_prom;
+e = com_comis_detalle.coduni_n1;
+
+f = FORMONLY.vnombres;
+
+i = com_comis_detalle.n_folio;
+j = com_comis_detalle.nss;
+k = com_comis_detalle.tipo_solicitud;
+l = FORMONLY.vfentcons TYPE DATE,FORMAT='DD-MM-YY';
+m = FORMONLY.vfecha_corte TYPE DATE,FORMAT='DD-MM-YY';
+n = com_comis_detalle.salario_base_comis,FORMAT='--,---.--';
+o = com_comis_detalle.num_sm,FORMAT='---.--';
+p = com_comis_detalle.comis_pagada;
+q = com_comis_detalle.monto_comision,FORMAT='---,---.--';
+mg= FORMONLY.estado;
+r = FORMONLY.registros TYPE INTEGER, FORMAT='-------';
+s = FORMONLY.total  TYPE DECIMAL, FORMAT='---,---,---.--';
+
+INSTRUCTIONS 
+SCREEN RECORD scr_0   (com_comis_detalle.fecha_corte THRU 
+		       com_comis_detalle.codven);
+SCREEN RECORD scr_2   (FORMONLY.vnombres);
+
+SCREEN RECORD scr_1[6](com_comis_detalle.n_folio THRU 
+		       FORMONLY.estado);
+SCREEN RECORD scr_3 (FORMONLY.registros THRU FORMONLY.total);
+DELIMITERS "  "

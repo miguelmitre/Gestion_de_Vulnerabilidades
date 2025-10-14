@@ -1,0 +1,31 @@
+DATABASE FORMONLY
+SCREEN
+{
+----------------------------------------------------------------------------
+
+
+           Folio de consulta : [a       ]
+
+
+
+
+
+
+              [b     ]              [c     ]             [d     ] 
+
+
+
+
+
+
+
+}
+ATTRIBUTES
+a= FORMONLY.folio          TYPE INTEGER;
+b= FORMONLY.aceptados      TYPE SMALLINT,REVERSE;
+c= FORMONLY.rechazos       TYPE SMALLINT,REVERSE;
+d= FORMONLY.rechazos_safre TYPE SMALLINT,REVERSE;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[1](FORMONLY.aceptados THRU FORMONLY.rechazos_safre);
+DELIMITERS "  "

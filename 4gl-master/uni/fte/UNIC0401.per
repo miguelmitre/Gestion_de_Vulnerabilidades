@@ -1,0 +1,45 @@
+DATABASE safre_af
+SCREEN SIZE 24 by 80
+{
+------------------------------------------------------------------------------
+
+ Folio[    a0]  NSS unificado[a1         ]  NSS unificador[a2         ] 
+
+
+
+[b0         ][b1          ][b2                                 ][b3        ]
+[b0         ][b1          ][b2                                 ][b3        ]
+[b0         ][b1          ][b2                                 ][b3        ]
+[b0         ][b1          ][b2                                 ][b3        ]
+[b0         ][b1          ][b2                                 ][b3        ]
+[b0         ][b1          ][b2                                 ][b3        ]
+[b0         ][b1          ][b2                                 ][b3        ]
+[b0         ][b1          ][b2                                 ][b3        ]
+[b0         ][b1          ][b2                                 ][b3        ]
+[b0         ][b1          ][b2                                 ][b3        ]
+------------------------------------------------------------------------------
+                  [c      ]
+}
+TABLES
+uni_solicitud
+uni_unificado
+ATTRIBUTES
+a0 = FORMONLY.x_folio TYPE INTEGER; 
+a1 = FORMONLY.x_nss_cta1 TYPE CHAR; 
+a2 = FORMONLY.x_nss_uni TYPE CHAR;
+
+b0 = uni_solicitud.nss_cta1; 
+b1 = uni_solicitud.nss_uni;
+b2 = FORMONLY.nombre;      
+b3 = uni_solicitud.fecha_solicitud,FORMAT = "DD/MM/YYYY";
+
+c = FORMONLY.total TYPE SMALLINT;
+END 
+INSTRUCTIONS
+SCREEN RECORD scr_1[10](uni_solicitud.nss_cta1 THRU uni_solicitud.fecha_solicitud)
+DELIMITERS " "
+
+
+
+
+

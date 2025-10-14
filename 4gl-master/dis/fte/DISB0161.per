@@ -1,0 +1,29 @@
+DATABASE safre_af
+SCREEN
+{
+
+-----------------------------------------------------------------------
+  SIEF    MOV     SUB       MONTO EN PESOS      MONTO EN ACCIONES
+-----------------------------------------------------------------------
+ [a    ][b    ] [c   ] [d                    ] [e                    ]
+ [a    ][b    ] [c   ] [d                    ] [e                    ]
+ [a    ][b    ] [c   ] [d                    ] [e                    ]
+ [a    ][b    ] [c   ] [d                    ] [e                    ]
+ [a    ][b    ] [c   ] [d                    ] [e                    ]
+ [a    ][b    ] [c   ] [d                    ] [e                    ]
+ [a    ][b    ] [c   ] [d                    ] [e                    ]
+ [a    ][b    ] [c   ] [d                    ] [e                    ]
+}
+TABLES
+ dis_provision
+ATTRIBUTES
+a=dis_provision.siefore;
+b=dis_provision.tipo_movimiento;
+c=dis_provision.subcuenta;
+d=dis_provision.monto_en_pesos;
+e=dis_provision.monto_en_acciones;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[8]( dis_provision.siefore,
+                        dis_provision.tipo_movimiento,dis_provision.subcuenta,
+                        dis_provision.monto_en_pesos,
+                        dis_provision.monto_en_acciones)

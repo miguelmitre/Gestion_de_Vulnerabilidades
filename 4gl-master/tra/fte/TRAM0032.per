@@ -1,0 +1,23 @@
+DATABASE safre_af
+SCREEN
+{
+\g---------------------------------------------------------------\g
+              FECHA VALOR UDI            VALOR UDI   
+\g---------------------------------------------------------------\g
+
+                [a          ]            [b        ]
+                [a          ]            [b        ]
+                [a          ]            [b        ]
+                [a          ]            [b        ]
+                [a          ]            [b        ]
+
+}
+TABLES
+tra_cotiza_udi 
+
+ATTRIBUTES
+a=tra_cotiza_udi.fecha_valor_udi, FORMAT = "DD/MM/YYYY";
+b=tra_cotiza_udi.valor_udi, FORMAT = "--.------";
+INSTRUCTIONS 
+DELIMITERS " "
+SCREEN RECORD scr_1[5](tra_cotiza_udi.fecha_valor_udi, tra_cotiza_udi.valor_udi);

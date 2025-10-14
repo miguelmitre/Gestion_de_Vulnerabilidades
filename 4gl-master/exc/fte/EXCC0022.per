@@ -1,0 +1,29 @@
+DATABASE safre_af
+SCREEN
+{
+\g____________________________________________________________________________\g
+ Folio    NSS          Monto             Monto Cesantia     Monto      Tipo 
+                       Retiro            y Vejes           Vivienda   Rechazo
+\g-----------------------------------------------------------------------------\g
+[a      ][b          ][c               ][d            ][e             ][f  ]
+[a      ][b          ][c               ][d            ][e             ][f  ]
+[a      ][b          ][c               ][d            ][e             ][f  ]
+[a      ][b          ][c               ][d            ][e             ][f  ]
+[a      ][b          ][c               ][d            ][e             ][f  ]
+[a      ][b          ][c               ][d            ][e             ][f  ]
+[a      ][b          ][c               ][d            ][e             ][f  ]
+[a      ][b          ][c               ][d            ][e             ][f  ]
+[a      ][b          ][c               ][d            ][e             ][f  ]
+\g-----------------------------------------------------------------------------\g
+}
+TABLES
+exc_det_exceso
+ATTRIBUTES
+a=exc_det_exceso.folio;
+b=exc_det_exceso.nss;
+c=FORMONLY.monto_retiro;
+d=FORMONLY.monto_ces_vej;
+e=exc_det_exceso.monto_par_viv;
+f=exc_det_exceso.tipo_diagnostico;
+INSTRUCTIONS
+SCREEN RECORD scr_1[9](exc_det_exceso.folio THRU exc_det_exceso.tipo_diagnostico);

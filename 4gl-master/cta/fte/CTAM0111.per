@@ -1,0 +1,52 @@
+database FORMONLY
+screen 
+{
+\g-----------------------------------------------------------------------------\g
+       NSS:[e1         ]   CURP:[e2                ]   RFC:[e3           ]   
+    Nombre:[e4                                                           ]
+    F Cert:[e5        ] F Apert:[e6        ]         F Nac:[e7        ]
+    ------ < CTRL - P Impresion > --------------- < CTRL - B Saldos > ----
+     Opera   Fol Ref   TS Edo   Cod Op      Diagnostico        F Proceso  
+    [d1|d2 |d3        |d4|d5 |d6|d7     |d8 |d9               |d10       ]
+    [d1|d2 |d3        |d4|d5 |d6|d7     |d8 |d9               |d10       ]
+    [d1|d2 |d3        |d4|d5 |d6|d7     |d8 |d9               |d10       ]
+    [d1|d2 |d3        |d4|d5 |d6|d7     |d8 |d9               |d10       ] 
+    [d1|d2 |d3        |d4|d5 |d6|d7     |d8 |d9               |d10       ] 
+    [d1|d2 |d3        |d4|d5 |d6|d7     |d8 |d9               |d10       ] 
+    [d1|d2 |d3        |d4|d5 |d6|d7     |d8 |d9               |d10       ] 
+    [d1|d2 |d3        |d4|d5 |d6|d7     |d8 |d9               |d10       ] 
+    [d1|d2 |d3        |d4|d5 |d6|d7     |d8 |d9               |d10       ] 
+    [d1|d2 |d3        |d4|d5 |d6|d7     |d8 |d9               |d10       ] 
+\g-----------------------------------------------------------------------------\g
+    Edad:[s1 ] Regimen Edad:[s2] Regimen Actual:[s3]    Total Reg:[s4    ]
+}
+end
+attributes
+e1  = FORMONLY.nss TYPE CHAR;
+e2  = FORMONLY.curp TYPE CHAR;
+e3  = FORMONLY.rfc  TYPE CHAR, NOENTRY;
+e4  = FORMONLY.nombre TYPE CHAR, NOENTRY;
+e5  = FORMONLY.fecha_cert TYPE DATE, FORMAT = "DD/MM/YYYY", NOENTRY;
+e6  = FORMONLY.fecha_aper TYPE DATE, FORMAT = "DD/MM/YYYY", NOENTRY;
+e7  = FORMONLY.fecha_naci TYPE DATE, FORMAT = "DD/MM/YYYY", NOENTRY;
+
+d1  = FORMONLY.cve_op TYPE CHAR, NOENTRY;
+d2  = FORMONLY.desc_op TYPE CHAR, NOENTRY;
+d3  = FORMONLY.folio TYPE DECIMAL, NOENTRY;
+d4  = FORMONLY.tipo_solicitud TYPE SMALLINT, NOENTRY;
+d5  = FORMONLY.estado TYPE SMALLINT, NOENTRY;
+d6  = FORMONLY.cve_cod_op TYPE CHAR, NOENTRY;
+d7  = FORMONLY.desc_cod_op TYPE CHAR, NOENTRY;
+d8  = FORMONLY.cve_diag TYPE CHAR, NOENTRY;
+d9  = FORMONLY.desc_cve_diag TYPE CHAR, NOENTRY;
+d10 = FORMONLY.fecha_proc TYPE DATE, FORMAT = "DD/MM/YYYY", NOENTRY;
+
+s1  = FORMONLY.edad TYPE SMALLINT, NOENTRY;
+s2  = FORMONLY.reg_edad TYPE SMALLINT, NOENTRY;
+s3  = FORMONLY.reg_actual TYPE SMALLINT, NOENTRY;
+s4  = FORMONLY.total_arh TYPE INTEGER, FORMAT = "##,##&", NOENTRY;
+
+INSTRUCTIONS                                                       
+SCREEN RECORD scr_1[1](FORMONLY.nss THRU FORMONLY.fecha_naci, FORMONLY.edad THRU FORMONLY.reg_actual); 
+SCREEN RECORD scr_2[10](FORMONLY.cve_op THRU FORMONLY.fecha_proc); 
+DELIMITERS " "

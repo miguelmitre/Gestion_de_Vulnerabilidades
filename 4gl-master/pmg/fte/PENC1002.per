@@ -1,0 +1,47 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                                             .
+ Fecha Val RCV   [a01       ]          Precio Accion Sie  1 [a03       ]
+ Fecha Val Viv   [a02       ]          Precio Accion Sie 11 [a04       ]
+ Total Part Viv  [b01           ]      Total Acciones RCV   [b03           ]
+ Total Pesos Viv [b02           ]      Total Pesos RCV      [b04           ]
+                                                           
+    Sec                       Fecha de       #      id          Pago      
+  Contrato      NSS           pago est.     men     viv      Mensualidad  
+    [c]     [c01        ]   [c02       ]   [c03]   [c4]    [c05         ][x]
+    [c]     [c01        ]   [c02       ]   [c03]   [c4]    [c05         ][x]
+    [c]     [c01        ]   [c02       ]   [c03]   [c4]    [c05         ][x]
+    [c]     [c01        ]   [c02       ]   [c03]   [c4]    [c05         ][x]
+    [c]     [c01        ]   [c02       ]   [c03]   [c4]    [c05         ][x]
+    [c]     [c01        ]   [c02       ]   [c03]   [c4]    [c05         ][x]
+    [c]     [c01        ]   [c02       ]   [c03]   [c4]    [c05         ][x]
+    [c]     [c01        ]   [c02       ]   [c03]   [c4]    [c05         ][x]
+    [c]     [c01        ]   [c02       ]   [c03]   [c4]    [c05         ][x]
+}
+
+ATTRIBUTES
+
+    a01 = FORMONLY.fecha_rcv            TYPE DATE    , 
+            FORMAT   = "DD/MM/YYYY", NOENTRY ;
+    a02 = FORMONLY.fecha_viv            TYPE DATE    ,
+            FORMAT   = "DD/MM/YYYY", NOENTRY ;
+    a03 = FORMONLY.precio_sie1          TYPE DECIMAL , NOENTRY ;
+    a04 = FORMONLY.precio_sie11         TYPE DECIMAL , NOENTRY ;
+
+    b01 = FORMONLY.tot_acc_viv          TYPE DECIMAL , NOENTRY ;
+    b02 = FORMONLY.tot_pes_viv          TYPE DECIMAL , NOENTRY ;
+    b03 = FORMONLY.tot_acc_rcv          TYPE DECIMAL , NOENTRY ;    
+    b04 = FORMONLY.tot_pes_rcv          TYPE DECIMAL , NOENTRY ;        
+
+    c   = FORMONLY.sec_contrato         TYPE SMALLINT, NOENTRY ;
+    c01 = FORMONLY.nss                  TYPE CHAR    , NOENTRY ;
+    c02 = FORMONLY.fecha_pago_est       TYPE DATE    , NOENTRY ;
+    c03 = FORMONLY.num_mens             TYPE SMALLINT, NOENTRY ;
+    c4  = FORMONLY.id_viv               TYPE SMALLINT, NOENTRY ;
+    c05 = FORMONLY.total_pesos          TYPE DECIMAL(10,2),
+                                        FORMAT = "#####,##&.&&", NOENTRY ;
+    x   = FORMONLY.marca_ult_pago       TYPE CHAR    , NOENTRY;
+
+INSTRUCTIONS
+    SCREEN RECORD scr_montos[9](FORMONLY.sec_contrato THRU FORMONLY.marca_ult_pago);

@@ -1,0 +1,30 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+      < 1 > Tipo solicitud  : [a ]                                   .
+      < 2 > Numero de folio : [b         ] 
+      < 3 > Cod. Promotor   : [e          ] 
+      < 4 > Fecha solicitud : [f          ] 
+      < 5 > Fecha recepcion : [g          ] 
+      < 6 > N.S.S           : [c          ] 
+      < 7 > Usuario         : [d       ] 
+      < 8 > CURP            : [i                 ]
+      < 9 > Fecha captura   : [j         ]
+
+}
+END
+
+ATTRIBUTES
+a = FORMONLY.tipo_solicitud  TYPE SMALLINT,
+                             COMMENTS="1) Reg. 2) Trasp. 8) Indep.";
+b = FORMONLY.n_folio         TYPE DECIMAL  ;
+e = FORMONLY.cod_promotor    TYPE CHAR     ;
+f = FORMONLY.fecha_solicitud TYPE DATE, FORMAT = "DD-MM-YYYY" ;
+g = FORMONLY.fecha_recepcion TYPE DATE, FORMAT = "DD-MM-YYYY" ;
+c = FORMONLY.n_seguro        TYPE CHAR     ;
+d = FORMONLY.usuario         TYPE CHAR     ;
+i = FORMONLY.curp            TYPE CHAR, UPSHIFT ;
+j = FORMONLY.fecha_actualiza TYPE DATE, FORMAT = "DD-MM-YYYY" ;
+INSTRUCTIONS
+DELIMITERS " "

@@ -1,0 +1,35 @@
+DATABASE safre_af
+SCREEN
+{
+Grp de venta     Salario          Adelanto           Descuento
+------------------------------------------------------------------------------
+[i         |p              ][s             ]  [v             ]
+[i         |p              ][s             ]  [v             ]
+[i         |p              ][s             ]  [v             ]
+[i         |p              ][s             ]  [v             ]
+[i         |p              ][s             ]  [v             ]
+
+[t     ]                                      [d             ] 
+ Total de reg.                                  Tot Descuento
+                                                                          
+}
+TABLES
+com_comis_detalle
+
+ATTRIBUTES
+
+i = com_comis_detalle.codven;
+p = com_comis_detalle.salario_base_comis, FORMAT='----,---,---.--';
+s = FORMONLY.adelanto;
+v = com_comis_detalle.monto_comision,     FORMAT='---,---,---.--';
+
+t = FORMONLY.registros2 TYPE INTEGER,  FORMAT='------'; 
+d = FORMONLY.mto_comi TYPE DECIMAL,  FORMAT='---,---,---.--'; 
+
+INSTRUCTIONS 
+
+SCREEN RECORD scr_0[5](com_comis_detalle.codven THRU 
+		       com_comis_detalle.monto_comision);
+SCREEN RECORD scr_1 (FORMONLY.registros2 THRU
+                       FORMONLY.mto_comi);
+DELIMITERS "  "

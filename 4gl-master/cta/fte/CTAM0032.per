@@ -1,0 +1,32 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+   NSS      [a         ]
+   Nombres          [n                                  ]
+   Apellido Paterno [p                                  ]
+   Apellido Materno [m                                  ]
+
+   Calle [c                                             ] 
+   Numero Exterior[e        ]   Numero Interior[i       ]
+   Colonia   [o                               ]
+   Delegacion/Municipio[o1                              ]
+   Estado[s ][s1                  ] Codigo Postal [cp   ]
+	Fecha solicitud [f         ]
+}
+ATTRIBUTES
+a=FORMONLY.nss TYPE CHAR,NOENTRY;
+n=FORMONLY.nombre TYPE CHAR,UPSHIFT;
+p=FORMONLY.paterno TYPE CHAR,REQUIRED,UPSHIFT;
+m=FORMONLY.materno TYPE CHAR,REQUIRED,UPSHIFT;
+c=FORMONLY.calle TYPE CHAR,REQUIRED,UPSHIFT;
+e=FORMONLY.numero TYPE CHAR,REQUIRED,UPSHIFT;
+i=FORMONLY.numero_int TYPE CHAR,REQUIRED,UPSHIFT;
+o=FORMONLY.colonia TYPE CHAR,REQUIRED,UPSHIFT;
+o1=FORMONLY.delega TYPE CHAR,REQUIRED,UPSHIFT;
+--#c1=FORMONLY.ciudad TYPE INTEGER;
+--#c2=FORMONLY.desc_ciudad TYPE CHAR,NOENTRY;
+s=FORMONLY.estado TYPE SMALLINT,REQUIRED;
+s1=FORMONLY.desc_estado TYPE CHAR,NOENTRY;
+cp=FORMONLY.codigo_postal TYPE CHAR,REQUIRED,UPSHIFT;
+f=FORMONLY.fecha_solicitud  TYPE DATE,FORMAT="dd-mm-yyyy";

@@ -1,0 +1,41 @@
+DATABASE FORMONLY
+SCREEN
+{
+                          
+                                  SOLICITUD
+ Folio:[a         ]       NSS:[b          ]      CURP:[c                 ]
+ Nombre       :[d                                                        ]
+ Diagnostico  :[e ][f         ] [g ][h                ] F Env:[o         ]
+                                                                           
+                                  ASOCIADOS
+     NSS              CURP            Afore                 Diagnostico
+ [i          ][j                 ][k  ][l                ][m ][n         ]
+ [i          ][j                 ][k  ][l                ][m ][n         ]
+ [i          ][j                 ][k  ][l                ][m ][n         ]
+ [i          ][j                 ][k  ][l                ][m ][n         ]
+ [i          ][j                 ][k  ][l                ][m ][n         ]
+ [i          ][j                 ][k  ][l                ][m ][n         ]
+ [i          ][j                 ][k  ][l                ][m ][n         ]
+ [i          ][j                 ][k  ][l                ][m ][n         ]
+}
+ATTRIBUTES
+a = FORMONLY.vfolio           TYPE INTEGER;
+b = FORMONLY.vnss_sol         TYPE CHAR,UPSHIFT;
+c = FORMONLY.vcurp_sol        TYPE CHAR,UPSHIFT;
+d = FORMONLY.vnombre          TYPE CHAR,UPSHIFT,NOENTRY;
+e = FORMONLY.vdiag_aclara     TYPE CHAR,UPSHIFT,NOENTRY;
+f = FORMONLY.vdiag_desc       TYPE CHAR,UPSHIFT,NOENTRY;
+g = FORMONLY.vtipo_deposito   TYPE CHAR,UPSHIFT,NOENTRY;
+h = FORMONLY.vdesc_tipo_depos TYPE CHAR,UPSHIFT,NOENTRY;
+o = FORMONLY.vfecha_envio     TYPE DATE,NOENTRY;
+i = FORMONLY.nss_dup          TYPE CHAR,UPSHIFT,NOENTRY;
+j = FORMONLY.curp_dup         TYPE CHAR,UPSHIFT,NOENTRY;
+k = FORMONLY.cve_ent          TYPE CHAR,NOENTRY; 
+l = FORMONLY.desc_ent         TYPE CHAR,NOENTRY;
+m = FORMONLY.marca            TYPE CHAR, INCLUDE=("03","04", null,"  "), COMMENTS= "DIGITE 03 ACEPTADO o 04 RECHAZADO";
+n = FORMONLY.desc_marca       TYPE CHAR,NOENTRY;
+
+INSTRUCTIONS
+DELIMITERS "[]"
+SCREEN RECORD scr_0[1](FORMONLY.vfolio   THRU FORMONLY.vfecha_envio);
+SCREEN RECORD scr_1[8](FORMONLY.nss_dup  THRU FORMONLY.desc_marca);

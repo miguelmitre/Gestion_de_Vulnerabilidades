@@ -1,0 +1,32 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                                          .
+
+
+
+
+
+                                     FOLIO    : [a01      ]
+
+                NOMBRE DE ARCHIVO A PROCESAR  : [a02                ]
+
+
+
+
+
+
+
+}
+ATTRIBUTES
+
+    a01 = FORMONLY.folio_car_op70 TYPE INTEGER,
+            COMMENTS = " INGRESE NRO. DE FOLIO DE CARGA DE LA OPERACION 70" ;
+
+
+    a02 = FORMONLY.nom_archivo_car_op70,
+            COMMENTS = " INGRESE EL NOMBRE DEL ARCHIVO A PROCESAR ",
+            UPSHIFT ;
+
+INSTRUCTIONS
+    DELIMITERS "  "

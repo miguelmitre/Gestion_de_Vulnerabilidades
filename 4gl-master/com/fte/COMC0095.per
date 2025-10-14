@@ -1,0 +1,23 @@
+DATABASE safre_af
+SCREEN
+{
+ \g---------------------------------------------------------------------------\g
+ CODIGO:
+ [a  ]
+ DESCRIPCION:
+[b                                                                          ]
+}
+
+TABLES
+tab_edo_comision
+
+ATTRIBUTES
+
+a = tab_edo_comision.codigo;
+b = tab_edo_comision.descripcion;
+
+INSTRUCTIONS 
+
+SCREEN RECORD scr_9[1](tab_edo_comision.codigo THRU 
+		       tab_edo_comision.descripcion);
+DELIMITERS "  "

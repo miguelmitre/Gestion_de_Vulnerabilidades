@@ -1,0 +1,34 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+ FOLIO  :[aa        ]                          
+        NSS                NOMBRE           TM AP      MOTIVO RECHAZO
+----------------------------------------------------------------------------
+[z|a           |b                           |c|d|e                         ]
+[z|a           |b                           |c|d|e                         ]
+[z|a           |b                           |c|d|e                         ]
+[z|a           |b                           |c|d|e                         ]
+[z|a           |b                           |c|d|e                         ]
+[z|a           |b                           |c|d|e                         ]
+[z|a           |b                           |c|d|e                         ]
+[z|a           |b                           |c|d|e                         ]
+----------------------------------------------------------------------------
+[f                                      ]
+
+}
+ATTRIBUTES
+aa = FORMONLY.v_folio TYPE INTEGER;
+
+z = FORMONLY.apunta          TYPE CHAR, INVISIBLE, AUTONEXT;
+a = FORMONLY.nss             TYPE CHAR, NOENTRY;
+b = FORMONLY.nombre          TYPE CHAR, NOENTRY;
+c = FORMONLY.tipo_movimiento TYPE CHAR, NOENTRY;
+d = FORMONLY.tipo_aportacion TYPE CHAR, NOENTRY;
+e = FORMONLY.motivo          TYPE CHAR, NOENTRY;
+
+f = FORMONLY.desc_subcta TYPE CHAR, NOENTRY;
+
+INSTRUCTIONS
+	SCREEN RECORD scr_rechazo[8] ( FORMONLY.apunta THRU FORMONLY.motivo )
+DELIMITERS " "

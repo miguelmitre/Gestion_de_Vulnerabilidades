@@ -1,0 +1,42 @@
+DATABASE safre_af
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+  NSS            PATERNO              MATERNO            NOMBRE(S)
+[a1         ][a4                ][a5                ][a6                    ]
+[a1         ][a4                ][a5                ][a6                    ]
+[a1         ][a4                ][a5                ][a6                    ]
+[a1         ][a4                ][a5                ][a6                    ]
+[a1         ][a4                ][a5                ][a6                    ]
+[a1         ][a4                ][a5                ][a6                    ]
+[a1         ][a4                ][a5                ][a6                    ]
+[a1         ][a4                ][a5                ][a6                    ]
+[a1         ][a4                ][a5                ][a6                    ]
+[a1         ][a4                ][a5                ][a6                    ]
+[a1         ][a4                ][a5                ][a6                    ]
+[a1         ][a4                ][a5                ][a6                    ]
+[a1         ][a4                ][a5                ][a6                    ] 
+[a1         ][a4                ][a5                ][a6                    ]
+[a1         ][a4                ][a5                ][a6                    ]
+}
+
+TABLES
+   ret_solicitud_tx,
+   afi_mae_afiliado
+
+ATTRIBUTES
+
+   a1=ret_solicitud_tx.nss                                  ;
+   a4=afi_mae_afiliado.paterno       ,NOENTRY               ;
+   a5=afi_mae_afiliado.materno       ,NOENTRY               ;
+   a6=afi_mae_afiliado.nombres       ,NOENTRY               ;
+
+INSTRUCTIONS 
+
+   SCREEN RECORD scr [15]
+    (
+        ret_solicitud_tx.nss     ,
+        afi_mae_afiliado.paterno , 
+        afi_mae_afiliado.materno , 
+        afi_mae_afiliado.nombres 
+     )

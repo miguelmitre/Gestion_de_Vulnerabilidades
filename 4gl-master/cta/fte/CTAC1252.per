@@ -1,0 +1,36 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                                             .
+
+              TIPO DE SOLICITUD            TOT POR TS                   
+         [a ] [b                      ]   [c         ]
+         [a ] [b                      ]   [c         ]
+         [a ] [b                      ]   [c         ]    
+         [a ] [b                      ]   [c         ]
+         [a ] [b                      ]   [c         ]
+         [a ] [b                      ]   [c         ]
+         [a ] [b                      ]   [c         ]
+         [a ] [b                      ]   [c         ]
+         [a ] [b                      ]   [c         ]
+         [a ] [b                      ]   [c         ]
+         [a ] [b                      ]   [c         ]
+         [a ] [b                      ]   [c         ]
+         [a ] [b                      ]   [c         ]
+                                   TOTAL: [g         ]
+ CTAS REGISTRADAS: [d         ] Menos T.S. 8 NO AFILIADOS y 12-REG INTERNET    
+ CTAS ASIGNADAS  : [e         ] TOTAL CUENTAS   : [f         ] 
+}
+ATTRIBUTES
+a  = formonly.tipo_solicitud TYPE SMALLINT;
+b  = formonly.desc_solicitud TYPE SMALLINT;
+c  = formonly.total TYPE INTEGER;
+d  = formonly.cta_reg TYPE INTEGER;
+e  = formonly.cta_asi TYPE INTEGER;
+f  = formonly.tot_total TYPE INTEGER;
+g  = formonly.total_ts TYPE INTEGER;
+
+INSTRUCTIONS
+  SCREEN RECORD scr_1[13](formonly.tipo_solicitud THRU formonly.total)
+DELIMITERS " "
+

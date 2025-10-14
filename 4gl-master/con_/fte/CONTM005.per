@@ -1,0 +1,28 @@
+database safre_af
+screen size 24 by 80
+{
+___________________________________________________________________________
+
+
+
+         Transaccion A Contabilizar        :   [a ]
+
+
+
+
+         1.- Provision Aportaciones        :   Folio  [b         ]
+
+         2.- Liquidacion Aportaciones      :   Folio  [c         ] 
+
+
+
+
+}
+end
+tables
+tab_transaccion
+attributes
+a=FORMONLY.vtransacc TYPE CHAR, REQUIRED; 
+b=FORMONLY.vfolio1;
+c=FORMONLY.vfolio2;
+end

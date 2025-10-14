@@ -1,0 +1,47 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+
+  Tipo Estado de Cuenta:  [a] [b                                           ]
+
+  Impresion / Archivo  :  [c] [d                                           ]
+                                                                             .
+______________________________________________________________________________
+                                  
+  Periodo de Emision   :  [e         ] al [f         ]    Fecha [k         ]
+______________________________________________________________________________
+                                 |
+  N.S.S.       : [g          ]   |   Nombre Archivo Plano: [h              ]
+                                 |
+                                 |
+  Folio Inicial: [i          ]   |   NOTA: 
+                                 |   El archivo esta almacenado en la
+  Folio Final  : [j          ]   |   RUTA:                             
+______________________________________________________________________________
+}
+ATTRIBUTES
+a=FORMONLY.tipo_informe TYPE SMALLINT,
+                        COMMENTS = " [Enter] para ver lista de Tipos ";
+b=FORMONLY.informe_desc TYPE CHAR, NOENTRY;
+
+c=FORMONLY.tipo_salida  TYPE CHAR, UPSHIFT, INCLUDE = ("A","I"),
+                        COMMENTS = " I = Impresion    A = Archivo ";
+d=FORMONLY.salida_desc  TYPE CHAR, NOENTRY;
+
+e=FORMONLY.fecha_ini    TYPE DATE, FORMAT="DD/MM/YYYY",
+                        COMMENTS = "Fecha Inicial del Estado de Cuenta";
+f=FORMONLY.fecha_top    TYPE DATE, FORMAT="DD/MM/YYYY",
+                        COMMENTS = "Fecha Final del Estado de Cuenta";
+k=FORMONLY.fecha_sol    TYPE DATE, FORMAT="DD/MM/YYYY",
+                        COMMENTS = "Fecha de solicitud del Estado de Cuenta";
+
+g=FORMONLY.nss          TYPE CHAR, 
+                        COMMENTS = "Lista de NSS, [Esc] para confirmar";
+h=FORMONLY.archivo      TYPE CHAR, 
+                        COMMENTS = "Nombre del archivo con Lista de N.S.S.";
+i=FORMONLY.folio_ini    TYPE INTEGER,
+                        COMMENTS = "Folio Inicial del Estado de Cuenta";
+j=FORMONLY.folio_top    TYPE INTEGER,
+                        COMMENTS = "Folio Final del Estado de Cuenta";
+

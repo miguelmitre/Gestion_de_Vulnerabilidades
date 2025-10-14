@@ -1,0 +1,39 @@
+DATABASE safre_af
+SCREEN
+{
+ Folio      Nss     T.S. Fec.Cert. Fec.corte    Salario   Num sm  Mto comi Edo
+------------------------------------------------------------------------------
+[i       |j          |k |l         |m         |p        |r    |s         |v  ]
+[i       |j          |k |l         |m         |p        |r    |s         |v  ]
+[i       |j          |k |l         |m         |p        |r    |s         |v  ]
+[i       |j          |k |l         |m         |p        |r    |s         |v  ]
+[i       |j          |k |l         |m         |p        |r    |s         |v  ]
+[i       |j          |k |l         |m         |p        |r    |s         |v  ]
+
+  Registros Seleccionados: [t      ]             Total monto: [u         ] 
+}
+TABLES
+com_comis_detalle
+
+ATTRIBUTES
+
+i = com_comis_detalle.n_folio;
+j = com_comis_detalle.nss;
+k = com_comis_detalle.tipo_solicitud;
+l = com_comis_detalle.fentcons,           FORMAT='DD-MM-YYYY';
+m = com_comis_detalle.fecha_corte,        FORMAT='DD-MM-YYYY';
+p = com_comis_detalle.salario_base_comis, FORMAT='--,---.--';
+r = com_comis_detalle.num_sm,             FORMAT='--,--';
+s = com_comis_detalle.monto_comision,     FORMAT='---,---.--';
+v = com_comis_detalle.estado_comision;
+
+t = FORMONLY.registros2 TYPE INTEGER,  FORMAT='-------'; 
+u = FORMONLY.monto TYPE INTEGER,  FORMAT='---,---.--'; 
+
+INSTRUCTIONS 
+
+SCREEN RECORD scr_0[6](com_comis_detalle.n_folio THRU 
+		       com_comis_detalle.estado_comision);
+SCREEN RECORD scr_1 (FORMONLY.registros2 THRU
+                       FORMONLY.monto);
+DELIMITERS "  "

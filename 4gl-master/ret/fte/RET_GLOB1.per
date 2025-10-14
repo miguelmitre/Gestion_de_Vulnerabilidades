@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+      
+---------------------------------------------------------
+   NUMERO  DESCRIPCION
+    [a]   [b                                            ]
+    [a]   [b                                            ]
+    [a]   [b                                            ]
+    [a]   [b                                            ]
+    [a]   [b                                            ]
+---------------------------------------------------------
+      < F3 > Avanza Pagina   < F4 > Retrocede Pagina        
+                 < ENTER > Selecciona 
+}
+END
+TABLES
+    ret_tipo_retiro
+
+ATTRIBUTES
+a = ret_tipo_retiro.codigo      ,NOENTRY;
+b = ret_tipo_retiro.desc_larga  ,NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[5](codigo THRU desc_larga)
+DELIMITERS "  "

@@ -1,0 +1,37 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+ 
+
+ [a          |b     |c     |d |e  |f                            |g |h       ]
+ [a          |b     |c     |d |e  |f                            |g |h       ]
+ [a          |b     |c     |d |e  |f                            |g |h       ]
+ [a          |b     |c     |d |e  |f                            |g |h       ]
+ [a          |b     |c     |d |e  |f                            |g |h       ]
+ [a          |b     |c     |d |e  |f                            |g |h       ]
+ [a          |b     |c     |d |e  |f                            |g |h       ]
+ [a          |b     |c     |d |e  |f                            |g |h       ]
+ [a          |b     |c     |d |e  |f                            |g |h       ]
+ [a          |b     |c     |d |e  |f                            |g |h       ]
+ [a          |b     |c     |d |e  |f                            |g |h       ]
+ [a          |b     |c     |d |e  |f                            |g |h       ]
+
+}
+END
+
+ATTRIBUTES
+
+a=FORMONLY.n_seguro TYPE CHAR;
+b=FORMONLY.fecha_presentacion TYPE DATE, FORMAT='DDMMYY';
+c=FORMONLY.f_actualiza TYPE DATE, FORMAT='DDMMYY';
+d=FORMONLY.tipo_traspaso TYPE SMALLINT;
+e=FORMONLY.motivo_rechazo TYPE SMALLINT;
+f=FORMONLY.desc_estado TYPE CHAR, NOENTRY;
+g=FORMONLY.grado_riesgo TYPE CHAR, UPSHIFT;
+h=FORMONLY.vector_riesgo TYPE CHAR, NOENTRY;
+
+INSTRUCTIONS 
+SCREEN RECORD scr_1[12](FORMONLY.n_seguro THRU FORMONLY.vector_riesgo)
+DELIMITERS "  "

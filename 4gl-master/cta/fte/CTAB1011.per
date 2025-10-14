@@ -1,0 +1,51 @@
+DATABASE safre_af 
+SCREEN  
+{
+__________________________________________________________________________
+
+Tipo Orden         :[r][s         ]  
+NSS                :[a          ] Folio :[p         ] TS:[q]
+CURP               :[b                   ]  RFC : [t             ]
+Fecha de Nacimiento:[u         ]
+Paterno            :[c                                       ]
+Materno            :[d                                       ]
+Nombre(s)          :[e                                       ]
+
+Cambio de SIEFORE  :[f   ][g                                  ]
+        a SIEFORE  :[h   ][i                                  ]
+
+Fecha de Solicituid:[j         ]   Hora de Solicitud: [k            ]
+Fecha Respuesta    :[l         ]   Hora de Respuesta: [m            ]
+Resultado          :[n][o                             ]Fol.Atn:[v        ]
+}
+END
+TABLES
+afi_mae_afiliado
+afi_solicitud
+--cta_ctr_cuenta
+ATTRIBUTES
+a=FORMONLY.v_n_seguro;
+b=FORMONLY.f_n_unico, NOENTRY;
+c=FORMONLY.f_paterno, NOENTRY;
+d=FORMONLY.f_materno, NOENTRY;
+e=FORMONLY.f_nombres, NOENTRY;
+f=FORMONLY.v_cve_sieforeii;
+g=FORMONLY.v_des_sieforei;
+h=FORMONLY.v_cve_sieforef;
+i=FORMONLY.v_des_sieforef;
+j=FORMONLY.v_fecha_sol TYPE DATE,NOENTRY, FORMAT = "dd/mm/yyyy";
+k=FORMONLY.v_hora_sol  TYPE DATETIME HOUR TO SECOND, NOENTRY;
+l=FORMONLY.v_fecha_res TYPE DATE,NOENTRY, FORMAT = "dd/mm/yyyy";
+m=FORMONLY.v_hora_res  TYPE DATETIME HOUR TO SECOND, NOENTRY;
+n=FORMONLY.v_cod_res; 
+o=FORMONLY.v_des_res; 	
+p=FORMONLY.f_n_folio,AUTONEXT;
+q=FORMONLY.f_ts;
+r=FORMONLY.v_cod_tipsol,
+  COMMENTS= "CAPTURE 1(AFILIADO), 2(PROSPECTO)",REVERSE;
+s=FORMONLY.v_des_tipsol, NOENTRY;
+t=FORMONLY.f_rfc, NOENTRY;
+u=FORMONLY.f_fecha_nac TYPE DATE,NOENTRY,FORMAT = "dd/mm/yyyy";
+v=FORMONLY.f_folioatencion, NOENTRY;
+INSTRUCTIONS
+DELIMITERS " "

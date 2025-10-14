@@ -1,0 +1,24 @@
+DATABASE FORMONLY
+SCREEN
+{
+             UTILICE EL * ( ASTERICO ) COMO COMODIN
+                 INGRESE EL STRING DE BUSQUEDA 
+--------------------------------------------------------------------
+ ESTADO  DESCRIPCION        CIUDAD        DESCRIPCION 
+ [a   ][b                  ][c    ][d                             ] 
+ [a   ][b                  ][c    ][d                             ] 
+ [a   ][b                  ][c    ][d                             ] 
+ [a   ][b                  ][c    ][d                             ] 
+--------------------------------------------------------------------
+        < F3 > Avanza Pagina   < F4 > Retrocede Pagina
+                     < ENTER > Selecciona
+}
+END
+ATTRIBUTES
+a=FORMONLY.estad_cod   TYPE INTEGER;
+b=FORMONLY.estad_desc  TYPE CHAR,UPSHIFT;
+c=FORMONLY.ciudad_cod  TYPE CHAR,NOENTRY;
+d=FORMONLY.ciudad_desc TYPE CHAR,UPSHIFT;
+INSTRUCTIONS                                                      
+SCREEN RECORD scr_1[4](FORMONLY.estad_cod,FORMONLY.estad_desc,FORMONLY.ciudad_cod,FORMONLY.ciudad_desc)
+DELIMITERS "  "  

@@ -1,0 +1,28 @@
+DATABASE formonly
+SCREEN
+{
+                                                                        .
+
+
+
+
+    INDIQUE LA FECHA DE CORTE :[fc        ]
+
+
+
+
+    DESEA EJECUTAR EL PROCESO (S/N) : [a ]
+
+
+
+
+
+
+
+}
+ATTRIBUTES
+fc=formonly.g_fecha_corte  TYPE DATE, FORMAT="dd/mm/yyyy";
+a=formonly.v_respuesta TYPE CHAR,UPSHIFT;
+INSTRUCTIONS
+DELIMITERS " "
+

@@ -1,0 +1,38 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g-----------------------------------------------------------------------------\g
+
+
+  Folio      : [a       ]
+  Proceso    : [b    ] [c                                                   ]
+  Transaccion: [g    ] [i                                                   ]
+  Siefores   : [l  ] [l1     ]
+
+
+            Fechas
+  Emision            Valor           Identidad                Importe
+
+  [d         ]    [e         ]       [f       ]          [h             ]
+
+  [j ][k                         ]   Subcuentas: [m        ]
+
+}
+ATTRIBUTES
+a =FORMONLY.folio              TYPE INTEGER;
+b =FORMONLY.proceso_cod        TYPE CHAR;
+c =FORMONLY.proceso_desc       TYPE CHAR;
+g =FORMONLY.transaccion_cod    TYPE CHAR;
+i =FORMONLY.transac_desc       TYPE CHAR;
+l =FORMONLY.siefore            TYPE SMALLINT;
+l1=FORMONLY.desc_siefore       TYPE CHAR;
+d =FORMONLY.fecha_emision      TYPE DATE, FORMAT="dd/mm/yyyy";
+e =FORMONLY.fecha_valor        TYPE DATE, FORMAT="dd/mm/yyyy";
+f =FORMONLY.identi_desc        TYPE CHAR;
+h =FORMONLY.importe            TYPE DECIMAL;
+j =FORMONLY.estado             TYPE SMALLINT;
+k =FORMONLY.desc_estado        TYPE CHAR;
+m =FORMONLY.subcuentas         TYPE CHAR;
+INSTRUCTIONS
+SCREEN RECORD scr_1[1](FORMONLY.folio THRU FORMONLY.subcuentas)
+

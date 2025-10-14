@@ -1,0 +1,56 @@
+DATABASE safre_af
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+   Folio Afili.[a1        ]  T.S.[a]  F.Certifi [a5        ]
+   NSS         [a2         ]          Paterno   [a6                       ]
+   RFC         [a3           ]        Materno   [a7                       ]
+   CURP        [a4                ]   Nombres   [a8                       ]
+
+   Folio Solic.[b1        ]   F.C.[b5        ] 
+   NSS         [b2         ]  Pat.[b6                                      ]
+   RFC         [b3           ]Mat.[b7                                      ]
+   Fecha Solic.[b4        ]   Nom.[b8                                      ]
+
+   Cve.Icefa   [c1 ] [c2                   ]     
+   Nro.Cuenta  [c3                            ] Fecha Comprobante[c7        ]
+   Saldo Sar92 [c4            ]                 Fecha a liquidar [c8        ]
+   Saldo Viv92 [c4_1          ]                 Fecha liquidacion[c9        ]
+   Fuente  [d1      ] F.Ult.Proceso [d2        ]                      [d3 ] 
+
+}
+TABLES
+tra_mae_icefa, afi_mae_afiliado, tab_tipo_com
+ATTRIBUTES
+a1=afi_mae_afiliado.n_folio        , AUTONEXT ;
+a =afi_mae_afiliado.tipo_solicitud , AUTONEXT ;
+a2=afi_mae_afiliado.n_seguro       , AUTONEXT , UPSHIFT;
+a3=afi_mae_afiliado.n_rfc          , NOENTRY , UPSHIFT;
+a4=afi_mae_afiliado.n_unico        , NOENTRY  ;
+a5=afi_mae_afiliado.fentcons       , FORMAT = "DD/MM/YYYY";
+a6=afi_mae_afiliado.paterno        , AUTONEXT ;
+a7=afi_mae_afiliado.materno        , AUTONEXT , UPSHIFT;
+a8=afi_mae_afiliado.nombres        , AUTONEXT , UPSHIFT;
+b1=tra_mae_icefa.n_folio_tra       ,  UPSHIFT    ;
+b2=tra_mae_icefa.nss                   , UPSHIFT;
+b3=tra_mae_icefa.rfc                   , UPSHIFT;
+b4=tra_mae_icefa.fecha_solic_tra       , FORMAT = "DD/MM/YYYY";
+b5=tra_mae_icefa.fecha_captura         , FORMAT = "DD/MM/YYYY",NOENTRY;
+b6=FORMONLY.paterno2     TYPE CHAR, UPSHIFT;
+b7=FORMONLY.materno2     TYPE CHAR, UPSHIFT;
+b8=FORMONLY.nombres2     TYPE CHAR, UPSHIFT;
+c1=tra_mae_icefa.icefa_cod             ;
+c2=FORMONLY.des_icefa  TYPE CHAR  , NOENTRY;
+c3=tra_mae_icefa.nro_int_cta           , UPSHIFT;
+c4=tra_mae_icefa.saldo_sar_92          , NOENTRY;
+c4_1=tra_mae_icefa.saldo_viv_92        , NOENTRY;
+--c5=tra_mae_icefa.tipo_comp_icefa      ,NOENTRY,INVISIBLE ;
+--c6=tab_tipo_com.tipcom_desc          ,NOENTRY,INVISIBLE;
+c7=tra_mae_icefa.fecha_comp_icefa      , FORMAT = "DD-MM-YYYY";
+c8=FORMONLY.fecha_a_liquidar        TYPE DATE ,FORMAT = "DD-MM-YYYY";
+c9=FORMONLY.fecha_liquidacion       TYPE DATE ,FORMAT = "DD-MM-YYYY";
+d1=tra_mae_icefa.fuente               , NOENTRY;
+d2=tra_mae_icefa.fecha_proceso         , NOENTRY,FORMAT = "DD-MM-YYYY";
+d3=FORMONLY.diag_proceso            TYPE CHAR;
+INSTRUCTIONS 
+DELIMITERS "[]"

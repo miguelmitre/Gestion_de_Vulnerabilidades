@@ -1,0 +1,462 @@
+#############################################################################
+#Descripcion       => COMPILACION DEL MODULO DE TRANSFERENCIA DE ACREDITADOS#
+#Sistema           => ACR                                                   #
+#Fecha creacion    => 28 AGOSTO 2012                                        #
+#Por               => STEFANIE DANIELA VERA PIÑA                            #
+#############################################################################
+
+.SUFFIXES: .4gl .4go .4gi .per .frm
+
+RUTAFTE = "/safre/acr/fte"     
+RUTAEXP = "/safre/acr/exp"
+
+default: 
+	clear
+	@echo "Compilador del Modulo de Transferencia de Acreditados"
+	@echo "====================================================="
+	@echo "Modo de Uso:                                         "
+	@echo " make PROG                                         "
+	@echo " make {TA|TAEXC|43BIS|43BISUSO|43BISEXC|AG|AGEXC}  "
+	@echo " make INFONAVIT                                    "
+	@echo " make FOVISSSTE                                    "
+	@echo                                                     
+	@echo " PROG          -> Programa en particular ejemplo: ACRC001 "
+	@echo " TA            -> Transferencia de Acreditados            "
+	@echo " TAEXC         -> Devolucion de Saldos Excedentes         "
+	@echo " 43BIS         -> Solicitud de Marca                      "
+	@echo " 43BISUSO      -> Uso de la Garantia                      "
+	@echo " 43BISEXC      -> Devolucion de Saldos Excedentes         "
+	@echo " AG            -> Anualidades Garantizadas                "
+	@echo " AGEXC         -> Devolucion de Saldos Excedentes         "
+	@echo " INFONAVIT     -> Modulo Completo de Trasferencia de Acreditados INFONAVIT "
+	@echo " FOVISSSTE     -> Transferencia de Acreditados FOVISSSTE  "
+	@echo " FOVPEIS       -> Transferencia de Acreditados FOVISSSTE para PENSIONISSSTE "
+	@echo " FOV_ICEFAPEIS -> Transferencia de Acreditados FOVISSSTE COMO ICEFA para PENSIONISSSTE "
+	@echo
+
+
+#==============================================================================
+# COMPILACION DEL MODULO DE TRANSFERENCIA DE ACREDITADOS INFONAVIT
+#==============================================================================
+
+INFONAVIT: TA TAEXC 43BIS 43BISUSO 43BISEXC AG AGEXC
+
+
+
+#==============================================================================
+# COMPILACION DE TRANSFERENCIA DE ACREDITADOS
+#==============================================================================
+
+TA: ACRC001 ACRB001 ACRB002 ACRC002 ACRC004 ACRB008 ACRB009 ACRL001 ACRL002 ACRB030 ACRC003 
+
+ACRC001: ACRC001.4go ACRC0011.frm
+	cp ACRC001.4go  ACRC001.4gi
+	@echo "Compilacion de ACRC001 finalizada" #RECIBE ARCHIVO DE SOLICITUD DE TRANSFERENCIA (OPERACION 01)
+
+ACRB001: ACRB001.4go ACRB0011.frm
+	cp ACRB001.4go  ACRB001.4gi
+	@echo "Compilacion de ACRB001 finalizada" #GENERA ARCHIVO DE DEVOLUCION DE SOLICITUDES (OPERACION 06)
+	
+ACRB002: ACRB002.4go ACRB0021.frm
+	cp ACRB002.4go  ACRB002.4gi
+	@echo "Compilacion de ACRB002 finalizada" #GENERA ARCHIVO DE SALDOS DE TRANSFERENCIA (OPERACION 09)
+
+ACRL001: ACRL001.4go ACRL0011.frm ACRL0012.frm
+	cp ACRL001.4go  ACRL001.4gi
+	@echo "Compilacion de ACRL001 finalizada" #REPORTE DE PROVISION
+		
+ACRC002: ACRC002.4go
+	cp ACRC002.4go  ACRC002.4gi
+	@echo "Compilacion de ACRC002 finalizada" #RECIBE ARCHIVO DE RECHAZO DE SALDOS DE TRANSFERENCIA	(OPERACION 09)
+
+ACRC004: ACRC004.4go
+	cp ACRC004.4go  ACRC004.4gi
+	@echo "Compilacion de ACRC004 finalizada" #RECIBE ARCHIVO DE RECHAZO DE DEVOLUCIONES DE SOLICITUDES (OPERACION 06)
+	
+ACRB008: ACRB008.4go ACRB0081.frm
+	cp ACRB008.4go  ACRB008.4gi
+	@echo "Compilacion de ACRB008 finalizada" #LIQUIDA SALDOS DE TRANSFERENCIA ACREDITADOS
+	
+ACRL002: ACRL002.4go ACRL0021.frm ACRL0022.frm
+	cp ACRL002.4go  ACRL002.4gi
+	@echo "Compilacion de ACRL002 finalizada" #REPORTE DE LIQUIDACION
+		
+ACRB009: ACRB009.4go ACRB0091.frm
+	cp ACRB009.4go  ACRB009.4gi
+	@echo "Compilacion de ACRB009 finalizada" #CONSULTA TRANSFERENCIA DE ACREDITADOS			
+
+ACRB030: ACRB030.4go 
+	cp ACRB030.4go  ACRB030.4gi
+	@echo "Compilacion de ACRB030 finalizada" #RECIBE SOLICITUD DE DESMARCA (OPERACION 30)
+	
+ACRC003: ACRC003.4go ACRC0031.frm
+	cp ACRC003.4go  ACRC003.4gi
+	@echo "Compilacion de ACRC003 finalizada" #REVERSA (CARGA OP. 01, GENERACION OP. 06, GENERACION OP. 09, LIQUIDACION)
+
+
+
+#==============================================================================
+# COMPILACION DE TRANSFERENCIA DE ACREDITADOS-DEVOLUCION DE SALDOS EXCEDENTES
+#==============================================================================
+
+TAEXC: ACRB004 ACRB005 ACRB006 ACRB007 ACRB011 ACRB010 ACRL003 ACRL004 
+
+ACRB004: ACRB004.4go ACRB0041.frm
+	cp ACRB004.4go  ACRB004.4gi
+	@echo "Compilacion de ACRB004 finalizada" #RECIBE ARCHIVO DE DEVOLUCION DE SALDOS (OPERACION 15)
+
+ACRB005: ACRB005.4go 
+	cp ACRB005.4go  ACRB005.4gi
+	@echo "Compilacion de ACRB005 finalizada" #CARGA REGISTROS DE DEVOLUCION DE SALDOS ACREDITADOS
+	
+ACRB006: ACRB006.4go 
+	cp ACRB006.4go  ACRB006.4gi
+	@echo "Compilacion de ACRB006 finalizada" #PROVISIONA DEVOLUCION DE SALDOS ACREDITADOS		
+
+ACRL003: ACRL003.4go ACRL0031.frm ACRL0032.frm
+	cp ACRL003.4go  ACRL003.4gi
+	@echo "Compilacion de ACRL003 finalizada" #REPORTE DE PROVISION 		
+	
+ACRB007: ACRB007.4go ACRB0071.frm ACRB0072.frm
+	cp ACRB007.4go  ACRB007.4gi
+	@echo "Compilacion de ACRB007 finalizada" #LIQUIDA DEVOLUCION DE SALDOS ACREDITADOS 
+
+ACRL004: ACRL004.4go ACRL0041.frm ACRL0042.frm
+	cp ACRL004.4go  ACRL004.4gi
+	@echo "Compilacion de ACRL004 finalizada" #REPORTE DE LIQUIDACION	
+
+ACRB010: ACRB010.4go ACRB0101.frm
+	cp ACRB010.4go  ACRB010.4gi
+	@echo "Compilacion de ACRB010 finalizada" #CONSULTA DEVOLUCIONES		
+			
+ACRB011: ACRB011.4go ACRB0111.frm
+	cp ACRB011.4go  ACRB007.4gi
+	@echo "Compilacion de ACRB011 finalizada" #REVERSA (CARGA OP.15,GENERACION HISTORICOS,PROVISION,LIQUIDACION)
+
+
+
+#==============================================================================
+# COMPILACION DE CREDITO EN GARANTIA-SOLICITUD DE MARCA
+#==============================================================================
+
+43BIS: ACRB016 ACRB020 ACRB017 ACRC011 ACRC013 ACRB040 ACRB044
+
+ACRB016: ACRB016.4go ACRC0011.frm 
+	cp ACRB016.4go  ACRB016.4gi
+	@echo "Compilacion de ACRB016 finalizada" #RECIBE ARCHIVO DE SOLICITUD DE SALDOS EN GARANTIA POR 43 BIS	(OPERACION 01)	
+
+ACRB020: ACRB020.4go ACRB0011.frm
+	cp ACRB020.4go  ACRB020.4gi
+	@echo "Compilacion de ACRB020 finalizada" #GENERA ARCHIVO DE DEVOLUCIONE DE SALDO EN GARANTIA	(OPERACION 06)
+
+ACRB017: ACRB017.4go ACRB0021.frm 
+	cp ACRB017.4go  ACRB017.4gi
+	@echo "Compilacion de ACRB017 finalizada" #GENERA ARCHIVO DE NOTIFICACION DE SALDO (OPERACION 09)	
+
+ACRB028: ACRB028.4go ACRB0281.frm 
+	cp ACRB028.4go  ACRB028.4gi
+	@echo "Compilacion de ACRB028 finalizada" #GENERA ARCHIVO DE MODIFICACION DE SALDO 
+	
+ACRC011: ACRC011.4go ACRC0011.frm 
+	cp ACRC011.4go  ACRC011.4gi
+	@echo "Compilacion de ACRC011 finalizada" #RECIBE ARCHIVO DE RECHAZO DE NOTIFICACION DE SALDO (OPERACION 09)
+
+ACRC013: ACRC013.4go ACRC0011.frm 
+	cp ACRC013.4go  ACRC013.4gi
+	@echo "Compilacion de ACRC013 finalizada" #RECIBE ARCHIVO DE RECHAZO DE DEVOLUCION DE SALDOS (OPERACION 06)
+
+ACRB048: ACRB048.4go ACRB045.frm 
+	cp ACRB048.4go  ACRB048.4gi
+	@echo "Compilacion de ACRB048 finalizada" #RECIBE RECHAZOS DE MODIFICACION DE SALDOS	
+	
+ACRB040: ACRB040.4go ACRB0401.frm 
+	cp ACRB040.4go  ACRB040.4gi
+	@echo "Compilacion de ACRB040 finalizada" #CONSULTA CREDITOS EN GRANTIA	
+
+ACRB044: ACRB044.4go ACRB044.frm 
+	cp ACRB044.4go  ACRB044.4gi
+	@echo "Compilacion de ACRB044 finalizada" #REVERSA  (DEVOLUCION,PROCESO)
+	
+	
+	
+#==============================================================================
+# COMPILACION DE CREDITO EN GARANTIA-USO DE LA GARANTIA
+#==============================================================================	
+
+43BISUSO: ACRB018 ACRB021 ACRB019 ACRL005 ACRC012 ACRB045 ACRB027 ACRL006 ACRB041 ACRB046
+
+ACRB018: ACRB018.4go ACRC0011.frm 
+	cp ACRB018.4go  ACRB018.4gi
+	@echo "Compilacion de ACRB018 finalizada" #RECIBE ARCHIVO DE SOLICITUD PARA USO DE LA GARANTIA (OPERACION 01)
+	
+ACRB021: ACRB021.4go ACRB0011.frm 
+	cp ACRB021.4go  ACRB021.4gi
+	@echo "Compilacion de ACRB021 finalizada" #GENERA ARCHIVO DE DEVOLUCION DE SOLICITUD PARA USO DE LA GARANTIA (OPERACION 06)
+	
+ACRB019: ACRB019.4go ACRB0021.frm 
+	cp ACRB019.4go  ACRB019.4gi
+	@echo "Compilacion de ACRB019 finalizada" #GENERA ARCHIVO DE TRANSFERENCIA DE SALDOS EN GARANTIA (OPERACION 09)
+
+ACRL005: ACRL005.4go ACRL0011.frm ACRL0012.frm
+	cp ACRL005.4go  ACRL005.4gi
+	@echo "Compilacion de ACRL005 finalizada" #REPORTE DE PROVISION	
+	
+ACRC012: ACRC012.4go ACRC0011.frm 
+	cp ACRC012.4go  ACRC012.4gi
+	@echo "Compilacion de ACRC012 finalizada" #RECIBE ARCHIVO DE RECHAZO DE TRANSFERENCIA DE SALDOS EN GARANTIA	(OPERACION 09)
+
+ACRB045: ACRB045.4go ACRB045.frm 
+	cp ACRB045.4go  ACRB045.4gi
+	@echo "Compilacion de ACRB045 finalizada" #RECIBE ARCHIVO DE RECHAZO DE DEVOLUCIONES DE SOLICITUD PARA USO DE LA GARANTIA	(OPERACION 06)
+	
+ACRB027: ACRB027.4go ACRB0271.frm 
+	cp ACRB027.4go  ACRB027.4gi
+	@echo "Compilacion de ACRB027 finalizada" #LIQUIDA SALDOS Y GENERA HISTORICOS	
+
+ACRL006: ACRL006.4go ACRL0021.frm ACRL0022.frm
+	cp ACRL006.4go  ACRL006.4gi
+	@echo "Compilacion de ACRL006 finalizada" #REPORTE DE LIQUIDACION	
+
+ACRB041: ACRB041.4go ACRB0411.frm 
+	cp ACRB041.4go  ACRB041.4gi
+	@echo "Compilacion de ACRB041 finalizada" #CONSULTA USO DEL CREDITO 
+		
+ACRB046: ACRB046.4go ACRB046.frm 
+	cp ACRB046.4go  ACRB046.4gi
+	@echo "Compilacion de ACRB046 finalizada" #REVERSA (PROVISION,LIQUIDACION,PROV. Y LIQ. ,DEVOLUCION, PROCESO)
+
+
+
+#==============================================================================
+# COMPILACION DE CREDITO EN GARANTIA-DEVOLUCION DE SALDOS EXCEDENTES
+#==============================================================================	
+
+43BISEXC: ACRB022 ACRB023 ACRB024 ACRL007 ACRB025 ACRL008 ACRB042 ACRB047
+
+ACRB022: ACRB022.4go ACRB0041.frm 
+	cp ACRB022.4go  ACRB022.4gi
+	@echo "Compilacion de ACRB022 finalizada" #RECIBE ARCHIVO DE DEVOLUCION DE SALDOS EXCEDENTES (OPERACION 15)
+
+ACRB023: ACRB023.4go 
+	cp ACRB023.4go  ACRB023.4gi
+	@echo "Compilacion de ACRB023 finalizada" #CARGA REGISTROS DE DEVOLUCION DE SALDOS EXCEDENTES	
+	
+ACRB024: ACRB024.4go 
+	cp ACRB024.4go  ACRB024.4gi
+	@echo "Compilacion de ACRB024 finalizada" #PROVSIONA	
+	
+ACRL007: ACRL007.4go ACRL0071.frm ACRL0072.frm
+	cp ACRL007.4go  ACRL007.4gi
+	@echo "Compilacion de ACRL007 finalizada" #REPORTE DE PROVSION	
+
+ACRB025: ACRB025.4go ACRB0251.frm ACRB0252.frm
+	cp ACRB025.4go  ACRB025.4gi
+	@echo "Compilacion de ACRB025 finalizada" #LIQUIDA
+	
+ACRL008: ACRL008.4go ACRL0081.frm ACRL0082.frm
+	cp ACRL008.4go  ACRL008.4gi
+	@echo "Compilacion de ACRL008 finalizada" #REPORTE DE LIQUIDACION
+
+ACRB042: ACRB042.4go ACRB0421.frm 
+	cp ACRB042.4go  ACRB042.4gi
+	@echo "Compilacion de ACRB042 finalizada" #CONSULTA DEVOLUCION DE EXCEDENTES
+
+ACRB047: ACRB047.4go ACRB047.frm 
+	cp ACRB047.4go  ACRB047.4gi
+	@echo "Compilacion de ACRB047 finalizada" #REVERSA
+
+
+
+#==============================================================================
+# COMPILACION DE ANUALIDADES GARANTIZADAS
+#==============================================================================	
+
+AG: ACRC021 ACRB051 ACRB052 ACRL009 ACRC023 ACRC022 ACRB053 ACRL010 ACRB054 ACRR008
+	
+ACRC021: ACRC021.4go ACRC0211.frm 
+	cp ACRC021.4go  ACRC021.4gi
+	@echo "Compilacion de ACRC021 finalizada" #RECIBE ARCHIVO DE SOLICITUD DE SALDO (OPERACION 01)
+
+ACRB051: ACRB051.4go ACRB0511.frm 
+	cp ACRB051.4go  ACRB051.4gi
+	@echo "Compilacion de ACRB051 finalizada" #GENERA ARCHIVO DE DEVOLUCION DE SALDO  (OPERACION 06)
+	
+ACRB052: ACRB052.4go ACRB0521.frm 
+	cp ACRB052.4go  ACRB052.4gi
+	@echo "Compilacion de ACRB052 finalizada" #GENERA ARCHIVO DE NOTIFICACION DE SALDO (OPERACION 09)
+
+ACRL009: ACRL009.4go ACRL0091.frm ACRL0092.frm 
+	cp ACRL009.4go  ACRL009.4gi
+	@echo "Compilacion de ACRL009 finalizada" #REPORTE DE PROVISION 	
+
+ACRC023: ACRC023.4go ACRC0211.frm
+	cp ACRC023.4go  ACRC023.4gi
+	@echo "Compilacion de ACRC023 finalizada" #RECIBE ARCHIVO DE RECHAZO DE NOTIFICACION DE SALDO (OPERACION 09)
+	
+ACRC022: ACRC022.4go ACRC0211.frm
+	cp ACRC022.4go  ACRC022.4gi
+	@echo "Compilacion de ACRC022 finalizada" #RECIBE ARCHIVO DE RECHAZO DE DEVOLUCION DE SALDO (OPERACION 06)
+
+ACRB053: ACRB053.4go ACRB0531.frm
+	cp ACRB053.4go  ACRB053.4gi
+	@echo "Compilacion de ACRB053 finalizada" #LIQUIDA SALDOS 
+
+ACRL010: ACRL010.4go ACRL0101.frm ACRL0102.frm 
+	cp ACRL010.4go  ACRL010.4gi
+	@echo "Compilacion de ACRL010 finalizada" #REPORTE DE LIQUIDACION	
+
+ACRB054: ACRB054.4go ACRB0541.frm 
+	cp ACRB054.4go  ACRB054.4gi
+	@echo "Compilacion de ACRB054 finalizada" #CONSULTA TRANSFERENCIAS 
+
+ACRR008: ACRR008.4go ACRR0081.frm 
+	cp ACRR008.4go  ACRR008.4gi
+	@echo "Compilacion de ACRR008 finalizada" #REVERSA
+	
+	
+
+#==============================================================================
+# COMPILACION DE ANUALIDADES GARANTIZADAS-DEVOLUCION DE SALDOS 
+#==============================================================================	
+
+AGEXC: ACRC024 ACRB055 ACRB056 ACRL011 ACRB057 ACRL012 ACRB058 ACRR009
+		
+ACRC024: ACRC024.4go ACRC0241.frm 
+	cp ACRC024.4go  ACRC024.4gi
+	@echo "Compilacion de ACRC024 finalizada" #RECIBE ARCHIVO DE DEVOLUCION DE SALDOS (OPERACION 15)
+
+ACRB055: ACRB055.4go
+	cp ACRB055.4go  ACRB055.4gi
+	@echo "Compilacion de ACRB055 finalizada" #CARGA REGISTROS DE DEVOLUCION DE SALDOS
+
+ACRB056: ACRB056.4go
+	cp ACRB056.4go  ACRB056.4gi
+	@echo "Compilacion de ACRB056 finalizada" #PROVISIONA DEVOLUCION DE SALDOS
+
+ACRL011: ACRL011.4go ACRL0111.frm ACRL0112.frm
+	cp ACRL011.4go  ACRL011.4gi
+	@echo "Compilacion de ACRL011 finalizada" #REPORTE DE PROVISION 
+	
+ACRB057: ACRB057.4go ACRB0071.frm ACRB0072.frm
+	cp ACRB057.4go  ACRB057.4gi
+	@echo "Compilacion de ACRB057 finalizada" #LIQUIDA DEVOLUCION DE SALDOS
+
+ACRL012: ACRL012.4go ACRL0121.frm ACRL0122.frm
+	cp ACRL012.4go  ACRL012.4gi
+	@echo "Compilacion de ACRL012 finalizada" #REPORTE DE LIQUIDACION
+
+ACRB058: ACRB058.4go ACRB0581.frm 
+	cp ACRB058.4go  ACRB058.4gi
+	@echo "Compilacion de ACRB058 finalizada" #CONSULTA DEVOLUCIONES
+
+ACRR009: ACRR009.4go ACRR0091.frm 
+	cp ACRR009.4go  ACRR009.4gi
+	@echo "Compilacion de ACRR009 finalizada" #REVERSA
+		
+
+#==============================================================================
+# COMPILACION DEL MODULO DE TRANSFERENCIA DE ACREDITADOS FOVISSSTE
+#==============================================================================
+
+FOVISSSTE: ACRC101 ACRC102
+
+ACRC101: ACRC101.4go ACRC1011.frm  
+	cp ACRC101.4go  ACRC101.4gi
+	@echo "Compilacion de ACRC101 finalizada"  #(CARGO) NOTIFICACION DE SALDOS
+	
+ACRC102: ACRC102.4go ACRC1021.frm  
+	cp ACRC102.4go  ACRC102.4gi
+	@echo "Compilacion de ACRC102 finalizada"  #(ABONO) DEVOLUCION DE SALDOS EXCEDENTES
+
+
+#====================================================================================
+# COMPILACION DEL MODULO DE TRANSFERENCIA DE ACREDITADOS FOVISSSTE PARA PENSIONISSSTE
+#====================================================================================
+
+FOVPEIS: ACR_GLOB ACRC101PEIS ACRC101_1 ACRR101 ACRC102PEIS ACRC102_1 ACRR102
+
+ACR_GLOB: ACR_GLOB.4go 
+	cp ACR_GLOB.4go  ACR_GLOB.4gi
+	@echo "Compilacion de ACR_GLOB finalizada"  #FUNCIONES GLOBALES
+	
+ACRC101PEIS: ACRC101.4go ACRC1011.frm ACRC1012.frm ACRC1013.frm ACRC1014.frm ACRC1015.frm ACRC1016.frm ACRC1017.frm
+	cat ACRC101.4go ACR_GLOB.4go > ACRC101.4gi
+	@echo "Compilacion de ACRC101 finalizada"  #NOTIFICACION DE SALDOS (CARGO),EJECUTA EN SEGUNDO PLANO EL ACRC101_1
+	
+ACRC101_1: ACRC101_1.4go
+	cat ACRC101_1.4go ACR_GLOB.4go > ACRC101_1.4gi
+	@echo "Compilacion de ACRC101_1 finalizada" #CARGA ARCHIVO 
+
+ACRR101: ACRR101.4go ACRR0101.frm
+	cat ACRR101.4go ACR_GLOB.4go > ACRR101.4gi
+	@echo "Compilacion de ACRR101 finalizada" #REVERSO NOTIFICACION DE SALDOS
+		
+ACRC102PEIS: ACRC102.4go ACRC1021.frm  ACRC1022.frm ACRC1023.frm ACRC1024.frm
+	cat ACRC102.4go ACR_GLOB.4go > ACRC102.4gi
+	@echo "Compilacion de ACRC102 finalizada"  #DEVOLUCION DE SALDOS EXCEDENTES (ABONO),EJECUTA EN SEGUNDO PLANO EL ACRC102_1	
+
+ACRC102_1: ACRC102_1.4go
+	cat ACRC102_1.4go ACR_GLOB.4go > ACRC102_1.4gi
+	@echo "Compilacion de ACRC102_1 finalizada" 	#CARGA ARCHIVO 
+
+ACRR102: ACRR102.4go ACRR0101.frm
+	cat ACRR102.4go ACR_GLOB.4go > ACRR102.4gi
+	@echo "Compilacion de ACRR102 finalizada" #REVERSO DEVOLUCION DE SALDOS EXCEDENTES
+
+
+#===============================================================================================
+# COMPILACION DEL MODULO DE TRANSFERENCIA DE ACREDITADOS FOVISSSTE COMO ICEFA PARA PENSIONISSSTE
+#===============================================================================================
+
+FOV_ICEFAPEIS: ACRC103 ACRC103_1 ACRR103 ACRC104 ACRC104_1 ACRR104
+
+ACRC103: ACR_GLOB ACRC103_1 ACRC103.4go ACRC1016.frm ACRC1017.frm ACRC1031.frm ACRC1032.frm ACRC1033.frm ACRC1034.frm ACRC1035.frm ACRC1036.frm
+	cat ACRC103.4go ACR_GLOB.4go > ACRC103.4gi
+	@echo "Compilacion de ACRC103 finalizada"  #(CARGO) NOTIFICACION DE SALDOS,SOLO PARA PENSIONISSSTE SE EJECUTA EN SEGUNDO PLANO EL ACRC103_1
+	
+ACRC103_1: ACR_GLOB ACRC103_1.4go
+	cat ACRC103_1.4go ACR_GLOB.4go > ACRC103_1.4gi
+	@echo "Compilacion de ACRC103_1 finalizada" 
+
+ACRR103: ACRR103.4go ACRR0101.frm
+	cat ACRR103.4go ACR_GLOB.4go > ACRR103.4gi
+	@echo "Compilacion de ACRR103 finalizada" #REVERSO NOTIFICACION DE SALDOS
+	
+ACRC104: ACR_GLOB ACRC104_1 ACRC104.4go ACRC1041.frm ACRC1042.frm ACRC1043.frm ACRC1044.frm ACRC1016.frm ACRC1017.frm
+	cat ACRC104.4go ACR_GLOB.4go > ACRC104.4gi
+	@echo "Compilacion de ACRC104 finalizada" #(ABONO) DEVOLUCION DE SALDOS EXCEDENTES,SOLO PARA PENSIONISSSTE SE EJECUTA EN SEGUNDO PLANO EL ACRC104_1	
+
+ACRC104_1: ACR_GLOB ACRC104_1.4go
+	cat ACRC104_1.4go ACR_GLOB.4go > ACRC104_1.4gi
+	@echo "Compilacion de ACRC104_1 finalizada" 
+
+ACRR104: ACRR104.4go ACRR0101.frm
+	cat ACRR104.4go ACR_GLOB.4go > ACRR104.4gi
+	@echo "Compilacion de ACRR104 finalizada" #REVERSO DEVOLUCION DE SALDOS EXCEDENTES
+		
+	
+	
+#==============================================================================	
+# D I R E C T I V A S   D E   C O M P I L A C I O N   E S P E C I A L E S
+#==============================================================================
+
+
+libera4gi:
+	cp $(EJEC).4gi $(RUTAEXP)/$(EJEC).4gi
+
+liberafrm:	
+	cp $(FORM).frm $(RUTAEXP)/$(FORM).frm
+
+depura:
+	rm -f *.4go *.4gi *.frm *.err
+
+#===============================================================================
+# R E G L A S  D E  C O M P I L A C I O N           
+#===============================================================================
+	
+.4gl.4go:
+	fglpc $*
+.per.frm:
+	form4gl $*
+
+

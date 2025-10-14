@@ -1,0 +1,43 @@
+database safre_af
+screen size 24 by 80
+{
+\g----------------------------------------------------------------------------\g
+   
+    Afore              [f000  ]
+    Siefore            [f001  ]
+    Razon Social       [f002                                              ]
+   
+    Representante      [f003                                              ]
+   
+    Calle              [f004                                              ]
+    Numero             [f005       ]
+    Depto              [f006      ]
+    Cod. Postal        [f012      ]
+    Colonia            [f007                          ]
+                       [f008                          ]
+    Estado             [f011  ] [e01                          ]
+    Delegacion         [f009  ] [d01                          ] 
+    Ciudad             [f010  ] [c01                          ]
+    Telefono           [f013      ]
+}
+TABLES
+tab_siefore_local
+ATTRIBUTES
+f000 = tab_siefore_local.codigo_afore;
+f001 = tab_siefore_local.codigo_siefore;
+f002 = tab_siefore_local.razon_social,UPSHIFT;
+f003 = tab_siefore_local.representante,UPSHIFT;
+f004 = tab_siefore_local.calle,UPSHIFT;
+f005 = tab_siefore_local.numero;
+f006 = tab_siefore_local.depto,UPSHIFT;
+f012 = tab_siefore_local.cod_postal;
+f007 = tab_siefore_local.colonia[1,30],UPSHIFT;
+f008 = tab_siefore_local.colonia[31,60],UPSHIFT;
+f011 = tab_siefore_local.estado;
+f009 = tab_siefore_local.delegacion;
+f010 = tab_siefore_local.ciudad;
+f013 = tab_siefore_local.telefono;
+e01  = FORMONLY.vdesc_estado TYPE CHAR,NOENTRY;
+d01  = FORMONLY.vdesc_delegacion TYPE CHAR,NOENTRY;
+c01  = FORMONLY.vdesc_ciudad TYPE CHAR,NOENTRY;
+END

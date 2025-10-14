@@ -1,0 +1,45 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+N.S.S.    [s          ]  RFC [r            ]   C.U.R.P.  [u                 ]
+Paterno   [p                         ]    Materno[m                         ]
+Nombres   [n                         ]    Fecha de Nacimiento    [t         ]
+No. Folio [nf        ]   Tipo solicitud   [ts]
+-----------------------------------------------------------------------------  
+
+        SUBCUENTA                        INVERSION EN SIEFORE
+
+-----------------------------------------------------------------------------
+                              SIEFORE 1        SIEFORE 2        SIEFORE 3
+
+   RCV                          [a  ]            [d  ]            [g  ]
+
+   APORTACION VOLUNTARIA        [b  ]            [e  ]            [h  ]
+
+   SAR 92                       [c  ]            [f  ]            [i  ]       
+
+}
+END
+ATTRIBUTES
+s=FORMONLY.n_seguro TYPE CHAR,UPSHIFT;
+r=FORMONLY.n_rfc TYPE CHAR,UPSHIFT;
+u=FORMONLY.n_unico TYPE CHAR,UPSHIFT;
+p=FORMONLY.paterno TYPE CHAR,UPSHIFT;
+m=FORMONLY.materno TYPE CHAR,UPSHIFT;
+n=FORMONLY.nombres TYPE CHAR,UPSHIFT;
+t=FORMONLY.fena TYPE DATE,FORMAT="dd-mm-yyyy";
+nf=FORMONLY.n_folio TYPE INTEGER;
+ts=FORMONLY.tipo_solicitud TYPE SMALLINT;
+
+a=FORMONLY.siefore1 TYPE SMALLINT;
+b=FORMONLY.siefore2 TYPE SMALLINT;
+c=FORMONLY.siefore3 TYPE SMALLINT;
+d=FORMONLY.siefore4 TYPE SMALLINT;
+e=FORMONLY.siefore5 TYPE SMALLINT;
+f=FORMONLY.siefore6 TYPE SMALLINT;
+g=FORMONLY.siefore7 TYPE SMALLINT;
+h=FORMONLY.siefore8 TYPE SMALLINT;
+i=FORMONLY.siefore9 TYPE SMALLINT;
+INSTRUCTIONS 
+DELIMITERS "  ";

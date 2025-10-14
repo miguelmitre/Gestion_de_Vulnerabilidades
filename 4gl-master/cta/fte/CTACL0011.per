@@ -1,0 +1,65 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+NSS[a          |b                                           ]Act[am          ]
+Marca[mm                                        ]Fecha Marca[fm        |f1|f2]
+
+[l| e|f   |g              |h|s  |w       |s1             |s2             ]
+[l| e|f   |g              |h|s  |w       |s1             |s2             ]
+[l| e|f   |g              |h|s  |w       |s1             |s2             ]
+[l| e|f   |g              |h|s  |w       |s1             |s2             ]
+[l| e|f   |g              |h|s  |w       |s1             |s2             ]
+[l| e|f   |g              |h|s  |w       |s1             |s2             ]
+[l| e|f   |g              |h]           [x|x|x|x|x|x|y|y|y|y|y|y|z|z|z|z|z|z]
+[l| e|f   |g              |h]             [m                                 ]
+
+[n       |o  |o1                        |p |q               |r               ]
+[n       |o  |o1                        |p |q               |r               ]
+[n       |o  |o1                        |p |q               |r               ]
+[n       |o  |o1                        |p |q               |r               ]
+[n       |o  |o1                        |p |q               |r               ]
+[n       |o  |o1                        |p |q               |r               ]
+}
+ATTRIBUTES
+a=FORMONLY.n_seguro        TYPE CHAR;
+b=FORMONLY.nombre          TYPE CHAR,NOENTRY;
+
+mm=FORMONLY.marca          TYPE CHAR;
+fm=FORMONLY.fec_marca      TYPE DATE,FORMAT="dd-mm-yyyy",NOENTRY;
+f1=FORMONLY.fec_1          TYPE DATE,INVISIBLE,NOENTRY;
+f2=FORMONLY.fec_2          TYPE DATE,INVISIBLE,NOENTRY;
+am=FORMONLY.actividad      TYPE CHAR;
+
+l=FORMONLY.subct_prueba      TYPE CHAR;
+e=FORMONLY.subct_cod         TYPE SMALLINT, NOENTRY;
+f=FORMONLY.subct_corta       TYPE CHAR, NOENTRY;
+g=FORMONLY.monto_pesos       TYPE DECIMAL, FORMAT= "-------&.&&&&&&", NOENTRY;
+h=FORMONLY.monto_acciones    TYPE DECIMAL, INVISIBLE, NOENTRY;
+
+s=FORMONLY.siefore_cod       TYPE SMALLINT, NOENTRY;
+w=FORMONLY.siefore_nom       TYPE CHAR, NOENTRY;
+s1=FORMONLY.pesos_sie        TYPE DECIMAL, FORMAT= "-------&.&&&&&&", NOENTRY;
+s2=FORMONLY.acciones_sie     TYPE DECIMAL, FORMAT= "-------&.&&&&&&", NOENTRY;
+
+
+--m=FORMONLY.desc_larga      TYPE CHAR,WORDWRAP, NOENTRY;
+m=FORMONLY.desc_larga      TYPE CHAR, NOENTRY;
+
+n=FORMONLY.f_pago          TYPE DATE,FORMAT="dd-mm-yy",NOENTRY;
+o=FORMONLY.tipo_mvto       TYPE INTEGER, NOENTRY;
+o1=FORMONLY.desc_mvto      TYPE CHAR, NOENTRY;
+p=FORMONLY.siefore         TYPE SMALLINT, NOENTRY;
+q=FORMONLY.mto_pesos       TYPE DECIMAL, FORMAT = "--------&.&&&&&&", NOENTRY;
+r=FORMONLY.mto_accion      TYPE DECIMAL, FORMAT = "--------&.&&&&&&", NOENTRY;
+x=FORMONLY.folio_sua       TYPE CHAR, INVISIBLE, NOENTRY;
+y=FORMONLY.folio           TYPE CHAR, INVISIBLE, NOENTRY;
+z=FORMONLY.consecutivo     TYPE INTEGER, INVISIBLE, NOENTRY;
+
+
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[8](FORMONLY.subct_prueba THRU FORMONLY.monto_acciones);
+SCREEN RECORD scr_2[6](FORMONLY.f_pago THRU FORMONLY.consecutivo);
+SCREEN RECORD scr_3[6](FORMONLY.siefore_cod THRU FORMONLY.acciones_sie);
+DELIMITERS "  "

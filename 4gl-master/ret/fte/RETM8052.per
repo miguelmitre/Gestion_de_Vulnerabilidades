@@ -1,0 +1,67 @@
+DATABASE safre_af
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+  NSS         [a1         ]            Paterno   [a4                       ]
+  RFC         [a2           ]          Materno   [a5                       ]
+  CURP        [a3                 ]    Nombres   [a6                       ]
+                                             
+  Tipo Retiro [b1] [b2                    ]   Folio Solicitud   [b13       ]
+  Tipo Prestacion      [b3][b4              ] Fecha Solicitud   [b14       ]
+  Regimen              [b5]                   Subcuentas :      [b ]
+  Tipo Seguro          [b6][b7              ] Desc. Subcuenta:
+  Tipo Pension         [b8][b9              ] [b_1                         ] 
+  Fecha Oficio         [b10       ]           Semanas Cotizadas [b16 ]
+  No. Oficio           [b11 ]                 Rechazo Afore     [b17 ] 
+  Autoridad            [b12    ]           
+
+  Referencia    [c1  ][c1_1                         ]  Est. [c][c6         ]  
+  Fecha Captura [c2        ] Usr. Captura [c7        ] Consec. [c11    ]
+  Fecha Modifi. [c3        ] Usr. Modif.  [c8        ] Diag. Procesar[e1 ]
+  Fecha Confirm.[c4        ] Usr. Confirma[c9        ] Diag. Vivienda[e] 
+  Fecha Liquida.[c5        ] Folio Int.   [c10  ]  Fecha Envio [c12        ]
+}
+TABLES
+ret_solicitud_tx,ret_det_datamart,tab_retiro 
+
+ATTRIBUTES
+a1=ret_solicitud_tx.nss                                      ;
+a2=FORMONLY.n_rfc                                            ;
+a3=ret_solicitud_tx.curp                                     ;
+a4=FORMONLY.paterno                      ,NOENTRY            ;
+a5=FORMONLY.materno                      ,NOENTRY            ;
+a6=FORMONLY.nombres                      ,NOENTRY            ;
+b1=FORMONLY.tipo_retiro                  ,UPSHIFT            ; 
+b2=FORMONLY.des_tipo_ret                 ,UPSHIFT,NOENTRY    ;
+b3=ret_solicitud_tx.tipo_prestacion                          ;
+b4=FORMONLY.desc_prestacion              ,UPSHIFT,NOENTRY    ;
+b5=ret_solicitud_tx.regimen              ,INCLUDE=("97","73");
+b6=ret_solicitud_tx.tipo_seguro          ,UPSHIFT            ;
+b7=FORMONLY.desc_seguro                  ,UPSHIFT,NOENTRY    ;
+b8=ret_solicitud_tx.tipo_pension         ,UPSHIFT            ;
+b9=FORMONLY.desc_pension                 ,UPSHIFT,NOENTRY    ;
+b10=FORMONLY.fecha_oficio  TYPE DATE     ,FORMAT="DD/MM/YYYY";
+b11=FORMONLY.no_oficio                                       ;
+b12=FORMONLY.autoridad                   ,UPSHIFT            ;
+b13=ret_solicitud_tx.folio_solicitud                         ;
+b14=ret_solicitud_tx.fecha_solicitud     ,FORMAT="DD/MM/YYYY";
+b17=ret_solicitud_tx.cod_rechazo_ent     ;
+b=FORMONLY.grupo                                             ;
+b_1=FORMONLY.desc_grupo                  ,UPSHIFT,NOENTRY    ;
+b16=ret_det_datamart.semanas_cotizadas                       ;
+c1=FORMONLY.cod_rechazo                                      ;
+c1_1=FORMONLY.rechazo_desc                                   ;
+c2=FORMONLY.fecha_captura  TYPE DATE     ,FORMAT="DD/MM/YYYY";
+c3=FORMONLY.fecha_modifica TYPE DATE     ,FORMAT="DD/MM/YYYY";
+c4=FORMONLY.fecha_confirma TYPE DATE     ,FORMAT="DD/MM/YYYY";
+c5=FORMONLY.fecha_liquida  TYPE DATE     ,FORMAT="DD/MM/YYYY";
+c=FORMONLY.estado_solicitud                                  ;
+c6=FORMONLY.desc_estado                  ,UPSHIFT,NOENTRY    ;
+c7=FORMONLY.usuario_captura                                  ;
+c8=FORMONLY.usuario_modifica                                 ;
+c9=FORMONLY.usuario_confirma                                 ;
+c10=FORMONLY.folio                                           ;
+c11=FORMONLY.consecutivo                                     ;
+c12=ret_solicitud_tx.fecha_envio         ,FORMAT="DD/MM/YYYY";
+e1=FORMONLY.diag_registro                                     ;
+e=FORMONLY.estado_sub_viv                                     ;

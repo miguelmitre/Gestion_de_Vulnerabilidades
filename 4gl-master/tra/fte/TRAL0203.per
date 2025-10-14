@@ -1,0 +1,34 @@
+DATABASE safre_af
+SCREEN
+{
+
+                NSS         RFC     ICEFA                        NRO CTRL 
+AFORE: [b          ][d            ][f    ][h                             ]
+ICEFA: [c          ][e            ]                               [i         ]
+
+AFORE: [b          ][d            ][f    ][h                             ]
+ICEFA: [c          ][e            ]                               [i         ]
+
+AFORE: [b          ][d            ][f    ][h                             ]
+ICEFA: [c          ][e            ]                               [i         ]
+
+AFORE: [b          ][d            ][f    ][h                             ]
+ICEFA: [c          ][e            ]                               [i         ]
+
+AFORE: [b          ][d            ][f    ][h                             ]
+ICEFA: [c          ][e            ]                               [i         ]
+
+
+}
+tables tra_det_trasp_sal
+ATTRIBUTES
+b =FORMONLY.n_seguro            TYPE CHAR   , NOENTRY;
+c =FORMONLY.n_seguro_ent        TYPE CHAR,NOENTRY;
+d =FORMONLY.rfc                 TYPE CHAR,NOENTRY;
+e =FORMONLY.rfc_ent             TYPE CHAR,NOENTRY;
+f =FORMONLY.cve_ced_cuenta      TYPE CHAR,NOENTRY;
+h =FORMONLY.nro_ctrl_icefa      TYPE SMALLINT,NOENTRY;
+i =FORMONLY.contador             TYPE SMALLINT;
+INSTRUCTIONS
+SCREEN RECORD scr_1[5](FORMONLY.n_seguro THRU FORMONLY.contador);
+DELIMITERS "  "

@@ -1,0 +1,39 @@
+DATABASE FORMONLY 
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+     ESTADO [a]     1 : LIBERADAS     2 : NO LIBERADAS     3 : AMBAS
+\g----------------------------------------------------------------------------\g
+    FOLIO      NSS     CONSEC COD  MARCA   FECHA      FECHA       FECHA
+                              RECH CAUSA  CAPTURA   LIBERACION    ENVIO
+\g----------------------------------------------------------------------------\g
+  [b     ][c          ][d    ][e ][f  ][g         ][h         ][i         ]
+  [b     ][c          ][d    ][e ][f  ][g         ][h         ][i         ]
+  [b     ][c          ][d    ][e ][f  ][g         ][h         ][i         ]
+  [b     ][c          ][d    ][e ][f  ][g         ][h         ][i         ]
+  [b     ][c          ][d    ][e ][f  ][g         ][h         ][i         ]
+  [b     ][c          ][d    ][e ][f  ][g         ][h         ][i         ]
+  [b     ][c          ][d    ][e ][f  ][g         ][h         ][i         ]
+\g----------------------------------------------------------------------------\g
+ CODIGO DE RECHAZO
+ [j1 ][j2                                                                 ]
+ MARCA CAUSA
+ [j3 ][j4                                                                 ]   
+}
+ATTRIBUTES
+a = FORMONLY.estado;
+b = FORMONLY.folio;
+c = FORMONLY.n_seguro;
+d = FORMONLY.consecutivo;
+e = FORMONLY.rechazo_cod;
+f = FORMONLY.marca_causa;
+g = FORMONLY.fecha_proceso;
+h = FORMONLY.fecha_fin;
+i = FORMONLY.fecha_envio;
+j1 = FORMONLY.rechazo_cod2;
+j2 = FORMONLY.desc_rechazo_cod;
+j3 = FORMONLY.marca_causa2;
+j4 = FORMONLY.desc_marca_causa;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1[7](folio THRU fecha_envio);

@@ -1,0 +1,34 @@
+DATABASE safre_af 
+SCREEN
+{
+
+                                                                   [x]
+
+   FOLIO CONFRONTA    ICEFA                  CRITERIO
+
+   [a             ]  [b                  ]  [e][c                ]
+   [a             ]  [b                  ]  [e][c                ]
+   [a             ]  [b                  ]  [e][c                ]
+   [a             ]  [b                  ]  [e][c                ]
+   [a             ]  [b                  ]  [e][c                ]
+   [a             ]  [b                  ]  [e][c                ]
+
+
+
+
+   TIPO : [d ]
+
+
+}
+TABLES 
+tra_ctr_folio
+ATTRIBUTES
+a   = tra_ctr_folio.folio_interno              ,NOENTRY;
+b   = tra_ctr_folio.cve_desc                   ,NOENTRY;
+e   = tra_ctr_folio.criterio_cod               ,NOENTRY; 
+c   = tra_ctr_folio.criterio_desc              ,NOENTRY;
+d   = FORMONLY.vtipo        TYPE SMALLINT,COMMENTS="TIPO 1 ACEPTADOS,TIPO 2 RECHAZADOS";
+x   = FORMONLY.x ;
+INSTRUCTIONS
+DELIMITERS "  "
+SCREEN RECORD sr_ctr_folio[6] (tra_ctr_folio.folio_interno THRU tra_ctr_folio.criterio_desc)

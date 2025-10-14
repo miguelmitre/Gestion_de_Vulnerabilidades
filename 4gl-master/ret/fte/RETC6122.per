@@ -1,0 +1,39 @@
+dATABASE FORMONLY
+SCREEN
+{
+\g--------------------------------------------------------------------------\g
+
+                                          Diagnostico del    Diagnostico 
+ T. RETIRO        NSS       Consecutivo       Registro       Sub. Vivienda
+ ----------------------------------------------------------------------------
+     [t]       [d1         ][d2         ]      [d3 ]             [d]
+     [t]       [d1         ][d2         ]      [d3 ]             [d]
+     [t]       [d1         ][d2         ]      [d3 ]             [d]
+     [t]       [d1         ][d2         ]      [d3 ]             [d]
+     [t]       [d1         ][d2         ]      [d3 ]             [d]
+     [t]       [d1         ][d2         ]      [d3 ]             [d]
+     [t]       [d1         ][d2         ]      [d3 ]             [d]
+     [t]       [d1         ][d2         ]      [d3 ]             [d]
+     [t]       [d1         ][d2         ]      [d3 ]             [d]
+     [t]       [d1         ][d2         ]      [d3 ]             [d]
+     [t]       [d1         ][d2         ]      [d3 ]             [d]
+     [t]       [d1         ][d2         ]      [d3 ]             [d]
+}
+
+ATTRIBUTES
+
+t  = formonly.tipo_retiro, UPSHIFT,noentry;
+
+d1 = formonly.nss,        NOENTRY;
+d2 = formonly.consecutivo,NOENTRY;
+d3 = formonly.diag_reg,   AUTONEXT;
+d  = formonly.diag_inf,   AUTONEXT;
+
+INSTRUCTIONS
+
+   SCREEN RECORD sa_reg2[12] (tipo_retiro,
+                              nss,
+                              consecutivo,
+                              diag_reg,
+                              diag_inf)
+   

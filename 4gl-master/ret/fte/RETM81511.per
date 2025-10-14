@@ -1,0 +1,20 @@
+
+DATABASE FORMONLY
+SCREEN
+{
+                                                     .
+  [a        ]  [b         ] [c                       ]
+  [a        ]  [b         ] [c                       ]
+  [a        ]  [b         ] [c                       ]
+  [a        ]  [b         ] [c                       ]
+}
+END
+ATTRIBUTES
+a = FORMONLY.folio                                      ;
+b = FORMONLY.fecha_carga TYPE DATE, FORMAT="DD/MM/YYYY" ;
+c = FORMONLY.nom_archivo                                ;
+END
+INSTRUCTIONS
+SCREEN RECORD sa_folio[4](FORMONLY.folio THRU FORMONLY.nom_archivo)
+END
+

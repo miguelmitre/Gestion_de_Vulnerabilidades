@@ -1,0 +1,56 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+       SUBCUENTA                       ACCIONES               PESOS
+ SIE[x |x01        |x02                                                  ]
+ [x03                           ][a01               ][a02               ]
+ [x04                           ][a03               ][a04               ]
+ [x06                           ][a07               ][a08               ]
+ [x07                           ][a09               ][a10               ]
+ [x08                           ][a11               ][a12               ]
+ [x09                           ][a13               ][a14               ]
+
+ __________________________________________________________________________
+ SIE[x |x01        |x02                                                  ]
+ [x03                           ][a01               ][a02               ]
+ [x04                           ][a03               ][a04               ]
+ [x06                           ][a07               ][a08               ]
+ [x07                           ][a09               ][a10               ]
+ [x08                           ][a11               ][a12               ]
+ [x09                           ][a13               ][a14               ]
+
+
+}
+END
+
+ATTRIBUTES
+
+    x   =  FORMONLY.sie                TYPE SMALLINT,      NOENTRY ;
+    x01 =  FORMONLY.des_sie            TYPE CHAR;
+    x02 =  FORMONLY.des_tip            TYPE CHAR;
+    x03 =  FORMONLY.des_scta_1         TYPE CHAR;
+    x04 =  FORMONLY.des_scta_2         TYPE CHAR;
+    x06 =  FORMONLY.des_scta_5         TYPE CHAR;
+    x07 =  FORMONLY.des_scta_6         TYPE CHAR;
+    x08 =  FORMONLY.des_scta_9         TYPE CHAR;
+    x09 =  FORMONLY.des_scta_s         TYPE CHAR;
+
+    a01 =  FORMONLY.accion_1           TYPE DECIMAL(16,6), FORMAT = "-##,###,##&.&&####", NOENTRY ;
+    a02 =  FORMONLY.pesos_1            TYPE DECIMAL(16,6), FORMAT = "-##,###,##&.&&####", NOENTRY ;
+    a03 =  FORMONLY.accion_2           TYPE DECIMAL(16,6), FORMAT = "-##,###,##&.&&####", NOENTRY ;
+    a04 =  FORMONLY.pesos_2            TYPE DECIMAL(16,6), FORMAT = "-##,###,##&.&&####", NOENTRY ;
+    a07 =  FORMONLY.accion_5           TYPE DECIMAL(16,6), FORMAT = "-##,###,##&.&&####", NOENTRY ;
+    a08 =  FORMONLY.pesos_5            TYPE DECIMAL(16,6), FORMAT = "-##,###,##&.&&####", NOENTRY ;
+    a09 =  FORMONLY.accion_6           TYPE DECIMAL(16,6), FORMAT = "-##,###,##&.&&####", NOENTRY ;
+    a10 =  FORMONLY.pesos_6            TYPE DECIMAL(16,6), FORMAT = "-##,###,##&.&&####", NOENTRY ;
+    a11 =  FORMONLY.accion_9           TYPE DECIMAL(16,6), FORMAT = "-##,###,##&.&&####", NOENTRY ;
+    a12 =  FORMONLY.pesos_9            TYPE DECIMAL(16,6), FORMAT = "-##,###,##&.&&####", NOENTRY ;
+    a13 =  FORMONLY.accion_s           TYPE DECIMAL(16,6), FORMAT = "-##,###,##&.&&####", NOENTRY ;
+    a14 =  FORMONLY.pesos_s            TYPE DECIMAL(16,6), FORMAT = "-##,###,##&.&&####", NOENTRY ;
+
+INSTRUCTIONS
+
+    SCREEN RECORD scr_det1[2](FORMONLY.sie THRU FORMONLY.pesos_s);
+    DELIMITERS " "
+END

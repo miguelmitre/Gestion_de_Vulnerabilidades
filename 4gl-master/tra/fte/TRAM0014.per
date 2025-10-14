@@ -1,0 +1,33 @@
+DATABASE safre_af
+SCREEN
+{
+         paterno  [z1              ]
+         materno  [z2              ]
+         nombres  [z3              ]
+---------------------------------------------------------
+     NRO.FOLIO    NOMBRE DEL AFILIADO             T.SOL.
+   [a         ] [b                              ] [c]
+   [a         ] [b                              ] [c]
+   [a         ] [b                              ] [c]
+   [a         ] [b                              ] [c]
+   [a         ] [b                              ] [c]
+   [a         ] [b                              ] [c]
+---------------------------------------------------------
+      < F3 > Avanza Pagina   < F4 > Retrocede Pagina        
+                 < ENTER > Selecciona 
+}
+tables afi_mae_afiliado
+ATTRIBUTES
+z1=afi_mae_afiliado.paterno       ,UPSHIFT;
+z2=afi_mae_afiliado.materno       ,UPSHIFT;
+z3=afi_mae_afiliado.nombres       ,UPSHIFT;
+a =FORMONLY.codigo         TYPE INTEGER, NOENTRY;
+b =FORMONLY.descripcion    TYPE CHAR   , NOENTRY;
+c =FORMONLY.tipo_solicitud TYPE SMALLINT;
+INSTRUCTIONS
+SCREEN RECORD scr_1[6](FORMONLY.codigo THRU FORMONLY.tipo_solicitud);
+DELIMITERS "  "
+
+
+
+

@@ -1,0 +1,36 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+
+
+
+  USUARIO     NSS        FOLIO  TS        CURP         PROMOTOR    ESTATUS
+[g       |c          |b         |a|e                 |h         |d |f        ]
+[g       |c          |b         |a|e                 |h         |d |f        ]
+[g       |c          |b         |a|e                 |h         |d |f        ]
+[g       |c          |b         |a|e                 |h         |d |f        ]
+[g       |c          |b         |a|e                 |h         |d |f        ]
+[g       |c          |b         |a|e                 |h         |d |f        ]
+[g       |c          |b         |a|e                 |h         |d |f        ]
+[g       |c          |b         |a|e                 |h         |d |f        ]
+[g       |c          |b         |a|e                 |h         |d |f        ]
+[g       |c          |b         |a|e                 |h         |d |f        ]
+[g       |c          |b         |a|e                 |h         |d |f        ]
+}
+END
+
+ATTRIBUTES
+
+g=FORMONLY.usuario TYPE CHAR ;
+c=FORMONLY.n_seguro TYPE CHAR;
+b=FORMONLY.n_folio TYPE DECIMAL, COMMENTS="Numero de folio de solicitud";
+a=FORMONLY.tipo_solicitud TYPE SMALLINT, NOENTRY;
+e=FORMONLY.n_unico TYPE CHAR;
+h=FORMONLY.cod_promotor TYPE CHAR;
+d=FORMONLY.status_interno TYPE SMALLINT;
+f=FORMONLY.desc_status_int TYPE CHAR;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[11](FORMONLY.usuario THRU FORMONLY.desc_status_int)
+DELIMITERS "  "

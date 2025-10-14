@@ -1,0 +1,28 @@
+database safre_af
+screen 
+{
+\g----------------------------------------------------------------------------\g
+
+
+
+
+
+
+   Registro de patron [a           ]
+
+
+
+
+   Razon social       [b                                                  ]
+
+
+
+
+}
+end
+tables
+tab_patron
+attributes
+a = tab_patron.reg_fed_contrib;
+b = tab_patron.razon_social,COMMENTS="Escriba la razon social",UPSHIFT;
+end

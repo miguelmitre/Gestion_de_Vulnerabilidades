@@ -1,0 +1,17 @@
+DATABASE FORMONLY               
+SCREEN 
+{
+                                      .
+  [a  ]  [b                           ]
+  [a  ]  [b                           ]
+  [a  ]  [b                           ]
+  [a  ]  [b                           ]
+}
+END
+ATTRIBUTES
+a = FORMONLY.tipo_pension ;
+b = FORMONLY.desc_pension ;
+END 
+INSTRUCTIONS
+SCREEN RECORD sa_tipo_pension[4](FORMONLY.tipo_pension,FORMONLY.desc_pension)
+END 

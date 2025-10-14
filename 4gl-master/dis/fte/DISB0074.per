@@ -1,0 +1,62 @@
+DATABASE FORMONLY
+SCREEN
+{
+
+ Folio [a      ]  Fecha Proceso [b         ]  Fecha Liquidacion [c         ] 
+
+                  Precio Titulo [d            ]
+
+---Sub-----Aportaciones------------Comision---------Total_liquidacion--------
+   RCV [e                 ]  [f                 ]  [g                 ]
+   EST [h                 ]  [i                 ]  [j                 ]
+   VIV [k                 ]                        [l                 ] 
+-----------Intereses--------------------------------Total liquidacion--------
+   RCV [m                 ]                        [n                 ]
+   EST [o                 ]                        [p                 ]
+   VIV [q                 ]                        [r                 ] 
+-----------Total------------------------------------Total liquidacion--------
+   RCV [s                 ]                        [t                 ]
+   EST [u                 ]                        [v                 ]
+       --------------------  --------------------  --------------------
+   TOT [w                 ]  [x                 ]  [y                 ]
+   VIV [z                 ]                        [ab                ] 
+
+}
+ATTRIBUTES
+a=FORMONLY.folio             TYPE INTEGER;
+b=FORMONLY.fecha_proceso     TYPE DATE,          FORMAT  ="dd-mm-yyyy";
+c=FORMONLY.fecha_conversion  TYPE DATE,          FORMAT  ="dd-mm-yyyy";
+d=FORMONLY.precio_del_dia    TYPE DECIMAL(16,6), FORMAT="--,---.------",NOENTRY;
+
+e=FORMONLY.aporte_rcv        TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+f=FORMONLY.comision_rcv      TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+g=FORMONLY.aporte_neto_rcv   TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+
+h=FORMONLY.aporte_est        TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+i=FORMONLY.comision_est      TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+j=FORMONLY.aporte_neto_est   TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+
+k=FORMONLY.aporte_viv        TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+l=FORMONLY.aporte_neto_viv   TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+
+m=FORMONLY.interes_rcv       TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+n=FORMONLY.interes_neto_rcv  TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+
+o=FORMONLY.interes_est       TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+p=FORMONLY.interes_neto_est  TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+
+q=FORMONLY.interes_viv       TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+r=FORMONLY.interes_neto_viv  TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+
+s=FORMONLY.total_rcv         TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+t=FORMONLY.total_neto_rcv    TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+
+u=FORMONLY.total_est         TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+v=FORMONLY.total_neto_est    TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+
+w=FORMONLY.gran_tot1         TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+x=FORMONLY.gran_tot_com      TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+y=FORMONLY.gran_tot_neto1    TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+
+z=FORMONLY.gran_tot2         TYPE DECIMAL(16,6), FORMAT="---,---,---.------";
+ab=FORMONLY.gran_tot_neto2   TYPE DECIMAL(16,6), FORMAT="---,---,---.------";

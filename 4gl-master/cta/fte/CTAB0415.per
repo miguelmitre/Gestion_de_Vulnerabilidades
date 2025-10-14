@@ -1,0 +1,24 @@
+DATABASE formonly
+SCREEN
+{
+
+ [a                      |b        |c        |d        |e        |f        ]
+ [a                      |b        |c        |d        |e        |f        ]
+ [a                      |b        |c        |d        |e        |f        ]
+ [a                      |b        |c        |d        |e        |f        ]
+ [a                      |b        |c        |d        |e        |f        ]
+ [a                      |b        |c        |d        |e        |f        ]
+ [a                      |b        |c        |d        |e        |f        ]
+
+}
+ATTRIBUTES
+a = FORMONLY.gr_ley              TYPE INTEGER,NOENTRY;
+b = FORMONLY.gr_Total            TYPE INTEGER,NOENTRY;
+c = FORMONLY.gr_NoCamR           TYPE INTEGER,NOENTRY;
+d = FORMONLY.gr_CamReg           TYPE INTEGER,NOENTRY;
+e = FORMONLY.gr_Proced           TYPE INTEGER,NOENTRY;
+f = FORMONLY.gr_NoProc           TYPE INTEGER,NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_1 [7](gr_ley THRU gr_NoProc)
+DELIMITERS " "

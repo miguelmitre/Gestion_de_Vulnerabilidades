@@ -1,0 +1,26 @@
+DATABASE safre_af
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+       Codigo               Descripcion                    Desc.corta
+\g----------------------------------------------------------------------------\g
+       [a    ]  [b                                     ]     [c    ]
+       [a    ]  [b                                     ]     [c    ]
+       [a    ]  [b                                     ]     [c    ]
+       [a    ]  [b                                     ]     [c    ]
+       [a    ]  [b                                     ]     [c    ]
+       [a    ]  [b                                     ]     [c    ]
+       [a    ]  [b                                     ]     [c    ]
+       [a    ]  [b                                     ]     [c    ]
+       [a    ]  [b                                     ]     [c    ]
+       [a    ]  [b                                     ]     [c    ]
+\g----------------------------------------------------------------------------\g
+}
+TABLES
+tab_subcuenta
+ATTRIBUTES
+a=tab_subcuenta.subct_cod;
+b=tab_subcuenta.subct_desc;
+c=tab_subcuenta.subct_corta;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[10](tab_subcuenta.subct_cod,tab_subcuenta.subct_desc,tab_subcuenta.subct_corta);

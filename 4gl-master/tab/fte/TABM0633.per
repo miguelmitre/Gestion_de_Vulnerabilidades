@@ -1,0 +1,20 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g------------------------------------------------------\g
+       Marca                Descripcion
+\g------------------------------------------------------\g
+
+      [a   ]       [b                             ]
+      [a   ]       [b                             ]
+      [a   ]       [b                             ]
+      [a   ]       [b                             ]
+
+\g------------------------------------------------------\g
+}
+ATTRIBUTES
+a=FORMONLY.ind_habilita;
+b=FORMONLY.descripcion,UPSHIFT;
+INSTRUCTIONS
+SCREEN RECORD scr_1[4](FORMONLY.ind_habilita THRU FORMONLY.descripcion);
+END

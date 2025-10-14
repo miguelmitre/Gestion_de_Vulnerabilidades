@@ -1,0 +1,42 @@
+DATABASE FORMONLY
+SCREEN
+{
+                                                       [f            ]       .
+
+             Folio   de  Operacion            :       [f0    ]
+             Fecha   de  Presentacion         :   [f1        ]
+             Fecha   de  Provisión            :   [f2        ]
+             Fecha   de  Liquidacion          :   [f3        ]
+             Registros a Procesar             :       [f4    ]
+             Registros   Procesados           :       [f5    ]
+
+
+      Participacion de Vivienda: [f6                ]      UDIS: [f6_1      ]
+      Sifore Básica 1: [f7        ]            Siefore Básica 4: [f10       ]
+      Sifore Básica 2: [f8        ]            Siefore Básica 5: [f11       ]
+      Sifore Básica 3: [f9        ]            Siefore Básica 6: [f12       ]
+
+
+
+
+
+}
+ATTRIBUTES
+f=FORMONLY.fecha                    TYPE  DATE,FORMAT ="DD/MM/YYYY",NOENTRY;
+f0=FORMONLY.folio                   TYPE  INTEGER,NOENTRY;
+f1=FORMONLY.fecha_presentacion      TYPE  DATE,FORMAT ="DD/MM/YYYY",NOENTRY;
+f2=FORMONLY.fecha_provision         TYPE  DATE,FORMAT ="DD/MM/YYYY",NOENTRY;
+f3=FORMONLY.fecha_liquidacion       TYPE  DATE,FORMAT ="DD/MM/YYYY",NOENTRY;
+f4=FORMONLY.l_registros             TYPE  INTEGER,NOENTRY;
+f5=FORMONLY.l_procesados            TYPE  INTEGER,NOENTRY;
+f6=FORMONLY.valor_parti             TYPE  DEC,FORMAT='#&&.&&&&&&&&&&&&&&',NOENTRY;
+f6_1=FORMONLY.valor_udis            TYPE  DEC,FORMAT='##&.&&&&&&',NOENTRY;
+f7=FORMONLY.valor_sie_b1            TYPE  DEC,FORMAT='##&.&&&&&&',NOENTRY;
+f8=FORMONLY.valor_sie_b2            TYPE  DEC,FORMAT='##&.&&&&&&',NOENTRY;
+f9=FORMONLY.valor_sie_b3            TYPE  DEC,FORMAT='##&.&&&&&&',NOENTRY;
+f10=FORMONLY.valor_sie_b4           TYPE  DEC,FORMAT='##&.&&&&&&',NOENTRY;
+f11=FORMONLY.valor_sie_b5           TYPE  DEC,FORMAT='##&.&&&&&&',NOENTRY;
+f12=FORMONLY.valor_sie_b6           TYPE  DEC,FORMAT='##&.&&&&&&',NOENTRY;
+
+INSTRUCTIONS
+DELIMITERS "  "

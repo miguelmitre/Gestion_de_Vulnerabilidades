@@ -1,0 +1,28 @@
+DATABASE FORMONLY
+SCREEN
+{
+      NOMBRE DE ARCHIVO [d                                                 ] .
+      
+      REGISTRO MENORES DE EDAD
+      - LOCALIZADOS     [lo     ]
+      - NO LOCALIZADOS  [nl     ]
+      - ACEPTADOS       [ac     ]
+      - RECHAZADOS      [re     ]
+                          
+      - TOTAL           [tt     ]
+             
+      - FOLIO LOTE      [ff        ] 
+             
+            
+            
+}
+
+ATTRIBUTES
+
+d  = FORMONLY.v_arch            TYPE CHAR   , REVERSE;
+lo = FORMONLY.vtot_rme_locali   TYPE CHAR   , REVERSE, NOENTRY;
+nl = FORMONLY.vtot_rme_noloca   TYPE CHAR   , REVERSE, NOENTRY;
+ac = FORMONLY.vtot_rme_acepta   TYPE CHAR   , REVERSE, NOENTRY;
+re = FORMONLY.vtot_rme_rechaz   TYPE CHAR   , REVERSE, NOENTRY;
+tt = FORMONLY.vtot_rme_regist   TYPE CHAR   , REVERSE, NOENTRY;
+ff = FORMONLY.li_folio_lote     TYPE DECIMAL(10,0)   , REVERSE;

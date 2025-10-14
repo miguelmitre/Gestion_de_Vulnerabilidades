@@ -1,0 +1,34 @@
+DATABASE FORMONLY
+SCREEN
+{
+\g----------------------------------------------------------------------------\g
+
+  FOLIO      NSS          PESOS           EDO DESCRIPCION
+[g|l       ][a          ][b             ][c  |f                     ]
+[g|l       ][a          ][b             ][c  |f                     ]
+[g|l       ][a          ][b             ][c  |f                     ]
+[g|l       ][a          ][b             ][c  |f                     ]
+[g|l       ][a          ][b             ][c  |f                     ]
+[g|l       ][a          ][b             ][c  |f                     ]
+[g|l       ][a          ][b             ][c  |f                     ]
+[g|l       ][a          ][b             ][c  |f                     ]
+[g|l       ][a          ][b             ][c  |f                     ]
+[g|l       ][a          ][b             ][c  |f                     ]
+[g|l       ][a          ][b             ][c  |f                     ]
+[g|l       ][a          ][b             ][c  |f                     ]
+
+[h    ]  REGISTROS                                               
+}
+END
+
+ATTRIBUTES
+g=FORMONLY.opcion        TYPE SMALLINT;
+l=FORMONLY.folio         TYPE INTEGER;
+a=FORMONLY.n_seguro      TYPE CHAR;
+b=FORMONLY.pesos         TYPE DECIMAL,FORMAT='###,###,##&.&&',NOENTRY;
+c=FORMONLY.estado        TYPE SMALLINT;
+f=FORMONLY.desc_estado   TYPE CHAR,NOENTRY ;
+h=FORMONLY.tot_regs      TYPE INTEGER,NOENTRY;
+INSTRUCTIONS 
+SCREEN RECORD scr_1[12](FORMONLY.opcion THRU FORMONLY.desc_estado)
+DELIMITERS " "

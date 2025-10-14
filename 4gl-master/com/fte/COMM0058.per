@@ -1,0 +1,31 @@
+
+DATABASE FORMONLY
+SCREEN
+{
+ 
+
+ Tipo Promotor: [a     ][b                                               ]
+---------------------------------------------------------------------------
+
+  Meta Afi 1 No. Afilia : [c     ]       Meta Tra 1 No. Afilia : [f     ]
+  Meta Afi 2 Calidad    : [d     ]       Meta Tra 2 Calidad    : [g     ]
+  Meta Afi 3 Suma S.M.  : [e     ]       Meta Tra 3 Suma S.M.  : [h     ]
+
+
+
+}
+END
+ATTRIBUTES
+a=FORMONLY.cod_tipo_prom TYPE INTEGER,NOENTRY;
+b=FORMONLY.desc_tipo     TYPE CHAR,NOENTRY;
+c=FORMONLY.meta_afi1     TYPE DECIMAL,NOENTRY;
+d=FORMONLY.meta_afi2     TYPE DECIMAL,NOENTRY;
+e=FORMONLY.meta_afi3     TYPE DECIMAL,NOENTRY;
+f=FORMONLY.meta_tra1     TYPE DECIMAL,NOENTRY;
+g=FORMONLY.meta_tra2     TYPE DECIMAL,NOENTRY;
+h=FORMONLY.meta_tra3     TYPE DECIMAL,NOENTRY;
+
+INSTRUCTIONS
+SCREEN RECORD scr_meta[1](FORMONLY.meta_afi1 THRU FORMONLY.meta_tra3);
+DELIMITERS "  "
+

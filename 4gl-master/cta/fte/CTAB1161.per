@@ -1,0 +1,32 @@
+DATABASE formonly
+SCREEN
+{
+                                                                        .
+
+
+        [f2                                   |t]
+        [f1                              ][f3          ][g1][f10       ]
+        [f8                              ][f9          ]
+        [f6                              ][f7                         ]
+        [f4                                     ][f5]
+
+
+
+
+}
+ATTRIBUTES
+f2=formonly.g_mensaje2  TYPE CHAR,UPSHIFT;
+t=formonly.g_tipo, PICTURE="#",COMMENTS =" 1 - SOLO DECIMOS, 2 - TOTAL DE TRABAJADORES, 3 - CAMBIO PERFIL";
+f1=formonly.g_mensaje1  TYPE CHAR,UPSHIFT,WORDWRAP;
+f3=formonly.g_fecha_corte TYPE DATE,FORMAT="DD/MM/YYYY",COMMENTS="(DD/MM/YYYY)";
+g1=formonly.g_mensaje6 TYPE CHAR,UPSHIFT;
+f10=formonly.g_fecha_fin TYPE DATE,FORMAT="DD/MM/YYYY",COMMENTS="(DD/MM/YYYY)";
+f8=formonly.g_mensaje5  TYPE CHAR,UPSHIFT,WORDWRAP;
+f9=formonly.g_fecha_envio TYPE DATE,FORMAT="DD/MM/YYYY",COMMENTS="(DD/MM/YYYY)";
+f4=formonly.g_mensaje3  TYPE CHAR,UPSHIFT;
+f7=formonly.g_ruta TYPE CHAR;
+f5=formonly.g_respuesta TYPE CHAR,UPSHIFT;
+f6=formonly.g_mensaje4  TYPE CHAR,UPSHIFT;
+INSTRUCTIONS
+DELIMITERS " "
+
