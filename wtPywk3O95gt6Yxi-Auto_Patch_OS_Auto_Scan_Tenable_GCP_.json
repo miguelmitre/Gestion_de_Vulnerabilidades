@@ -1,0 +1,386 @@
+{
+  "name": "Auto Patch OS + Auto Scan Tenable  (GCP)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -240,
+        -192
+      ],
+      "id": "29124d72-8156-4d40-9c57-b58442314563",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "=https://osconfig.googleapis.com/v1/projects/{{ $json.Project }}/patchJobs",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleApi",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1248,
+        -352
+      ],
+      "id": "a334fc66-38fb-4d46-9930-24737db413ca",
+      "name": "HTTP Request2",
+      "credentials": {
+        "oAuth2Api": {
+          "id": "kcTGsE0xZvzN8OiI",
+          "name": "Account Google API - GV"
+        },
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1440,
+        -352
+      ],
+      "id": "34e4bb13-96dd-43c1-85a1-54d363902dbb",
+      "name": "Loop Over Items2"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2050373152,
+          "mode": "list",
+          "cachedResultName": "GCP_Compute_Instances",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8/edit#gid=2050373152"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "RUNNING"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -16,
+        -192
+      ],
+      "id": "5f869704-fa28-4ab3-bc3d-f1a470752ae4",
+      "name": "CMDB1",
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c08cc6eb-408a-4156-ae1c-87b3996f952d",
+              "leftValue": "={{ $json.state }}",
+              "rightValue": "SUCCEEDED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1664,
+        -352
+      ],
+      "id": "04d2fb4f-a493-4802-b127-22a511e848cd",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "eda56fa8-c7a7-4069-9ab0-1f0827e1e048",
+              "leftValue": "={{ $json.state }}",
+              "rightValue": "SUCCEEDED",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "71082674-555c-440f-8b42-12ee1a749e1d",
+              "leftValue": "={{ $json.state }}",
+              "rightValue": "COMPLETED_WITH_ERRORS",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        784,
+        -192
+      ],
+      "id": "658cfa53-153b-4b68-93e0-e5b9a08227ef",
+      "name": "AutoPatch - SUCCEEDED1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const patchJobStr = $json[\"Last Patch Job\"];\nlet patchJobObj = {};\nif (patchJobStr) {\n  // Convierte el string de diccionario Python a JSON válido\n  const jsonStr = patchJobStr\n    .replace(/'/g, '\"')\n    .replace(/: \"(\\[.*?\\])\"/g, ': $1'); // Corrige arrays\n  try {\n    patchJobObj = JSON.parse(jsonStr);\n  } catch (e) {\n    patchJobObj = {};\n  }\n}\n\n// Devuelve cada campo como propiedad del item\nreturn {\n  ...$json,\n  job_id: patchJobObj.job_id,\n  nombre: patchJobObj.nombre,\n  description: patchJobObj.description,\n  state: patchJobObj.state,\n  instances: patchJobObj.instances,\n  create_time: patchJobObj.create_time,\n  update_time: patchJobObj.update_time,\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        -192
+      ],
+      "id": "8110b641-69f4-4535-ae8c-fa2dba8183b8",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        480,
+        -192
+      ],
+      "id": "186ece79-7fc7-4011-9d01-61fc90cb0e93",
+      "name": "Loop Over Items4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1773d269-1a69-4134-8757-edb3b6fc4342",
+              "leftValue": "={{ $json[\"Last Patch Job\"] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        192,
+        -192
+      ],
+      "id": "4e1f8084-5e0e-4c32-a173-ef5454179fff",
+      "name": "If3"
+    },
+    {
+      "parameters": {
+        "url": "={{\"https://osconfig.googleapis.com/v1/projects/\" + $json.Project.trim() + \"/locations/\" + $json.Zone.trim().slice(0, -2) + \"/instances/\" + $json.Instance.trim() + \"/inventories?view=FULL\"}}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleApi",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1248,
+        -32
+      ],
+      "id": "be34dbeb-699e-44f1-a0c0-e144d245a36f",
+      "name": "HTTP Request4",
+      "credentials": {
+        "oAuth2Api": {
+          "id": "kcTGsE0xZvzN8OiI",
+          "name": "Account Google API - GV"
+        },
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        160
+      ],
+      "id": "6e5127dd-d2b0-493b-86d3-602cc0bc7335",
+      "name": "Registrar Error (placeholder)"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "CMDB1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items2": {
+      "main": [
+        [],
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CMDB1": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AutoPatch - SUCCEEDED1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "AutoPatch - SUCCEEDED1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items4": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {},
+  "triggerCount": 0,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

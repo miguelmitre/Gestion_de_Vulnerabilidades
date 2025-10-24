@@ -1,0 +1,514 @@
+{
+  "name": "ASOC (Application Security Orchestration and Correlation)",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/vulns/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{$json}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -208,
+        176
+      ],
+      "id": "47c3be67-ec72-48c6-9ee9-478d4cebe062",
+      "name": "Tenable - Iniciar Exportación",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        112
+      ],
+      "id": "cf79d6ce-da01-4bcf-8c62-679e44adb76b",
+      "name": "Wait (Bucle)",
+      "webhookId": "7b5740c9-8bf8-42c4-8fb5-83ccb755e6ea"
+    },
+    {
+      "parameters": {
+        "url": "={{ 'https://cloud.tenable.com/vulns/export/' + $('Tenable - Iniciar Exportación').item.json.export_uuid + '/status' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        48,
+        176
+      ],
+      "id": "4be3ad8d-7a9c-47f3-9000-e57823e0fe28",
+      "name": "Tenable - Comprobar Estado",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f292dbdf-6494-409b-8a12-3ef2ccf4665f",
+              "leftValue": "={{ $('Tenable - Comprobar Estado').item.json.status }}",
+              "rightValue": "FINISHED",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        288
+      ],
+      "id": "8fab90c5-9090-47bc-bba2-2fd881c0f0d7",
+      "name": "¿Trabajo Terminado?"
+    },
+    {
+      "parameters": {
+        "url": "={{ 'https://cloud.tenable.com/vulns/export/' + $('Tenable - Iniciar Exportación').item.json.export_uuid + '/chunks/' + $json.chunk }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1024,
+        176
+      ],
+      "id": "ea800f4b-d292-4411-b77d-c5fc0c8e02c9",
+      "name": "Tenable - Descargar Datos",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const vulnerabilities = $input.all().map(item => item.json).flat();\nconst normalized_vulns = [];\nconst processed_vulns = new Set(); // Para evitar duplicados en esta ejecución\n\nfor (const vuln of vulnerabilities) {\n const plugin_info = vuln.plugin || {};\n const asset_info = vuln.asset || {};\n const cve_list = plugin_info.cve || [];\n const cve = cve_list.length > 0 ? cve_list[0] : `PLUGIN-${plugin_info.id}`;\n\n // Clave única para el hallazgo: CVE + Hostname\n const unique_key = `${cve}-${asset_info.hostname}`;\n\n if (!processed_vulns.has(unique_key)) {\n  normalized_vulns.push({\n  cve_id: cve,\n  vulnerability_name: plugin_info.name,\n  severity: (vuln.severity || \"\").toUpperCase(),\n  source: \"Tenable.io\",\n  vpr_score: (plugin_info.vpr || {}).score,\n  cvss_score: plugin_info.cvss3_base_score,\n  asset_hostname: asset_info.hostname,\n  asset_ip: asset_info.ipv4,\n  asset_os: asset_info.operating_system ? asset_info.operating_system[0] : null\n  });\n  processed_vulns.add(unique_key);\n }\n}\n\nreturn normalized_vulns;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1376,
+        176
+      ],
+      "id": "5d5cc9b8-d00c-485a-a362-402fd0f23f89",
+      "name": "Normalizar Datos Tenable"
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        624,
+        176
+      ],
+      "id": "0e9feef8-0b7f-4d04-83bf-fcc1f95c461f",
+      "name": "Pausa de Seguridad API",
+      "webhookId": "d6708e25-2719-4cdc-9194-51514a2be240"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        816,
+        176
+      ],
+      "id": "0e323540-c6c9-4e27-bab4-e4f34c621beb",
+      "name": "Separar Chunks"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2359be6c-c1bf-4297-b3bf-ba130ee036f7",
+              "leftValue": "={{ $('Tenable - Comprobar Estado').item.json.chunks_available.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        432,
+        176
+      ],
+      "id": "8eff4149-8e22-42e2-bf5e-1dea8c7dc20b",
+      "name": "¿Hay Archivos?"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.moveBinaryData",
+      "typeVersion": 1.1,
+      "position": [
+        1200,
+        176
+      ],
+      "id": "a75c44e1-0be9-4694-a096-8c7738d08999",
+      "name": "Move Binary Data"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1552,
+        176
+      ],
+      "id": "4653cd87-152c-4df2-bc5b-2384eecce68a",
+      "name": "Pausa Entre Chunks",
+      "webhookId": "26346673-e2e3-4f9d-b71a-bbc182ce4dcd"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -816,
+        176
+      ],
+      "id": "d14f97ee-af07-4fde-88d1-d2389aa30f21",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -208,
+        -112
+      ],
+      "id": "fc018c52-33f2-4d91-b28c-1f2e648a59bd",
+      "name": "Command Securtity Center"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -208,
+        -288
+      ],
+      "id": "f12a6d5b-0edd-4089-b99c-ae202a2164f1",
+      "name": "Trend Micro Artifact Scanner (TMAS)"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -224,
+        816
+      ],
+      "id": "f30a869a-ebb8-4209-887a-d2638427c033",
+      "name": "Checkmarx SAST"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -224,
+        1024
+      ],
+      "id": "8afc94d2-f920-4c41-90d5-3efa3ad9b659",
+      "name": "Checkmarx SCA"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -608,
+        176
+      ],
+      "id": "bdcb9493-72a3-43e7-9622-542cb5c44eb7",
+      "name": "CMDB",
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -208,
+        384
+      ],
+      "id": "767ab3f5-664f-40cc-9e81-7adbd0e37bb7",
+      "name": "Tenable One (API)"
+    }
+  ],
+  "connections": {
+    "Tenable - Iniciar Exportación": {
+      "main": [
+        [
+          {
+            "node": "Tenable - Comprobar Estado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait (Bucle)": {
+      "main": [
+        [
+          {
+            "node": "Tenable - Comprobar Estado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tenable - Comprobar Estado": {
+      "main": [
+        [
+          {
+            "node": "¿Trabajo Terminado?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Trabajo Terminado?": {
+      "main": [
+        [
+          {
+            "node": "¿Hay Archivos?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait (Bucle)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tenable - Descargar Datos": {
+      "main": [
+        [
+          {
+            "node": "Move Binary Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar Datos Tenable": {
+      "main": [
+        [
+          {
+            "node": "Pausa Entre Chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pausa de Seguridad API": {
+      "main": [
+        [
+          {
+            "node": "Separar Chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separar Chunks": {
+      "main": [
+        [
+          {
+            "node": "Tenable - Descargar Datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Hay Archivos?": {
+      "main": [
+        [
+          {
+            "node": "Pausa de Seguridad API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Move Binary Data": {
+      "main": [
+        [
+          {
+            "node": "Normalizar Datos Tenable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "CMDB",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Checkmarx SAST": {
+      "main": [
+        []
+      ]
+    },
+    "CMDB": {
+      "main": [
+        [
+          {
+            "node": "Tenable - Iniciar Exportación",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Command Securtity Center",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Checkmarx SAST",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Checkmarx SCA",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Trend Micro Artifact Scanner (TMAS)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {},
+  "triggerCount": 0,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}
