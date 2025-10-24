@@ -1,0 +1,312 @@
+{
+  "name": "Entrega de Tags AD C y B",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "const scanIds = [8255,10940];\nconst items = scanIds.map(id => ({\n  json: {\n    scanId: id\n  }\n}));\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -432,
+        -16
+      ],
+      "id": "63a492db-fac0-4ba8-b0e4-0e75b89f8c6c",
+      "name": "Lista de Scan ID"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://cloud.tenable.com/scans/{{ $json.scanId }}/launch",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "accept",
+              "value": "application/json"
+            },
+            {
+              "name": "X-ApiKeys",
+              "value": "accessKey=609366fce41fcbf3278da645e02ecc34050f9dd4a95ec64e4986a8fe19ed1b81;secretKey=f0f3c56502cc556c6c932ad54ec596768d822cac02d09992539b228498d0440e"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -352,
+        224
+      ],
+      "id": "e0d7f2a9-5867-465e-af9f-10657f2568b7",
+      "name": "Lanzar Escaneo"
+    },
+    {
+      "parameters": {
+        "batchSize": 2,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -192,
+        -16
+      ],
+      "id": "08ce39b2-52f2-47e2-be42-51a3012d76e6",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/scans/{{ $json.scanId }}/latest-status",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ApiKeys",
+              "value": "accessKey=609366fce41fcbf3278da645e02ecc34050f9dd4a95ec64e4986a8fe19ed1b81;secretKey=f0f3c56502cc556c6c932ad54ec596768d822cac02d09992539b228498d0440e"
+            },
+            {
+              "name": "accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        176,
+        80
+      ],
+      "id": "c34d04a1-1b3c-46f1-b2ae-8e9628d47f5b",
+      "name": "Valida Status Escaneo"
+    },
+    {
+      "parameters": {
+        "jsCode": "const allScansCompleted = items.every(item => item.json.status === 'completed');\n\nreturn [{\n  json: {\n    allScansCompleted\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        528,
+        0
+      ],
+      "id": "0e3641f0-b3dd-4ff2-b193-43cffa09f02d",
+      "name": "Revisa si los escaneos terminaron"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ad7fd5e8-119c-4baf-af0a-e5709cc8909b",
+              "leftValue": "=={{ $json.allScansCompleted.toString() }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        704,
+        0
+      ],
+      "id": "70bdc75c-c4c3-45c3-8d2a-336a3836940f",
+      "name": "All Scans Completed"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -720,
+        -16
+      ],
+      "id": "1350c535-f7b2-42ba-9f5f-0006e0a959e3",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        912,
+        96
+      ],
+      "id": "f4be7905-c90a-4259-baaf-7d9ebbdbb2db",
+      "name": "Wait",
+      "webhookId": "1e15fece-dacc-411f-9bff-75668885e259"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map((item, index) => ({\n  json: {\n    scanId: $('Loop Over Items').itemMatching(index).json.scanId,\n    scanUuid: item.json.scan_uuid\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        64,
+        448
+      ],
+      "id": "fcf74499-1c12-4452-a4de-e1042731872d",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "connections": {
+    "Lista de Scan ID": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lanzar Escaneo": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Lanzar Escaneo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Valida Status Escaneo": {
+      "main": [
+        [
+          {
+            "node": "Revisa si los escaneos terminaron",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Revisa si los escaneos terminaron": {
+      "main": [
+        [
+          {
+            "node": "All Scans Completed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "All Scans Completed": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Lista de Scan ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Valida Status Escaneo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Valida Status Escaneo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {
+    "Schedule Trigger": [
+      {
+        "json": {
+          "timestamp": "2025-09-11T17:23:06.552-06:00",
+          "Readable date": "September 11th 2025, 5:23:06 pm",
+          "Readable time": "5:23:06 pm",
+          "Day of week": "Thursday",
+          "Year": "2025",
+          "Month": "September",
+          "Day of month": "11",
+          "Hour": "17",
+          "Minute": "23",
+          "Second": "06",
+          "Timezone": "America/Mexico_City (UTC-06:00)"
+        }
+      }
+    ]
+  },
+  "triggerCount": 0,
+  "meta": null
+}

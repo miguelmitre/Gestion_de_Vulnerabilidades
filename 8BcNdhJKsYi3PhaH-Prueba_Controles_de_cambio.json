@@ -1,0 +1,124 @@
+{
+  "name": "Prueba Controles de cambio",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        -192
+      ],
+      "id": "4eef5365-755e-4f1f-b657-bdc556324467",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1zbcp6Wrbv7uSFDaS5SYRIkMhrPEgUJAintal9QW8GDU",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1698097105,
+          "mode": "list",
+          "cachedResultName": "Todos RFC Cambios",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zbcp6Wrbv7uSFDaS5SYRIkMhrPEgUJAintal9QW8GDU/edit#gid=1698097105"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        48,
+        -192
+      ],
+      "id": "9a3a1c09-327c-45fd-a449-0fe5ce1df853",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8a7a4de0-2e7d-42d2-852a-0649c9819c2a",
+              "leftValue": "={{ $json[\"ID del\\n RFC\"].toString() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "1708adde-2009-456b-8d81-34c6c3ebfabf",
+              "leftValue": "={{ $json[\"Fecha de \\nimplementación\"].toString() }}",
+              "rightValue": "2025-01-01T00:00:00",
+              "operator": {
+                "type": "string",
+                "operation": "regex"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        272,
+        -192
+      ],
+      "id": "f0549b2a-d37e-425b-9816-4701893ce3e4",
+      "name": "If"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {},
+  "triggerCount": 0,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

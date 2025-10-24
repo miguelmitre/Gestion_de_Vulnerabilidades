@@ -1,0 +1,62 @@
+{
+  "name": "Notificador de Errores",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0dc8eaf0-6784-412f-8405-bcc8cc400630",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "fromEmail": "vulnerabilidades@coppel.com",
+        "toEmail": "miguel.mitre@coppel.com",
+        "subject": "Alerta de n8n: Falla en el Workflow '{{ $json.workflow.name }}'",
+        "html": "=<div style=\"font-family: Arial, sans-serif; line-height: 1.6;\">\n    <h1 style=\"color: #D32F2F;\">🚨 Alerta: Falla en Workflow de n8n</h1>\n    <p>Se ha detectado un error en una de las automatizaciones.</p>\n    <hr>\n    <p><strong>Workflow:</strong></p>\n    <p>{{ $json.workflow.name }}</p>\n    \n    <p><strong>Nodo que falló:</strong></p>\n    <p>{{ $json.execution.lastNodeExecuted }}</p>\n\n    <p><strong>Mensaje de Error:</strong></p>\n    <div style=\"background-color: #f4f4f4; border: 1px solid #ddd; padding: 10px; border-radius: 5px; font-family: monospace;\">\n        <pre><code>{{ $json.error.message }}</code></pre>\n    </div>\n\n    <p style=\"margin-top: 20px;\">\n        <a href=\"{{ $json.execution.url }}\" style=\"display: inline-block; background-color: #D32F2F; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;\">\n            Ir a la Ejecución Fallida\n        </a>\n    </p>\n</div>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "af39c701-3b0b-49bf-be82-99fecd8123c9",
+      "name": "Send email",
+      "webhookId": "5c75f928-abbc-414b-9b53-14abf20d5672",
+      "credentials": {
+        "smtp": {
+          "id": "VvmpFy7xvcjh36tB",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {},
+  "triggerCount": 0,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

@@ -1,0 +1,2219 @@
+{
+  "name": "Tags - Tenable One - Gestion de Servidores Linux",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        16,
+        -352
+      ],
+      "id": "5b71fc9e-244c-4376-9b69-c3e26e8d9a4f",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b594e547-14e3-444f-a13a-9f260641c5c1",
+                    "leftValue": "={{ $json.GRUPO }}",
+                    "rightValue": "CENTRALES",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d631e5f6-a97a-4178-8412-281eb7ccd140",
+                    "leftValue": "={{ $json.GRUPO }}",
+                    "rightValue": "CENTRALES ARGENTINA",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "14a7982c-4334-4145-a63e-4d92c4e42345",
+                    "leftValue": "={{ $json.GRUPO }}",
+                    "rightValue": "CEDIS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "e82ece8e-cf0c-408d-83ac-6aaa6d43055b",
+                    "leftValue": "={{ $json.GRUPO }}",
+                    "rightValue": "CEDIS ARGENTINA",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        400,
+        -384
+      ],
+      "id": "5106c407-0f2c-4d87-b1e3-6e867aa6261e",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst ipAddresses = new Set();\n\n// Expresión regular para validar si un texto parece una IP v4.\nconst ipv4Regex = /^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$/;\n\nfor (const item of items) {\n  // Lista de columnas que pueden contener IPs.\n  const ipColumns = ['IP']; \n\n  for (const col of ipColumns) {\n    let cellValue = item.json[col];\n\n    // Si el valor existe, lo convertimos a texto para poder procesarlo.\n    if (cellValue !== null && cellValue !== undefined) {\n      cellValue = String(cellValue);\n    }\n\n    if (cellValue && typeof cellValue === 'string') {\n      \n      // Separamos el contenido de la celda por espacios o comas.\n      const potentialIps = cellValue.split(/[ ,]+/);\n\n      for (const potentialIp of potentialIps) {\n        const trimmedIp = potentialIp.trim();\n        \n        // Si la parte es una IP válida, la agregamos.\n        // Si no lo es (ej: un hostname), simplemente la ignora.\n        if (ipv4Regex.test(trimmedIp)) {\n          ipAddresses.add(trimmedIp);\n        }\n      }\n    }\n  }\n}\n\n// Devuelve un solo objeto con la lista final y limpia de IPs.\nreturn [{\n  json: {\n    \"ipAddresses\": Array.from(ipAddresses)\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        -656
+      ],
+      "id": "e354fc70-df1a-4089-8991-610183fd0a5b",
+      "name": "3. Preparar Lista de IPs - Centrales"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst ipAddresses = new Set();\n\n// Expresión regular para validar si un texto parece una IP v4.\nconst ipv4Regex = /^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$/;\n\nfor (const item of items) {\n  // Lista de columnas que pueden contener IPs.\n  const ipColumns = ['IP']; \n\n  for (const col of ipColumns) {\n    let cellValue = item.json[col];\n\n    // Si el valor existe, lo convertimos a texto para poder procesarlo.\n    if (cellValue !== null && cellValue !== undefined) {\n      cellValue = String(cellValue);\n    }\n\n    if (cellValue && typeof cellValue === 'string') {\n      \n      // Separamos el contenido de la celda por espacios o comas.\n      const potentialIps = cellValue.split(/[ ,]+/);\n\n      for (const potentialIp of potentialIps) {\n        const trimmedIp = potentialIp.trim();\n        \n        // Si la parte es una IP válida, la agregamos.\n        // Si no lo es (ej: un hostname), simplemente la ignora.\n        if (ipv4Regex.test(trimmedIp)) {\n          ipAddresses.add(trimmedIp);\n        }\n      }\n    }\n  }\n}\n\n// Devuelve un solo objeto con la lista final y limpia de IPs.\nreturn [{\n  json: {\n    \"ipAddresses\": Array.from(ipAddresses)\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        -448
+      ],
+      "id": "f02a6691-4f74-49ad-a1ad-582d336a6571",
+      "name": "3. Preparar Lista de IPs - Centrales Argentina"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst ipAddresses = new Set();\n\n// Expresión regular para validar si un texto parece una IP v4.\nconst ipv4Regex = /^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$/;\n\nfor (const item of items) {\n  // Lista de columnas que pueden contener IPs.\n  const ipColumns = ['IP']; \n\n  for (const col of ipColumns) {\n    let cellValue = item.json[col];\n\n    // Si el valor existe, lo convertimos a texto para poder procesarlo.\n    if (cellValue !== null && cellValue !== undefined) {\n      cellValue = String(cellValue);\n    }\n\n    if (cellValue && typeof cellValue === 'string') {\n      \n      // Separamos el contenido de la celda por espacios o comas.\n      const potentialIps = cellValue.split(/[ ,]+/);\n\n      for (const potentialIp of potentialIps) {\n        const trimmedIp = potentialIp.trim();\n        \n        // Si la parte es una IP válida, la agregamos.\n        // Si no lo es (ej: un hostname), simplemente la ignora.\n        if (ipv4Regex.test(trimmedIp)) {\n          ipAddresses.add(trimmedIp);\n        }\n      }\n    }\n  }\n}\n\n// Devuelve un solo objeto con la lista final y limpia de IPs.\nreturn [{\n  json: {\n    \"ipAddresses\": Array.from(ipAddresses)\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        -256
+      ],
+      "id": "c45549c0-c7bb-4a10-a94d-a11c613a25ee",
+      "name": "3. Preparar Lista de IPs - Cedis"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/assets/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chunk_size",
+              "value": "100"
+            },
+            {
+              "name": "filters",
+              "value": "={{ {\"ipv4\": $json.ipAddresses} }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        864,
+        -32
+      ],
+      "id": "f81c0489-7489-44f0-ba9f-224543c67785",
+      "name": "4. Iniciar Exportación en Tenable - Cedis Argentina",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 40
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1072,
+        -32
+      ],
+      "id": "f09b0940-06aa-41cb-89c0-22998a9722f6",
+      "name": "5. Esperar a que Termine Tenable - Cedis Argentina",
+      "webhookId": "8942ac2f-1de2-4fbc-a50c-7ae35e4a5d9d"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('4. Iniciar Exportación en Tenable - Cedis Argentina').item.json.export_uuid }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1280,
+        -32
+      ],
+      "id": "35692017-eb51-498a-a50f-2dfa1e884c24",
+      "name": "6. Revisar Estado de Exportación Tenable - Cedis Argentina",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8b46b099-6b81-445c-9ea9-bff96f440571",
+              "name": "export_uuid",
+              "value": "={{ $('4. Iniciar Exportación en Tenable - Cedis Argentina').item.json.export_uuid }}",
+              "type": "string"
+            },
+            {
+              "id": "2207250f-5739-4b4d-a9a4-789788b554a9",
+              "name": "chunks_available",
+              "value": "={{ $json.chunks_available }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1488,
+        -32
+      ],
+      "id": "4cfb2c5f-ff97-444a-b170-9d68f6ae7ff5",
+      "name": "7. Preparar Datos para el Bucle - Cedis Argentina"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/assets/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chunk_size",
+              "value": "100"
+            },
+            {
+              "name": "filters",
+              "value": "={{ {\"ipv4\": $json.ipAddresses} }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        864,
+        -656
+      ],
+      "id": "78ffb950-8eff-4760-b9c3-2fa506ed4e9f",
+      "name": "4. Iniciar Exportación en Tenable - Centrales",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 40
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1072,
+        -656
+      ],
+      "id": "cb27ba12-75dd-40c5-823b-81be347c9f29",
+      "name": "5. Esperar a que Termine Tenable - Centrales",
+      "webhookId": "8942ac2f-1de2-4fbc-a50c-7ae35e4a5d9d"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8b46b099-6b81-445c-9ea9-bff96f440571",
+              "name": "export_uuid",
+              "value": "={{ $('4. Iniciar Exportación en Tenable - Centrales').item.json.export_uuid }}",
+              "type": "string"
+            },
+            {
+              "id": "2207250f-5739-4b4d-a9a4-789788b554a9",
+              "name": "chunks_available",
+              "value": "={{ $json.chunks_available }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1488,
+        -656
+      ],
+      "id": "e4d4e319-5154-4cd4-9a38-b601027b6420",
+      "name": "7. Preparar Datos para el Bucle - Centrales"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('4. Iniciar Exportación en Tenable - Centrales').item.json.export_uuid }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1280,
+        -656
+      ],
+      "id": "4866a580-d12f-4e76-b4c3-8239b93dbb7c",
+      "name": "6. Revisar Estado de Exportación Tenable - Centrales",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map(item => ({\n  json: {\n    export_uuid: item.json.export_uuid,\n    chunks_available: JSON.parse(item.json.chunks_available)\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        -656
+      ],
+      "id": "5e3eea60-515a-4aca-b62b-2b479175bfd2",
+      "name": "8. Preparar Chunks para Bucle - Centrales"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "767e2959-8a4f-4c1b-bf7b-281c27bab9a0",
+              "leftValue": "={{ $json.chunks_available.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1872,
+        -656
+      ],
+      "id": "e50f3e74-f126-4754-b12d-0d1e5c18742e",
+      "name": "9. If (Hay Chunks para Descargar en Tenable - Centrales)"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "chunks_available",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2032,
+        -672
+      ],
+      "id": "90b64e5e-3183-4864-a4db-7c988ba48cb8",
+      "name": "10. Bucle por cada Chunk - Centrales"
+    },
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2208,
+        -672
+      ],
+      "id": "77092dac-7e0f-4d7b-a8cd-03e7d231ff68",
+      "name": "11. Bucle por cada Chunk - Centrales"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $json.export_uuid }}/chunks/{{ $json.chunks_available }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2400,
+        -688
+      ],
+      "id": "1c1f8f14-8fcc-4d2d-8aa2-70f7e38e1c26",
+      "name": "12. Descargar Resultados Tenable - Centrales",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const assetsArray = $input.all().map(item => item.json);\nconst assetUuids = assetsArray\n  .filter(asset => asset && asset.id)\n  .map(asset => asset.id);\n\nreturn [{\n  json: { \"uuids\": assetUuids }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2576,
+        -688
+      ],
+      "id": "e21ad4bc-3708-4475-b0bb-1e65d868e9f0",
+      "name": "13. Extraer UUIDs Tenable - Centrales"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6a852083-e0dc-4bb9-a4ba-e066508aecde",
+              "leftValue": "={{ $json.uuids.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2752,
+        -688
+      ],
+      "id": "960ddf4f-bfd5-4a06-ae5a-412d9de9463b",
+      "name": "14. Hay UUIDs para Etiquetar Tenable - Centrales"
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/tags/values",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2960,
+        -704
+      ],
+      "id": "0bec0ae8-a11b-449a-b3e4-3cbb9bb708ca",
+      "name": "15. Obtener TODOS los Tags Tenable - Centrales",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define qué categoría y valor estamos buscando.\nconst CATEGORY_TO_FIND = \"Gestión de Servidores Linux\";\nconst VALUE_TO_FIND = \"Centrales\";\n\n// Obtiene la lista completa de tags del nodo anterior.\n// La respuesta de la API es un objeto que contiene un array llamado \"values\".\nconst allTags = $input.item.json.values;\n\n// Usa el método .find() para buscar en el array el tag exacto que cumple ambas condiciones.\nconst foundTag = allTags.find(tag => \n  tag.category_name === CATEGORY_TO_FIND && \n  tag.value === VALUE_TO_FIND\n);\n\n// Si se encuentra el tag, devuelve su UUID. Si no, devuelve null.\n// El '?' (optional chaining) evita un error si no se encuentra el tag.\nconst tagUuid = foundTag?.uuid || null;\n\n// Devuelve el resultado para que el siguiente nodo pueda usarlo.\nreturn [{\n  json: {\n    \"tag_uuid\": tagUuid\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3152,
+        -704
+      ],
+      "id": "9f5b927a-7610-4a54-9808-97ac6dbca772",
+      "name": "16. Encontrar UUID del Tag Correcto Tenable - Centrales"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://cloud.tenable.com/tags/assets/assignments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"action\": \"add\",\n    \"tags\": [\n      $('16. Encontrar UUID del Tag Correcto Tenable - Centrales').item.json.tag_uuid\n    ],\n    \"assets\": $('13. Extraer UUIDs Tenable - Centrales').item.json.uuids\n  }\n}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3344,
+        -704
+      ],
+      "id": "43f6e0b2-c87d-48ab-a493-a56dba512cc8",
+      "name": "17. Aplicar Tag Tenable - Centrales",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/assets/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chunk_size",
+              "value": "100"
+            },
+            {
+              "name": "filters",
+              "value": "={{ {\"ipv4\": $json.ipAddresses} }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        864,
+        -448
+      ],
+      "id": "054169e5-84f0-42e0-9ace-c13a93428daf",
+      "name": "4. Iniciar Exportación en Tenable - Centrales Argentina",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 40
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1072,
+        -448
+      ],
+      "id": "454c3e89-9a09-49e6-9cd8-15f187f8e937",
+      "name": "5. Esperar a que Termine Tenable - Centrales Argentina",
+      "webhookId": "8942ac2f-1de2-4fbc-a50c-7ae35e4a5d9d"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('4. Iniciar Exportación en Tenable - Centrales Argentina').item.json.export_uuid }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1280,
+        -448
+      ],
+      "id": "85590ef5-6787-489b-a173-bc626a2cbe6f",
+      "name": "6. Revisar Estado de Exportación Tenable - Centrales Argentina",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8b46b099-6b81-445c-9ea9-bff96f440571",
+              "name": "export_uuid",
+              "value": "={{ $('4. Iniciar Exportación en Tenable - Centrales Argentina').item.json.export_uuid }}",
+              "type": "string"
+            },
+            {
+              "id": "2207250f-5739-4b4d-a9a4-789788b554a9",
+              "name": "chunks_available",
+              "value": "={{ $json.chunks_available }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1488,
+        -448
+      ],
+      "id": "5f455755-d7f1-4680-8342-b8ff6c270c58",
+      "name": "7. Preparar Datos para el Bucle - Centrales Argentina"
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map(item => ({\n  json: {\n    export_uuid: item.json.export_uuid,\n    chunks_available: JSON.parse(item.json.chunks_available)\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        -448
+      ],
+      "id": "4110787b-7fc5-43db-8193-6ae7c5d31dc1",
+      "name": "8. Preparar Chunks para Bucle - Centrales Argentina"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "767e2959-8a4f-4c1b-bf7b-281c27bab9a0",
+              "leftValue": "={{ $json.chunks_available.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1872,
+        -448
+      ],
+      "id": "958af2ae-165e-406f-8798-5eaf64f408ba",
+      "name": "9. If (Hay Chunks para Descargar en Tenable - Centrales Argentina)"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "chunks_available",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2032,
+        -464
+      ],
+      "id": "74685ee7-11b0-4760-861c-2202c519b4e1",
+      "name": "10. Bucle por cada Chunk - Centrales Argentina"
+    },
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2208,
+        -464
+      ],
+      "id": "59a4ab69-85d9-4174-a4b6-475d2ee8af19",
+      "name": "11. Bucle por cada Chunk - Centrales Argentina"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $json.export_uuid }}/chunks/{{ $json.chunks_available }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2400,
+        -480
+      ],
+      "id": "af939aa1-e96c-429f-9f9a-ce96ebeacfac",
+      "name": "12. Descargar Resultados Tenable - Centrales Argentina",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const assetsArray = $input.all().map(item => item.json);\nconst assetUuids = assetsArray\n  .filter(asset => asset && asset.id)\n  .map(asset => asset.id);\n\nreturn [{\n  json: { \"uuids\": assetUuids }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2576,
+        -480
+      ],
+      "id": "80d3e9a6-6d59-492e-a48e-87b956d580da",
+      "name": "13. Extraer UUIDs Tenable - Centrales Argentina"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6a852083-e0dc-4bb9-a4ba-e066508aecde",
+              "leftValue": "={{ $json.uuids.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2752,
+        -480
+      ],
+      "id": "fbe4101a-bdb6-4bf9-821d-c05f3945672b",
+      "name": "14. Hay UUIDs para Etiquetar Tenable - Centrales Argentina"
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/tags/values",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2960,
+        -496
+      ],
+      "id": "277e73c8-d0be-42cc-99a9-5431ce8cbd30",
+      "name": "15. Obtener TODOS los Tags Tenable - Centrales Argentina",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define qué categoría y valor estamos buscando.\nconst CATEGORY_TO_FIND = \"Gestión de Servidores Linux\";\nconst VALUE_TO_FIND = \"Centrales Argentina\";\n\n// Obtiene la lista completa de tags del nodo anterior.\n// La respuesta de la API es un objeto que contiene un array llamado \"values\".\nconst allTags = $input.item.json.values;\n\n// Usa el método .find() para buscar en el array el tag exacto que cumple ambas condiciones.\nconst foundTag = allTags.find(tag => \n  tag.category_name === CATEGORY_TO_FIND && \n  tag.value === VALUE_TO_FIND\n);\n\n// Si se encuentra el tag, devuelve su UUID. Si no, devuelve null.\n// El '?' (optional chaining) evita un error si no se encuentra el tag.\nconst tagUuid = foundTag?.uuid || null;\n\n// Devuelve el resultado para que el siguiente nodo pueda usarlo.\nreturn [{\n  json: {\n    \"tag_uuid\": tagUuid\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3152,
+        -496
+      ],
+      "id": "b5e41747-fe54-4681-a8a4-1f94e92b4436",
+      "name": "16. Encontrar UUID del Tag Correcto Tenable - Centrales Argentina"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://cloud.tenable.com/tags/assets/assignments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"action\": \"add\",\n    \"tags\": [\n      $('16. Encontrar UUID del Tag Correcto Tenable - Centrales Argentina').item.json.tag_uuid\n    ],\n    \"assets\": $('13. Extraer UUIDs Tenable - Centrales Argentina').item.json.uuids\n  }\n}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3344,
+        -496
+      ],
+      "id": "742d39d7-8f20-40cf-84fb-d616430e3dc8",
+      "name": "17. Aplicar Tag Tenable - Centrales Argentina",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/assets/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chunk_size",
+              "value": "100"
+            },
+            {
+              "name": "filters",
+              "value": "={{ {\"ipv4\": $json.ipAddresses} }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        864,
+        -256
+      ],
+      "id": "72c4beec-52c7-4533-a0d4-4a966f443e12",
+      "name": "4. Iniciar Exportación en Tenable - Cedis",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 40
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1072,
+        -256
+      ],
+      "id": "2479c6e3-ef7d-4c0e-b326-c51942b1386a",
+      "name": "5. Esperar a que Termine Tenable - Cedis",
+      "webhookId": "8942ac2f-1de2-4fbc-a50c-7ae35e4a5d9d"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('4. Iniciar Exportación en Tenable - Cedis').item.json.export_uuid }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1280,
+        -256
+      ],
+      "id": "d25fcf4e-c7c0-4473-8e67-b4b76d7f317d",
+      "name": "6. Revisar Estado de Exportación Tenable - Cedis",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8b46b099-6b81-445c-9ea9-bff96f440571",
+              "name": "export_uuid",
+              "value": "={{ $('4. Iniciar Exportación en Tenable - Cedis').item.json.export_uuid }}",
+              "type": "string"
+            },
+            {
+              "id": "2207250f-5739-4b4d-a9a4-789788b554a9",
+              "name": "chunks_available",
+              "value": "={{ $json.chunks_available }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1488,
+        -256
+      ],
+      "id": "24ae40a7-a34d-4371-a893-603118943673",
+      "name": "7. Preparar Datos para el Bucle - Cedis"
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map(item => ({\n  json: {\n    export_uuid: item.json.export_uuid,\n    chunks_available: JSON.parse(item.json.chunks_available)\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        -256
+      ],
+      "id": "81249940-8bcc-4f93-9e24-493f0cba63bf",
+      "name": "8. Preparar Chunks para Bucle - Cedis"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "767e2959-8a4f-4c1b-bf7b-281c27bab9a0",
+              "leftValue": "={{ $json.chunks_available.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1872,
+        -256
+      ],
+      "id": "396725d8-1922-42f5-92d4-167f686bddcd",
+      "name": "9. If (Hay Chunks para Descargar en Tenable - Cedis)"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "chunks_available",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2032,
+        -272
+      ],
+      "id": "ea528a22-0a01-4ec8-be9d-da7bd8eb1c21",
+      "name": "10. Bucle por cada Chunk - Cedis"
+    },
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2208,
+        -272
+      ],
+      "id": "70119a08-5314-4802-9953-d0e4f67fc1df",
+      "name": "11. Bucle por cada Chunk - Cedis"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $json.export_uuid }}/chunks/{{ $json.chunks_available }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2400,
+        -288
+      ],
+      "id": "d5e87e98-2ae6-477a-abf4-81803dab4b01",
+      "name": "12. Descargar Resultados Tenable - Cedis",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const assetsArray = $input.all().map(item => item.json);\nconst assetUuids = assetsArray\n  .filter(asset => asset && asset.id)\n  .map(asset => asset.id);\n\nreturn [{\n  json: { \"uuids\": assetUuids }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2576,
+        -288
+      ],
+      "id": "839fc90a-d2c0-4909-a9d9-e98be4851394",
+      "name": "13. Extraer UUIDs Tenable - Cedis"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6a852083-e0dc-4bb9-a4ba-e066508aecde",
+              "leftValue": "={{ $json.uuids.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2752,
+        -288
+      ],
+      "id": "1bb00a29-6286-4b8f-9d29-85f0b73d3013",
+      "name": "14. Hay UUIDs para Etiquetar Tenable - Cedis"
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/tags/values",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2960,
+        -304
+      ],
+      "id": "5ee249cf-0a1d-415d-b286-21f5fa49fd5e",
+      "name": "15. Obtener TODOS los Tags Tenable - Cedis",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define qué categoría y valor estamos buscando.\nconst CATEGORY_TO_FIND = \"Gestión de Servidores Linux\";\nconst VALUE_TO_FIND = \"Cedis\";\n\n// Obtiene la lista completa de tags del nodo anterior.\n// La respuesta de la API es un objeto que contiene un array llamado \"values\".\nconst allTags = $input.item.json.values;\n\n// Usa el método .find() para buscar en el array el tag exacto que cumple ambas condiciones.\nconst foundTag = allTags.find(tag => \n  tag.category_name === CATEGORY_TO_FIND && \n  tag.value === VALUE_TO_FIND\n);\n\n// Si se encuentra el tag, devuelve su UUID. Si no, devuelve null.\n// El '?' (optional chaining) evita un error si no se encuentra el tag.\nconst tagUuid = foundTag?.uuid || null;\n\n// Devuelve el resultado para que el siguiente nodo pueda usarlo.\nreturn [{\n  json: {\n    \"tag_uuid\": tagUuid\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3152,
+        -304
+      ],
+      "id": "2cc48af0-df94-4e03-a5dc-1f49c6468142",
+      "name": "16. Encontrar UUID del Tag Correcto Tenable - Cedis"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://cloud.tenable.com/tags/assets/assignments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"action\": \"add\",\n    \"tags\": [\n      $('16. Encontrar UUID del Tag Correcto Tenable - Cedis').item.json.tag_uuid\n    ],\n    \"assets\": $('13. Extraer UUIDs Tenable - Cedis').item.json.uuids\n  }\n}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3344,
+        -304
+      ],
+      "id": "8fe1a5d9-fc37-4c99-b6ff-f9f5dbd767ef",
+      "name": "17. Aplicar Tag Tenable - Cedis",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map(item => ({\n  json: {\n    export_uuid: item.json.export_uuid,\n    chunks_available: JSON.parse(item.json.chunks_available)\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        -32
+      ],
+      "id": "2ae88c36-a5c5-45a2-a32f-80d3c786c279",
+      "name": "8. Preparar Chunks para Bucle - Cedis Argentina"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "767e2959-8a4f-4c1b-bf7b-281c27bab9a0",
+              "leftValue": "={{ $json.chunks_available.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1872,
+        -32
+      ],
+      "id": "bba18cdf-878e-4436-b4bb-beb4db67ec17",
+      "name": "9. If (Hay Chunks para Descargar en Tenable - Cedis Argentina)"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "chunks_available",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2032,
+        -48
+      ],
+      "id": "e336e416-89fc-4662-92e7-6d0f114bbec9",
+      "name": "10. Bucle por cada Chunk - Cedis Argentina"
+    },
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2208,
+        -48
+      ],
+      "id": "a5debae0-584b-45ae-b655-66ff36a4eba0",
+      "name": "11. Bucle por cada Chunk - Cedis Argentina"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $json.export_uuid }}/chunks/{{ $json.chunks_available }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "filters",
+              "value": "={{ {\"ipv4s\": $json.ipAddresses} }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2400,
+        -64
+      ],
+      "id": "43a43fb5-0a50-4585-89a5-49e0b7004e32",
+      "name": "12. Descargar Resultados Tenable - Cedis Argentina",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const assetsArray = $input.all().map(item => item.json);\nconst assetUuids = assetsArray\n  .filter(asset => asset && asset.id)\n  .map(asset => asset.id);\n\nreturn [{\n  json: { \"uuids\": assetUuids }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2576,
+        -64
+      ],
+      "id": "76fe1461-9e4d-4eb7-b23c-ff1214d36389",
+      "name": "13. Extraer UUIDs Tenable - Cedis Argentina"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6a852083-e0dc-4bb9-a4ba-e066508aecde",
+              "leftValue": "={{ $json.uuids.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2752,
+        -64
+      ],
+      "id": "66aa51d6-ae3d-4f8d-ac3c-216b8e427b1e",
+      "name": "14. Hay UUIDs para Etiquetar Tenable - Cedis Argentina"
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/tags/values",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2960,
+        -80
+      ],
+      "id": "974d29ab-be41-47c2-bc24-f13d400db4ff",
+      "name": "15. Obtener TODOS los Tags Tenable - Cedis Argentina",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define qué categoría y valor estamos buscando.\nconst CATEGORY_TO_FIND = \"Gestión de Servidores Linux\";\nconst VALUE_TO_FIND = \"Cedis Argentina\";\n\n// Obtiene la lista completa de tags del nodo anterior.\n// La respuesta de la API es un objeto que contiene un array llamado \"values\".\nconst allTags = $input.item.json.values;\n\n// Usa el método .find() para buscar en el array el tag exacto que cumple ambas condiciones.\nconst foundTag = allTags.find(tag => \n  tag.category_name === CATEGORY_TO_FIND && \n  tag.value === VALUE_TO_FIND\n);\n\n// Si se encuentra el tag, devuelve su UUID. Si no, devuelve null.\n// El '?' (optional chaining) evita un error si no se encuentra el tag.\nconst tagUuid = foundTag?.uuid || null;\n\n// Devuelve el resultado para que el siguiente nodo pueda usarlo.\nreturn [{\n  json: {\n    \"tag_uuid\": tagUuid\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3152,
+        -80
+      ],
+      "id": "ab449f76-bb7e-4a79-b740-5a6726a3507a",
+      "name": "16. Encontrar UUID del Tag Correcto Tenable - Cedis Argentina"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://cloud.tenable.com/tags/assets/assignments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"action\": \"add\",\n    \"tags\": [\n      $('16. Encontrar UUID del Tag Correcto Tenable - Cedis Argentina').item.json.tag_uuid\n    ],\n    \"assets\": $('13. Extraer UUIDs Tenable - Cedis Argentina').item.json.uuids\n  }\n}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3344,
+        -80
+      ],
+      "id": "0e980f57-e011-4041-ac25-1769a794bc93",
+      "name": "17. Aplicar Tag Tenable - Cedis Argentina",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst ipAddresses = new Set();\n\n// Expresión regular para validar si un texto parece una IP v4.\nconst ipv4Regex = /^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$/;\n\nfor (const item of items) {\n  // Lista de columnas que pueden contener IPs.\n  const ipColumns = ['IP']; \n\n  for (const col of ipColumns) {\n    let cellValue = item.json[col];\n\n    // Si el valor existe, lo convertimos a texto para poder procesarlo.\n    if (cellValue !== null && cellValue !== undefined) {\n      cellValue = String(cellValue);\n    }\n\n    if (cellValue && typeof cellValue === 'string') {\n      \n      // Separamos el contenido de la celda por espacios o comas.\n      const potentialIps = cellValue.split(/[ ,]+/);\n\n      for (const potentialIp of potentialIps) {\n        const trimmedIp = potentialIp.trim();\n        \n        // Si la parte es una IP válida, la agregamos.\n        // Si no lo es (ej: un hostname), simplemente la ignora.\n        if (ipv4Regex.test(trimmedIp)) {\n          ipAddresses.add(trimmedIp);\n        }\n      }\n    }\n  }\n}\n\n// Devuelve un solo objeto con la lista final y limpia de IPs.\nreturn [{\n  json: {\n    \"ipAddresses\": Array.from(ipAddresses)\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        -32
+      ],
+      "id": "1dd7174e-acf9-4e83-8b2c-da566e2ab1ab",
+      "name": "3. Construir Filtro para Tenable - Cedis Argentina"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 546329930,
+          "mode": "list",
+          "cachedResultName": "Servidores Administrados por Linux",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8/edit#gid=546329930"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        -352
+      ],
+      "id": "e64c7d16-1b72-4e45-9e31-ff62d6c8f09a",
+      "name": "CMDB - Gestión de Servidores Linux",
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "CMDB - Gestión de Servidores Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "3. Preparar Lista de IPs - Centrales",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "3. Preparar Lista de IPs - Centrales Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "3. Preparar Lista de IPs - Cedis",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "3. Construir Filtro para Tenable - Cedis Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Preparar Lista de IPs - Centrales": {
+      "main": [
+        [
+          {
+            "node": "4. Iniciar Exportación en Tenable - Centrales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Preparar Lista de IPs - Centrales Argentina": {
+      "main": [
+        [
+          {
+            "node": "4. Iniciar Exportación en Tenable - Centrales Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Preparar Lista de IPs - Cedis": {
+      "main": [
+        [
+          {
+            "node": "4. Iniciar Exportación en Tenable - Cedis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Iniciar Exportación en Tenable - Cedis Argentina": {
+      "main": [
+        [
+          {
+            "node": "5. Esperar a que Termine Tenable - Cedis Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Esperar a que Termine Tenable - Cedis Argentina": {
+      "main": [
+        [
+          {
+            "node": "6. Revisar Estado de Exportación Tenable - Cedis Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Revisar Estado de Exportación Tenable - Cedis Argentina": {
+      "main": [
+        [
+          {
+            "node": "7. Preparar Datos para el Bucle - Cedis Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Preparar Datos para el Bucle - Cedis Argentina": {
+      "main": [
+        [
+          {
+            "node": "8. Preparar Chunks para Bucle - Cedis Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Iniciar Exportación en Tenable - Centrales": {
+      "main": [
+        [
+          {
+            "node": "5. Esperar a que Termine Tenable - Centrales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Esperar a que Termine Tenable - Centrales": {
+      "main": [
+        [
+          {
+            "node": "6. Revisar Estado de Exportación Tenable - Centrales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Preparar Datos para el Bucle - Centrales": {
+      "main": [
+        [
+          {
+            "node": "8. Preparar Chunks para Bucle - Centrales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Revisar Estado de Exportación Tenable - Centrales": {
+      "main": [
+        [
+          {
+            "node": "7. Preparar Datos para el Bucle - Centrales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. Preparar Chunks para Bucle - Centrales": {
+      "main": [
+        [
+          {
+            "node": "9. If (Hay Chunks para Descargar en Tenable - Centrales)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. If (Hay Chunks para Descargar en Tenable - Centrales)": {
+      "main": [
+        [
+          {
+            "node": "10. Bucle por cada Chunk - Centrales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Bucle por cada Chunk - Centrales": {
+      "main": [
+        [
+          {
+            "node": "11. Bucle por cada Chunk - Centrales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. Bucle por cada Chunk - Centrales": {
+      "main": [
+        [
+          {
+            "node": "12. Descargar Resultados Tenable - Centrales",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "10. Bucle por cada Chunk - Centrales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Descargar Resultados Tenable - Centrales": {
+      "main": [
+        [
+          {
+            "node": "13. Extraer UUIDs Tenable - Centrales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Extraer UUIDs Tenable - Centrales": {
+      "main": [
+        [
+          {
+            "node": "14. Hay UUIDs para Etiquetar Tenable - Centrales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "14. Hay UUIDs para Etiquetar Tenable - Centrales": {
+      "main": [
+        [
+          {
+            "node": "15. Obtener TODOS los Tags Tenable - Centrales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "15. Obtener TODOS los Tags Tenable - Centrales": {
+      "main": [
+        [
+          {
+            "node": "16. Encontrar UUID del Tag Correcto Tenable - Centrales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "16. Encontrar UUID del Tag Correcto Tenable - Centrales": {
+      "main": [
+        [
+          {
+            "node": "17. Aplicar Tag Tenable - Centrales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Iniciar Exportación en Tenable - Centrales Argentina": {
+      "main": [
+        [
+          {
+            "node": "5. Esperar a que Termine Tenable - Centrales Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Esperar a que Termine Tenable - Centrales Argentina": {
+      "main": [
+        [
+          {
+            "node": "6. Revisar Estado de Exportación Tenable - Centrales Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Revisar Estado de Exportación Tenable - Centrales Argentina": {
+      "main": [
+        [
+          {
+            "node": "7. Preparar Datos para el Bucle - Centrales Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Preparar Datos para el Bucle - Centrales Argentina": {
+      "main": [
+        [
+          {
+            "node": "8. Preparar Chunks para Bucle - Centrales Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. Preparar Chunks para Bucle - Centrales Argentina": {
+      "main": [
+        [
+          {
+            "node": "9. If (Hay Chunks para Descargar en Tenable - Centrales Argentina)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. If (Hay Chunks para Descargar en Tenable - Centrales Argentina)": {
+      "main": [
+        [
+          {
+            "node": "10. Bucle por cada Chunk - Centrales Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Bucle por cada Chunk - Centrales Argentina": {
+      "main": [
+        [
+          {
+            "node": "11. Bucle por cada Chunk - Centrales Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. Bucle por cada Chunk - Centrales Argentina": {
+      "main": [
+        [
+          {
+            "node": "12. Descargar Resultados Tenable - Centrales Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "10. Bucle por cada Chunk - Centrales Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Descargar Resultados Tenable - Centrales Argentina": {
+      "main": [
+        [
+          {
+            "node": "13. Extraer UUIDs Tenable - Centrales Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Extraer UUIDs Tenable - Centrales Argentina": {
+      "main": [
+        [
+          {
+            "node": "14. Hay UUIDs para Etiquetar Tenable - Centrales Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "14. Hay UUIDs para Etiquetar Tenable - Centrales Argentina": {
+      "main": [
+        [
+          {
+            "node": "15. Obtener TODOS los Tags Tenable - Centrales Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "15. Obtener TODOS los Tags Tenable - Centrales Argentina": {
+      "main": [
+        [
+          {
+            "node": "16. Encontrar UUID del Tag Correcto Tenable - Centrales Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "16. Encontrar UUID del Tag Correcto Tenable - Centrales Argentina": {
+      "main": [
+        [
+          {
+            "node": "17. Aplicar Tag Tenable - Centrales Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Iniciar Exportación en Tenable - Cedis": {
+      "main": [
+        [
+          {
+            "node": "5. Esperar a que Termine Tenable - Cedis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Esperar a que Termine Tenable - Cedis": {
+      "main": [
+        [
+          {
+            "node": "6. Revisar Estado de Exportación Tenable - Cedis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Revisar Estado de Exportación Tenable - Cedis": {
+      "main": [
+        [
+          {
+            "node": "7. Preparar Datos para el Bucle - Cedis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Preparar Datos para el Bucle - Cedis": {
+      "main": [
+        [
+          {
+            "node": "8. Preparar Chunks para Bucle - Cedis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. Preparar Chunks para Bucle - Cedis": {
+      "main": [
+        [
+          {
+            "node": "9. If (Hay Chunks para Descargar en Tenable - Cedis)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. If (Hay Chunks para Descargar en Tenable - Cedis)": {
+      "main": [
+        [
+          {
+            "node": "10. Bucle por cada Chunk - Cedis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Bucle por cada Chunk - Cedis": {
+      "main": [
+        [
+          {
+            "node": "11. Bucle por cada Chunk - Cedis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. Bucle por cada Chunk - Cedis": {
+      "main": [
+        [
+          {
+            "node": "12. Descargar Resultados Tenable - Cedis",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "10. Bucle por cada Chunk - Cedis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Descargar Resultados Tenable - Cedis": {
+      "main": [
+        [
+          {
+            "node": "13. Extraer UUIDs Tenable - Cedis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Extraer UUIDs Tenable - Cedis": {
+      "main": [
+        [
+          {
+            "node": "14. Hay UUIDs para Etiquetar Tenable - Cedis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "14. Hay UUIDs para Etiquetar Tenable - Cedis": {
+      "main": [
+        [
+          {
+            "node": "15. Obtener TODOS los Tags Tenable - Cedis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "15. Obtener TODOS los Tags Tenable - Cedis": {
+      "main": [
+        [
+          {
+            "node": "16. Encontrar UUID del Tag Correcto Tenable - Cedis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "16. Encontrar UUID del Tag Correcto Tenable - Cedis": {
+      "main": [
+        [
+          {
+            "node": "17. Aplicar Tag Tenable - Cedis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. Preparar Chunks para Bucle - Cedis Argentina": {
+      "main": [
+        [
+          {
+            "node": "9. If (Hay Chunks para Descargar en Tenable - Cedis Argentina)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. If (Hay Chunks para Descargar en Tenable - Cedis Argentina)": {
+      "main": [
+        [
+          {
+            "node": "10. Bucle por cada Chunk - Cedis Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Bucle por cada Chunk - Cedis Argentina": {
+      "main": [
+        [
+          {
+            "node": "11. Bucle por cada Chunk - Cedis Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. Bucle por cada Chunk - Cedis Argentina": {
+      "main": [
+        [
+          {
+            "node": "12. Descargar Resultados Tenable - Cedis Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "10. Bucle por cada Chunk - Cedis Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Descargar Resultados Tenable - Cedis Argentina": {
+      "main": [
+        [
+          {
+            "node": "13. Extraer UUIDs Tenable - Cedis Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Extraer UUIDs Tenable - Cedis Argentina": {
+      "main": [
+        [
+          {
+            "node": "14. Hay UUIDs para Etiquetar Tenable - Cedis Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "14. Hay UUIDs para Etiquetar Tenable - Cedis Argentina": {
+      "main": [
+        [
+          {
+            "node": "15. Obtener TODOS los Tags Tenable - Cedis Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "15. Obtener TODOS los Tags Tenable - Cedis Argentina": {
+      "main": [
+        [
+          {
+            "node": "16. Encontrar UUID del Tag Correcto Tenable - Cedis Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "16. Encontrar UUID del Tag Correcto Tenable - Cedis Argentina": {
+      "main": [
+        [
+          {
+            "node": "17. Aplicar Tag Tenable - Cedis Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Construir Filtro para Tenable - Cedis Argentina": {
+      "main": [
+        [
+          {
+            "node": "4. Iniciar Exportación en Tenable - Cedis Argentina",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CMDB - Gestión de Servidores Linux": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {},
+  "triggerCount": 0,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

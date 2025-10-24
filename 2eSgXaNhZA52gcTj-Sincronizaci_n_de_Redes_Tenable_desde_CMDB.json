@@ -1,0 +1,776 @@
+{
+  "name": "Sincronización de Redes Tenable desde CMDB",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/networks",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "={{ $json['EPG NAME'].replace(/^=/, '') }}"
+            },
+            {
+              "name": "rules",
+              "value": "={{ [{ \"type\": \"cidr\", \"rule\": $json.SUBNET + \"/\" + ($json.MASK.split('.').reduce((acc, octet) => acc + (parseInt(octet) >>> 0).toString(2).replace(/0/g, '').length, 0)) }] }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ \"Red creada automáticamente desde CMDB. VLAN: \" + $json[\"VLAN NAME\"] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cc914f12-c3e5-4b4f-8723-4e896296fede",
+      "name": "6. Crear Red Nueva en Tenable",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        -96
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d17ef064-8db6-4c56-a286-c5f2089c592d",
+              "leftValue": "={{ $json.uuid }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "isEmpty"
+              }
+            },
+            {
+              "id": "d2878c11-80d7-43f5-8bf3-530a59bf915c",
+              "leftValue": "={{ !$json.uuid }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        16
+      ],
+      "id": "3b8b6bef-3669-4ae6-9681-9d5b4d322cc1",
+      "name": "5. ¿La Red Ya Existe?"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "networks",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        32,
+        112
+      ],
+      "id": "79ccbfdb-1431-4b5f-a7c1-99c5948bdfe7",
+      "name": "3.1 Preparar Lista de Redes"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 836945875,
+          "mode": "list",
+          "cachedResultName": "Endpoint Group (EPG)"
+        },
+        "options": {}
+      },
+      "id": "83d4d99b-e647-451c-85e6-5363ff0ceaf6",
+      "name": "2. Leer EPGs de Google Sheets1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -144,
+        -48
+      ],
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "advanced": true,
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "EPG NAME",
+              "field2": "name"
+            }
+          ]
+        },
+        "joinMode": "enrichInput1",
+        "options": {}
+      },
+      "id": "350abe63-ffe6-4ebf-b0d6-60d97de1ed6e",
+      "name": "4. Unir EPGs con Redes de Tenable",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        224,
+        16
+      ],
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/networks",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "200"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          },
+          "pagination": {
+            "pagination": {
+              "parameters": {
+                "parameters": [
+                  {
+                    "name": "offset",
+                    "value": "={{$response.body.pagination.offset + $response.body.pagination.limit}}"
+                  }
+                ]
+              },
+              "paginationCompleteWhen": "other",
+              "completeExpression": "={{ ($response.body.pagination?.offset + $response.body.pagination?.limit) >= $response.body.pagination?.total }}"
+            }
+          }
+        }
+      },
+      "id": "e498b3cd-6a03-4137-93c5-a1a032babad3",
+      "name": "3. Obtener Redes Existentes de Tenable",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -144,
+        112
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "7b665fe7-113b-49d1-9cd8-ee7d53149da4",
+      "name": "1. Trigger Semanal",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -384,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "354a903e-b277-4392-904b-c79b8a1bca8f",
+              "leftValue": "={{ $json.SUBNET }}",
+              "rightValue": "N/A",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        656,
+        0
+      ],
+      "id": "915bdeb7-27fd-48c6-a78b-e03e69ea1a89",
+      "name": "5.1 ¿Tiene Datos de Red?"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/networks",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "name",
+              "value": "={{ $json['EPG NAME'].replace(/^=/, '') }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ \"Red creada automáticamente desde CMDB. VLAN: \" + $json[\"VLAN NAME\"] + \". ADVERTENCIA: No cuenta con SUBNET, MASK y GATEWAY.\" }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        80
+      ],
+      "id": "9dbda1ed-fd92-4c61-aa94-e10ab08cbfcb",
+      "name": "6.1 Crear Red (sin Subnet)",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a66c695e-de5b-489c-a0be-5a86cced299a",
+              "leftValue": "={{ $json['EPG NAME'].toLowerCase().trim() }}",
+              "rightValue": "default",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        32,
+        -48
+      ],
+      "id": "9f9e2ded-ae69-4796-928d-c761a5421262",
+      "name": "2.1 Filtrar Nombres Reservados"
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/assets",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "f",
+              "value": "ipv4:cidr"
+            },
+            {
+              "name": "op",
+              "value": "eq"
+            },
+            {
+              "name": "value",
+              "value": "={{ $json.SUBNET }}/{{ ($json.MASK.split('.').reduce((acc, octet) => acc + (parseInt(octet) >>> 0).toString(2).replace(/0/g, '').length, 0)) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1088,
+        -96
+      ],
+      "id": "0a93c952-b704-40f1-8f3a-f16e57b40c5f",
+      "name": "7. Buscar Assets en la Red",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const assetsResponse = $input.all();\nconst ips = [];\n\nif (assetsResponse[0]?.json?.assets) {\n  for (const asset of assetsResponse[0].json.assets) {\n    if (asset.ipv4 && asset.ipv4.length > 0) {\n      ips.push(...asset.ipv4);\n    }\n  }\n}\n\nreturn [{ json: { ips_list: ips } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1296,
+        -96
+      ],
+      "id": "335011a7-aa3c-4bd8-b47a-c0607c10d078",
+      "name": "8. Extraer IPs de Assets"
+    },
+    {
+      "parameters": {
+        "url": "={{ \"https://cloud.tenable.com/networks/\" + $('6. Crear Red Nueva en Tenable').item.json.network.uuid + \"/import-asset-ips\" }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "source",
+              "value": "IP_LIST"
+            },
+            {
+              "name": "ips",
+              "value": "={{ $json.ips_list }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1504,
+        -96
+      ],
+      "id": "635210ae-45f3-427d-a752-76a987bdb305",
+      "name": "9. Asignar Assets a la Red"
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/assets",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "f",
+              "value": "ipv4:cidr"
+            },
+            {
+              "name": "op",
+              "value": "eq"
+            },
+            {
+              "name": "value",
+              "value": "={{ $json.SUBNET }}/{{ ($json.MASK.split('.').reduce((acc, octet) => acc + (parseInt(octet) >>> 0).toString(2).replace(/0/g, '').length, 0)) }}"
+            },
+            {
+              "name": "offset",
+              "value": "={{ $response.body.pagination.offset + $response.body.pagination.limit }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1088,
+        288
+      ],
+      "id": "4f69480c-e0a9-4c1f-a6f8-d5528b0fd9f4",
+      "name": "7. Buscar Assets en la Red1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Tomamos el item original que está siendo procesado por el bucle\nconst originalItem = $('Loop Over Items').item;\n\n// Tomamos la respuesta del nodo anterior (la búsqueda de assets)\nconst assetsResponse = $input.all();\nconst ips = [];\n\n// Extraemos las IPs de la respuesta\nif (assetsResponse[0]?.json?.assets) {\n  for (const asset of assetsResponse[0].json.assets) {\n    if (asset.ipv4 && asset.ipv4.length > 0) {\n      ips.push(...asset.ipv4);\n    }\n  }\n}\n\n// Añadimos la nueva lista de IPs al item original\noriginalItem.json.ips_list = ips;\n\n// Devolvemos el item original, ahora enriquecido con la lista de IPs\nreturn originalItem;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1296,
+        288
+      ],
+      "id": "9897270f-d13d-44c9-9d4d-e82d00959c71",
+      "name": "8. Extraer IPs de Assets1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/api/v2/assets/bulk-jobs/move-to-network",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"targets\": \"{{ $json.ips_list.join(', ') }}\",\n  \"destination\": \"{{ $json.destination_uuid }}\",\n  \"source\": \"{{ $json.source_uuid }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1680,
+        288
+      ],
+      "id": "a2bcde31-f121-43e4-bc1a-586606ebb335",
+      "name": "9. Asignar Assets a la Red1",
+      "retryOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": 10,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        880,
+        272
+      ],
+      "id": "9a6d6b0a-309c-4616-af6f-9448a18cd2f8",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "771096c0-f43f-4bfd-87cc-e4d931c247ae",
+              "leftValue": "={{ $json.SUBNET }}",
+              "rightValue": "N/A",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        656,
+        192
+      ],
+      "id": "052fd158-75f9-4a84-bdfe-fb5df020fc94",
+      "name": "5.2 Filtrar Redes sin Subnet"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Array de IPs a comparar\nconst rawIps = $json.ips_list || [];\nconst ips = rawIps.filter(ip => typeof ip === \"string\" && ip.trim() !== \"\");\n\n// Tomar los datos del propio item\nconst subnet = $json.SUBNET;\nconst mask = $json.MASK;\nconst destination_uuid = $json.uuid;\n\n// Convierte una IP a entero\nfunction ipToInt(ip) {\n  return ip.split('.').reduce((acc, oct) => (acc << 8) + parseInt(oct, 10), 0);\n}\n\n// Convierte una máscara en formato decimal a entero\nfunction maskToInt(mask) {\n  return ipToInt(mask);\n}\n\n// Verifica si una IP está en la subred\nfunction ipInSubnet(ip, subnet, mask) {\n  const ipInt = ipToInt(ip);\n  const subnetInt = ipToInt(subnet);\n  const maskInt = maskToInt(mask);\n  return (ipInt & maskInt) === (subnetInt & maskInt);\n}\n\n// Filtrar IPs que están en el rango\nconst filtered_ips = ips.filter(ip => ipInSubnet(ip, subnet, mask));\n\n// Validación para evitar valores nulos\nif (!destination_uuid) {\n  throw new Error('No se encontró un UUID de destino para las IPs proporcionadas.');\n}\n\n// Puedes definir el source_uuid según tu lógica\nconst source_uuid = $json.source_uuid || '00000000-0000-0000-0000-000000000000';\n\nreturn [\n  {\n    json: {\n      ...$json,\n      ips_list: filtered_ips,\n      destination_uuid,\n      source_uuid\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1504,
+        288
+      ],
+      "id": "61bc7ba8-64cc-436f-a6b7-af70d0f8a353",
+      "name": "Filtrar y Asociar IPs a Network"
+    }
+  ],
+  "connections": {
+    "5. ¿La Red Ya Existe?": {
+      "main": [
+        [
+          {
+            "node": "5.1 ¿Tiene Datos de Red?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "5.2 Filtrar Redes sin Subnet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3.1 Preparar Lista de Redes": {
+      "main": [
+        [
+          {
+            "node": "4. Unir EPGs con Redes de Tenable",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "2. Leer EPGs de Google Sheets1": {
+      "main": [
+        [
+          {
+            "node": "2.1 Filtrar Nombres Reservados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Unir EPGs con Redes de Tenable": {
+      "main": [
+        [
+          {
+            "node": "5. ¿La Red Ya Existe?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Obtener Redes Existentes de Tenable": {
+      "main": [
+        [
+          {
+            "node": "3.1 Preparar Lista de Redes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "1. Trigger Semanal": {
+      "main": [
+        [
+          {
+            "node": "2. Leer EPGs de Google Sheets1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "3. Obtener Redes Existentes de Tenable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5.1 ¿Tiene Datos de Red?": {
+      "main": [
+        [
+          {
+            "node": "6. Crear Red Nueva en Tenable",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "6.1 Crear Red (sin Subnet)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2.1 Filtrar Nombres Reservados": {
+      "main": [
+        [
+          {
+            "node": "4. Unir EPGs con Redes de Tenable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Crear Red Nueva en Tenable": {
+      "main": [
+        [
+          {
+            "node": "7. Buscar Assets en la Red",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Buscar Assets en la Red": {
+      "main": [
+        [
+          {
+            "node": "8. Extraer IPs de Assets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. Extraer IPs de Assets": {
+      "main": [
+        [
+          {
+            "node": "9. Asignar Assets a la Red",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Buscar Assets en la Red1": {
+      "main": [
+        [
+          {
+            "node": "8. Extraer IPs de Assets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. Extraer IPs de Assets1": {
+      "main": [
+        [
+          {
+            "node": "Filtrar y Asociar IPs a Network",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "7. Buscar Assets en la Red1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. Asignar Assets a la Red1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5.2 Filtrar Redes sin Subnet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtrar y Asociar IPs a Network": {
+      "main": [
+        [
+          {
+            "node": "9. Asignar Assets a la Red1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "78lmCpdDZEyxMB0A"
+  },
+  "staticData": {
+    "node:1. Trigger Semanal": {
+      "recurrenceRules": []
+    }
+  },
+  "pinData": {},
+  "triggerCount": 1,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

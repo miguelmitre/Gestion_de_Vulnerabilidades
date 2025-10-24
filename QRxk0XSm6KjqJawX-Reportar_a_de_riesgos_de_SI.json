@@ -1,0 +1,119 @@
+{
+  "name": "Reportaría de riesgos de SI",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -416,
+        -48
+      ],
+      "id": "5cfbf17d-8cff-463b-b908-22853a64ed2a",
+      "name": "Archer",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "0JHyLzy37b99JE5e",
+          "name": "Vulners API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -640,
+        -48
+      ],
+      "id": "ddbd769e-2ca9-4858-ad79-dbc50aa304ba",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        -48
+      ],
+      "id": "db20ede6-ed9f-43a4-98b0-6ebad4cdc89d",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount"
+      },
+      "type": "n8n-nodes-base.googleSlides",
+      "typeVersion": 2,
+      "position": [
+        0,
+        -48
+      ],
+      "id": "c730a7fa-5205-48dc-8e26-ca7fd09152de",
+      "name": "Create a presentation",
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Archer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Archer": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Create a presentation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {},
+  "triggerCount": 0,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

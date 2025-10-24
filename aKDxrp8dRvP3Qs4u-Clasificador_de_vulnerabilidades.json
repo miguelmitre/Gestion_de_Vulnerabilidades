@@ -1,0 +1,210 @@
+{
+  "name": "Clasificador de vulnerabilidades",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -560,
+        -304
+      ],
+      "id": "30e37781-4963-49c4-8f59-30a2fc3485a4",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1JPPnMHeFRCPPe8x_8sw9Xjnl6UPW0fUS1BzGhzqgYZU",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 207934439,
+          "mode": "list",
+          "cachedResultName": "vulnerabilities-09_11_2025_-17_13_54-gmt-7"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -352,
+        -304
+      ],
+      "id": "953c28d3-51b4-4709-bf24-206867f2e639",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "projectId": {
+          "__rl": true,
+          "value": "cpl-seg-tenable-prod-14052024",
+          "mode": "id"
+        },
+        "modelName": "gemini-2.5-pro",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleVertex",
+      "typeVersion": 1,
+      "position": [
+        32,
+        -96
+      ],
+      "id": "fbd0dfd4-4860-42a0-98f9-83f05dc5327c",
+      "name": "Gemini",
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1pfa8xmIkiQ4pyGUb8SRdNXCBxoT4lv0ze_KTffF8udk",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Clasificacion"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        320,
+        -304
+      ],
+      "id": "968ee954-f30c-4aa7-9a27-f239e25bed5e",
+      "name": "Create sheet in Google Sheets",
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Map input items to new array, each with 'myNewField' added\nconst items = $input.all().map(item => {\n  // Create a shallow copy to avoid mutating original input item\n  return {\n    json: { ...item.json, myNewField: 1 },\n    binary: item.binary\n  };\n});\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -128,
+        -304
+      ],
+      "id": "4d2f8c46-1355-4ce3-a708-395341493d1f",
+      "name": "Consolidate Data"
+    },
+    {
+      "parameters": {
+        "prompt": "=Rol:\nActúa como un analista experto en ciberseguridad y gestión de vulnerabilidades (VM). Tu tarea es procesar, clasificar y resumir un listado de vulnerabilidades.\n\nTarea:\nProcesa el conjunto de datos de vulnerabilidades que te proporcionaré en formato JSON. Tu objetivo es clasificar cada vulnerabilidad como \"Nativa del Sistema Operativo\" o \"Middleware\" y luego generar un resumen cuantitativo.\n\nContexto:\nEstoy preparando un informe para el equipo de operaciones de TI. El propósito es tener una vista rápida y numérica del estado actual de las vulnerabilidades para priorizar esfuerzos.\n\nFormato:\nQuiero que la respuesta sea **únicamente un resumen cuantitativo**, sin listar las vulnerabilidades individuales. La respuesta debe usar Markdown y seguir esta estructura exacta:\n\n1.  **Resumen Global:**\n    * **Conteo Total:** [Número total]\n    * **Críticas:** [Número]\n    * **Altas:** [Número]\n    * **Medias:** [Número]\n    * **Bajas:** [Número]\n\n2.  **Desglose por Sistema Operativo:**\n    * **Total en Categoría:** [Número] (Críticas: X, Altas: Y, Medias: Z, Bajas: W)\n\n3.  **Desglose por Middleware:**\n    * **Total en Categoría:** [Número] (Críticas: X, Altas: Y, Medias: Z, Bajas: W)\n\n\nLenguaje:\nUtiliza un tono profesional y técnico, en español.\n\nAquí están los datos a procesar:\n{{$json.batchData}}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1,
+      "position": [
+        32,
+        -304
+      ],
+      "id": "5ea235d1-f3c1-4149-b2f1-c952597bd7a4",
+      "name": "LLM Chain"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Consolidate Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consolidate Data": {
+      "main": [
+        [
+          {
+            "node": "LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Create sheet in Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {},
+  "triggerCount": 0,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

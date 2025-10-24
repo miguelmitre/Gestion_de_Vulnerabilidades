@@ -1,0 +1,552 @@
+{
+  "name": "Tags Tenable + CMDB + Ambiente",
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "combine",
+        "mergeByFields": {
+          "values": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "id": "972768df-da8c-492d-8ebc-b0a7ef87bfdf",
+      "name": "4. Crear Inventario Maestro",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        832,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/vulns/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"filters\": {\n    \"state\": [\n      \"OPEN\",\n      \"REOPENED\"\n    ]\n  },\n  \"num_assets\": 5000\n}",
+        "options": {}
+      },
+      "id": "82c4320b-c18a-4816-a615-96257ad0a299",
+      "name": "2. Tenable - Iniciar Exportación",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        64,
+        288
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const all_chunks = $input.all();\nconst vulnerabilities = [];\nfor(const item of all_chunks) {\n  if(item.binary && item.binary.data) {\n    const data = JSON.parse(Buffer.from(item.binary.data, 'base64').toString());\n    vulnerabilities.push(...data);\n  }\n}\nreturn vulnerabilities.map(json => ({ json }));"
+      },
+      "id": "433c7509-4696-47ce-b73b-0c890ffd667b",
+      "name": "5. Normalizar Datos de Tenable",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        384,
+        288
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "mergeByKey",
+        "options": {}
+      },
+      "id": "9f9b8122-97ec-4fbd-a360-883d2b917eab",
+      "name": "6. Unir Datos de Tenable y Ambientes",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        1232,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1hCLECzhIaGriHAOqwcLNHTe-8e8YFwJtrn-7Bw-shZA",
+          "mode": "list",
+          "cachedResultName": "Metricas Tenable - CISO",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hCLECzhIaGriHAOqwcLNHTe-8e8YFwJtrn-7Bw-shZA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Detalle Vulnerabilidades",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1hCLECzhIaGriHAOqwcLNHTe-8e8YFwJtrn-7Bw-shZA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Severidad",
+              "displayName": "Severidad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Clasificacion_IA",
+              "displayName": "Clasificacion_IA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nombre_Vulnerabilidad",
+              "displayName": "Nombre_Vulnerabilidad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CVSS",
+              "displayName": "CVSS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Asset_OS",
+              "displayName": "Asset_OS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "01269e3f-16bc-4273-9463-805d735876a0",
+      "name": "7. Guardar Reporte Final Enriquecido",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1472,
+        512
+      ],
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "identificador_activo",
+              "value": "={{ $json.Hostname || $json['IP Address'] || $json.Host || $json.IP || $json.Name }}"
+            },
+            {
+              "name": "ambiente",
+              "value": "={{ $json.Ambiente || $json.ambiente || 'No Especificado' }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "97020e38-be18-4bf4-b058-3d9d0e5eb49d",
+      "name": "Set - Servidores Linux",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        368,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "identificador_activo",
+              "value": "={{ $json.Hostname || $json['IP Address'] || $json.Host || $json.IP || $json.Name }}"
+            },
+            {
+              "name": "ambiente",
+              "value": "={{ $json.Ambiente || $json.ambiente || 'No Especificado' }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fc9a86a4-d7f2-4f63-893c-137022b2e27d",
+      "name": "Set - Servidores Windows",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        352,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "identificador_activo",
+              "value": "={{ $json.Hostname || $json['IP Address'] || $json.Host || $json.IP || $json.Name }}"
+            },
+            {
+              "name": "ambiente",
+              "value": "={{ $json.Ambiente || $json.ambiente || 'No Especificado' }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ef4bc384-7aa9-49ff-8059-4f5b2a0b322e",
+      "name": "Set - Infra VMWare",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        352,
+        928
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8",
+          "mode": "list",
+          "cachedResultName": "Inventario Gestion de Vulnerabilidades (Silver Source)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 562645524,
+          "mode": "list",
+          "cachedResultName": "Gestion de Base de datos (AyS) (Proyectos)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8/edit#gid=562645524"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "ip_server"
+            },
+            {
+              "lookupColumn": "ambiente",
+              "lookupValue": "PRODUCCION"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6aa03bb3-6cb4-477d-8e6f-b734e2324fd7",
+      "name": "Leer - Gestion de Base de datos (AyS) (Proyectos)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        64,
+        928
+      ],
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8",
+          "mode": "list",
+          "cachedResultName": "Inventario Gestion de Vulnerabilidades (Silver Source)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 24213931,
+          "mode": "list",
+          "cachedResultName": "Gestion de Servidores Windows",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8/edit#gid=24213931"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "ip"
+            },
+            {
+              "lookupColumn": "hostname"
+            },
+            {
+              "lookupColumn": "Ambiente",
+              "lookupValue": "Productivo"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8fa383a2-931e-4d81-88cb-475e01a60f07",
+      "name": "Leer - Gestion de Servidores Windows",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        64,
+        720
+      ],
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8",
+          "mode": "list",
+          "cachedResultName": "Inventario Gestion de Vulnerabilidades (Silver Source)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 546329930,
+          "mode": "list",
+          "cachedResultName": "Servidores Administrados por Linux",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8/edit#gid=546329930"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "IP"
+            },
+            {
+              "lookupColumn": "IP_SEC"
+            },
+            {
+              "lookupColumn": "HOSTNAME"
+            },
+            {
+              "lookupColumn": "Ambiente",
+              "lookupValue": "Productivo"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d110d651-ecb4-4503-add7-0b637312cb32",
+      "name": "Leer - Servidores Administrados por Linux",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        64,
+        512
+      ],
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -368,
+        528
+      ],
+      "id": "7f0dd46e-9748-4d41-8944-b578cfa69ba1",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "connections": {
+    "4. Crear Inventario Maestro": {
+      "main": [
+        [
+          {
+            "node": "6. Unir Datos de Tenable y Ambientes",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "2. Tenable - Iniciar Exportación": {
+      "main": [
+        [
+          {
+            "node": "5. Normalizar Datos de Tenable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Normalizar Datos de Tenable": {
+      "main": [
+        [
+          {
+            "node": "6. Unir Datos de Tenable y Ambientes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Unir Datos de Tenable y Ambientes": {
+      "main": [
+        [
+          {
+            "node": "7. Guardar Reporte Final Enriquecido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set - Servidores Linux": {
+      "main": [
+        [
+          {
+            "node": "4. Crear Inventario Maestro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set - Servidores Windows": {
+      "main": [
+        [
+          {
+            "node": "4. Crear Inventario Maestro",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Leer - Gestion de Base de datos (AyS) (Proyectos)": {
+      "main": [
+        [
+          {
+            "node": "Set - Infra VMWare",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer - Gestion de Servidores Windows": {
+      "main": [
+        [
+          {
+            "node": "Set - Servidores Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Leer - Servidores Administrados por Linux": {
+      "main": [
+        [
+          {
+            "node": "Set - Servidores Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set - Infra VMWare": {
+      "main": [
+        [
+          {
+            "node": "4. Crear Inventario Maestro",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Leer - Servidores Administrados por Linux",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "2. Tenable - Iniciar Exportación",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Leer - Gestion de Servidores Windows",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Leer - Gestion de Base de datos (AyS) (Proyectos)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {},
+  "triggerCount": 0,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

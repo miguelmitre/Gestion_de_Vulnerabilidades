@@ -1,0 +1,1227 @@
+{
+  "name": "Tags - Tenable One - Coppel Retail",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -272,
+        -208
+      ],
+      "id": "e676a4e0-2bfe-4d2c-82f3-a5b25f7e58b7",
+      "name": "1. Inicia cada día a las 8 AM"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 546329930,
+          "mode": "list",
+          "cachedResultName": "Servidores Administrados por Linux",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8/edit#gid=546329930"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Unidad de Negocio",
+              "lookupValue": "COPPEL RETAIL"
+            },
+            {
+              "lookupColumn": "Ambiente",
+              "lookupValue": "Productivo"
+            },
+            {
+              "lookupColumn": "IP",
+              "lookupValue": "10.41.137.68"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        -256
+      ],
+      "id": "0350275f-c7f2-4516-a41a-04154e56bbfa",
+      "name": "2. CMDB - Onpremise - Linux",
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8b46b099-6b81-445c-9ea9-bff96f440571",
+              "name": "export_id",
+              "value": "={{ $('4. Iniciar Exportación en Tenable - Linux').item.json.export_id }}",
+              "type": "string"
+            },
+            {
+              "id": "2207250f-5739-4b4d-a9a4-789788b554a9",
+              "name": "chunks_available",
+              "value": "={{ $json.chunks_available }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1376,
+        -288
+      ],
+      "id": "7be1ca44-9956-4ba4-911c-45f1c40d870c",
+      "name": "7. Preparar Datos para el Bucle - Linux"
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map(item => ({\n  json: {\n    export_id: item.json.export_id,\n    chunks_available: JSON.parse(item.json.chunks_available)\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1584,
+        -288
+      ],
+      "id": "83210c6b-2f6d-40e2-a31d-bc6c54fc2140",
+      "name": "8. Preparar Chunks para Bucle - Linux"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "767e2959-8a4f-4c1b-bf7b-281c27bab9a0",
+              "leftValue": "={{ $json.chunks_available.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1792,
+        -288
+      ],
+      "id": "d9a06e1e-4036-4402-aef7-df987ebbb751",
+      "name": "9. If (Hay Chunks para Descargar en Tenable - Linux)"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "chunks_available",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2032,
+        -304
+      ],
+      "id": "6826d109-da3f-4e5b-8d80-33bdf888aa2a",
+      "name": "10. Bucle por cada Chunk - Linux"
+    },
+    {
+      "parameters": {
+        "url": "={{ `https://cloud.tenable.com/api/v1/t1/inventory/export/${$json.export_id}/chunks/${$json.chunks_available}` }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2432,
+        -320
+      ],
+      "id": "3e8fa7a9-9091-4ec5-86c1-a496b13a9df4",
+      "name": "12. Descargar Resultados Tenable - Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const assetsArray = $input.all().map(item => item.json);\nconst assetUuids = assetsArray\n  .filter(asset => asset && asset.id)\n  .map(asset => asset.id);\n\nreturn [{\n  json: { \"uuids\": assetUuids }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2608,
+        -320
+      ],
+      "id": "c0e6feaf-c290-44ba-a652-b45f8c584a22",
+      "name": "13. Extraer UUIDs Tenable - Linux"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6a852083-e0dc-4bb9-a4ba-e066508aecde",
+              "leftValue": "={{ $json.uuids.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2784,
+        -320
+      ],
+      "id": "0e622751-0cd7-4cd5-88fb-9edd1e44fa87",
+      "name": "14. Hay UUIDs para Etiquetar Tenable - Linux"
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/tags/values",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3024,
+        -336
+      ],
+      "id": "fbcb4bc7-1575-4cf3-b2f0-719ada921605",
+      "name": "15. Obtener TODOS los Tags Tenable - Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define qué categoría y valor estamos buscando.\nconst CATEGORY_TO_FIND = \"Coppel Retail\";\nconst VALUE_TO_FIND = \"Linux - Productivo (Onpremise)\";\n\n// Obtiene la lista completa de tags del nodo anterior.\n// La respuesta de la API es un objeto que contiene un array llamado \"values\".\nconst allTags = $input.item.json.values;\n\n// Usa el método .find() para buscar en el array el tag exacto que cumple ambas condiciones.\nconst foundTag = allTags.find(tag => \n  tag.category_name === CATEGORY_TO_FIND && \n  tag.value === VALUE_TO_FIND\n);\n\n// Si se encuentra el tag, devuelve su UUID. Si no, devuelve null.\n// El '?' (optional chaining) evita un error si no se encuentra el tag.\nconst tagUuid = foundTag?.uuid || null;\n\n// Devuelve el resultado para que el siguiente nodo pueda usarlo.\nreturn [{\n  json: {\n    \"tag_uuid\": tagUuid\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3216,
+        -336
+      ],
+      "id": "04ce2860-d7fe-40da-bb5c-ff742765c1b8",
+      "name": "16. Encontrar UUID del Tag Correcto Tenable - Linux"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://cloud.tenable.com/tags/assets/assignments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"action\": \"add\",\n    \"tags\": [\n      $('16. Encontrar UUID del Tag Correcto Tenable - Linux').item.json.tag_uuid\n    ],\n    \"assets\": $('13. Extraer UUIDs Tenable - Linux').item.json.uuids\n  }\n}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3408,
+        -336
+      ],
+      "id": "5a71c2bf-a480-4052-bf7c-88fe0041765f",
+      "name": "17. Aplicar Tag Tenable - Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2224,
+        -304
+      ],
+      "id": "b45d464e-00dd-4661-bf1d-2fd4e6243ddc",
+      "name": "11. Bucle por cada Chunk - Linux"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst hostnames = new Set();\n\n// Expresión regular para identificar y excluir direcciones IPv4.\nconst ipv4Regex = /^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$/;\n\nfor (const item of items) {\n  // Lista de columnas que pueden contener hostnames.\n  // Puedes añadir más columnas a esta lista si es necesario.\n  const hostnameColumns = ['HOSTNAME', 'IP', 'IP_SEC']; \n\n  for (const col of hostnameColumns) {\n    let cellValue = item.json[col];\n\n    // Aseguramos que el valor sea un string para poder procesarlo.\n    if (cellValue !== null && cellValue !== undefined) {\n      cellValue = String(cellValue);\n    }\n\n    if (cellValue && typeof cellValue === 'string') {\n      \n      // Separamos el contenido por si hay múltiples valores en la misma celda.\n      const potentialHostnames = cellValue.split(/[ ,]+/);\n\n      for (const potentialHostname of potentialHostnames) {\n        const trimmedHost = potentialHostname.trim();\n        \n        // La condición clave: si el texto NO es una IP y NO está vacío, lo agregamos.\n        if (trimmedHost && !ipv4Regex.test(trimmedHost)) {\n          hostnames.add(trimmedHost);\n        }\n      }\n    }\n  }\n}\n\n// Devuelve un solo objeto con la lista final de hostnames únicos.\nreturn [{\n  json: {\n    \"hostnames\": Array.from(hostnames)\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        -256
+      ],
+      "id": "8a328ee2-7573-4e24-84b8-8453aa7c2ef6",
+      "name": "3. Preparar Lista de IPs - Linux"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 24213931,
+          "mode": "list",
+          "cachedResultName": "Gestion de Servidores Windows",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8/edit#gid=24213931"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        -32
+      ],
+      "id": "ef5d32e0-f474-4e9c-ae25-3aac36de189e",
+      "name": "2. CMDB - Onpremise - Linux1",
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/assets/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chunk_size",
+              "value": "100"
+            },
+            {
+              "name": "filters",
+              "value": "={{ {\"ipv4\": $json.ipAddresses} }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        432,
+        -32
+      ],
+      "id": "b372c7be-f107-4c56-847e-d2f26f325e8d",
+      "name": "4. Iniciar Exportación en Tenable - Linux1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('4. Iniciar Exportación en Tenable - Linux1').item.json.export_uuid }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        848,
+        -32
+      ],
+      "id": "8f2d2123-f14e-40b7-b072-ebf35325803f",
+      "name": "6. Revisar Estado de Exportación Tenable - Linux1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 40
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        640,
+        -32
+      ],
+      "id": "dac32b19-7e15-4a3e-b77b-0c8eba72e8fa",
+      "name": "5. Esperar a que Termine Tenable - Linux1",
+      "webhookId": "8942ac2f-1de2-4fbc-a50c-7ae35e4a5d9d"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8b46b099-6b81-445c-9ea9-bff96f440571",
+              "name": "export_uuid",
+              "value": "={{ $('4. Iniciar Exportación en Tenable - Linux1').item.json.export_uuid }}",
+              "type": "string"
+            },
+            {
+              "id": "2207250f-5739-4b4d-a9a4-789788b554a9",
+              "name": "chunks_available",
+              "value": "={{ $json.chunks_available }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1056,
+        -32
+      ],
+      "id": "7474b38a-c474-4dfb-9ab4-ebf755703433",
+      "name": "7. Preparar Datos para el Bucle - Linux1"
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map(item => ({\n  json: {\n    export_uuid: item.json.export_uuid,\n    chunks_available: JSON.parse(item.json.chunks_available)\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1248,
+        -32
+      ],
+      "id": "6fd16944-04a4-4a30-8662-24d301eb339f",
+      "name": "8. Preparar Chunks para Bucle - Linux1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "767e2959-8a4f-4c1b-bf7b-281c27bab9a0",
+              "leftValue": "={{ $json.chunks_available.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1440,
+        -32
+      ],
+      "id": "2d8b76d4-3237-41da-b231-bb5ef157b3fe",
+      "name": "9. If (Hay Chunks para Descargar en Tenable - Linux)1"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "chunks_available",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1600,
+        -48
+      ],
+      "id": "ae56b2cb-6337-4c3d-ad21-1df8dd90f39c",
+      "name": "10. Bucle por cada Chunk - Linux1"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $json.export_uuid }}/chunks/{{ $json.chunks_available }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1968,
+        -64
+      ],
+      "id": "fa3a6ca4-ff9a-4688-a7b3-cc8c398c611f",
+      "name": "12. Descargar Resultados Tenable - Linux1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const assetsArray = $input.all().map(item => item.json);\nconst assetUuids = assetsArray\n  .filter(asset => asset && asset.id)\n  .map(asset => asset.id);\n\nreturn [{\n  json: { \"uuids\": assetUuids }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2144,
+        -64
+      ],
+      "id": "6c5d4665-b719-48ba-9e70-1b87498baacc",
+      "name": "13. Extraer UUIDs Tenable - Linux1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6a852083-e0dc-4bb9-a4ba-e066508aecde",
+              "leftValue": "={{ $json.uuids.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2320,
+        -64
+      ],
+      "id": "4c227415-cb3b-45da-8699-a049df131a26",
+      "name": "14. Hay UUIDs para Etiquetar Tenable - Linux1"
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/tags/values",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2528,
+        -80
+      ],
+      "id": "5ac1310c-498c-4178-8ac5-5cd645b61598",
+      "name": "15. Obtener TODOS los Tags Tenable - Linux1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define qué categoría y valor estamos buscando.\nconst CATEGORY_TO_FIND = \"Administrador de Servidor\";\nconst VALUE_TO_FIND = \"Gestión de Servidores Linux\";\n\n// Obtiene la lista completa de tags del nodo anterior.\n// La respuesta de la API es un objeto que contiene un array llamado \"values\".\nconst allTags = $input.item.json.values;\n\n// Usa el método .find() para buscar en el array el tag exacto que cumple ambas condiciones.\nconst foundTag = allTags.find(tag => \n  tag.category_name === CATEGORY_TO_FIND && \n  tag.value === VALUE_TO_FIND\n);\n\n// Si se encuentra el tag, devuelve su UUID. Si no, devuelve null.\n// El '?' (optional chaining) evita un error si no se encuentra el tag.\nconst tagUuid = foundTag?.uuid || null;\n\n// Devuelve el resultado para que el siguiente nodo pueda usarlo.\nreturn [{\n  json: {\n    \"tag_uuid\": tagUuid\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2720,
+        -80
+      ],
+      "id": "88591cce-fb89-42e7-a7fc-f2c49ecddaec",
+      "name": "16. Encontrar UUID del Tag Correcto Tenable - Linux1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://cloud.tenable.com/tags/assets/assignments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"action\": \"add\",\n    \"tags\": [\n      $('16. Encontrar UUID del Tag Correcto Tenable - Linux1').item.json.tag_uuid\n    ],\n    \"assets\": $('13. Extraer UUIDs Tenable - Linux1').item.json.uuids\n  }\n}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2912,
+        -80
+      ],
+      "id": "5bb5c2f8-7667-4b5e-8fb6-4b98436a078a",
+      "name": "17. Aplicar Tag Tenable - Linux1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1776,
+        -48
+      ],
+      "id": "d79ce41c-55b8-4a9b-a818-dd61b233e5a4",
+      "name": "11. Bucle por cada Chunk - Linux1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst ipAddresses = new Set();\n\n// Expresión regular para validar si un texto parece una IP v4.\nconst ipv4Regex = /^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$/;\n\nfor (const item of items) {\n  // Lista de columnas que pueden contener IPs.\n  const ipColumns = ['IP', 'IP_SEC']; \n\n  for (const col of ipColumns) {\n    let cellValue = item.json[col];\n\n    // Si el valor existe, lo convertimos a texto para poder procesarlo.\n    if (cellValue !== null && cellValue !== undefined) {\n      cellValue = String(cellValue);\n    }\n\n    if (cellValue && typeof cellValue === 'string') {\n      \n      // Separamos el contenido de la celda por espacios o comas.\n      const potentialIps = cellValue.split(/[ ,]+/);\n\n      for (const potentialIp of potentialIps) {\n        const trimmedIp = potentialIp.trim();\n        \n        // Si la parte es una IP válida, la agregamos.\n        // Si no lo es (ej: un hostname), simplemente la ignora.\n        if (ipv4Regex.test(trimmedIp)) {\n          ipAddresses.add(trimmedIp);\n        }\n      }\n    }\n  }\n}\n\n// Devuelve un solo objeto con la lista final y limpia de IPs.\nreturn [{\n  json: {\n    \"ipAddresses\": Array.from(ipAddresses)\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        -32
+      ],
+      "id": "8a3ed091-1d32-4c4c-a347-fcb254f740ee",
+      "name": "3. Preparar Lista de IPs - Linux1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f292dbdf-6494-409b-8a12-3ef2ccf4665f",
+              "leftValue": "={{ $('6. Revisar Estado de Exportación Tenable - Linux').item.json.status }}",
+              "rightValue": "FINISHED",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        784,
+        -256
+      ],
+      "id": "96b5f8f0-e2f1-4a0a-936e-fd7834bea709",
+      "name": "¿Trabajo Terminado?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2359be6c-c1bf-4297-b3bf-ba130ee036f7",
+              "leftValue": "={{ $('6. Revisar Estado de Exportación Tenable - Linux').item.json.chunks_available.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1152,
+        -272
+      ],
+      "id": "39599ebe-81f0-4cc2-99b1-0bac69e0136d",
+      "name": "¿Hay Archivos?"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/api/v1/t1/inventory/export/assets",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"file_format\": \"JSON\",\n    \"filters\": [\n      {\n        \"property\": \"asset_name\",\n        \"operator\": \"=\",\n        \"value\": $json.hostnames || []\n      }\n    ]\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        416,
+        -256
+      ],
+      "id": "5ffb0d3f-e5b5-4b84-84fe-55d93c1b0997",
+      "name": "4. Iniciar Exportación en Tenable - Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ `https://cloud.tenable.com/api/v1/t1/inventory/export/${$('4. Iniciar Exportación en Tenable - Linux').item.json.export_id}/status` }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        608,
+        -256
+      ],
+      "id": "eda17fd0-11ea-457b-b9c2-7ada9bc35f84",
+      "name": "6. Revisar Estado de Exportación Tenable - Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        976,
+        -240
+      ],
+      "id": "41c518b8-8eca-43d3-a075-38b65c0f2c2f",
+      "name": "5. Esperar a que Termine Tenable - Linux",
+      "webhookId": "8942ac2f-1de2-4fbc-a50c-7ae35e4a5d9d"
+    }
+  ],
+  "connections": {
+    "1. Inicia cada día a las 8 AM": {
+      "main": [
+        [
+          {
+            "node": "2. CMDB - Onpremise - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. CMDB - Onpremise - Linux": {
+      "main": [
+        [
+          {
+            "node": "3. Preparar Lista de IPs - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Preparar Datos para el Bucle - Linux": {
+      "main": [
+        [
+          {
+            "node": "8. Preparar Chunks para Bucle - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. Preparar Chunks para Bucle - Linux": {
+      "main": [
+        [
+          {
+            "node": "9. If (Hay Chunks para Descargar en Tenable - Linux)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. If (Hay Chunks para Descargar en Tenable - Linux)": {
+      "main": [
+        [
+          {
+            "node": "10. Bucle por cada Chunk - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Bucle por cada Chunk - Linux": {
+      "main": [
+        [
+          {
+            "node": "11. Bucle por cada Chunk - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Descargar Resultados Tenable - Linux": {
+      "main": [
+        [
+          {
+            "node": "13. Extraer UUIDs Tenable - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Extraer UUIDs Tenable - Linux": {
+      "main": [
+        [
+          {
+            "node": "14. Hay UUIDs para Etiquetar Tenable - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "14. Hay UUIDs para Etiquetar Tenable - Linux": {
+      "main": [
+        [
+          {
+            "node": "15. Obtener TODOS los Tags Tenable - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "15. Obtener TODOS los Tags Tenable - Linux": {
+      "main": [
+        [
+          {
+            "node": "16. Encontrar UUID del Tag Correcto Tenable - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "16. Encontrar UUID del Tag Correcto Tenable - Linux": {
+      "main": [
+        [
+          {
+            "node": "17. Aplicar Tag Tenable - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. Bucle por cada Chunk - Linux": {
+      "main": [
+        [
+          {
+            "node": "12. Descargar Resultados Tenable - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "10. Bucle por cada Chunk - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Preparar Lista de IPs - Linux": {
+      "main": [
+        [
+          {
+            "node": "4. Iniciar Exportación en Tenable - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. CMDB - Onpremise - Linux1": {
+      "main": [
+        [
+          {
+            "node": "3. Preparar Lista de IPs - Linux1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Iniciar Exportación en Tenable - Linux1": {
+      "main": [
+        [
+          {
+            "node": "5. Esperar a que Termine Tenable - Linux1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Revisar Estado de Exportación Tenable - Linux1": {
+      "main": [
+        [
+          {
+            "node": "7. Preparar Datos para el Bucle - Linux1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Esperar a que Termine Tenable - Linux1": {
+      "main": [
+        [
+          {
+            "node": "6. Revisar Estado de Exportación Tenable - Linux1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Preparar Datos para el Bucle - Linux1": {
+      "main": [
+        [
+          {
+            "node": "8. Preparar Chunks para Bucle - Linux1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. Preparar Chunks para Bucle - Linux1": {
+      "main": [
+        [
+          {
+            "node": "9. If (Hay Chunks para Descargar en Tenable - Linux)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. If (Hay Chunks para Descargar en Tenable - Linux)1": {
+      "main": [
+        [
+          {
+            "node": "10. Bucle por cada Chunk - Linux1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Bucle por cada Chunk - Linux1": {
+      "main": [
+        [
+          {
+            "node": "11. Bucle por cada Chunk - Linux1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Descargar Resultados Tenable - Linux1": {
+      "main": [
+        [
+          {
+            "node": "13. Extraer UUIDs Tenable - Linux1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Extraer UUIDs Tenable - Linux1": {
+      "main": [
+        [
+          {
+            "node": "14. Hay UUIDs para Etiquetar Tenable - Linux1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "14. Hay UUIDs para Etiquetar Tenable - Linux1": {
+      "main": [
+        [
+          {
+            "node": "15. Obtener TODOS los Tags Tenable - Linux1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "15. Obtener TODOS los Tags Tenable - Linux1": {
+      "main": [
+        [
+          {
+            "node": "16. Encontrar UUID del Tag Correcto Tenable - Linux1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "16. Encontrar UUID del Tag Correcto Tenable - Linux1": {
+      "main": [
+        [
+          {
+            "node": "17. Aplicar Tag Tenable - Linux1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. Bucle por cada Chunk - Linux1": {
+      "main": [
+        [
+          {
+            "node": "12. Descargar Resultados Tenable - Linux1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "10. Bucle por cada Chunk - Linux1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Preparar Lista de IPs - Linux1": {
+      "main": [
+        [
+          {
+            "node": "4. Iniciar Exportación en Tenable - Linux1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Trabajo Terminado?": {
+      "main": [
+        [
+          {
+            "node": "¿Hay Archivos?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "5. Esperar a que Termine Tenable - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Iniciar Exportación en Tenable - Linux": {
+      "main": [
+        [
+          {
+            "node": "6. Revisar Estado de Exportación Tenable - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Revisar Estado de Exportación Tenable - Linux": {
+      "main": [
+        [
+          {
+            "node": "¿Trabajo Terminado?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Esperar a que Termine Tenable - Linux": {
+      "main": [
+        [
+          {
+            "node": "6. Revisar Estado de Exportación Tenable - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Hay Archivos?": {
+      "main": [
+        [
+          {
+            "node": "7. Preparar Datos para el Bucle - Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {},
+  "triggerCount": 0,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}
