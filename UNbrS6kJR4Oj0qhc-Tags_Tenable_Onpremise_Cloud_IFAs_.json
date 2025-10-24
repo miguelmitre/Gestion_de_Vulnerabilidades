@@ -1,0 +1,4063 @@
+{
+  "name": "Tags - Tenable Onpremise + Cloud (IFAs)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1216,
+        -272
+      ],
+      "id": "46e78e2d-19c9-4156-82bf-1e0b7a703663",
+      "name": "1. Inicia cada día a las 8 AM"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2050373152,
+          "mode": "list",
+          "cachedResultName": "GCP_Compute_Instances",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8/edit#gid=2050373152"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "RUNNING"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -912,
+        -272
+      ],
+      "id": "667dd747-25bb-409d-aec1-e3b51de20f86",
+      "name": "2. CMDB - Cloud - GCP",
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 261008741,
+          "mode": "list",
+          "cachedResultName": "AWS_COPPEL",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8/edit#gid=261008741"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Status",
+              "lookupValue": "running"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -880,
+        -992
+      ],
+      "id": "1e246269-96a0-4db1-b4d4-dff8e34fb09d",
+      "name": "2. CMDB - Cloud - AWS",
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "659093cb-c9c0-450b-a5c0-be244764add1",
+              "leftValue": "={{ $json[\"External IP\"] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -672,
+        -992
+      ],
+      "id": "be2d739d-f519-49ce-aba1-75553d266bbe",
+      "name": "3. Tiene IP Externa AWS"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst ipAddresses = [];\n\nfor (const item of items) {\n  // Asegúrate de que el nombre 'External IP' coincida EXACTAMENTE\n  // con el nombre de tu columna en Google Sheets.\n  if (item.json['Internal IP']) {\n    ipAddresses.push(item.json['Internal IP']);\n  }\n}\n\n// Devuelve un solo objeto que contiene un array con todas las IPs\nreturn [{\n  json: {\n    \"ipAddresses\": ipAddresses\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        -1008
+      ],
+      "id": "e7373f0c-d417-4732-891e-1994885129df",
+      "name": "4. Preparar Lista de IPs - AWS"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/assets/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"chunk_size\": 100,\n    \"filters\": {\n      \"ipv4\": $json.ipAddresses\n    }\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        96,
+        -1008
+      ],
+      "id": "402366ae-1de5-46a5-b47f-78ddc3ca187a",
+      "name": "5. Iniciar Exportación en Tenable - AWS",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        288,
+        -1008
+      ],
+      "id": "3e996e77-f46e-4457-a740-7a9e42aca2cb",
+      "name": "6. Esperar a que Termine Tenable - AWS",
+      "webhookId": "1eccfdf9-47e9-4d3e-885c-96035c162d75"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('5. Iniciar Exportación en Tenable - AWS').item.json.export_uuid }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        -1008
+      ],
+      "id": "ed68cac7-55f7-4eb9-abea-e8e7ec5ef123",
+      "name": "7. Revisar Estado de Exportación Tenable - AWS",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "767e2959-8a4f-4c1b-bf7b-281c27bab9a0",
+              "leftValue": "={{ $('7. Revisar Estado de Exportación Tenable - AWS').item.json.chunks_available.length ?? 0 }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        -1008
+      ],
+      "id": "6b3ff706-d11c-45d7-a7aa-b081b73422c5",
+      "name": "8. If (Hay Chunks para Descargar Tenable - AWS)"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('5. Iniciar Exportación en Tenable - AWS').item.json.export_uuid }}/chunks/1",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        864,
+        -1024
+      ],
+      "id": "9b3d4ff5-650d-413e-9720-36b2c219299d",
+      "name": "9. Descargar Resultados Tenable - AWS",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// En modo runOnceForAllItems, usamos $input.all() para obtener todos los items.\nconst assetsArray = $input.all().map(item => item.json);\n\n// Filtra y transforma para obtener solo los IDs\nconst assetUuids = assetsArray\n  .filter(asset => asset && asset.id)\n  .map(asset => asset.id);\n\n// Devolvemos el resultado.\nreturn [{\n  json: {\n    \"uuids\": assetUuids\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        -1024
+      ],
+      "id": "36d22591-a174-486f-a952-fc3601a652d9",
+      "name": "10. Extraer UUIDs Tenable - AWS"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6a852083-e0dc-4bb9-a4ba-e066508aecde",
+              "leftValue": "={{ $json.uuids.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1280,
+        -1024
+      ],
+      "id": "d59a1067-7080-4bf2-af1b-8801fac9be21",
+      "name": "11. Hay UUIDs para Etiquetar Tenable - AWS"
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/tags/values",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1520,
+        -1040
+      ],
+      "id": "83b0ff86-c216-4050-920d-18a83c02dd35",
+      "name": "12. Obtener TODOS los Tags Tenable - AWS",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define qué categoría y valor estamos buscando.\nconst CATEGORY_TO_FIND = \"Amazon Web Services (AWS)\";\nconst VALUE_TO_FIND = \"Internet Facing Asset\";\n\n// Obtiene la lista completa de tags del nodo anterior.\n// La respuesta de la API es un objeto que contiene un array llamado \"values\".\nconst allTags = $input.item.json.values;\n\n// Usa el método .find() para buscar en el array el tag exacto que cumple ambas condiciones.\nconst foundTag = allTags.find(tag => \n  tag.category_name === CATEGORY_TO_FIND && \n  tag.value === VALUE_TO_FIND\n);\n\n// Si se encuentra el tag, devuelve su UUID. Si no, devuelve null.\n// El '?' (optional chaining) evita un error si no se encuentra el tag.\nconst tagUuid = foundTag?.uuid || null;\n\n// Devuelve el resultado para que el siguiente nodo pueda usarlo.\nreturn [{\n  json: {\n    \"tag_uuid\": tagUuid\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1728,
+        -1040
+      ],
+      "id": "ba0873f0-939a-4396-b302-3a5a88186b92",
+      "name": "13. Encontrar UUID del Tag Correcto Tenable - AWS"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://cloud.tenable.com/tags/assets/assignments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"action\": \"add\",\n    \"tags\": [\n      $('13. Encontrar UUID del Tag Correcto Tenable - AWS').item.json.tag_uuid\n    ],\n    \"assets\": $('10. Extraer UUIDs Tenable - AWS').item.json.uuids\n  }\n}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1952,
+        -1040
+      ],
+      "id": "3e960f63-f36c-425b-a54f-98a68e670269",
+      "name": "14. Aplicar Tag IFA Tenable - AWS",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "659093cb-c9c0-450b-a5c0-be244764add1",
+              "leftValue": "={{ $json[\"External IP\"] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -704,
+        -272
+      ],
+      "id": "36cc2da9-e05e-4687-8198-91179864b630",
+      "name": "3. Tiene IP Externa GCP"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst ipAddresses = [];\n\nfor (const item of items) {\n  // Asegúrate de que el nombre 'External IP' coincida EXACTAMENTE\n  // con el nombre de tu columna en Google Sheets.\n  if (item.json['Internal IP']) {\n    ipAddresses.push(item.json['Internal IP']);\n  }\n}\n\n// Devuelve un solo objeto que contiene un array con todas las IPs\nreturn [{\n  json: {\n    \"ipAddresses\": ipAddresses\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -112,
+        -288
+      ],
+      "id": "ba75626d-9554-4845-8a38-d40e552262fa",
+      "name": "4. Preparar Lista de IPs - GCP"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/assets/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"chunk_size\": 100,\n    \"filters\": {\n      \"ipv4\": $json.ipAddresses\n    }\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        48,
+        -288
+      ],
+      "id": "5d7e6ca5-f692-4da6-aafa-50529fc250ed",
+      "name": "5. Iniciar Exportación en Tenable - GCP",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        -288
+      ],
+      "id": "ff0b4894-789e-4ca8-804b-8056bd2873be",
+      "name": "6. Esperar a que Termine Tenable - GCP",
+      "webhookId": "1eccfdf9-47e9-4d3e-885c-96035c162d75"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('5. Iniciar Exportación en Tenable - GCP').item.json.export_uuid }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        -288
+      ],
+      "id": "58bcc703-b4e8-4334-a871-86e81ece0540",
+      "name": "7. Revisar Estado de Exportación Tenable - GCP",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "767e2959-8a4f-4c1b-bf7b-281c27bab9a0",
+              "leftValue": "={{ $('7. Revisar Estado de Exportación Tenable - GCP').item.json.chunks_available.length ?? 0 }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        608,
+        -288
+      ],
+      "id": "432fa9cc-9675-419e-9e1b-14349330695e",
+      "name": "8. If (Hay Chunks para Descargar en Tenable - GCP)"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('5. Iniciar Exportación en Tenable - GCP').item.json.export_uuid }}/chunks/1",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        816,
+        -304
+      ],
+      "id": "371d2e46-5277-4fa4-891f-4858bd2fef1a",
+      "name": "9. Descargar Resultados Tenable - GCP",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// En modo runOnceForAllItems, usamos $input.all() para obtener todos los items.\nconst assetsArray = $input.all().map(item => item.json);\n\n// Filtra y transforma para obtener solo los IDs\nconst assetUuids = assetsArray\n  .filter(asset => asset && asset.id)\n  .map(asset => asset.id);\n\n// Devolvemos el resultado.\nreturn [{\n  json: {\n    \"uuids\": assetUuids\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1024,
+        -304
+      ],
+      "id": "f472d18c-ed48-404b-800f-76bef1a916f7",
+      "name": "10. Extraer UUIDs Tenable - GCP"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6a852083-e0dc-4bb9-a4ba-e066508aecde",
+              "leftValue": "={{ $json.uuids.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1232,
+        -304
+      ],
+      "id": "7e3e39b4-48ed-4305-9540-9125443af140",
+      "name": "11. Hay UUIDs para Etiquetar Tenable - GCP"
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/tags/values",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1472,
+        -320
+      ],
+      "id": "631a37ff-13f2-47cb-bd08-7b7f317ad24e",
+      "name": "12. Obtener TODOS los Tags Tenable - GCP",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define qué categoría y valor estamos buscando.\nconst CATEGORY_TO_FIND = \"Google Cloud Platform (GCP)\";\nconst VALUE_TO_FIND = \"Internet Facing Asset\";\n\n// Obtiene la lista completa de tags del nodo anterior.\n// La respuesta de la API es un objeto que contiene un array llamado \"values\".\nconst allTags = $input.item.json.values;\n\n// Usa el método .find() para buscar en el array el tag exacto que cumple ambas condiciones.\nconst foundTag = allTags.find(tag => \n  tag.category_name === CATEGORY_TO_FIND && \n  tag.value === VALUE_TO_FIND\n);\n\n// Si se encuentra el tag, devuelve su UUID. Si no, devuelve null.\n// El '?' (optional chaining) evita un error si no se encuentra el tag.\nconst tagUuid = foundTag?.uuid || null;\n\n// Devuelve el resultado para que el siguiente nodo pueda usarlo.\nreturn [{\n  json: {\n    \"tag_uuid\": tagUuid\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        -320
+      ],
+      "id": "72de1a56-2a5f-4ed5-87dd-c57127624e64",
+      "name": "13. Encontrar UUID del Tag Correcto Tenable - GCP"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://cloud.tenable.com/tags/assets/assignments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"action\": \"add\",\n    \"tags\": [\n      $('13. Encontrar UUID del Tag Correcto Tenable - GCP').item.json.tag_uuid\n    ],\n    \"assets\": $('10. Extraer UUIDs Tenable - GCP').item.json.uuids\n  }\n}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1904,
+        -320
+      ],
+      "id": "54d8e6f0-cdaa-4034-86f5-cf25d82c310c",
+      "name": "14. Aplicar Tag IFA Tenable - GCP",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/assets/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"chunk_size\": 1000, \"filters\": { \"ipv4\": $json.ipAddresses } } }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        416
+      ],
+      "id": "e76c0ac2-052d-40b1-9850-928efd3742d5",
+      "name": "8. Inicia Exportación en Tenable",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define qué categoría y valor estamos buscando.\nconst CATEGORY_TO_FIND = \"Onpremise\";\nconst VALUE_TO_FIND = \"Demilitarized Zone (DMZ)\";\n\n// Obtiene la lista completa de tags del nodo anterior.\nconst allTags = $input.item.json.values;\n\n// Usa el método .find() para buscar en el array el tag exacto que cumple ambas condiciones.\nconst foundTag = allTags.find(tag => \n  tag.category_name === CATEGORY_TO_FIND && \n  tag.value === VALUE_TO_FIND\n);\n\n// Si se encuentra el tag, devuelve su UUID. Si no, devuelve null.\nconst tagUuid = foundTag?.uuid || null;\n\n// Devuelve el resultado para que el siguiente nodo pueda usarlo.\nreturn [{\n  json: {\n    \"tag_uuid\": tagUuid\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2352,
+        384
+      ],
+      "id": "8fc710e4-e636-4caf-bc6b-236d2d529cb0",
+      "name": "16. Encuentra el UUID del Tag 'DMZ Onpremise'"
+    },
+    {
+      "parameters": {
+        "jsCode": "const linuxServers = $items(\"2. Lee CMDB - Onpremise - Linux\");\nconst windowsServers = $items(\"2. Lee CMDB - Onpremise - Windows\");\n\n// Agrega el campo 'operatingSystem' a cada servidor de Linux\nconst processedLinux = linuxServers.map(item => {\n  return {\n    ...item.json,\n    operatingSystem: 'Linux'\n  };\n});\n\n// Agrega el campo 'operatingSystem' a cada servidor de Windows\nconst processedWindows = windowsServers.map(item => {\n  return {\n    ...item.json,\n    operatingSystem: 'Windows'\n  };\n});\n\n// Une ambos arrays ya procesados y los devuelve\nreturn [...processedLinux, ...processedWindows];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -496,
+        432
+      ],
+      "id": "732eafce-c0d0-4802-9442-e95f79d4513e",
+      "name": "4. Une Servidores Linux y Windows"
+    },
+    {
+      "parameters": {
+        "batchSize": 250,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -304,
+        432
+      ],
+      "id": "8a417f91-3146-4a75-9759-c624d2f6b508",
+      "name": "5. Divide Servidores en Lotes de 250"
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- Funciones de Ayuda (No cambian) ---\nfunction ipToLong(ip) {\n  try {\n    if (!ip || typeof ip !== 'string' || !ip.includes('.')) return 0;\n    return ip.split('.').reduce((acc, octet) => (acc << 8) + parseInt(octet.trim(), 10), 0) >>> 0;\n  } catch (e) { return 0; }\n}\n\n// --- Lógica Principal Optimizada ---\n\n// Obtenemos las reglas de red (esto solo se ejecuta una vez al inicio)\nconst networkRules = $items(\"2. Lee EPGs y Redes\");\n\n// Procesamos las reglas de DMZ una sola vez aquí\nconst dmzRules = networkRules\n  .filter(ruleItem => {\n    const epgName = ruleItem.json['EPG NAME'];\n    const ipRange = ruleItem.json['RANGE'];\n    return epgName && epgName.toLowerCase().includes('dmz') && ipRange && ipRange !== 'N/A' && ipRange.includes(' - ');\n  })\n  .map(ruleItem => {\n    const [startIpStr, endIpStr] = ruleItem.json['RANGE'].split(' - ');\n    return {\n      epgName: ruleItem.json['EPG NAME'],\n      start: ipToLong(startIpStr),\n      end: ipToLong(endIpStr)\n    };\n  });\n\nconst serverBatch = $input.all();\nconst servidoresDmz = [];\n\n// Iteramos sobre el lote actual de servidores\nfor (const serverItem of serverBatch) {\n  const ipPrimaria = serverItem.json['IP'] || serverItem.json['ip'];\n  const ipSecundaria = serverItem.json['IP_SEC'];\n  const serverIps = [ipPrimaria, ipSecundaria].filter(ip => ip && typeof ip === 'string');\n\n  if (serverIps.length === 0) {\n    continue;\n  }\n\n  // Iteramos sobre las IPs del servidor actual\n  for (const currentIp of serverIps) {\n    const serverIpLong = ipToLong(currentIp);\n    if (serverIpLong === 0) continue;\n\n    // Buscamos la primera regla que coincida con la IP actual\n    const matchingRule = dmzRules.find(rule => serverIpLong >= rule.start && serverIpLong <= rule.end);\n\n    // Si encontramos una regla, etiquetamos el servidor y pasamos al siguiente\n    if (matchingRule) {\n      serverItem.json.tipoDeRed = 'DMZ';\n      serverItem.json.epgCoincidente = `${matchingRule.epgName} (IP: ${currentIp})`;\n      servidoresDmz.push(serverItem);\n      break; // Salimos del bucle de IPs, ya que hemos encontrado una coincidencia.\n    }\n  }\n}\n\n// Devuelve solo los servidores DMZ encontrados en ESTE LOTE.\nreturn servidoresDmz;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        416
+      ],
+      "id": "9a2c0471-c0cb-41e8-b6d6-576f77d62946",
+      "name": "6. Filtra LOTE de Servidores en DMZ"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 836945875,
+          "mode": "list",
+          "cachedResultName": "Endpoint Group (EPG)"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -928,
+        432
+      ],
+      "id": "bb0135e4-1ba3-4681-8eca-2ff72a8c034b",
+      "name": "2. Lee EPGs y Redes",
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -704,
+        416
+      ],
+      "id": "88e3a7a2-c3b9-4751-ae73-2fb9293d4c83",
+      "name": "3. Espera todas las lecturas"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 24213931,
+          "mode": "list",
+          "cachedResultName": "Gestion de Servidores Windows"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -928,
+        608
+      ],
+      "id": "1e149140-fe3c-4e1a-a3b6-977ddca7d401",
+      "name": "2. Lee CMDB - Onpremise - Windows",
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1Yf4FCbUW6bk8mZNTdr2l8zaj1axMl0rDotVbARh8CO8",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 546329930,
+          "mode": "list",
+          "cachedResultName": "Servidores Administrados por Linux"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -928,
+        240
+      ],
+      "id": "037e004b-617a-4051-ab2b-c395415f7863",
+      "name": "2. Lee CMDB - Onpremise - Linux",
+      "credentials": {
+        "googleApi": {
+          "id": "0Uo49GuZ29efrGFf",
+          "name": "Google Service Account account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "name": "5.1. Finalizar Lote y Continuar",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        576
+      ],
+      "id": "8f0c9a4e-f0bb-4cb4-9188-104d626317f8"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define qué categoría y valor estamos buscando.\nconst CATEGORY_TO_FIND = \"Onpremise\";\nconst VALUE_TO_FIND = \"Demilitarized Zone (DMZ) - Windows\";\n\n// Obtiene la lista completa de tags del nodo anterior.\nconst allTags = $input.item.json.values;\n\n// Usa el método .find() para buscar en el array el tag exacto que cumple ambas condiciones.\nconst foundTag = allTags.find(tag => \n  tag.category_name === CATEGORY_TO_FIND && \n  tag.value === VALUE_TO_FIND\n);\n\n// Si se encuentra el tag, devuelve su UUID. Si no, devuelve null.\nconst tagUuid = foundTag?.uuid || null;\n\n// Devuelve el resultado para que el siguiente nodo pueda usarlo.\nreturn [{\n  json: {\n    \"tag_uuid\": tagUuid\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2352,
+        192
+      ],
+      "id": "8ddd6d3f-8f6a-426e-8f69-870e975ae5d0",
+      "name": "16. Encuentra el UUID del Tag 'DMZ Onpremise Windows'"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define qué categoría y valor estamos buscando.\nconst CATEGORY_TO_FIND = \"Onpremise\";\nconst VALUE_TO_FIND = \"Demilitarized Zone (DMZ) - Linux\";\n\n// Obtiene la lista completa de tags del nodo anterior.\nconst allTags = $input.item.json.values;\n\n// Usa el método .find() para buscar en el array el tag exacto que cumple ambas condiciones.\nconst foundTag = allTags.find(tag => \n  tag.category_name === CATEGORY_TO_FIND && \n  tag.value === VALUE_TO_FIND\n);\n\n// Si se encuentra el tag, devuelve su UUID. Si no, devuelve null.\nconst tagUuid = foundTag?.uuid || null;\n\n// Devuelve el resultado para que el siguiente nodo pueda usarlo.\nreturn [{\n  json: {\n    \"tag_uuid\": tagUuid\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2352,
+        576
+      ],
+      "id": "e8b86779-65e4-47dd-854a-49082c6694a8",
+      "name": "16. Encuentra el UUID del Tag 'DMZ Onpremise Linux'"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst ipAddresses = [];\n\nfor (const item of items) {\n  // Busca la IP en la columna 'IP' o 'ip'.\n  // Tenable necesita esta lista para buscar los assets.\n  const ip = item.json['IP'] || item.json['ip'];\n  if (ip) {\n    ipAddresses.push(ip);\n  }\n}\n\n// Devuelve un solo objeto que contiene un array con todas las IPs\nreturn [{\n  json: {\n    \"ipAddresses\": ipAddresses\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        224
+      ],
+      "id": "75521680-bb8d-43c6-b5d7-e63b2f75e217",
+      "name": "7. Prepara Lista de IPs para Tenable DMZ Windows"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst ipAddresses = [];\n\nfor (const item of items) {\n  // Busca la IP en la columna 'IP' o 'ip'.\n  // Tenable necesita esta lista para buscar los assets.\n  const ip = item.json['IP'] || item.json['ip'];\n  if (ip) {\n    ipAddresses.push(ip);\n  }\n}\n\n// Devuelve un solo objeto que contiene un array con todas las IPs\nreturn [{\n  json: {\n    \"ipAddresses\": ipAddresses\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        416
+      ],
+      "id": "23fa20d7-af2a-4d03-bb84-e4210045bada",
+      "name": "7. Prepara Lista de IPs para Tenable DMZ"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst ipAddresses = [];\n\nfor (const item of items) {\n  // Busca la IP en la columna 'IP' o 'ip'.\n  // Tenable necesita esta lista para buscar los assets.\n  const ip = item.json['IP'] || item.json['ip'];\n  if (ip) {\n    ipAddresses.push(ip);\n  }\n}\n\n// Devuelve un solo objeto que contiene un array con todas las IPs\nreturn [{\n  json: {\n    \"ipAddresses\": ipAddresses\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        608
+      ],
+      "id": "9d6fc894-9bdb-4238-926e-9e583b5fed8e",
+      "name": "7. Prepara Lista de IPs para Tenable Linux"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/assets/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"chunk_size\": 1000, \"filters\": { \"ipv4\": $json.ipAddresses } } }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        224
+      ],
+      "id": "19aa47f0-14a4-4b7b-b735-12b4b11ee334",
+      "name": "8. Inicia Exportación en Tenable DMZ Windows",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        928,
+        224
+      ],
+      "id": "bab530f0-672b-4f5e-addc-04a6be4839de",
+      "name": "9. Espera 20 segundos DMZ Windows",
+      "webhookId": "f2ea696d-cff9-4c83-b31e-dcc1ef546857"
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        928,
+        416
+      ],
+      "id": "016a3295-b95f-4020-a88b-da3573ae986e",
+      "name": "9. Espera 20 segundos DMZ",
+      "webhookId": "f2ea696d-cff9-4c83-b31e-dcc1ef546857"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('8. Inicia Exportación en Tenable').item.json.export_uuid }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1136,
+        416
+      ],
+      "id": "4012fb4e-d03d-477e-a6aa-d0a303086a8c",
+      "name": "10. Revisa Estado de Exportación DMZ",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('8. Inicia Exportación en Tenable DMZ Windows').item.json.export_uuid }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1136,
+        224
+      ],
+      "id": "cbc755d3-1976-476a-85d5-0021dbf8dd7c",
+      "name": "10. Revisa Estado de Exportación DMZ Windows",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('8. Inicia Exportación en Tenable DMZ Linux').item.json.export_uuid }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1136,
+        608
+      ],
+      "id": "a3c71df3-62b0-445d-af0f-eae8e15ac8f4",
+      "name": "10. Revisa Estado de Exportación DMZ Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        928,
+        608
+      ],
+      "id": "2416e17d-8115-4301-87dc-13bc28c4f897",
+      "name": "9. Espera 20 segundos DMZ Linux",
+      "webhookId": "f2ea696d-cff9-4c83-b31e-dcc1ef546857"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/assets/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"chunk_size\": 1000, \"filters\": { \"ipv4\": $json.ipAddresses } } }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        608
+      ],
+      "id": "e663f879-c735-4126-bb0d-85f703ab4bc4",
+      "name": "8. Inicia Exportación en Tenable DMZ Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/tags/assets/assignments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"action\": \"add\", \"tags\": [ $(\"16. Encuentra el UUID del Tag 'DMZ Onpremise Windows'\").item.json.tag_uuid ], \"assets\": $(\"13. Extrae UUIDs de los Assets DMZ Windows\").item.json.uuids } }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2544,
+        192
+      ],
+      "id": "a3493108-7272-4ce0-a3b8-d3ee059b6756",
+      "name": "17. Aplica el Tag a los Assets DMZ Windows",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/tags/assets/assignments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"action\": \"add\", \"tags\": [ $(\"16. Encuentra el UUID del Tag 'DMZ Onpremise'\").item.json.tag_uuid ], \"assets\": $(\"13. Extrae UUIDs de los Assets DMZ\").item.json.uuids } }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2544,
+        384
+      ],
+      "id": "e0bafd0a-5e3f-4dd0-aa91-ac6375aaaebf",
+      "name": "17. Aplica el Tag a los Assets DMZ",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/tags/assets/assignments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"action\": \"add\", \"tags\": [ $(\"16. Encuentra el UUID del Tag 'DMZ Onpremise Linux'\").item.json.tag_uuid ], \"assets\": $(\"13. Extrae UUIDs de los Assets DMZ Linux\").item.json.uuids } }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2544,
+        576
+      ],
+      "id": "97f9d867-e7ca-4f2a-bdec-f379e9cc6c44",
+      "name": "17. Aplica el Tag a los Assets DMZ Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/tags/values",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2160,
+        192
+      ],
+      "id": "f16757c9-cc01-43f1-b410-aaf985178a31",
+      "name": "15. Obtiene TODOS los Tags de Tenable DMZ Windows",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/tags/values",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2160,
+        384
+      ],
+      "id": "794aeabf-26bb-4be6-bf81-c35b67a2566e",
+      "name": "15. Obtiene TODOS los Tags de Tenable DMZ",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/tags/values",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2160,
+        576
+      ],
+      "id": "62cd36cc-9e09-4a72-9f2d-c41644af7ab8",
+      "name": "15. Obtiene TODOS los Tags de Tenable DMZ Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.uuids.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              },
+              "id": "38477c59-a736-436a-bbd6-9906ea5c3359"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1968,
+        208
+      ],
+      "id": "25a1b51d-d0ad-452d-875f-79b4bc5bb3df",
+      "name": "14. IF: ¿Hay UUIDs para etiquetar? DMZ Windows"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.uuids.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              },
+              "id": "38477c59-a736-436a-bbd6-9906ea5c3359"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1968,
+        400
+      ],
+      "id": "5a5fdbab-ed09-4729-b275-3878d2fa9e42",
+      "name": "14. IF: ¿Hay UUIDs para etiquetar? DMZ"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.uuids.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              },
+              "id": "38477c59-a736-436a-bbd6-9906ea5c3359"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1968,
+        592
+      ],
+      "id": "c545f2ec-b2db-4937-b0a5-17f987a3645a",
+      "name": "14. IF: ¿Hay UUIDs para etiquetar? DMZ Linux"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $('10. Revisa Estado de Exportación DMZ Windows').item.json.chunks_available.length ?? 0 }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              },
+              "id": "1eb28beb-27d5-4f23-a7f2-4503def82952"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1344,
+        224
+      ],
+      "id": "d65ece54-bce4-4f74-be3b-d19293713984",
+      "name": "11. IF: ¿Hay resultados? DMZ Windows"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $('10. Revisa Estado de Exportación DMZ').item.json.chunks_available.length ?? 0 }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              },
+              "id": "1eb28beb-27d5-4f23-a7f2-4503def82952"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1344,
+        416
+      ],
+      "id": "7bd4e75a-f714-47cb-9a2f-688329c661f1",
+      "name": "11. IF: ¿Hay resultados? DMZ"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $('10. Revisa Estado de Exportación DMZ Linux').item.json.chunks_available.length ?? 0 }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              },
+              "id": "1eb28beb-27d5-4f23-a7f2-4503def82952"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1344,
+        608
+      ],
+      "id": "df12e9c9-cdc4-4be8-994d-c46a60943f99",
+      "name": "11. IF: ¿Hay resultados? DMZ Linux"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('8. Inicia Exportación en Tenable DMZ Linux').item.json.export_uuid }}/chunks/1",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1552,
+        592
+      ],
+      "id": "a7c20a1c-c07e-4259-b51c-f2b2375c8a00",
+      "name": "12. Descarga Resultados DMZ Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('8. Inicia Exportación en Tenable').item.json.export_uuid }}/chunks/1",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1552,
+        400
+      ],
+      "id": "1b969ef2-3f9a-4bd1-a9b6-9e56d21fa392",
+      "name": "12. Descarga Resultados DMZ",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('8. Inicia Exportación en Tenable DMZ Windows').item.json.export_uuid }}/chunks/1",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1552,
+        208
+      ],
+      "id": "312a6477-5d9d-4548-97c2-e4075180eb37",
+      "name": "12. Descarga Resultados DMZ Windows",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// En modo runOnceForAllItems, usamos $input.all() para obtener todos los items.\nconst assetsArray = $input.all().map(item => item.json);\n\n// Filtra y transforma para obtener solo los IDs (UUIDs) de los assets\nconst assetUuids = assetsArray\n  .filter(asset => asset && asset.id)\n  .map(asset => asset.id);\n\n// Devolvemos el resultado.\nreturn [{\n  json: {\n    \"uuids\": assetUuids\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        208
+      ],
+      "id": "812109f3-48be-46af-ae11-4c2ab0555cfb",
+      "name": "13. Extrae UUIDs de los Assets DMZ Windows"
+    },
+    {
+      "parameters": {
+        "jsCode": "// En modo runOnceForAllItems, usamos $input.all() para obtener todos los items.\nconst assetsArray = $input.all().map(item => item.json);\n\n// Filtra y transforma para obtener solo los IDs (UUIDs) de los assets\nconst assetUuids = assetsArray\n  .filter(asset => asset && asset.id)\n  .map(asset => asset.id);\n\n// Devolvemos el resultado.\nreturn [{\n  json: {\n    \"uuids\": assetUuids\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        400
+      ],
+      "id": "4f0cead0-927f-4801-be75-92be4b03237a",
+      "name": "13. Extrae UUIDs de los Assets DMZ"
+    },
+    {
+      "parameters": {
+        "jsCode": "// En modo runOnceForAllItems, usamos $input.all() para obtener todos los items.\nconst assetsArray = $input.all().map(item => item.json);\n\n// Filtra y transforma para obtener solo los IDs (UUIDs) de los assets\nconst assetUuids = assetsArray\n  .filter(asset => asset && asset.id)\n  .map(asset => asset.id);\n\n// Devolvemos el resultado.\nreturn [{\n  json: {\n    \"uuids\": assetUuids\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        592
+      ],
+      "id": "2be86b78-50ba-4ee7-abcc-59ef85bec622",
+      "name": "13. Extrae UUIDs de los Assets DMZ Linux"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0b7035f5-2e3d-41e2-a39a-d29ddaba0b5e",
+              "leftValue": "={{ $json.operatingSystem }}",
+              "rightValue": "Windows",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        96,
+        416
+      ],
+      "id": "5b9b67be-9c36-48be-a36c-3f7ccc6c86f0",
+      "name": "Filtrar por OS DMZ"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0b7035f5-2e3d-41e2-a39a-d29ddaba0b5e",
+              "leftValue": "={{ $json['SO Base'] }}",
+              "rightValue": "Windows",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -480,
+        -288
+      ],
+      "id": "49baf8b9-0bff-47ab-b9bb-3cba113055a4",
+      "name": "Filtrar por OS IFAs GCP"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        336,
+        416
+      ],
+      "id": "d069b7ce-b3e9-4e6e-be75-a6f7957a3a43",
+      "name": "Unificar Fuentes de Datos DMZ"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('5. Iniciar Exportación en Tenable - GCP Linux').item.json.export_uuid }}/chunks/1",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        816,
+        -96
+      ],
+      "id": "c31e292d-25bd-495b-ba81-02452d9f0548",
+      "name": "9. Descargar Resultados Tenable - GCP2",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// En modo runOnceForAllItems, usamos $input.all() para obtener todos los items.\nconst assetsArray = $input.all().map(item => item.json);\n\n// Filtra y transforma para obtener solo los IDs\nconst assetUuids = assetsArray\n  .filter(asset => asset && asset.id)\n  .map(asset => asset.id);\n\n// Devolvemos el resultado.\nreturn [{\n  json: {\n    \"uuids\": assetUuids\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1024,
+        -96
+      ],
+      "id": "362b0c9e-31e9-4fef-9208-96b89d429e08",
+      "name": "10. Extraer UUIDs Tenable - GCP2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6a852083-e0dc-4bb9-a4ba-e066508aecde",
+              "leftValue": "={{ $json.uuids.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1232,
+        -96
+      ],
+      "id": "3bcf936d-dca4-44c8-b096-03874b65eff2",
+      "name": "11. Hay UUIDs para Etiquetar Tenable - GCP2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst ipAddresses = [];\n\nfor (const item of items) {\n  // Asegúrate de que el nombre 'External IP' coincida EXACTAMENTE\n  // con el nombre de tu columna en Google Sheets.\n  if (item.json['Internal IP']) {\n    ipAddresses.push(item.json['Internal IP']);\n  }\n}\n\n// Devuelve un solo objeto que contiene un array con todas las IPs\nreturn [{\n  json: {\n    \"ipAddresses\": ipAddresses\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -112,
+        -496
+      ],
+      "id": "d99e99ec-ee6f-424c-a99c-e980e1f84d41",
+      "name": "4. Preparar Lista de IPs - GCP Windows"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst ipAddresses = [];\n\nfor (const item of items) {\n  // Asegúrate de que el nombre 'External IP' coincida EXACTAMENTE\n  // con el nombre de tu columna en Google Sheets.\n  if (item.json['Internal IP']) {\n    ipAddresses.push(item.json['Internal IP']);\n  }\n}\n\n// Devuelve un solo objeto que contiene un array con todas las IPs\nreturn [{\n  json: {\n    \"ipAddresses\": ipAddresses\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -112,
+        -80
+      ],
+      "id": "f37a960c-fbec-4028-a536-1476672cb04d",
+      "name": "4. Preparar Lista de IPs - GCP Linux"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/assets/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"chunk_size\": 100,\n    \"filters\": {\n      \"ipv4\": $json.ipAddresses\n    }\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        48,
+        -80
+      ],
+      "id": "2f9f4eed-af49-4f0a-8dc8-56b32b4136d1",
+      "name": "5. Iniciar Exportación en Tenable - GCP Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        -80
+      ],
+      "id": "83a5b8e8-9984-475a-a633-72054557cf74",
+      "name": "6. Esperar a que Termine Tenable - GCP Linux",
+      "webhookId": "1eccfdf9-47e9-4d3e-885c-96035c162d75"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('5. Iniciar Exportación en Tenable - GCP Linux').item.json.export_uuid }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        -80
+      ],
+      "id": "2609431d-f0b1-4402-9434-654680475793",
+      "name": "7. Revisar Estado de Exportación Tenable - GCP Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "767e2959-8a4f-4c1b-bf7b-281c27bab9a0",
+              "leftValue": "={{ $('7. Revisar Estado de Exportación Tenable - GCP Linux').item.json.chunks_available.length ?? 0 }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        608,
+        -80
+      ],
+      "id": "0414f8f9-fc51-47c4-a4f9-fc3493db3220",
+      "name": "8. If (Hay Chunks para Descargar en Tenable - GCP Linux)"
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/tags/values",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1472,
+        -112
+      ],
+      "id": "fae7f57b-9200-4ec7-8548-a2fe00fbe44d",
+      "name": "12. Obtener TODOS los Tags Tenable - GCP Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define qué categoría y valor estamos buscando.\nconst CATEGORY_TO_FIND = \"Google Cloud Platform (GCP)\";\nconst VALUE_TO_FIND = \"Internet Facing Asset - Linux\";\n\n// Obtiene la lista completa de tags del nodo anterior.\n// La respuesta de la API es un objeto que contiene un array llamado \"values\".\nconst allTags = $input.item.json.values;\n\n// Usa el método .find() para buscar en el array el tag exacto que cumple ambas condiciones.\nconst foundTag = allTags.find(tag => \n  tag.category_name === CATEGORY_TO_FIND && \n  tag.value === VALUE_TO_FIND\n);\n\n// Si se encuentra el tag, devuelve su UUID. Si no, devuelve null.\n// El '?' (optional chaining) evita un error si no se encuentra el tag.\nconst tagUuid = foundTag?.uuid || null;\n\n// Devuelve el resultado para que el siguiente nodo pueda usarlo.\nreturn [{\n  json: {\n    \"tag_uuid\": tagUuid\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        -112
+      ],
+      "id": "63d5cfd5-bc32-4576-bbc4-2e6430296002",
+      "name": "13. Encontrar UUID del Tag Correcto Tenable - GCP Linux"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://cloud.tenable.com/tags/assets/assignments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"action\": \"add\",\n    \"tags\": [\n      $('13. Encontrar UUID del Tag Correcto Tenable - GCP Linux').item.json.tag_uuid\n    ],\n    \"assets\": $('10. Extraer UUIDs Tenable - GCP2').item.json.uuids\n  }\n}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1904,
+        -112
+      ],
+      "id": "a8c27b98-a16a-47a4-87f8-2dc284a7ed98",
+      "name": "14. Aplicar Tag IFA Tenable - GCP Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/assets/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"chunk_size\": 100,\n    \"filters\": {\n      \"ipv4\": $json.ipAddresses\n    }\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        48,
+        -496
+      ],
+      "id": "947868d4-8087-40e9-b246-754ffc618562",
+      "name": "5. Iniciar Exportación en Tenable - GCP Windows",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        -496
+      ],
+      "id": "d62b117f-ba74-497a-8eed-f178266ca9ed",
+      "name": "6. Esperar a que Termine Tenable - GCP Windows",
+      "webhookId": "1eccfdf9-47e9-4d3e-885c-96035c162d75"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('5. Iniciar Exportación en Tenable - GCP Windows').item.json.export_uuid }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        -496
+      ],
+      "id": "a4147e8c-6c28-4a87-82c9-220f89c83c4b",
+      "name": "7. Revisar Estado de Exportación Tenable - GCP Windows",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "767e2959-8a4f-4c1b-bf7b-281c27bab9a0",
+              "leftValue": "={{ $('7. Revisar Estado de Exportación Tenable - GCP Windows').item.json.chunks_available.length ?? 0 }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        608,
+        -496
+      ],
+      "id": "03147ab0-ed4c-4411-8119-6946ed620689",
+      "name": "8. If (Hay Chunks para Descargar en Tenable - GCP Windows)"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('5. Iniciar Exportación en Tenable - GCP Windows').item.json.export_uuid }}/chunks/1",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        816,
+        -512
+      ],
+      "id": "4443d66f-8b5b-463a-bb0e-e725b71ce754",
+      "name": "9. Descargar Resultados Tenable - GCP Windows",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// En modo runOnceForAllItems, usamos $input.all() para obtener todos los items.\nconst assetsArray = $input.all().map(item => item.json);\n\n// Filtra y transforma para obtener solo los IDs\nconst assetUuids = assetsArray\n  .filter(asset => asset && asset.id)\n  .map(asset => asset.id);\n\n// Devolvemos el resultado.\nreturn [{\n  json: {\n    \"uuids\": assetUuids\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1024,
+        -512
+      ],
+      "id": "4703af97-7528-43f3-8f24-d918e52b6ab1",
+      "name": "10. Extraer UUIDs Tenable - GCP Windows"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6a852083-e0dc-4bb9-a4ba-e066508aecde",
+              "leftValue": "={{ $json.uuids.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1232,
+        -512
+      ],
+      "id": "ccbc3615-47e1-47b8-bd36-e3dcb642fc6d",
+      "name": "11. Hay UUIDs para Etiquetar Tenable - GCP Windows"
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/tags/values",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1472,
+        -528
+      ],
+      "id": "0a8f6528-cd13-499f-911e-7edd04ab7387",
+      "name": "12. Obtener TODOS los Tags Tenable - GCP Windows",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define qué categoría y valor estamos buscando.\nconst CATEGORY_TO_FIND = \"Google Cloud Platform (GCP)\";\nconst VALUE_TO_FIND = \"Internet Facing Asset - Windows\";\n\n// Obtiene la lista completa de tags del nodo anterior.\n// La respuesta de la API es un objeto que contiene un array llamado \"values\".\nconst allTags = $input.item.json.values;\n\n// Usa el método .find() para buscar en el array el tag exacto que cumple ambas condiciones.\nconst foundTag = allTags.find(tag => \n  tag.category_name === CATEGORY_TO_FIND && \n  tag.value === VALUE_TO_FIND\n);\n\n// Si se encuentra el tag, devuelve su UUID. Si no, devuelve null.\n// El '?' (optional chaining) evita un error si no se encuentra el tag.\nconst tagUuid = foundTag?.uuid || null;\n\n// Devuelve el resultado para que el siguiente nodo pueda usarlo.\nreturn [{\n  json: {\n    \"tag_uuid\": tagUuid\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        -528
+      ],
+      "id": "896e353d-671d-46f0-af37-6828b2cd2f54",
+      "name": "13. Encontrar UUID del Tag Correcto Tenable - GCP Windows"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://cloud.tenable.com/tags/assets/assignments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"action\": \"add\",\n    \"tags\": [\n      $('13. Encontrar UUID del Tag Correcto Tenable - GCP Windows').item.json.tag_uuid\n    ],\n    \"assets\": $('10. Extraer UUIDs Tenable - GCP Windows').item.json.uuids\n  }\n}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1904,
+        -528
+      ],
+      "id": "b308fffe-e109-4087-a138-c560c1051701",
+      "name": "14. Aplicar Tag IFA Tenable - GCP Windows",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0b7035f5-2e3d-41e2-a39a-d29ddaba0b5e",
+              "leftValue": "={{ $json['SO Base'] }}",
+              "rightValue": "Windows",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -448,
+        -1008
+      ],
+      "id": "04e73abb-38d6-4739-a1c3-bc31a9639c75",
+      "name": "Filtrar por OS IFAs AWS"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -256,
+        -288
+      ],
+      "id": "72a1f552-c167-4be0-88b2-ec1e31b8f424",
+      "name": "Unificar Fuentes de Datos GCP"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -240,
+        -1008
+      ],
+      "id": "6b05d697-1a03-4197-a371-cab491c12de5",
+      "name": "Unificar Fuentes de Datos AWS"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst ipAddresses = [];\n\nfor (const item of items) {\n  // Asegúrate de que el nombre 'External IP' coincida EXACTAMENTE\n  // con el nombre de tu columna en Google Sheets.\n  if (item.json['Internal IP']) {\n    ipAddresses.push(item.json['Internal IP']);\n  }\n}\n\n// Devuelve un solo objeto que contiene un array con todas las IPs\nreturn [{\n  json: {\n    \"ipAddresses\": ipAddresses\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        -1216
+      ],
+      "id": "a842985f-ed6c-4743-8b88-0e803f4b0b02",
+      "name": "4. Preparar Lista de IPs - AWS Windows"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/assets/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"chunk_size\": 100,\n    \"filters\": {\n      \"ipv4\": $json.ipAddresses\n    }\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        96,
+        -1216
+      ],
+      "id": "b71050c1-3480-4adb-9d3c-a4556ceb0ff2",
+      "name": "5. Iniciar Exportación en Tenable - AWS Windows",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        288,
+        -1216
+      ],
+      "id": "252c453b-5318-4a78-a13c-137f335e0947",
+      "name": "6. Esperar a que Termine Tenable - AWS Windows",
+      "webhookId": "1eccfdf9-47e9-4d3e-885c-96035c162d75"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('5. Iniciar Exportación en Tenable - AWS Windows').item.json.export_uuid }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        -1216
+      ],
+      "id": "d36ddbcc-c138-419a-a894-a6da74df73e8",
+      "name": "7. Revisar Estado de Exportación Tenable - AWS Windows",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "767e2959-8a4f-4c1b-bf7b-281c27bab9a0",
+              "leftValue": "={{ $('7. Revisar Estado de Exportación Tenable - AWS Windows').item.json.chunks_available.length ?? 0 }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        -1216
+      ],
+      "id": "1e6cae4b-ec1d-47ac-8556-1cb957dae1d4",
+      "name": "8. If (Hay Chunks para Descargar Tenable - AWS Windows)"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('5. Iniciar Exportación en Tenable - AWS Windows').item.json.export_uuid }}/chunks/1",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        864,
+        -1232
+      ],
+      "id": "2c7d0b84-b160-446c-a4c4-9c11eaedb099",
+      "name": "9. Descargar Resultados Tenable - AWS Windows",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// En modo runOnceForAllItems, usamos $input.all() para obtener todos los items.\nconst assetsArray = $input.all().map(item => item.json);\n\n// Filtra y transforma para obtener solo los IDs\nconst assetUuids = assetsArray\n  .filter(asset => asset && asset.id)\n  .map(asset => asset.id);\n\n// Devolvemos el resultado.\nreturn [{\n  json: {\n    \"uuids\": assetUuids\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        -1232
+      ],
+      "id": "db772483-faf3-46cd-95e3-684650f397db",
+      "name": "10. Extraer UUIDs Tenable - AWS Windows"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6a852083-e0dc-4bb9-a4ba-e066508aecde",
+              "leftValue": "={{ $json.uuids.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1280,
+        -1232
+      ],
+      "id": "20ccb3b5-105a-4669-870d-8cf2820bb0ba",
+      "name": "11. Hay UUIDs para Etiquetar Tenable - AWS Windows"
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/tags/values",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1520,
+        -1248
+      ],
+      "id": "e43750dc-6363-47b0-a26a-30ada81fb652",
+      "name": "12. Obtener TODOS los Tags Tenable - AWS Windows",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define qué categoría y valor estamos buscando.\nconst CATEGORY_TO_FIND = \"Amazon Web Services (AWS)\";\nconst VALUE_TO_FIND = \"Internet Facing Asset - Windows\";\n\n// Obtiene la lista completa de tags del nodo anterior.\n// La respuesta de la API es un objeto que contiene un array llamado \"values\".\nconst allTags = $input.item.json.values;\n\n// Usa el método .find() para buscar en el array el tag exacto que cumple ambas condiciones.\nconst foundTag = allTags.find(tag => \n  tag.category_name === CATEGORY_TO_FIND && \n  tag.value === VALUE_TO_FIND\n);\n\n// Si se encuentra el tag, devuelve su UUID. Si no, devuelve null.\n// El '?' (optional chaining) evita un error si no se encuentra el tag.\nconst tagUuid = foundTag?.uuid || null;\n\n// Devuelve el resultado para que el siguiente nodo pueda usarlo.\nreturn [{\n  json: {\n    \"tag_uuid\": tagUuid\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1728,
+        -1248
+      ],
+      "id": "3a2af4ae-1da9-43b5-9c75-6e806cbb4465",
+      "name": "13. Encontrar UUID del Tag Correcto Tenable - AWS Windows"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://cloud.tenable.com/tags/assets/assignments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"action\": \"add\",\n    \"tags\": [\n      $('13. Encontrar UUID del Tag Correcto Tenable - AWS Windows').item.json.tag_uuid\n    ],\n    \"assets\": $('10. Extraer UUIDs Tenable - AWS Windows').item.json.uuids\n  }\n}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1952,
+        -1248
+      ],
+      "id": "74d1a1f6-a093-42c7-8992-7c13223a82f4",
+      "name": "14. Aplicar Tag IFA Tenable - AWS Windows",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst ipAddresses = [];\n\nfor (const item of items) {\n  // Asegúrate de que el nombre 'External IP' coincida EXACTAMENTE\n  // con el nombre de tu columna en Google Sheets.\n  if (item.json['Internal IP']) {\n    ipAddresses.push(item.json['Internal IP']);\n  }\n}\n\n// Devuelve un solo objeto que contiene un array con todas las IPs\nreturn [{\n  json: {\n    \"ipAddresses\": ipAddresses\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        -800
+      ],
+      "id": "efe7fd85-dd8c-42a8-8533-60457292a00a",
+      "name": "4. Preparar Lista de IPs - AWS Linux"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cloud.tenable.com/assets/export",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"chunk_size\": 100,\n    \"filters\": {\n      \"ipv4\": $json.ipAddresses\n    }\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        96,
+        -800
+      ],
+      "id": "253bf52b-7fcb-4014-aedd-643358862bfd",
+      "name": "5. Iniciar Exportación en Tenable - AWS Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        288,
+        -800
+      ],
+      "id": "f4f6a999-625e-4154-9e2b-11e9fef6a34a",
+      "name": "6. Esperar a que Termine Tenable - AWS Linux",
+      "webhookId": "1eccfdf9-47e9-4d3e-885c-96035c162d75"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('5. Iniciar Exportación en Tenable - AWS Linux').item.json.export_uuid }}/status",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        -800
+      ],
+      "id": "f9cebf6d-e25d-4bc3-966a-1eb9f040047f",
+      "name": "7. Revisar Estado de Exportación Tenable - AWS Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "767e2959-8a4f-4c1b-bf7b-281c27bab9a0",
+              "leftValue": "={{ $('7. Revisar Estado de Exportación Tenable - AWS Linux').item.json.chunks_available.length ?? 0 }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        -800
+      ],
+      "id": "e7ec364c-1d1e-41b9-a0e5-a4a513bdb692",
+      "name": "8. If (Hay Chunks para Descargar Tenable - AWS Linux)"
+    },
+    {
+      "parameters": {
+        "url": "=https://cloud.tenable.com/assets/export/{{ $('5. Iniciar Exportación en Tenable - AWS Linux').item.json.export_uuid }}/chunks/1",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        864,
+        -816
+      ],
+      "id": "9dccc713-5192-4a61-9763-241f3476e1c5",
+      "name": "9. Descargar Resultados Tenable - AWS Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// En modo runOnceForAllItems, usamos $input.all() para obtener todos los items.\nconst assetsArray = $input.all().map(item => item.json);\n\n// Filtra y transforma para obtener solo los IDs\nconst assetUuids = assetsArray\n  .filter(asset => asset && asset.id)\n  .map(asset => asset.id);\n\n// Devolvemos el resultado.\nreturn [{\n  json: {\n    \"uuids\": assetUuids\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        -816
+      ],
+      "id": "f5984214-1ec6-47c2-9034-0c4940c28a35",
+      "name": "10. Extraer UUIDs Tenable - AWS Linux"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6a852083-e0dc-4bb9-a4ba-e066508aecde",
+              "leftValue": "={{ $json.uuids.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1280,
+        -816
+      ],
+      "id": "47596b8e-a194-40c6-bccd-fbca60859dae",
+      "name": "11. Hay UUIDs para Etiquetar Tenable - AWS Linux"
+    },
+    {
+      "parameters": {
+        "url": "https://cloud.tenable.com/tags/values",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1520,
+        -832
+      ],
+      "id": "c8c87e84-9aba-4369-9be8-26a189f7d050",
+      "name": "12. Obtener TODOS los Tags Tenable - AWS Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Define qué categoría y valor estamos buscando.\nconst CATEGORY_TO_FIND = \"Amazon Web Services (AWS)\";\nconst VALUE_TO_FIND = \"Internet Facing Asset - Linux\";\n\n// Obtiene la lista completa de tags del nodo anterior.\n// La respuesta de la API es un objeto que contiene un array llamado \"values\".\nconst allTags = $input.item.json.values;\n\n// Usa el método .find() para buscar en el array el tag exacto que cumple ambas condiciones.\nconst foundTag = allTags.find(tag => \n  tag.category_name === CATEGORY_TO_FIND && \n  tag.value === VALUE_TO_FIND\n);\n\n// Si se encuentra el tag, devuelve su UUID. Si no, devuelve null.\n// El '?' (optional chaining) evita un error si no se encuentra el tag.\nconst tagUuid = foundTag?.uuid || null;\n\n// Devuelve el resultado para que el siguiente nodo pueda usarlo.\nreturn [{\n  json: {\n    \"tag_uuid\": tagUuid\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1728,
+        -832
+      ],
+      "id": "797c4b69-3f17-48ec-8c3e-aa7c475306c4",
+      "name": "13. Encontrar UUID del Tag Correcto Tenable - AWS Linux"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://cloud.tenable.com/tags/assets/assignments",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  {\n    \"action\": \"add\",\n    \"tags\": [\n      $('13. Encontrar UUID del Tag Correcto Tenable - AWS Linux').item.json.tag_uuid\n    ],\n    \"assets\": $('10. Extraer UUIDs Tenable - AWS Linux').item.json.uuids\n  }\n}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1952,
+        -832
+      ],
+      "id": "d0738aca-dedd-47a8-88a6-9095744f4ce0",
+      "name": "14. Aplicar Tag IFA Tenable - AWS Linux",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "q85SqszrRwEldB6g",
+          "name": "Tenable API n8n"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "1. Inicia cada día a las 8 AM": {
+      "main": [
+        [
+          {
+            "node": "2. CMDB - Cloud - GCP",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "2. CMDB - Cloud - AWS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "2. Lee CMDB - Onpremise - Linux",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "2. Lee EPGs y Redes",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "2. Lee CMDB - Onpremise - Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. CMDB - Cloud - GCP": {
+      "main": [
+        [
+          {
+            "node": "3. Tiene IP Externa GCP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. CMDB - Cloud - AWS": {
+      "main": [
+        [
+          {
+            "node": "3. Tiene IP Externa AWS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Tiene IP Externa AWS": {
+      "main": [
+        [
+          {
+            "node": "Filtrar por OS IFAs AWS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "4. Preparar Lista de IPs - AWS": {
+      "main": [
+        [
+          {
+            "node": "5. Iniciar Exportación en Tenable - AWS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Iniciar Exportación en Tenable - AWS": {
+      "main": [
+        [
+          {
+            "node": "6. Esperar a que Termine Tenable - AWS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Esperar a que Termine Tenable - AWS": {
+      "main": [
+        [
+          {
+            "node": "7. Revisar Estado de Exportación Tenable - AWS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Revisar Estado de Exportación Tenable - AWS": {
+      "main": [
+        [
+          {
+            "node": "8. If (Hay Chunks para Descargar Tenable - AWS)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. If (Hay Chunks para Descargar Tenable - AWS)": {
+      "main": [
+        [
+          {
+            "node": "9. Descargar Resultados Tenable - AWS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. Descargar Resultados Tenable - AWS": {
+      "main": [
+        [
+          {
+            "node": "10. Extraer UUIDs Tenable - AWS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Extraer UUIDs Tenable - AWS": {
+      "main": [
+        [
+          {
+            "node": "11. Hay UUIDs para Etiquetar Tenable - AWS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. Hay UUIDs para Etiquetar Tenable - AWS": {
+      "main": [
+        [
+          {
+            "node": "12. Obtener TODOS los Tags Tenable - AWS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Obtener TODOS los Tags Tenable - AWS": {
+      "main": [
+        [
+          {
+            "node": "13. Encontrar UUID del Tag Correcto Tenable - AWS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Encontrar UUID del Tag Correcto Tenable - AWS": {
+      "main": [
+        [
+          {
+            "node": "14. Aplicar Tag IFA Tenable - AWS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Tiene IP Externa GCP": {
+      "main": [
+        [
+          {
+            "node": "Filtrar por OS IFAs GCP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Preparar Lista de IPs - GCP": {
+      "main": [
+        [
+          {
+            "node": "5. Iniciar Exportación en Tenable - GCP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Iniciar Exportación en Tenable - GCP": {
+      "main": [
+        [
+          {
+            "node": "6. Esperar a que Termine Tenable - GCP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Esperar a que Termine Tenable - GCP": {
+      "main": [
+        [
+          {
+            "node": "7. Revisar Estado de Exportación Tenable - GCP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Revisar Estado de Exportación Tenable - GCP": {
+      "main": [
+        [
+          {
+            "node": "8. If (Hay Chunks para Descargar en Tenable - GCP)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. If (Hay Chunks para Descargar en Tenable - GCP)": {
+      "main": [
+        [
+          {
+            "node": "9. Descargar Resultados Tenable - GCP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. Descargar Resultados Tenable - GCP": {
+      "main": [
+        [
+          {
+            "node": "10. Extraer UUIDs Tenable - GCP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Extraer UUIDs Tenable - GCP": {
+      "main": [
+        [
+          {
+            "node": "11. Hay UUIDs para Etiquetar Tenable - GCP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. Hay UUIDs para Etiquetar Tenable - GCP": {
+      "main": [
+        [
+          {
+            "node": "12. Obtener TODOS los Tags Tenable - GCP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Obtener TODOS los Tags Tenable - GCP": {
+      "main": [
+        [
+          {
+            "node": "13. Encontrar UUID del Tag Correcto Tenable - GCP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Encontrar UUID del Tag Correcto Tenable - GCP": {
+      "main": [
+        [
+          {
+            "node": "14. Aplicar Tag IFA Tenable - GCP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. Inicia Exportación en Tenable": {
+      "main": [
+        [
+          {
+            "node": "9. Espera 20 segundos DMZ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "16. Encuentra el UUID del Tag 'DMZ Onpremise'": {
+      "main": [
+        [
+          {
+            "node": "17. Aplica el Tag a los Assets DMZ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Une Servidores Linux y Windows": {
+      "main": [
+        [
+          {
+            "node": "5. Divide Servidores en Lotes de 250",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Divide Servidores en Lotes de 250": {
+      "main": [
+        [
+          {
+            "node": "6. Filtra LOTE de Servidores en DMZ",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "5.1. Finalizar Lote y Continuar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Filtra LOTE de Servidores en DMZ": {
+      "main": [
+        [
+          {
+            "node": "Filtrar por OS DMZ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Lee EPGs y Redes": {
+      "main": [
+        [
+          {
+            "node": "3. Espera todas las lecturas",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "3. Espera todas las lecturas": {
+      "main": [
+        [
+          {
+            "node": "4. Une Servidores Linux y Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Lee CMDB - Onpremise - Windows": {
+      "main": [
+        [
+          {
+            "node": "3. Espera todas las lecturas",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "2. Lee CMDB - Onpremise - Linux": {
+      "main": [
+        [
+          {
+            "node": "3. Espera todas las lecturas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5.1. Finalizar Lote y Continuar": {
+      "main": [
+        [
+          {
+            "node": "5. Divide Servidores en Lotes de 250",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "16. Encuentra el UUID del Tag 'DMZ Onpremise Windows'": {
+      "main": [
+        [
+          {
+            "node": "17. Aplica el Tag a los Assets DMZ Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "16. Encuentra el UUID del Tag 'DMZ Onpremise Linux'": {
+      "main": [
+        [
+          {
+            "node": "17. Aplica el Tag a los Assets DMZ Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Prepara Lista de IPs para Tenable DMZ Windows": {
+      "main": [
+        [
+          {
+            "node": "8. Inicia Exportación en Tenable DMZ Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Prepara Lista de IPs para Tenable DMZ": {
+      "main": [
+        [
+          {
+            "node": "8. Inicia Exportación en Tenable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Prepara Lista de IPs para Tenable Linux": {
+      "main": [
+        [
+          {
+            "node": "8. Inicia Exportación en Tenable DMZ Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. Inicia Exportación en Tenable DMZ Windows": {
+      "main": [
+        [
+          {
+            "node": "9. Espera 20 segundos DMZ Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. Espera 20 segundos DMZ Windows": {
+      "main": [
+        [
+          {
+            "node": "10. Revisa Estado de Exportación DMZ Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. Espera 20 segundos DMZ": {
+      "main": [
+        [
+          {
+            "node": "10. Revisa Estado de Exportación DMZ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Revisa Estado de Exportación DMZ": {
+      "main": [
+        [
+          {
+            "node": "11. IF: ¿Hay resultados? DMZ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Revisa Estado de Exportación DMZ Windows": {
+      "main": [
+        [
+          {
+            "node": "11. IF: ¿Hay resultados? DMZ Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Revisa Estado de Exportación DMZ Linux": {
+      "main": [
+        [
+          {
+            "node": "11. IF: ¿Hay resultados? DMZ Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. Espera 20 segundos DMZ Linux": {
+      "main": [
+        [
+          {
+            "node": "10. Revisa Estado de Exportación DMZ Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. Inicia Exportación en Tenable DMZ Linux": {
+      "main": [
+        [
+          {
+            "node": "9. Espera 20 segundos DMZ Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "15. Obtiene TODOS los Tags de Tenable DMZ Windows": {
+      "main": [
+        [
+          {
+            "node": "16. Encuentra el UUID del Tag 'DMZ Onpremise Windows'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "15. Obtiene TODOS los Tags de Tenable DMZ": {
+      "main": [
+        [
+          {
+            "node": "16. Encuentra el UUID del Tag 'DMZ Onpremise'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "15. Obtiene TODOS los Tags de Tenable DMZ Linux": {
+      "main": [
+        [
+          {
+            "node": "16. Encuentra el UUID del Tag 'DMZ Onpremise Linux'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "14. IF: ¿Hay UUIDs para etiquetar? DMZ Windows": {
+      "main": [
+        [
+          {
+            "node": "15. Obtiene TODOS los Tags de Tenable DMZ Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "14. IF: ¿Hay UUIDs para etiquetar? DMZ": {
+      "main": [
+        [
+          {
+            "node": "15. Obtiene TODOS los Tags de Tenable DMZ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "14. IF: ¿Hay UUIDs para etiquetar? DMZ Linux": {
+      "main": [
+        [
+          {
+            "node": "15. Obtiene TODOS los Tags de Tenable DMZ Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. IF: ¿Hay resultados? DMZ Windows": {
+      "main": [
+        [
+          {
+            "node": "12. Descarga Resultados DMZ Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. IF: ¿Hay resultados? DMZ": {
+      "main": [
+        [
+          {
+            "node": "12. Descarga Resultados DMZ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. IF: ¿Hay resultados? DMZ Linux": {
+      "main": [
+        [
+          {
+            "node": "12. Descarga Resultados DMZ Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Descarga Resultados DMZ Linux": {
+      "main": [
+        [
+          {
+            "node": "13. Extrae UUIDs de los Assets DMZ Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Descarga Resultados DMZ": {
+      "main": [
+        [
+          {
+            "node": "13. Extrae UUIDs de los Assets DMZ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Descarga Resultados DMZ Windows": {
+      "main": [
+        [
+          {
+            "node": "13. Extrae UUIDs de los Assets DMZ Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Extrae UUIDs de los Assets DMZ Windows": {
+      "main": [
+        [
+          {
+            "node": "14. IF: ¿Hay UUIDs para etiquetar? DMZ Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Extrae UUIDs de los Assets DMZ": {
+      "main": [
+        [
+          {
+            "node": "14. IF: ¿Hay UUIDs para etiquetar? DMZ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Extrae UUIDs de los Assets DMZ Linux": {
+      "main": [
+        [
+          {
+            "node": "14. IF: ¿Hay UUIDs para etiquetar? DMZ Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtrar por OS DMZ": {
+      "main": [
+        [
+          {
+            "node": "Unificar Fuentes de Datos DMZ",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "7. Prepara Lista de IPs para Tenable DMZ Windows",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Unificar Fuentes de Datos DMZ",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "7. Prepara Lista de IPs para Tenable Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtrar por OS IFAs GCP": {
+      "main": [
+        [
+          {
+            "node": "Unificar Fuentes de Datos GCP",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4. Preparar Lista de IPs - GCP Windows",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Unificar Fuentes de Datos GCP",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "4. Preparar Lista de IPs - GCP Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unificar Fuentes de Datos DMZ": {
+      "main": [
+        [
+          {
+            "node": "7. Prepara Lista de IPs para Tenable DMZ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. Descargar Resultados Tenable - GCP2": {
+      "main": [
+        [
+          {
+            "node": "10. Extraer UUIDs Tenable - GCP2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Extraer UUIDs Tenable - GCP2": {
+      "main": [
+        [
+          {
+            "node": "11. Hay UUIDs para Etiquetar Tenable - GCP2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. Hay UUIDs para Etiquetar Tenable - GCP2": {
+      "main": [
+        [
+          {
+            "node": "12. Obtener TODOS los Tags Tenable - GCP Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Preparar Lista de IPs - GCP Windows": {
+      "main": [
+        [
+          {
+            "node": "5. Iniciar Exportación en Tenable - GCP Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Preparar Lista de IPs - GCP Linux": {
+      "main": [
+        [
+          {
+            "node": "5. Iniciar Exportación en Tenable - GCP Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Iniciar Exportación en Tenable - GCP Linux": {
+      "main": [
+        [
+          {
+            "node": "6. Esperar a que Termine Tenable - GCP Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Esperar a que Termine Tenable - GCP Linux": {
+      "main": [
+        [
+          {
+            "node": "7. Revisar Estado de Exportación Tenable - GCP Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Revisar Estado de Exportación Tenable - GCP Linux": {
+      "main": [
+        [
+          {
+            "node": "8. If (Hay Chunks para Descargar en Tenable - GCP Linux)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. If (Hay Chunks para Descargar en Tenable - GCP Linux)": {
+      "main": [
+        [
+          {
+            "node": "9. Descargar Resultados Tenable - GCP2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Obtener TODOS los Tags Tenable - GCP Linux": {
+      "main": [
+        [
+          {
+            "node": "13. Encontrar UUID del Tag Correcto Tenable - GCP Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Encontrar UUID del Tag Correcto Tenable - GCP Linux": {
+      "main": [
+        [
+          {
+            "node": "14. Aplicar Tag IFA Tenable - GCP Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Iniciar Exportación en Tenable - GCP Windows": {
+      "main": [
+        [
+          {
+            "node": "6. Esperar a que Termine Tenable - GCP Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Esperar a que Termine Tenable - GCP Windows": {
+      "main": [
+        [
+          {
+            "node": "7. Revisar Estado de Exportación Tenable - GCP Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Revisar Estado de Exportación Tenable - GCP Windows": {
+      "main": [
+        [
+          {
+            "node": "8. If (Hay Chunks para Descargar en Tenable - GCP Windows)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. If (Hay Chunks para Descargar en Tenable - GCP Windows)": {
+      "main": [
+        [
+          {
+            "node": "9. Descargar Resultados Tenable - GCP Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. Descargar Resultados Tenable - GCP Windows": {
+      "main": [
+        [
+          {
+            "node": "10. Extraer UUIDs Tenable - GCP Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Extraer UUIDs Tenable - GCP Windows": {
+      "main": [
+        [
+          {
+            "node": "11. Hay UUIDs para Etiquetar Tenable - GCP Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. Hay UUIDs para Etiquetar Tenable - GCP Windows": {
+      "main": [
+        [
+          {
+            "node": "12. Obtener TODOS los Tags Tenable - GCP Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Obtener TODOS los Tags Tenable - GCP Windows": {
+      "main": [
+        [
+          {
+            "node": "13. Encontrar UUID del Tag Correcto Tenable - GCP Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Encontrar UUID del Tag Correcto Tenable - GCP Windows": {
+      "main": [
+        [
+          {
+            "node": "14. Aplicar Tag IFA Tenable - GCP Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unificar Fuentes de Datos GCP": {
+      "main": [
+        [
+          {
+            "node": "4. Preparar Lista de IPs - GCP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtrar por OS IFAs AWS": {
+      "main": [
+        [
+          {
+            "node": "Unificar Fuentes de Datos AWS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "4. Preparar Lista de IPs - AWS Windows",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Unificar Fuentes de Datos AWS",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "4. Preparar Lista de IPs - AWS Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unificar Fuentes de Datos AWS": {
+      "main": [
+        [
+          {
+            "node": "4. Preparar Lista de IPs - AWS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Preparar Lista de IPs - AWS Windows": {
+      "main": [
+        [
+          {
+            "node": "5. Iniciar Exportación en Tenable - AWS Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Iniciar Exportación en Tenable - AWS Windows": {
+      "main": [
+        [
+          {
+            "node": "6. Esperar a que Termine Tenable - AWS Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Esperar a que Termine Tenable - AWS Windows": {
+      "main": [
+        [
+          {
+            "node": "7. Revisar Estado de Exportación Tenable - AWS Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Revisar Estado de Exportación Tenable - AWS Windows": {
+      "main": [
+        [
+          {
+            "node": "8. If (Hay Chunks para Descargar Tenable - AWS Windows)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. If (Hay Chunks para Descargar Tenable - AWS Windows)": {
+      "main": [
+        [
+          {
+            "node": "9. Descargar Resultados Tenable - AWS Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. Descargar Resultados Tenable - AWS Windows": {
+      "main": [
+        [
+          {
+            "node": "10. Extraer UUIDs Tenable - AWS Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Extraer UUIDs Tenable - AWS Windows": {
+      "main": [
+        [
+          {
+            "node": "11. Hay UUIDs para Etiquetar Tenable - AWS Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. Hay UUIDs para Etiquetar Tenable - AWS Windows": {
+      "main": [
+        [
+          {
+            "node": "12. Obtener TODOS los Tags Tenable - AWS Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Obtener TODOS los Tags Tenable - AWS Windows": {
+      "main": [
+        [
+          {
+            "node": "13. Encontrar UUID del Tag Correcto Tenable - AWS Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Encontrar UUID del Tag Correcto Tenable - AWS Windows": {
+      "main": [
+        [
+          {
+            "node": "14. Aplicar Tag IFA Tenable - AWS Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Preparar Lista de IPs - AWS Linux": {
+      "main": [
+        [
+          {
+            "node": "5. Iniciar Exportación en Tenable - AWS Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5. Iniciar Exportación en Tenable - AWS Linux": {
+      "main": [
+        [
+          {
+            "node": "6. Esperar a que Termine Tenable - AWS Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "6. Esperar a que Termine Tenable - AWS Linux": {
+      "main": [
+        [
+          {
+            "node": "7. Revisar Estado de Exportación Tenable - AWS Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7. Revisar Estado de Exportación Tenable - AWS Linux": {
+      "main": [
+        [
+          {
+            "node": "8. If (Hay Chunks para Descargar Tenable - AWS Linux)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "8. If (Hay Chunks para Descargar Tenable - AWS Linux)": {
+      "main": [
+        [
+          {
+            "node": "9. Descargar Resultados Tenable - AWS Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9. Descargar Resultados Tenable - AWS Linux": {
+      "main": [
+        [
+          {
+            "node": "10. Extraer UUIDs Tenable - AWS Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10. Extraer UUIDs Tenable - AWS Linux": {
+      "main": [
+        [
+          {
+            "node": "11. Hay UUIDs para Etiquetar Tenable - AWS Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11. Hay UUIDs para Etiquetar Tenable - AWS Linux": {
+      "main": [
+        [
+          {
+            "node": "12. Obtener TODOS los Tags Tenable - AWS Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12. Obtener TODOS los Tags Tenable - AWS Linux": {
+      "main": [
+        [
+          {
+            "node": "13. Encontrar UUID del Tag Correcto Tenable - AWS Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13. Encontrar UUID del Tag Correcto Tenable - AWS Linux": {
+      "main": [
+        [
+          {
+            "node": "14. Aplicar Tag IFA Tenable - AWS Linux",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "timezone": "America/Mexico_City",
+    "executionTimeout": 300,
+    "timeSavedPerExecution": 15,
+    "errorWorkflow": "78lmCpdDZEyxMB0A"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger1": {
+      "recurrenceRules": []
+    },
+    "node:Schedule Trigger2": {
+      "recurrenceRules": []
+    },
+    "node:1. Inicia cada día a las 8 AM": {
+      "recurrenceRules": []
+    }
+  },
+  "pinData": {},
+  "triggerCount": 1,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}
