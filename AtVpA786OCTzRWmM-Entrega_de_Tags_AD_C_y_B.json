@@ -22,15 +22,7 @@
         "headerParameters": {
           "parameters": [
             {
-              "name": "accept",
-              "value": "application/json"
-            },
-            {
-              "name": "X-ApiKeys",
-              "value": "accessKey=609366fce41fcbf3278da645e02ecc34050f9dd4a95ec64e4986a8fe19ed1b81;secretKey=f0f3c56502cc556c6c932ad54ec596768d822cac02d09992539b228498d0440e"
-            }
-          ]
-        },
+
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
