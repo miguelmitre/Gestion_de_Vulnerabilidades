@@ -14,7 +14,7 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1216,
+        -1360,
         -272
       ],
       "id": "46e78e2d-19c9-4156-82bf-1e0b7a703663",
@@ -39,7 +39,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -912,
+        -1056,
         -272
       ],
       "id": "667dd747-25bb-409d-aec1-e3b51de20f86",
@@ -70,7 +70,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -912,
+        -1056,
         -464
       ],
       "id": "1e246269-96a0-4db1-b4d4-dff8e34fb09d",
@@ -89,7 +89,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -160,
+        -304,
         -272
       ],
       "id": "PREPARE_TENABLE_PAYLOAD_GCP",
@@ -114,7 +114,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1216,
+        -1360,
         240
       ],
       "id": "bb0135e4-1ba3-4681-8eca-2ff72a8c034b",
@@ -145,7 +145,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1216,
+        -1360,
         416
       ],
       "id": "1e149140-fe3c-4e1a-a3b6-977ddca7d401",
@@ -176,7 +176,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1216,
+        -1360,
         80
       ],
       "id": "037e004b-617a-4051-ab2b-c395415f7863",
@@ -206,7 +206,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -704,
+        -848,
         -272
       ],
       "id": "FILTER_GCP_HAS_EXTERNAL_IP",
@@ -219,7 +219,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -528,
+        -672,
         -272
       ],
       "id": "SET_TAGS_GCP",
@@ -233,7 +233,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -344,
+        -488,
         -272
       ],
       "id": "BATCH_GCP",
@@ -257,7 +257,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -704,
+        -848,
         -464
       ],
       "id": "FILTER_AWS_HAS_EXTERNAL_IP",
@@ -270,7 +270,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -528,
+        -672,
         -464
       ],
       "id": "SET_TAGS_AWS",
@@ -284,7 +284,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -344,
+        -488,
         -464
       ],
       "id": "BATCH_AWS",
@@ -297,7 +297,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -160,
+        -304,
         -464
       ],
       "id": "PREPARE_TENABLE_PAYLOAD_AWS",
@@ -317,14 +317,14 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        80,
+        -64,
         -368
       ],
       "id": "START_TENABLE_EXPORT",
       "name": "4. Iniciar Exportación en Tenable",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "q85SqszrRwEldB6g",
+          "id": "q8nSqszrRwEldB6g",
           "name": "Tenable API n8n"
         }
       }
@@ -339,7 +339,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        400,
+        256,
         -368
       ],
       "id": "CHECK_EXPORT_STATUS",
@@ -348,7 +348,7 @@
       "notes": "Este nodo sondea (polls) la API de Tenable para verificar si el trabajo de exportación solicitado ha finalizado.",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "q85SqszrRwEldB6g",
+          "id": "q8nSqszrRwEldB6g",
           "name": "Tenable API n8n"
         }
       }
@@ -361,7 +361,7 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        240,
+        96,
         -272
       ],
       "id": "WAIT_BEFORE_RETRY",
@@ -391,7 +391,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        576,
+        432,
         -368
       ],
       "id": "IF_EXPORT_FINISHED",
@@ -415,14 +415,14 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        752,
+        608,
         -464
       ],
       "id": "DOWNLOAD_RESULTS",
       "name": "6. Descargar Resultados",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "q85SqszrRwEldB6g",
+          "id": "q8nSqszrRwEldB6g",
           "name": "Tenable API n8n"
         }
       }
@@ -434,7 +434,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        944,
+        800,
         -464
       ],
       "id": "EXTRACT_UUIDS",
@@ -450,14 +450,14 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1120,
+        976,
         -464
       ],
       "id": "GET_ALL_TAGS",
       "name": "8. Obtener Todos los Tags",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "q85SqszrRwEldB6g",
+          "id": "q8nSqszrRwEldB6g",
           "name": "Tenable API n8n"
         }
       }
@@ -469,7 +469,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1312,
+        1168,
         -464
       ],
       "id": "FIND_CORRECT_TAG_UUID",
@@ -489,14 +489,14 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1504,
+        1360,
         -464
       ],
       "id": "APPLY_TAGS",
       "name": "10. Aplicar Tag a Assets",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "q85SqszrRwEldB6g",
+          "id": "q8nSqszrRwEldB6g",
           "name": "Tenable API n8n"
         }
       }
@@ -578,6 +578,20 @@
       ],
       "id": "IF_ONPREM_OS",
       "name": "3.4 Filtra por OS"
+    },
+    {
+      "parameters": {
+          "numberInputs": 3,
+          "options": {}
+      },
+      "id": "MERGE_ONPREM_SOURCES",
+      "name": "3.0 Espera Fuentes On-premise",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+          -1152,
+          240
+      ]
     }
   ],
   "connections": {
@@ -688,14 +702,48 @@
       ]
     },
     "2. Lee CMDB - Onpremise - Linux": {
-      "main": [
-        [{ "node": "MERGE_ONPREM_SERVERS", "type": "main" }]
-      ]
+        "main": [
+            [
+                {
+                    "node": "MERGE_ONPREM_SOURCES",
+                    "type": "main",
+                    "index": 0
+                }
+            ]
+        ]
     },
     "2. Lee CMDB - Onpremise - Windows": {
-      "main": [
-        [{ "node": "MERGE_ONPREM_SERVERS", "type": "main" }]
-      ]
+        "main": [
+            [
+                {
+                    "node": "MERGE_ONPREM_SOURCES",
+                    "type": "main",
+                    "index": 1
+                }
+            ]
+        ]
+    },
+     "2. Lee EPGs y Redes": {
+        "main": [
+            [
+                {
+                    "node": "MERGE_ONPREM_SOURCES",
+                    "type": "main",
+                    "index": 2
+                }
+            ]
+        ]
+    },
+    "MERGE_ONPREM_SOURCES": {
+        "main": [
+            [
+                {
+                    "node": "MERGE_ONPREM_SERVERS",
+                    "type": "main",
+                    "index": 0
+                }
+            ]
+        ]
     },
     "MERGE_ONPREM_SERVERS": {
       "main": [
